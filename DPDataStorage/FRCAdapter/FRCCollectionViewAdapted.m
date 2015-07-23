@@ -26,7 +26,7 @@
     [self.collectionView reloadData];
 }
 
-- (void)setListController:(NSFetchedResultsController *)listController {
+- (void)setListController:(id<CommonFetchedResultsController>)listController {
     [super setListController:listController];
     [self.collectionView reloadData];
 }
@@ -111,7 +111,10 @@
                     break;
 
                 case NSFetchedResultsChangeMove:
-                    [cv moveItemAtIndexPath:indexPath toIndexPath:newIndexPath];
+#warning iOS9 bug fix
+                    if ([newIndexPath isEqual:indexPath] == NO) {
+                        [cv moveItemAtIndexPath:indexPath toIndexPath:newIndexPath];
+                    }
                     break;
                     
             }

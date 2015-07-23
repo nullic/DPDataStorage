@@ -10,6 +10,10 @@
 #import "DPDataStorage.h"
 #import <UIKit/UITableView.h>
 
+
+@implementation NSFetchedResultsController (CommonFetchedResultsController)
+@end
+
 @implementation FRCBaseAdapter
 
 - (void)dealloc {
