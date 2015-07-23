@@ -7,8 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <CoreData/CoreData.h>
-#import <DPDataStorage/FRCBaseAdapter.h>
+#import "FRCBaseAdapter.h"
 
 @interface MOArrayController : NSObject <CommonFetchedResultsController>
 @property (nonatomic, weak) id<CommonFetchedResultsControllerDelegate> delegate;
