@@ -40,6 +40,13 @@ NS_OPTIONS(NSUInteger, ResponseMask) {
     ResponseMaskDidChangeContent = 1 << 3,
 };
 
+static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIndexPath *obj2) {
+    NSComparisonResult result = [obj1 compare:obj2];
+    if (result == NSOrderedAscending) result = NSOrderedDescending;
+    else if (result == NSOrderedDescending) result = NSOrderedAscending;
+    return result;
+};
+
 @interface MOArrayController ()
 @property (nonatomic, strong) NSMutableArray *sections; // @[<NSFetchedResultsSectionInfo>]
 @property (nonatomic, assign) NSInteger updating;
@@ -90,20 +97,14 @@ NS_OPTIONS(NSUInteger, ResponseMask) {
     dispatch_block_t action = ^{
         NSDictionary *userInfo = notification.userInfo;
 
-        NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIndexPath *obj2) {
-            NSComparisonResult result = [obj1 compare:obj2];
-            if (result == NSOrderedAscending) result = NSOrderedDescending;
-            else if (result == NSOrderedDescending) result = NSOrderedAscending;
-            return result;
-        };
-
-
         NSArray *deletedPaths = [self pathsForObjects:userInfo[NSDeletedObjectsKey] sortComparator:inverseCompare];
         if (deletedPaths.count > 0) {
             [self startUpdating];
             for (NSIndexPath *indexPath in deletedPaths) {
                 [self deleteObjectAtIndextPath:indexPath];
             }
+
+            [self removeEmptySections];
             [self endUpdating];
         }
 
@@ -183,14 +184,41 @@ NS_OPTIONS(NSUInteger, ResponseMask) {
 - (void)reloadObjectAtIndextPath:(NSIndexPath *)indexPath {
     NSParameterAssert(indexPath != nil);
 
-    [self startUpdating];
-
     MOArraySection *sectionInfo = self.sections[indexPath.section];
     NSManagedObject *object = sectionInfo.objects[indexPath.row];
-    [object.managedObjectContext refreshObject:object mergeChanges:YES];
+
+    if ([object isFault] == NO) {
+        [self startUpdating];
+        [object.managedObjectContext refreshObject:object mergeChanges:YES];
+
+        if (self.responseMask & ResponseMaskDidChangeObject) {
+            [self.delegate controller:self didChangeObject:object atIndexPath:indexPath forChangeType:NSFetchedResultsChangeUpdate newIndexPath:nil];
+        }
+        [self endUpdating];
+    }
+}
+
+- (void)moveObjectAtIndextPath:(NSIndexPath *)indexPath toIndexPath:(NSIndexPath *)newIndexPath {
+    NSParameterAssert(indexPath != nil);
+    NSParameterAssert(newIndexPath != nil);
+
+    if ([indexPath isEqual:newIndexPath]) {
+        return;
+    }
+
+    [self startUpdating];
+    [self createSectionAtIndex:newIndexPath.section];
+
+    NSManagedObject *object = [self objectAtIndexPath:indexPath];
+
+    MOArraySection *sectionInfo = self.sections[indexPath.section];
+    [sectionInfo.objects removeObjectAtIndex:indexPath.row];
+
+    sectionInfo = self.sections[newIndexPath.section];
+    [sectionInfo.objects insertObject:object atIndex:newIndexPath.row];
 
     if (self.responseMask & ResponseMaskDidChangeObject) {
-        [self.delegate controller:self didChangeObject:object atIndexPath:indexPath forChangeType:NSFetchedResultsChangeUpdate newIndexPath:nil];
+        [self.delegate controller:self didChangeObject:object atIndexPath:indexPath forChangeType:NSFetchedResultsChangeMove newIndexPath:newIndexPath];
     }
 
     [self endUpdating];
@@ -215,6 +243,56 @@ NS_OPTIONS(NSUInteger, ResponseMask) {
         }
 
         [self endUpdating];
+    }
+}
+
+- (void)setObjects:(NSArray *)newObjects atSection:(NSInteger)section {
+    if (section < self.sections.count) {
+        [self startUpdating];
+
+        if (newObjects.count == 0) {
+            [self removeSectionAtIndex:section];
+        }
+        else {
+            MOArraySection *sectionInfo = self.sections[section];
+
+            NSMutableArray *deletedPaths = [NSMutableArray new];
+            for (NSInteger i = sectionInfo.objects.count; i > 0; i--) {
+                NSInteger row = i - 1;
+                NSManagedObject *object = sectionInfo.objects[row];
+                if ([newObjects indexOfObject:object] == NSNotFound) {
+                    [deletedPaths addObject:[NSIndexPath indexPathForItem:row inSection:section]];
+                }
+            }
+
+            for (NSIndexPath *path in deletedPaths) {
+                [self deleteObjectAtIndextPath:path];
+            }
+
+            for (NSInteger row = 0; row < newObjects.count; row++) {
+                NSManagedObject *object = newObjects[row];
+                if ([sectionInfo.objects indexOfObject:object] == NSNotFound) {
+                    [self insertObject:object atIndextPath:[NSIndexPath indexPathForItem:row inSection:section]];
+                }
+            }
+
+            NSAssert(newObjects.count == sectionInfo.objects.count, @"Oops ... worng result array lenght");
+
+            // TODO: optimize
+            for (NSInteger index = 0; index < [sectionInfo numberOfObjects]; index++) {
+                NSManagedObject *object = sectionInfo.objects[index];
+                NSInteger newIndex = [newObjects indexOfObject:object];
+
+                if (newIndex != index) {
+                    [self moveObjectAtIndextPath:[NSIndexPath indexPathForItem:index inSection:section] toIndexPath:[NSIndexPath indexPathForItem:newIndex inSection:section]];
+                }
+            }
+        }
+
+        [self endUpdating];
+    }
+    else {
+        [self addObjects:newObjects atSection:section];
     }
 }
 
@@ -255,6 +333,8 @@ NS_OPTIONS(NSUInteger, ResponseMask) {
 - (void)endUpdating {
     self.updating--;
     if (self.updating == 0) {
+        [self removeEmptySections];
+        
         if (self.responseMask & ResponseMaskDidChangeContent) {
             [self.delegate controllerDidChangeContent:self];
         }
@@ -287,6 +367,18 @@ NS_OPTIONS(NSUInteger, ResponseMask) {
     }
 
     [self endUpdating];
+}
+
+- (void)removeEmptySections {
+    NSInteger count = self.sections.count;
+
+    for (NSInteger i = count; i > 0; i--) {
+        NSInteger index = i - 1;
+        MOArraySection *section = self.sections[index];
+        if ([section numberOfObjects] == 0) {
+            [self removeSectionAtIndex:index];
+        }
+    }
 }
 
 @end

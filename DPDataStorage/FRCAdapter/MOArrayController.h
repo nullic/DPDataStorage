@@ -18,7 +18,15 @@
 
 - (void)insertObject:(NSManagedObject *)object atIndextPath:(NSIndexPath *)indexPath;
 - (void)deleteObjectAtIndextPath:(NSIndexPath *)indexPath;
+- (void)reloadObjectAtIndextPath:(NSIndexPath *)indexPath;
+- (void)moveObjectAtIndextPath:(NSIndexPath *)indexPath toIndexPath:(NSIndexPath *)newIndexPath;
+
 - (void)addObjects:(NSArray *)objects atSection:(NSInteger)section;
+- (void)setObjects:(NSArray *)objects atSection:(NSInteger)section;
+
+- (void)startUpdating;
+- (void)endUpdating;
+- (void)removeEmptySections;
 
 - (id)objectAtIndexPath:(NSIndexPath *)indexPath;
 - (NSIndexPath *)indexPathForObject:(id)object;
