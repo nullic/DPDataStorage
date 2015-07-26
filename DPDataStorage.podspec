@@ -9,7 +9,19 @@ Pod::Spec.new do |s|
   s.platform     = :ios, "5.0"
 
   s.source       = { :git => "https://github.com/nullic/DPDataStorage.git", :tag => "1.0" }
-  s.source_files = "DPDataStorage", "DPDataStorage/*.{h,m}", "DPDataStorage/FRCAdapter/*.{h,m}", "DPDataStorage/Mapping/*.{h,m}"
+  s.source_files = "DPDataStorage", "DPDataStorage/*.{h,m}"
   s.requires_arc = true
 
+  s.subspec 'FRCAdapter' do |ss|
+    ss.source_files = "DPDataStorage/FRCAdapter/*.{h,m}"
+  end
+  
+  s.subspec 'Mapping' do |ss|
+    ss.source_files = "DPDataStorage/Mapping/*.{h,m}"
+  end
+  
+  s.subspec 'Categories' do |ss|
+    ss.source_files = "DPDataStorage/Categories/*.{h,m}"
+  end
+  
 end

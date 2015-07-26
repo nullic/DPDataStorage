@@ -1,6 +1,6 @@
 //
-//  MOArrayController.h
-//  Commentator
+//  DPArrayController.H
+//  DP Commons
 //
 //  Created by Dmitriy Petrusevich on 23/07/15.
 //  Copyright (c) 2015 Dmitriy Petrusevich. All rights reserved.
@@ -9,14 +9,14 @@
 #import <Foundation/Foundation.h>
 #import "FRCBaseAdapter.h"
 
-@interface MOArrayController : NSObject <CommonFetchedResultsController>
+@interface DPArrayController : NSObject <CommonFetchedResultsController>
 @property (nonatomic, weak) id<CommonFetchedResultsControllerDelegate> delegate;
 
 - (instancetype)initWithDelegate:(id<CommonFetchedResultsControllerDelegate>)delegate;
 
 - (void)removeAllObjects;
 
-- (void)insertObject:(NSManagedObject *)object atIndextPath:(NSIndexPath *)indexPath;
+- (void)insertObject:(id)object atIndextPath:(NSIndexPath *)indexPath;
 - (void)deleteObjectAtIndextPath:(NSIndexPath *)indexPath;
 - (void)reloadObjectAtIndextPath:(NSIndexPath *)indexPath;
 - (void)moveObjectAtIndextPath:(NSIndexPath *)indexPath toIndexPath:(NSIndexPath *)newIndexPath;

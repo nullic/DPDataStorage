@@ -11,6 +11,12 @@
 #import "NSManagedObject+DataStorage.h"
 #import "NSManagedObjectContext+DataStorage.h"
 #import "NSManagedObjectModel+DataStorage.h"
+#import "NSManagedObject+DPDataStorage_Mapping.h"
+
+#import "FRCCollectionViewAdapted.h"
+#import "FRCTableViewAdapted.h"
+#import "DPArrayController.h"
+
 
 DISPATCH_EXPORT dispatch_queue_t _dispatch_parser_q;
 #define dispatch_get_parser_queue() (_dispatch_parser_q)

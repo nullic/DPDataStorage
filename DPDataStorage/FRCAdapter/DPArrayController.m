@@ -1,23 +1,23 @@
 //
-//  MOArrayController.m
-//  Commentator
+//  DPArrayController.m
+//  DP Commons
 //
 //  Created by Dmitriy Petrusevich on 23/07/15.
 //  Copyright (c) 2015 Dmitriy Petrusevich. All rights reserved.
 //
 
-#import "MOArrayController.h"
+#import "DPArrayController.h"
 
-#pragma mark - MOArraySection
+#pragma mark - DPArrayControllerSection
 
-@interface MOArraySection : NSObject  <NSFetchedResultsSectionInfo>
+@interface DPArrayControllerSection : NSObject  <NSFetchedResultsSectionInfo>
 @property (nonatomic, readonly) NSString *name;
 @property (nonatomic, readonly) NSString *indexTitle;
 @property (nonatomic, readonly) NSUInteger numberOfObjects;
 @property (nonatomic, strong) NSMutableArray *objects;
 @end
 
-@implementation MOArraySection
+@implementation DPArrayControllerSection
 
 - (NSMutableArray *)objects {
     if (_objects == nil) _objects = [NSMutableArray new];
@@ -31,7 +31,7 @@
 
 @end
 
-#pragma mark - MOArrayController
+#pragma mark - DPArrayController
 
 NS_OPTIONS(NSUInteger, ResponseMask) {
     ResponseMaskDidChangeObject = 1 << 0,
@@ -47,13 +47,13 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
     return result;
 };
 
-@interface MOArrayController ()
+@interface DPArrayController ()
 @property (nonatomic, strong) NSMutableArray *sections; // @[<NSFetchedResultsSectionInfo>]
 @property (nonatomic, assign) NSInteger updating;
 @property (nonatomic, assign) enum ResponseMask responseMask;
 @end
 
-@implementation MOArrayController
+@implementation DPArrayController
 
 - (instancetype)initWithDelegate:(id<CommonFetchedResultsControllerDelegate>)delegate {
     if ((self = [super init])) {
@@ -124,7 +124,7 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
 
 - (NSArray *)pathsForObjects:(id<NSFastEnumeration>)collection sortComparator:(NSComparator)comparator {
     NSMutableArray *paths = [NSMutableArray new];
-    for (NSManagedObject *object in collection) {
+    for (id object in collection) {
         NSIndexPath *path = [self indexPathForObject:object];
         path ? [paths addObject:path] : nil;
     }
@@ -147,14 +147,14 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
     }
 }
 
-- (void)insertObject:(NSManagedObject *)object atIndextPath:(NSIndexPath *)indexPath {
+- (void)insertObject:(id)object atIndextPath:(NSIndexPath *)indexPath {
     NSParameterAssert(indexPath != nil);
 
     if (object != nil) {
         [self startUpdating];
         [self createSectionAtIndex:indexPath.section];
 
-        MOArraySection *sectionInfo = self.sections[indexPath.section];
+        DPArrayControllerSection *sectionInfo = self.sections[indexPath.section];
         [sectionInfo.objects insertObject:object atIndex:indexPath.row];
 
         if (self.responseMask & ResponseMaskDidChangeObject) {
@@ -170,7 +170,7 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
 
     [self startUpdating];
 
-    MOArraySection *sectionInfo = self.sections[indexPath.section];
+    DPArrayControllerSection *sectionInfo = self.sections[indexPath.section];
     id object = sectionInfo.objects[indexPath.row];
     [sectionInfo.objects removeObjectAtIndex:indexPath.row];
 
@@ -184,12 +184,12 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
 - (void)reloadObjectAtIndextPath:(NSIndexPath *)indexPath {
     NSParameterAssert(indexPath != nil);
 
-    MOArraySection *sectionInfo = self.sections[indexPath.section];
-    NSManagedObject *object = sectionInfo.objects[indexPath.row];
+    DPArrayControllerSection *sectionInfo = self.sections[indexPath.section];
+    id object = sectionInfo.objects[indexPath.row];
 
-    if ([object isFault] == NO) {
+    if ([object isKindOfClass:[NSManagedObject class]] && [object isFault] == NO) {
         [self startUpdating];
-        [object.managedObjectContext refreshObject:object mergeChanges:YES];
+        [[object managedObjectContext] refreshObject:object mergeChanges:YES];
 
         if (self.responseMask & ResponseMaskDidChangeObject) {
             [self.delegate controller:self didChangeObject:object atIndexPath:indexPath forChangeType:NSFetchedResultsChangeUpdate newIndexPath:nil];
@@ -209,9 +209,9 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
     [self startUpdating];
     [self createSectionAtIndex:newIndexPath.section];
 
-    NSManagedObject *object = [self objectAtIndexPath:indexPath];
+    id object = [self objectAtIndexPath:indexPath];
 
-    MOArraySection *sectionInfo = self.sections[indexPath.section];
+    DPArrayControllerSection *sectionInfo = self.sections[indexPath.section];
     [sectionInfo.objects removeObjectAtIndex:indexPath.row];
 
     sectionInfo = self.sections[newIndexPath.section];
@@ -238,7 +238,7 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
             }
         }
         else {
-            MOArraySection *sectionInfo = self.sections[section];
+            DPArrayControllerSection *sectionInfo = self.sections[section];
             [sectionInfo.objects addObjectsFromArray:objects];
         }
 
@@ -254,12 +254,12 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
             [self removeSectionAtIndex:section];
         }
         else {
-            MOArraySection *sectionInfo = self.sections[section];
+            DPArrayControllerSection *sectionInfo = self.sections[section];
 
             NSMutableArray *deletedPaths = [NSMutableArray new];
             for (NSInteger i = sectionInfo.objects.count; i > 0; i--) {
                 NSInteger row = i - 1;
-                NSManagedObject *object = sectionInfo.objects[row];
+                id object = sectionInfo.objects[row];
                 if ([newObjects indexOfObject:object] == NSNotFound) {
                     [deletedPaths addObject:[NSIndexPath indexPathForItem:row inSection:section]];
                 }
@@ -270,7 +270,7 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
             }
 
             for (NSInteger row = 0; row < newObjects.count; row++) {
-                NSManagedObject *object = newObjects[row];
+                id object = newObjects[row];
                 if ([sectionInfo.objects indexOfObject:object] == NSNotFound) {
                     [self insertObject:object atIndextPath:[NSIndexPath indexPathForItem:row inSection:section]];
                 }
@@ -280,7 +280,7 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
 
             // TODO: optimize
             for (NSInteger index = 0; index < [sectionInfo numberOfObjects]; index++) {
-                NSManagedObject *object = sectionInfo.objects[index];
+                id object = sectionInfo.objects[index];
                 NSInteger newIndex = [newObjects indexOfObject:object];
 
                 if (newIndex != index) {
@@ -299,7 +299,7 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
 #pragma mark -
 
 - (id)objectAtIndexPath:(NSIndexPath *)indexPath {
-    MOArraySection *sectionInfo = self.sections[indexPath.section];
+    DPArrayControllerSection *sectionInfo = self.sections[indexPath.section];
     return sectionInfo.objects[indexPath.row];
 }
 
@@ -307,7 +307,7 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
     NSIndexPath *result = nil;
 
     for (NSInteger section = 0; section < self.sections.count; section++) {
-        MOArraySection *sectionInfo = self.sections[section];
+        DPArrayControllerSection *sectionInfo = self.sections[section];
         NSInteger index = [sectionInfo.objects indexOfObject:object];
 
         if (index != NSNotFound) {
@@ -345,7 +345,7 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
     [self startUpdating];
 
     while (index >= self.sections.count) {
-        MOArraySection *section = [MOArraySection new];
+        DPArrayControllerSection *section = [DPArrayControllerSection new];
         [self.sections addObject:section];
 
         if (self.responseMask & ResponseMaskDidChangeSection) {
@@ -359,7 +359,7 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
 - (void)removeSectionAtIndex:(NSUInteger)index {
     [self startUpdating];
 
-    MOArraySection *section = self.sections[index];
+    DPArrayControllerSection *section = self.sections[index];
     [self.sections removeObjectAtIndex:index];
 
     if (self.responseMask & ResponseMaskDidChangeSection) {
@@ -374,7 +374,7 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
 
     for (NSInteger i = count; i > 0; i--) {
         NSInteger index = i - 1;
-        MOArraySection *section = self.sections[index];
+        DPArrayControllerSection *section = self.sections[index];
         if ([section numberOfObjects] == 0) {
             [self removeSectionAtIndex:index];
         }
