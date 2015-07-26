@@ -84,15 +84,6 @@ static NSString * const kReadOnlyFlagKey = @"isReadOnly";
 
 #pragma mark -
 
-- (void)saveChanges {
-    NSAssert(self.isReadOnly == false, @"Try to save readonly context");
-
-    NSError *error = nil;
-    if ([self hasChanges] && ![self save:&error]) {
-        FAIL_ON_ERROR(error);
-    }
-}
-
 - (BOOL)saveChanges:(NSError **)inout_error {
     NSAssert(self.isReadOnly == false, @"Try to save readonly context");
 

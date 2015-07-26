@@ -23,6 +23,5 @@
 - (NSString *)entityNameForManagedObjectClass:(Class)objectClass;
 - (NSEntityDescription *)entityDescriptionForManagedObjectClass:(Class)objectClass;
 
-- (void)saveChanges;
 - (BOOL)saveChanges:(NSError **)error;
 @end
