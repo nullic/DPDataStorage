@@ -56,11 +56,17 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
 @implementation DPArrayController
 
 - (instancetype)initWithDelegate:(id<CommonFetchedResultsControllerDelegate>)delegate {
+    if ((self = [self init])) {
+        self.delegate = delegate;
+    }
+    return self;
+}
+
+- (instancetype)init {
     if ((self = [super init])) {
         self.removeEmptySectionsAutomaticaly = YES;
-        self.delegate = delegate;
         self.sections = [NSMutableArray new];
-
+        
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(managedObjectContextDidSave:) name:NSManagedObjectContextDidSaveNotification object:nil];
     }
     return self;
@@ -225,6 +231,8 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
     [self endUpdating];
 }
 
+#pragma mark -
+
 - (void)insertSectionAtIndex:(NSUInteger)index {
     [self startUpdating];
 
@@ -239,8 +247,6 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
 
     [self endUpdating];
 }
-
-#pragma mark -
 
 - (void)removeSectionAtIndex:(NSUInteger)index {
     [self startUpdating];

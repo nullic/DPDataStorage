@@ -221,7 +221,7 @@ static NSString * const kImportKey = @"importKey";
                     }
                 }
                 else { //if (valueClass == [NSArray class]) {
-                    NSMutableSet *set = [NSMutableSet set];
+                    id set = relationshipDescription.isOrdered ? [NSMutableOrderedSet new] : [NSMutableSet new];
 
                     for (NSDictionary *info in value) {
                         NSManagedObject *object = [relationClass updateWithDictionary:(NSDictionary *)info inContext:[self managedObjectContext] error:&error];

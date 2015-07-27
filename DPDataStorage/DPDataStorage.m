@@ -217,28 +217,28 @@ NSString * const DPDataStorageNotificationNameKey = @"name";
 }
 
 - (NSManagedObjectContext *)mainContext {
-    DPMainThreadAssert();
+    @synchronized(self) {
+        if (!_mainContext) {
+            _mainContext = [self newMainQueueManagedObjectContext];
+            _mainContext.readOnly = YES;
+            
+            id __weak weakContext = _mainContext;
+            id observer = [[NSNotificationCenter defaultCenter] addObserverForName:NSManagedObjectContextDidSaveNotification object:nil queue:nil usingBlock:^(NSNotification *notification) {
+                NSManagedObjectContext *context = weakContext;
+                if ([context persistentStoreCoordinator] == [notification.object persistentStoreCoordinator]) {
+                    [context performBlockAndWait:^{
+                        [context mergeChangesFromContextDidSaveNotification:notification];
+                    }];
+                }
+            }];
+            
+            [_mainContext __executeOnDealloc__:^{
+                [[NSNotificationCenter defaultCenter] removeObserver:observer];
+            }];
+        }
 
-    if (!_mainContext) {
-        _mainContext = [self newMainQueueManagedObjectContext];
-        _mainContext.readOnly = YES;
-
-        id __weak weakContext = _mainContext;
-        id observer = [[NSNotificationCenter defaultCenter] addObserverForName:NSManagedObjectContextDidSaveNotification object:nil queue:nil usingBlock:^(NSNotification *notification) {
-            NSManagedObjectContext *context = weakContext;
-            if ([context persistentStoreCoordinator] == [notification.object persistentStoreCoordinator]) {
-                [context performBlockAndWait:^{
-                    [context mergeChangesFromContextDidSaveNotification:notification];
-                }];
-            }
-        }];
-        
-        [_mainContext __executeOnDealloc__:^{
-            [[NSNotificationCenter defaultCenter] removeObserver:observer];
-        }];
+        return _mainContext;
     }
-
-    return _mainContext;
 }
 
 #pragma mark - Context
