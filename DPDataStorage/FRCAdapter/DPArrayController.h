@@ -11,6 +11,7 @@
 
 @interface DPArrayController : NSObject <CommonFetchedResultsController>
 @property (nonatomic, weak) id<CommonFetchedResultsControllerDelegate> delegate;
+@property (nonatomic, assign) BOOL removeEmptySectionsAutomaticaly; // Default YES
 
 - (instancetype)initWithDelegate:(id<CommonFetchedResultsControllerDelegate>)delegate;
 
@@ -21,12 +22,15 @@
 - (void)reloadObjectAtIndextPath:(NSIndexPath *)indexPath;
 - (void)moveObjectAtIndextPath:(NSIndexPath *)indexPath toIndexPath:(NSIndexPath *)newIndexPath;
 
+- (void)insertSectionAtIndex:(NSUInteger)index;
+- (void)removeSectionAtIndex:(NSUInteger)index;
+- (void)removeEmptySections;
+
 - (void)addObjects:(NSArray *)objects atSection:(NSInteger)section;
 - (void)setObjects:(NSArray *)objects atSection:(NSInteger)section;
 
 - (void)startUpdating;
 - (void)endUpdating;
-- (void)removeEmptySections;
 
 - (id)objectAtIndexPath:(NSIndexPath *)indexPath;
 - (NSIndexPath *)indexPathForObject:(id)object;

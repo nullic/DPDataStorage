@@ -57,6 +57,7 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
 
 - (instancetype)initWithDelegate:(id<CommonFetchedResultsControllerDelegate>)delegate {
     if ((self = [super init])) {
+        self.removeEmptySectionsAutomaticaly = YES;
         self.delegate = delegate;
         self.sections = [NSMutableArray new];
 
@@ -152,7 +153,7 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
 
     if (object != nil) {
         [self startUpdating];
-        [self createSectionAtIndex:indexPath.section];
+        [self insertSectionAtIndex:indexPath.section];
 
         DPArrayControllerSection *sectionInfo = self.sections[indexPath.section];
         [sectionInfo.objects insertObject:object atIndex:indexPath.row];
@@ -207,7 +208,7 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
     }
 
     [self startUpdating];
-    [self createSectionAtIndex:newIndexPath.section];
+    [self insertSectionAtIndex:newIndexPath.section];
 
     id object = [self objectAtIndexPath:indexPath];
 
@@ -224,12 +225,56 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
     [self endUpdating];
 }
 
+- (void)insertSectionAtIndex:(NSUInteger)index {
+    [self startUpdating];
+
+    while (index >= self.sections.count) {
+        DPArrayControllerSection *section = [DPArrayControllerSection new];
+        [self.sections addObject:section];
+
+        if (self.responseMask & ResponseMaskDidChangeSection) {
+            [self.delegate controller:self didChangeSection:section atIndex:(self.sections.count - 1) forChangeType:NSFetchedResultsChangeInsert];
+        }
+    }
+
+    [self endUpdating];
+}
+
+#pragma mark -
+
+- (void)removeSectionAtIndex:(NSUInteger)index {
+    [self startUpdating];
+
+    DPArrayControllerSection *section = self.sections[index];
+    [self.sections removeObjectAtIndex:index];
+
+    if (self.responseMask & ResponseMaskDidChangeSection) {
+        [self.delegate controller:self didChangeSection:section atIndex:index forChangeType:NSFetchedResultsChangeDelete];
+    }
+
+    [self endUpdating];
+}
+
+- (void)removeEmptySections {
+    NSInteger count = self.sections.count;
+
+    for (NSInteger i = count; i > 0; i--) {
+        NSInteger index = i - 1;
+        DPArrayControllerSection *section = self.sections[index];
+        if ([section numberOfObjects] == 0) {
+            [self removeSectionAtIndex:index];
+        }
+    }
+}
+
+#pragma mark -
+
 - (void)addObjects:(NSArray *)objects atSection:(NSInteger)section {
     NSParameterAssert(section >= 0);
 
     if (objects.count > 0) {
         [self startUpdating];
-        [self createSectionAtIndex:section];
+        [self insertSectionAtIndex:section];
 
         if (self.responseMask & ResponseMaskDidChangeObject) {
             for (id object in objects) {
@@ -333,50 +378,12 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
 - (void)endUpdating {
     self.updating--;
     if (self.updating == 0) {
-        [self removeEmptySections];
+        if (self.removeEmptySectionsAutomaticaly) {
+            [self removeEmptySections];
+        }
         
         if (self.responseMask & ResponseMaskDidChangeContent) {
             [self.delegate controllerDidChangeContent:self];
-        }
-    }
-}
-
-- (void)createSectionAtIndex:(NSUInteger)index {
-    [self startUpdating];
-
-    while (index >= self.sections.count) {
-        DPArrayControllerSection *section = [DPArrayControllerSection new];
-        [self.sections addObject:section];
-
-        if (self.responseMask & ResponseMaskDidChangeSection) {
-            [self.delegate controller:self didChangeSection:section atIndex:(self.sections.count - 1) forChangeType:NSFetchedResultsChangeInsert];
-        }
-    }
-
-    [self endUpdating];
-}
-
-- (void)removeSectionAtIndex:(NSUInteger)index {
-    [self startUpdating];
-
-    DPArrayControllerSection *section = self.sections[index];
-    [self.sections removeObjectAtIndex:index];
-
-    if (self.responseMask & ResponseMaskDidChangeSection) {
-        [self.delegate controller:self didChangeSection:section atIndex:index forChangeType:NSFetchedResultsChangeDelete];
-    }
-
-    [self endUpdating];
-}
-
-- (void)removeEmptySections {
-    NSInteger count = self.sections.count;
-
-    for (NSInteger i = count; i > 0; i--) {
-        NSInteger index = i - 1;
-        DPArrayControllerSection *section = self.sections[index];
-        if ([section numberOfObjects] == 0) {
-            [self removeSectionAtIndex:index];
         }
     }
 }
