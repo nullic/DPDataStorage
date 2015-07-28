@@ -109,7 +109,9 @@
                     break;
 
                 case NSFetchedResultsChangeMove:
-                    [tv moveRowAtIndexPath:indexPath toIndexPath:newIndexPath];
+                    if ([newIndexPath isEqual:indexPath] == NO) {
+                        [tv moveRowAtIndexPath:indexPath toIndexPath:newIndexPath];
+                    }
                     break;
             }
         };

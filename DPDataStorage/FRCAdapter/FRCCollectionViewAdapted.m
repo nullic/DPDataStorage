@@ -111,7 +111,6 @@
                     break;
 
                 case NSFetchedResultsChangeMove:
-#warning iOS9 bug fix
                     if ([newIndexPath isEqual:indexPath] == NO) {
                         [cv moveItemAtIndexPath:indexPath toIndexPath:newIndexPath];
                     }
