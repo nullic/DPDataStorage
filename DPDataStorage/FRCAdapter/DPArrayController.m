@@ -15,9 +15,18 @@
 @property (nonatomic, readonly) NSString *indexTitle;
 @property (nonatomic, readonly) NSUInteger numberOfObjects;
 @property (nonatomic, strong) NSMutableArray *objects;
+
+@property (nonatomic) BOOL isInserted;
 @end
 
 @implementation DPArrayControllerSection
+
+- (instancetype)init {
+    if ((self = [super init])) {
+        self.isInserted = YES;
+    }
+    return  self;
+}
 
 - (NSMutableArray *)objects {
     if (_objects == nil) _objects = [NSMutableArray new];
@@ -264,12 +273,20 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
 - (void)removeEmptySections {
     NSInteger count = self.sections.count;
 
-    for (NSInteger i = count; i > 0; i--) {
-        NSInteger index = i - 1;
-        DPArrayControllerSection *section = self.sections[index];
-        if ([section numberOfObjects] == 0) {
-            [self removeSectionAtIndex:index];
+    if (count > 0) {
+        BOOL hasEmptySections = NO;
+
+        for (NSInteger i = count; i > 0; i--) {
+            NSInteger index = i - 1;
+            DPArrayControllerSection *section = self.sections[index];
+            if ([section numberOfObjects] == 0 && section.isInserted == NO) {
+                hasEmptySections ? nil : [self startUpdating];
+                [self removeSectionAtIndex:index];
+                hasEmptySections = YES;
+            }
         }
+        
+        hasEmptySections ? [self endUpdating] : nil;
     }
 }
 
@@ -384,12 +401,22 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
 - (void)endUpdating {
     self.updating--;
     if (self.updating == 0) {
+        // Remove exist empty sections
         if (self.removeEmptySectionsAutomaticaly) {
             [self removeEmptySections];
         }
-        
+
         if (self.responseMask & ResponseMaskDidChangeContent) {
             [self.delegate controllerDidChangeContent:self];
+        }
+
+        for (DPArrayControllerSection *section in self.sections) {
+            section.isInserted = NO;
+        }
+
+        // Remove inserted empty sections
+        if (self.removeEmptySectionsAutomaticaly) {
+            [self removeEmptySections];
         }
     }
 }
