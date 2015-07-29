@@ -15,6 +15,7 @@
 + (NSUInteger)allEntriesCountInContext:(NSManagedObjectContext *)context;
 
 + (instancetype)entryWithValue:(id<NSObject>)value forKey:(NSString *)key inContext:(NSManagedObjectContext *)context;
++ (NSArray *)entriesWithValue:(id<NSObject>)value forKey:(NSString *)key inContext:(NSManagedObjectContext *)context;
 + (instancetype)anyEntryInContext:(NSManagedObjectContext *)context;
 + (NSArray *)allEntriesInContext:(NSManagedObjectContext *)context;
 

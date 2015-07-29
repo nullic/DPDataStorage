@@ -57,6 +57,21 @@
     return result;
 }
 
++ (NSArray *)entriesWithValue:(id<NSObject>)value forKey:(NSString *)key inContext:(NSManagedObjectContext *)context {
+    NSParameterAssert(key != nil);
+    NSParameterAssert(context != nil);
+
+    NSFetchRequest *fetchRequest = [self newFetchRequestInContext:context];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K == %@", key, value];
+    [fetchRequest setPredicate:predicate];
+
+    NSError *error = nil;
+    id result = [context executeFetchRequest:fetchRequest error:&error];
+    FAIL_ON_ERROR(error);
+
+    return result;
+}
+
 + (instancetype)anyEntryInContext:(NSManagedObjectContext *)context {
     NSFetchRequest *fetchRequest = [self newFetchRequestInContext:context];
     [fetchRequest setFetchLimit:1];
