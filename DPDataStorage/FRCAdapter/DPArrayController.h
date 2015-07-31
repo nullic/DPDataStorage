@@ -12,6 +12,7 @@
 @interface DPArrayController : NSObject <CommonFetchedResultsController>
 @property (nonatomic, weak) id<CommonFetchedResultsControllerDelegate> delegate;
 @property (nonatomic, assign) BOOL removeEmptySectionsAutomaticaly; // Default YES
+@property (nonatomic, strong) NSPredicate *filter;
 
 - (instancetype)initWithDelegate:(id<CommonFetchedResultsControllerDelegate>)delegate;
 

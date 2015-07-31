@@ -7,6 +7,7 @@
 //
 
 #import "DPArrayController.h"
+#import "NSManagedObject+DataStorage.h"
 
 #pragma mark - DPArrayControllerSection
 
@@ -149,6 +150,28 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
     return paths;
 }
 
+- (BOOL)isObjectMatchFilter:(id)object {
+    BOOL result = YES;
+    if (self.filter) {
+        if ([object isKindOfClass:[NSManagedObject class]]) {
+            NSManagedObject *managedObject = object;
+
+            NSManagedObjectContext *context = [managedObject managedObjectContext];
+            NSFetchRequest *request = [[managedObject class] newFetchRequestInContext:context];
+
+            NSPredicate *selfPredicate = [NSPredicate predicateWithFormat:@"self == %@", [managedObject objectID]];
+            request.predicate = [NSCompoundPredicate andPredicateWithSubpredicates:@[selfPredicate, self.filter]];
+            request.fetchLimit = 1;
+
+            result = ([context countForFetchRequest:request error:nil] > 0);
+        }
+        else {
+            result = [self.filter evaluateWithObject:object];
+        }
+    }
+    return result;
+}
+
 #pragma mark -
 
 - (void)removeAllObjects {
@@ -166,7 +189,7 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
 - (void)insertObject:(id)object atIndextPath:(NSIndexPath *)indexPath {
     NSParameterAssert(indexPath != nil);
 
-    if (object != nil) {
+    if (object != nil && [self isObjectMatchFilter:object]) {
         [self startUpdating];
         [self insertSectionAtIndex:indexPath.section];
 
@@ -203,14 +226,19 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
     DPArrayControllerSection *sectionInfo = self.sections[indexPath.section];
     id object = sectionInfo.objects[indexPath.row];
 
-    if ([object isKindOfClass:[NSManagedObject class]] && [object isFault] == NO) {
-        [self startUpdating];
-        [[object managedObjectContext] refreshObject:object mergeChanges:YES];
+    if ([self isObjectMatchFilter:object] == YES) {
+        if ([object isKindOfClass:[NSManagedObject class]] && [object isFault] == NO) {
+            [self startUpdating];
+            [[object managedObjectContext] refreshObject:object mergeChanges:YES];
 
-        if (self.responseMask & ResponseMaskDidChangeObject) {
-            [self.delegate controller:self didChangeObject:object atIndexPath:indexPath forChangeType:NSFetchedResultsChangeUpdate newIndexPath:nil];
+            if (self.responseMask & ResponseMaskDidChangeObject) {
+                [self.delegate controller:self didChangeObject:object atIndexPath:indexPath forChangeType:NSFetchedResultsChangeUpdate newIndexPath:nil];
+            }
+            [self endUpdating];
         }
-        [self endUpdating];
+    }
+    else if (self.filter != nil) {
+        [self deleteObjectAtIndextPath:indexPath];
     }
 }
 
@@ -306,8 +334,21 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
             }
         }
         else {
-            DPArrayControllerSection *sectionInfo = self.sections[section];
-            [sectionInfo.objects addObjectsFromArray:objects];
+            if (self.filter) {
+                NSMutableArray *filtedArray = [[NSMutableArray alloc] initWithCapacity:objects.count];
+                for (id object in objects) {
+                    if ([self isObjectMatchFilter:object]) {
+                        [filtedArray addObject:object];
+                    }
+                }
+
+                DPArrayControllerSection *sectionInfo = self.sections[section];
+                [sectionInfo.objects addObjectsFromArray:filtedArray];
+            }
+            else {
+                DPArrayControllerSection *sectionInfo = self.sections[section];
+                [sectionInfo.objects addObjectsFromArray:objects];
+            }
         }
 
         [self endUpdating];
@@ -319,7 +360,20 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
         [self startUpdating];
 
         if (newObjects.count == 0) {
-            [self removeSectionAtIndex:section];
+            DPArrayControllerSection *sectionInfo = self.sections[section];
+            for (NSInteger i = sectionInfo.objects.count; i > 0; i--) {
+                NSInteger row = i - 1;
+                [self deleteObjectAtIndextPath:[NSIndexPath indexPathForItem:row inSection:section]];
+            }
+        }
+        else if (self.filter) {
+            DPArrayControllerSection *sectionInfo = self.sections[section];
+            for (NSInteger i = sectionInfo.objects.count; i > 0; i--) {
+                NSInteger row = i - 1;
+                [self deleteObjectAtIndextPath:[NSIndexPath indexPathForItem:row inSection:section]];
+            }
+
+            [self addObjects:newObjects atSection:section];
         }
         else {
             DPArrayControllerSection *sectionInfo = self.sections[section];
