@@ -76,8 +76,6 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
     if ((self = [super init])) {
         self.removeEmptySectionsAutomaticaly = YES;
         self.sections = [NSMutableArray new];
-        
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(managedObjectContextDidSave:) name:NSManagedObjectContextDidSaveNotification object:nil];
     }
     return self;
 }
@@ -108,9 +106,9 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-#pragma mark -
+#pragma mark - Notifications
 
-- (void)managedObjectContextDidSave:(NSNotification *)notification {
+- (void)managedObjectContextObjectsDidChange:(NSNotification *)notification {
     dispatch_block_t action = ^{
         NSDictionary *userInfo = notification.userInfo;
 
@@ -125,7 +123,6 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
             [self endUpdating];
         }
 
-
         NSArray *updatedPaths = [self pathsForObjects:userInfo[NSUpdatedObjectsKey] sortComparator:inverseCompare];
         if (updatedPaths.count > 0) {
             [self startUpdating];
@@ -134,10 +131,21 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
             }
             [self endUpdating];
         }
+
+        NSArray *refreshedPaths = [self pathsForObjects:userInfo[NSRefreshedObjectsKey] sortComparator:inverseCompare];
+        if (refreshedPaths.count > 0) {
+            [self startUpdating];
+            for (NSIndexPath *indexPath in refreshedPaths) {
+                [self reloadObjectAtIndextPath:indexPath];
+            }
+            [self endUpdating];
+        }
     };
-    
+
     [NSThread isMainThread] ? action() : dispatch_async(dispatch_get_main_queue(), action);
 }
+
+#pragma mark - Utils
 
 - (NSArray *)pathsForObjects:(id<NSFastEnumeration>)collection sortComparator:(NSComparator)comparator {
     NSMutableArray *paths = [NSMutableArray new];
@@ -201,6 +209,7 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
         }
 
         [self endUpdating];
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:NSManagedObjectContextObjectsDidChangeNotification object:nil];
     }
 }
 
@@ -213,6 +222,12 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
 
         DPArrayControllerSection *sectionInfo = self.sections[indexPath.section];
         [sectionInfo.objects insertObject:object atIndex:indexPath.row];
+
+        if ([object isKindOfClass:[NSManagedObject class]]) {
+            NSManagedObjectContext *context = [object managedObjectContext];
+            [[NSNotificationCenter defaultCenter] removeObserver:self name:NSManagedObjectContextObjectsDidChangeNotification object:context];
+            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(managedObjectContextObjectsDidChange:) name:NSManagedObjectContextObjectsDidChangeNotification object:context];
+        }
 
         if (self.responseMask & ResponseMaskDidChangeObject) {
             [self.delegate controller:self didChangeObject:object atIndexPath:nil forChangeType:NSFetchedResultsChangeInsert newIndexPath:indexPath];
@@ -245,13 +260,9 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
     id object = sectionInfo.objects[indexPath.row];
 
     if ([self isObjectMatchFilter:object] == YES) {
-        if ([object isKindOfClass:[NSManagedObject class]] && [object isFault] == NO) {
+        if (self.responseMask & ResponseMaskDidChangeObject) {
             [self startUpdating];
-            [[object managedObjectContext] refreshObject:object mergeChanges:YES];
-
-            if (self.responseMask & ResponseMaskDidChangeObject) {
-                [self.delegate controller:self didChangeObject:object atIndexPath:indexPath forChangeType:NSFetchedResultsChangeUpdate newIndexPath:nil];
-            }
+            [self.delegate controller:self didChangeObject:object atIndexPath:indexPath forChangeType:NSFetchedResultsChangeUpdate newIndexPath:nil];
             [self endUpdating];
         }
     }
@@ -362,10 +373,27 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
 
                 DPArrayControllerSection *sectionInfo = self.sections[section];
                 [sectionInfo.objects addObjectsFromArray:filtedArray];
+
+                for (id object in filtedArray) {
+                    if ([object isKindOfClass:[NSManagedObject class]]) {
+                        NSManagedObjectContext *context = [object managedObjectContext];
+                        [[NSNotificationCenter defaultCenter] removeObserver:self name:NSManagedObjectContextObjectsDidChangeNotification object:context];
+                        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(managedObjectContextObjectsDidChange:) name:NSManagedObjectContextObjectsDidChangeNotification object:context];
+                    }
+                }
+
             }
             else {
                 DPArrayControllerSection *sectionInfo = self.sections[section];
                 [sectionInfo.objects addObjectsFromArray:objects];
+
+                for (id object in objects) {
+                    if ([object isKindOfClass:[NSManagedObject class]]) {
+                        NSManagedObjectContext *context = [object managedObjectContext];
+                        [[NSNotificationCenter defaultCenter] removeObserver:self name:NSManagedObjectContextObjectsDidChangeNotification object:context];
+                        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(managedObjectContextObjectsDidChange:) name:NSManagedObjectContextObjectsDidChangeNotification object:context];
+                    }
+                }
             }
         }
 
