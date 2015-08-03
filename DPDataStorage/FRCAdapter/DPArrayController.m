@@ -172,6 +172,24 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
     return result;
 }
 
+- (void)setFilter:(NSPredicate *)filter {
+    if (_filter != filter) {
+        _filter = filter;
+
+        if (filter != nil) {
+            [self startUpdating];
+            for (NSUInteger section = 0; section < self.sections.count; section++) {
+                DPArrayControllerSection *sectionInfo = self.sections[section];
+                for (NSInteger i = sectionInfo.objects.count; i > 0; i--) {
+                    NSInteger row = i - 1;
+                    [self reloadObjectAtIndextPath:[NSIndexPath indexPathForItem:row inSection:section]];
+                }
+            }
+            [self endUpdating];
+        }
+    }
+}
+
 #pragma mark -
 
 - (void)removeAllObjects {
