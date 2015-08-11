@@ -216,6 +216,21 @@ static NSString * const kImportKey = @"importKey";
 
                 if (valueClass == [NSDictionary class]) {
                     NSManagedObject *object = [relationClass updateWithDictionary:(NSDictionary *)value inContext:[self managedObjectContext] error:&error];
+
+                    if (relationshipDescription.inverseRelationship.isToMany) {
+                        object = [relationClass updateWithDictionary:(NSDictionary *)value inContext:[self managedObjectContext] error:&error];
+                    }
+                    else {
+                        object = [self valueForKey:keyName];
+                        if (object == nil) {
+                            object = [relationClass updateWithDictionary:(NSDictionary *)value inContext:[self managedObjectContext] error:&error];
+                        }
+                        else {
+                            [object updateAttributesWithDictionary:(NSDictionary *)value error:&error];
+                            [object updateRelationshipsWithDictionary:(NSDictionary *)value error:&error];
+                        }
+                    }
+
                     if (error == nil) {
                         [self setValue:object forKey:keyName];
                     }
