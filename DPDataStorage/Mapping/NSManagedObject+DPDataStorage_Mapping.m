@@ -77,14 +77,12 @@ static NSString * const kImportKey = @"importKey";
             NSAssert(result.count == array.count, @"Invalid result array length");
 
             for (NSInteger i = 0; i < array.count; i++) {
-                NSDictionary *itemInfo = array[i];
-
-                NSManagedObject *object = nil;
                 if (result[i] == [NSNull null]) {
-                    object = [self insertInContext:context];
-                    [result replaceObjectAtIndex:i withObject:object];
+                    [result replaceObjectAtIndex:i withObject:[self insertInContext:context]];
                 }
 
+                NSDictionary *itemInfo = array[i];
+                NSManagedObject *object = result[i];
                 if (![object updateAttributesWithDictionary:itemInfo error:&error] || ![object updateRelationshipsWithDictionary:itemInfo error:&error]) {
                     break;
                 }
