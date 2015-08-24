@@ -73,7 +73,7 @@
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
     if (controller == self.listController && self.collectionView.dataSource != nil) {
-        if (self.updatesBlocks.count > 0) {
+        if (self.updatesBlocks.count > 0 && self.collectionView.window) {
             NSArray *blocks = self.updatesBlocks;
             self.updatesBlocks = nil;
 
