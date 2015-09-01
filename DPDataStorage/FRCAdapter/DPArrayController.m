@@ -21,10 +21,13 @@
 @end
 
 @implementation DPArrayControllerSection
+@synthesize name = _name;
+@synthesize indexTitle = _indexTitle;
 
 - (instancetype)init {
     if ((self = [super init])) {
-        self.isInserted = YES;
+        _isInserted = YES;
+        _name = @"";
     }
     return  self;
 }
@@ -35,8 +38,6 @@
 }
 
 - (NSString *)description {return [NSString stringWithFormat:@"%@ {numberOfObjects: %lu}", [super description], (unsigned long)self.numberOfObjects];}
-- (NSString *)name {return nil;}
-- (NSString *)indexTitle {return nil;}
 - (NSUInteger)numberOfObjects {return self.objects.count;};
 
 @end
