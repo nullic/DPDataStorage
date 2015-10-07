@@ -17,11 +17,11 @@
 		76C887661BC3FBE8006B29C0 /* NSManagedObjectContext+DataStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 76C887531BC3FBE8006B29C0 /* NSManagedObjectContext+DataStorage.m */; };
 		76C887671BC3FBE8006B29C0 /* NSManagedObjectModel+DataStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 76C887551BC3FBE8006B29C0 /* NSManagedObjectModel+DataStorage.m */; };
 		76C887681BC3FBE8006B29C0 /* DPDataStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 76C887571BC3FBE8006B29C0 /* DPDataStorage.m */; };
-		76C887691BC3FBE8006B29C0 /* DPArrayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 76C8875A1BC3FBE8006B29C0 /* DPArrayController.m */; };
-		76C8876A1BC3FBE8006B29C0 /* DPBaseDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 76C8875D1BC3FBE8006B29C0 /* DPBaseDataSource.m */; };
-		76C8876B1BC3FBE8006B29C0 /* DPCollectionViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 76C8875F1BC3FBE8006B29C0 /* DPCollectionViewDataSource.m */; };
-		76C8876C1BC3FBE8006B29C0 /* DPTableViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 76C887611BC3FBE8006B29C0 /* DPTableViewDataSource.m */; };
 		76C8876D1BC3FBE8006B29C0 /* NSManagedObject+DPDataStorage_Mapping.m in Sources */ = {isa = PBXBuildFile; fileRef = 76C887641BC3FBE8006B29C0 /* NSManagedObject+DPDataStorage_Mapping.m */; };
+		76C8877A1BC54977006B29C0 /* DPArrayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 76C887711BC54977006B29C0 /* DPArrayController.m */; };
+		76C8877B1BC54977006B29C0 /* DPBaseDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 76C887731BC54977006B29C0 /* DPBaseDataSource.m */; };
+		76C8877C1BC54977006B29C0 /* DPCollectionViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 76C887751BC54977006B29C0 /* DPCollectionViewDataSource.m */; };
+		76C8877D1BC54977006B29C0 /* DPTableViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 76C887791BC54977006B29C0 /* DPTableViewDataSource.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,18 +43,18 @@
 		76C887551BC3FBE8006B29C0 /* NSManagedObjectModel+DataStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObjectModel+DataStorage.m"; sourceTree = "<group>"; };
 		76C887561BC3FBE8006B29C0 /* DPDataStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPDataStorage.h; sourceTree = "<group>"; };
 		76C887571BC3FBE8006B29C0 /* DPDataStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPDataStorage.m; sourceTree = "<group>"; };
-		76C887591BC3FBE8006B29C0 /* DPArrayController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPArrayController.h; sourceTree = "<group>"; };
-		76C8875A1BC3FBE8006B29C0 /* DPArrayController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPArrayController.m; sourceTree = "<group>"; };
-		76C8875B1BC3FBE8006B29C0 /* DPDataSourceCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPDataSourceCell.h; sourceTree = "<group>"; };
-		76C8875C1BC3FBE8006B29C0 /* DPBaseDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPBaseDataSource.h; sourceTree = "<group>"; };
-		76C8875D1BC3FBE8006B29C0 /* DPBaseDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPBaseDataSource.m; sourceTree = "<group>"; };
-		76C8875E1BC3FBE8006B29C0 /* DPCollectionViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPCollectionViewDataSource.h; sourceTree = "<group>"; };
-		76C8875F1BC3FBE8006B29C0 /* DPCollectionViewDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPCollectionViewDataSource.m; sourceTree = "<group>"; };
-		76C887601BC3FBE8006B29C0 /* DPTableViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPTableViewDataSource.h; sourceTree = "<group>"; };
-		76C887611BC3FBE8006B29C0 /* DPTableViewDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPTableViewDataSource.m; sourceTree = "<group>"; };
 		76C887631BC3FBE8006B29C0 /* NSManagedObject+DPDataStorage_Mapping.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSManagedObject+DPDataStorage_Mapping.h"; sourceTree = "<group>"; };
 		76C887641BC3FBE8006B29C0 /* NSManagedObject+DPDataStorage_Mapping.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObject+DPDataStorage_Mapping.m"; sourceTree = "<group>"; };
-		76C8876E1BC53613006B29C0 /* DPDataSourceContainer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DPDataSourceContainer.h; sourceTree = "<group>"; };
+		76C887701BC54977006B29C0 /* DPArrayController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPArrayController.h; sourceTree = "<group>"; };
+		76C887711BC54977006B29C0 /* DPArrayController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPArrayController.m; sourceTree = "<group>"; };
+		76C887721BC54977006B29C0 /* DPBaseDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPBaseDataSource.h; sourceTree = "<group>"; };
+		76C887731BC54977006B29C0 /* DPBaseDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPBaseDataSource.m; sourceTree = "<group>"; };
+		76C887741BC54977006B29C0 /* DPCollectionViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPCollectionViewDataSource.h; sourceTree = "<group>"; };
+		76C887751BC54977006B29C0 /* DPCollectionViewDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPCollectionViewDataSource.m; sourceTree = "<group>"; };
+		76C887761BC54977006B29C0 /* DPDataSourceCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPDataSourceCell.h; sourceTree = "<group>"; };
+		76C887771BC54977006B29C0 /* DPDataSourceContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPDataSourceContainer.h; sourceTree = "<group>"; };
+		76C887781BC54977006B29C0 /* DPTableViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPTableViewDataSource.h; sourceTree = "<group>"; };
+		76C887791BC54977006B29C0 /* DPTableViewDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPTableViewDataSource.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,7 +115,7 @@
 				76C887561BC3FBE8006B29C0 /* DPDataStorage.h */,
 				76C887571BC3FBE8006B29C0 /* DPDataStorage.m */,
 				76C8874F1BC3FBE8006B29C0 /* Categories */,
-				76C887581BC3FBE8006B29C0 /* FRCAdapter */,
+				76C8876F1BC54977006B29C0 /* DPDataSource */,
 				76C887621BC3FBE8006B29C0 /* Mapping */,
 			);
 			name = DPDataStorage;
@@ -135,23 +135,6 @@
 			path = Categories;
 			sourceTree = "<group>";
 		};
-		76C887581BC3FBE8006B29C0 /* FRCAdapter */ = {
-			isa = PBXGroup;
-			children = (
-				76C8875B1BC3FBE8006B29C0 /* DPDataSourceCell.h */,
-				76C8876E1BC53613006B29C0 /* DPDataSourceContainer.h */,
-				76C887591BC3FBE8006B29C0 /* DPArrayController.h */,
-				76C8875A1BC3FBE8006B29C0 /* DPArrayController.m */,
-				76C8875C1BC3FBE8006B29C0 /* DPBaseDataSource.h */,
-				76C8875D1BC3FBE8006B29C0 /* DPBaseDataSource.m */,
-				76C8875E1BC3FBE8006B29C0 /* DPCollectionViewDataSource.h */,
-				76C8875F1BC3FBE8006B29C0 /* DPCollectionViewDataSource.m */,
-				76C887601BC3FBE8006B29C0 /* DPTableViewDataSource.h */,
-				76C887611BC3FBE8006B29C0 /* DPTableViewDataSource.m */,
-			);
-			path = FRCAdapter;
-			sourceTree = "<group>";
-		};
 		76C887621BC3FBE8006B29C0 /* Mapping */ = {
 			isa = PBXGroup;
 			children = (
@@ -159,6 +142,23 @@
 				76C887641BC3FBE8006B29C0 /* NSManagedObject+DPDataStorage_Mapping.m */,
 			);
 			path = Mapping;
+			sourceTree = "<group>";
+		};
+		76C8876F1BC54977006B29C0 /* DPDataSource */ = {
+			isa = PBXGroup;
+			children = (
+				76C887701BC54977006B29C0 /* DPArrayController.h */,
+				76C887711BC54977006B29C0 /* DPArrayController.m */,
+				76C887721BC54977006B29C0 /* DPBaseDataSource.h */,
+				76C887731BC54977006B29C0 /* DPBaseDataSource.m */,
+				76C887741BC54977006B29C0 /* DPCollectionViewDataSource.h */,
+				76C887751BC54977006B29C0 /* DPCollectionViewDataSource.m */,
+				76C887761BC54977006B29C0 /* DPDataSourceCell.h */,
+				76C887771BC54977006B29C0 /* DPDataSourceContainer.h */,
+				76C887781BC54977006B29C0 /* DPTableViewDataSource.h */,
+				76C887791BC54977006B29C0 /* DPTableViewDataSource.m */,
+			);
+			path = DPDataSource;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -231,18 +231,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				76C8876C1BC3FBE8006B29C0 /* DPTableViewDataSource.m in Sources */,
-				76C8876B1BC3FBE8006B29C0 /* DPCollectionViewDataSource.m in Sources */,
 				76C887681BC3FBE8006B29C0 /* DPDataStorage.m in Sources */,
 				76C8873F1BC3FBCD006B29C0 /* ViewController.m in Sources */,
+				76C8877A1BC54977006B29C0 /* DPArrayController.m in Sources */,
+				76C8877B1BC54977006B29C0 /* DPBaseDataSource.m in Sources */,
 				76C8876D1BC3FBE8006B29C0 /* NSManagedObject+DPDataStorage_Mapping.m in Sources */,
-				76C8876A1BC3FBE8006B29C0 /* DPBaseDataSource.m in Sources */,
 				76C8873C1BC3FBCD006B29C0 /* AppDelegate.m in Sources */,
 				76C887391BC3FBCD006B29C0 /* main.m in Sources */,
 				76C887651BC3FBE8006B29C0 /* NSManagedObject+DataStorage.m in Sources */,
-				76C887691BC3FBE8006B29C0 /* DPArrayController.m in Sources */,
+				76C8877D1BC54977006B29C0 /* DPTableViewDataSource.m in Sources */,
 				76C887661BC3FBE8006B29C0 /* NSManagedObjectContext+DataStorage.m in Sources */,
 				76C887671BC3FBE8006B29C0 /* NSManagedObjectModel+DataStorage.m in Sources */,
+				76C8877C1BC54977006B29C0 /* DPCollectionViewDataSource.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

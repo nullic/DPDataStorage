@@ -13,7 +13,7 @@ Pod::Spec.new do |s|
   s.requires_arc = true
 
   s.subspec 'FRCAdapter' do |ss|
-    ss.source_files = "DPDataStorage/FRCAdapter/*.{h,m}"
+    ss.source_files = "DPDataStorage/DPDataSource/*.{h,m}"
   end
   
   s.subspec 'Mapping' do |ss|
