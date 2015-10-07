@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 #import "FRCBaseAdapter.h"
 
 @interface DPArrayController : NSObject <CommonFetchedResultsController>
@@ -14,7 +15,7 @@
 @property (nonatomic, assign) BOOL removeEmptySectionsAutomaticaly; // Default YES
 @property (nonatomic, strong) NSPredicate *filter;
 
-- (instancetype)initWithDelegate:(id<CommonFetchedResultsControllerDelegate>)delegate;
+- (instancetype)initWithDelegate:(id<DataSourceContainerControllerDelegate>)delegate;
 
 - (void)removeAllObjects;
 

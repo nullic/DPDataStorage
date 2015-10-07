@@ -26,7 +26,7 @@
     [self.tableView reloadData];
 }
 
-- (void)setListController:(id<CommonFetchedResultsController>)listController {
+- (void)setListController:(id<DataSourceContainerController>)listController {
     [super setListController:listController];
     [self.tableView reloadData];
 }

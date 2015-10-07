@@ -8,38 +8,38 @@
 
 #import <CoreData/coreData.h>
 
-@protocol CommonFetchedResultsController;
+@protocol DataSourceContainerController;
 
-@protocol CommonFetchedResultsControllerDelegate <NSObject>
+@protocol DataSourceContainerControllerDelegate <NSObject>
 @optional
-- (void)controller:(id<CommonFetchedResultsController>)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath;
+- (void)controller:(id<DataSourceContainerController>)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath;
 @optional
-- (void)controller:(id<CommonFetchedResultsController>)controller didChangeSection:(id <NSFetchedResultsSectionInfo>)sectionInfo atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type;
+- (void)controller:(id<DataSourceContainerController>)controller didChangeSection:(id <NSFetchedResultsSectionInfo>)sectionInfo atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type;
 @optional
-- (void)controllerWillChangeContent:(id<CommonFetchedResultsController>)controller;
+- (void)controllerWillChangeContent:(id<DataSourceContainerController>)controller;
 @optional
-- (void)controllerDidChangeContent:(id<CommonFetchedResultsController>)controller;
+- (void)controllerDidChangeContent:(id<DataSourceContainerController>)controller;
 @end
 
-@protocol CommonFetchedResultsController <NSObject>
-@property (nonatomic, weak) id<CommonFetchedResultsControllerDelegate> delegate;
+@protocol DataSourceContainerController <NSObject>
+@property (nonatomic, weak) id<DataSourceContainerControllerDelegate> delegate;
 @property (nonatomic, readonly) NSArray *sections; // @[<NSFetchedResultsSectionInfo>]
 
 - (id)objectAtIndexPath:(NSIndexPath *)indexPath;
 - (NSIndexPath *)indexPathForObject:(id)object;
 @end
 
-@interface NSFetchedResultsController (CommonFetchedResultsController) <CommonFetchedResultsController>
+@interface NSFetchedResultsController (CommonFetchedResultsController) <DataSourceContainerController>
 @end
 
 
 IB_DESIGNABLE
-@interface FRCBaseAdapter : NSObject <CommonFetchedResultsControllerDelegate, NSFetchedResultsControllerDelegate>
+@interface FRCBaseAdapter : NSObject <DataSourceContainerControllerDelegate, NSFetchedResultsControllerDelegate>
 @property (nonatomic, weak) IBOutlet id forwardDelegate;
 @property (nonatomic, copy) IBInspectable NSString *fetchRequestTemplateName;
 @property (nonatomic, copy) IBInspectable NSString *sectionNameKeyPath;
 @property (nonatomic, copy) IBInspectable NSString *cacheName;
-@property (nonatomic, strong) id<CommonFetchedResultsController> listController;
+@property (nonatomic, strong) id<DataSourceContainerController> listController;
 
 - (void)resetListController;
 

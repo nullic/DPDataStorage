@@ -66,7 +66,7 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
 
 @implementation DPArrayController
 
-- (instancetype)initWithDelegate:(id<CommonFetchedResultsControllerDelegate>)delegate {
+- (instancetype)initWithDelegate:(id<DataSourceContainerControllerDelegate>)delegate {
     if ((self = [self init])) {
         self.delegate = delegate;
     }
@@ -81,7 +81,7 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
     return self;
 }
 
-- (void)setDelegate:(id<CommonFetchedResultsControllerDelegate>)delegate {
+- (void)setDelegate:(id<DataSourceContainerControllerDelegate>)delegate {
     if (_delegate != delegate) {
         _delegate = delegate;
 
