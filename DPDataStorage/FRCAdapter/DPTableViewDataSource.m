@@ -1,5 +1,5 @@
 //
-//  FRCTableVeiwAdapted.m
+//  DPTableViewDataSource.m
 //  DP Commons
 //
 //  Created by Dmitriy Petrusevich on 17/03/15.

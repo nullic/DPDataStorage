@@ -7,7 +7,6 @@
 //
 
 #import "DPArrayController.h"
-#import "NSManagedObject+DataStorage.h"
 
 #pragma mark - DPArrayControllerSection
 
@@ -166,7 +165,8 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
             NSManagedObject *managedObject = object;
 
             NSManagedObjectContext *context = [managedObject managedObjectContext];
-            NSFetchRequest *request = [[managedObject class] newFetchRequestInContext:context];
+            NSFetchRequest *request = [[NSFetchRequest alloc] init];
+            request.entity = managedObject.entity;
 
             NSPredicate *selfPredicate = [NSPredicate predicateWithFormat:@"self == %@", [managedObject objectID]];
             request.predicate = [NSCompoundPredicate andPredicateWithSubpredicates:@[selfPredicate, self.filter]];

@@ -7,9 +7,8 @@
 //
 
 #import "DPBaseDataSource.h"
-#import <UIKit/UITableView.h>
 
-@implementation NSFetchedResultsController (CommonFetchedResultsController)
+@implementation NSFetchedResultsController (DataSourceContainerController)
 @end
 
 @implementation DPBaseDataSource

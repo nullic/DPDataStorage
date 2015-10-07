@@ -28,6 +28,3 @@
 - (id)objectAtIndexPath:(NSIndexPath *)indexPath;
 - (NSIndexPath *)indexPathForObject:(id)object;
 @end
-
-@interface NSFetchedResultsController (CommonFetchedResultsController) <DataSourceContainerController>
-@end

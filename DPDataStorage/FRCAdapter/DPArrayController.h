@@ -6,8 +6,6 @@
 //  Copyright (c) 2015 Dmitriy Petrusevich. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
 #import "DPBaseDataSource.h"
 
 @interface DPArrayController : NSObject <DataSourceContainerController>

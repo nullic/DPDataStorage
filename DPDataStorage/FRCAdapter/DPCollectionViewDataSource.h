@@ -6,9 +6,7 @@
 //  Copyright (c) 2015 Dmitriy Petrusevich. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 #import "DPBaseDataSource.h"
-#import "DPDataSourceCell.h"
 
 @interface DPCollectionViewDataSource : DPBaseDataSource <UICollectionViewDataSource, UICollectionViewDelegate>
 @property (nonatomic, weak) IBOutlet UICollectionView *collectionView;
