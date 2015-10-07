@@ -6,15 +6,14 @@
 //  Copyright (c) 2015 Dmitriy Petrusevich. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import "FRCBaseAdapter.h"
+#import "DPBaseDataSource.h"
 
-@interface DPArrayController : NSObject <CommonFetchedResultsController>
-@property (nonatomic, weak) id<CommonFetchedResultsControllerDelegate> delegate;
+@interface DPArrayController : NSObject <DataSourceContainerController>
+@property (nonatomic, weak) id<DataSourceContainerControllerDelegate> delegate;
 @property (nonatomic, assign) BOOL removeEmptySectionsAutomaticaly; // Default YES
 @property (nonatomic, strong) NSPredicate *filter;
 
-- (instancetype)initWithDelegate:(id<CommonFetchedResultsControllerDelegate>)delegate;
+- (instancetype)initWithDelegate:(id<DataSourceContainerControllerDelegate>)delegate;
 
 - (void)removeAllObjects;
 

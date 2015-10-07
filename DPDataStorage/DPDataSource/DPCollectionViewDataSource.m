@@ -1,61 +1,61 @@
 //
-//  FRCTableVeiwAdapted.m
-//  DP Commons
+//  DPCollectionViewDataSource.m
+//  Commentator
 //
-//  Created by Dmitriy Petrusevich on 17/03/15.
+//  Created by Dmitriy Petrusevich on 28/04/15.
 //  Copyright (c) 2015 Dmitriy Petrusevich. All rights reserved.
 //
 
-#import "FRCTableViewAdapted.h"
+#import "DPCollectionViewDataSource.h"
 
-@interface FRCTableViewAdapted ()
+@interface DPCollectionViewDataSource ()
 @property (nonatomic, strong) NSMutableArray *updatesBlocks;
 @end
 
-@implementation FRCTableViewAdapted
+@implementation DPCollectionViewDataSource
 
-- (void)setTableView:(UITableView *)tableView {
-    if (_tableView != tableView) {
-        _tableView = tableView;
-        [_tableView reloadData];
+- (void)setCollectionView:(UICollectionView *)collectionView {
+    if (_collectionView != collectionView) {
+        _collectionView = collectionView;
+        [_collectionView reloadData];
     }
 }
 
 - (void)setCellIdentifier:(NSString *)cellIdentifier {
     _cellIdentifier = [cellIdentifier copy];
-    [self.tableView reloadData];
+    [self.collectionView reloadData];
 }
 
-- (void)setListController:(id<CommonFetchedResultsController>)listController {
+- (void)setListController:(id<DataSourceContainerController>)listController {
     [super setListController:listController];
-    [self.tableView reloadData];
+    [self.collectionView reloadData];
 }
 
-#pragma mark - UITableView
+#pragma mark - UICollectionView
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
     return [self numberOfSections];
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     return [self numberOfItemsInSection:section];
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = nil;
-    if ([self.forwardDelegate respondsToSelector:@selector(tableView:cellForRowAtIndexPath:)]) {
-        cell = [(id<UITableViewDataSource>)self.forwardDelegate tableView:tableView cellForRowAtIndexPath:indexPath];
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    UICollectionViewCell *cell = nil;
+    if ([self.forwardDelegate respondsToSelector:@selector(collectionView:cellForItemAtIndexPath:)]) {
+        cell = [(id<UICollectionViewDataSource>)self.forwardDelegate collectionView:collectionView cellForItemAtIndexPath:indexPath];
     }
 
     if (cell == nil) {
-        UITableViewCell<FRCAdaptedCell> *frc_cell = [tableView dequeueReusableCellWithIdentifier:self.cellIdentifier];
-        if ([frc_cell conformsToProtocol:@protocol(FRCAdaptedCell)]) {
+        UICollectionViewCell<DPDataSourceCell> *frc_cell = [collectionView dequeueReusableCellWithReuseIdentifier:self.cellIdentifier forIndexPath:indexPath];
+        if ([frc_cell conformsToProtocol:@protocol(DPDataSourceCell)]) {
             id object = [self objectAtIndexPath:indexPath];
             [frc_cell configureWithObject:object];
             cell = frc_cell;
         }
         else {
-            NSString *reason = [NSString stringWithFormat:@"Type '%@' does not conform to protocol '%@'", NSStringFromClass([frc_cell class]), NSStringFromProtocol(@protocol(FRCAdaptedCell))];
+            NSString *reason = [NSString stringWithFormat:@"Type '%@' does not conform to protocol '%@'", NSStringFromClass([frc_cell class]), NSStringFromProtocol(@protocol(DPDataSourceCell))];
             @throw [NSException exceptionWithName:NSInternalInconsistencyException reason:reason userInfo:nil];
         }
     }
@@ -72,17 +72,19 @@
 }
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
-    if (controller == self.listController && self.tableView.dataSource != nil) {
-        if (self.updatesBlocks.count > 0 && self.tableView.window) {
-            [self.tableView beginUpdates];
-            for (dispatch_block_t updates in self.updatesBlocks) {
-                updates();
-            }
-            [self.tableView endUpdates];
+    if (controller == self.listController && self.collectionView.dataSource != nil) {
+        if (self.updatesBlocks.count > 0 && self.collectionView.window) {
+            NSArray *blocks = self.updatesBlocks;
             self.updatesBlocks = nil;
+
+            [self.collectionView performBatchUpdates:^{
+                for (dispatch_block_t updates in blocks) {
+                    updates();
+                }
+            } completion:nil];
         }
         else {
-            [self.tableView reloadData];
+            [self.collectionView reloadData];
         }
     }
 }
@@ -92,27 +94,28 @@
       newIndexPath:(NSIndexPath *)newIndexPath
 {
     if (controller == self.listController && self.updatesBlocks) {
-        UITableView *tv = self.tableView;
+        UICollectionView *cv = self.collectionView;
 
         dispatch_block_t block = ^{
             switch(type) {
                 case NSFetchedResultsChangeInsert:
-                    [tv insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+                    [cv insertItemsAtIndexPaths:@[newIndexPath]];
                     break;
 
                 case NSFetchedResultsChangeDelete:
-                    [tv deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+                    [cv deleteItemsAtIndexPaths:@[indexPath]];
                     break;
 
                 case NSFetchedResultsChangeUpdate:
-                    [tv reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+                    [cv reloadItemsAtIndexPaths:@[indexPath]];
                     break;
 
                 case NSFetchedResultsChangeMove:
                     if ([newIndexPath isEqual:indexPath] == NO) {
-                        [tv moveRowAtIndexPath:indexPath toIndexPath:newIndexPath];
+                        [cv moveItemAtIndexPath:indexPath toIndexPath:newIndexPath];
                     }
                     break;
+                    
             }
         };
         [self.updatesBlocks addObject:[block copy]];
@@ -123,15 +126,15 @@
            atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type
 {
     if (controller == self.listController && self.updatesBlocks) {
-        UITableView *tv = self.tableView;
+        UICollectionView *cv = self.collectionView;
 
         dispatch_block_t block = ^{
             switch (type) {
                 case NSFetchedResultsChangeInsert:
-                    [tv insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
+                    [cv insertSections:[NSIndexSet indexSetWithIndex:sectionIndex]];
                     break;
                 case NSFetchedResultsChangeDelete:
-                    [tv deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
+                    [cv deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex]];
                     break;
                 default:
                     break;

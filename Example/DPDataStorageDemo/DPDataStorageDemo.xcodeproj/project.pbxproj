@@ -1,0 +1,397 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		76C887391BC3FBCD006B29C0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 76C887381BC3FBCD006B29C0 /* main.m */; };
+		76C8873C1BC3FBCD006B29C0 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 76C8873B1BC3FBCD006B29C0 /* AppDelegate.m */; };
+		76C8873F1BC3FBCD006B29C0 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 76C8873E1BC3FBCD006B29C0 /* ViewController.m */; };
+		76C887421BC3FBCD006B29C0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 76C887401BC3FBCD006B29C0 /* Main.storyboard */; };
+		76C887441BC3FBCD006B29C0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 76C887431BC3FBCD006B29C0 /* Assets.xcassets */; };
+		76C887471BC3FBCD006B29C0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 76C887451BC3FBCD006B29C0 /* LaunchScreen.storyboard */; };
+		76C887651BC3FBE8006B29C0 /* NSManagedObject+DataStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 76C887511BC3FBE8006B29C0 /* NSManagedObject+DataStorage.m */; };
+		76C887661BC3FBE8006B29C0 /* NSManagedObjectContext+DataStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 76C887531BC3FBE8006B29C0 /* NSManagedObjectContext+DataStorage.m */; };
+		76C887671BC3FBE8006B29C0 /* NSManagedObjectModel+DataStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 76C887551BC3FBE8006B29C0 /* NSManagedObjectModel+DataStorage.m */; };
+		76C887681BC3FBE8006B29C0 /* DPDataStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 76C887571BC3FBE8006B29C0 /* DPDataStorage.m */; };
+		76C8876D1BC3FBE8006B29C0 /* NSManagedObject+DPDataStorage_Mapping.m in Sources */ = {isa = PBXBuildFile; fileRef = 76C887641BC3FBE8006B29C0 /* NSManagedObject+DPDataStorage_Mapping.m */; };
+		76C8877A1BC54977006B29C0 /* DPArrayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 76C887711BC54977006B29C0 /* DPArrayController.m */; };
+		76C8877B1BC54977006B29C0 /* DPBaseDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 76C887731BC54977006B29C0 /* DPBaseDataSource.m */; };
+		76C8877C1BC54977006B29C0 /* DPCollectionViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 76C887751BC54977006B29C0 /* DPCollectionViewDataSource.m */; };
+		76C8877D1BC54977006B29C0 /* DPTableViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 76C887791BC54977006B29C0 /* DPTableViewDataSource.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		76C887341BC3FBCD006B29C0 /* DPDataStorageDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DPDataStorageDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		76C887381BC3FBCD006B29C0 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		76C8873A1BC3FBCD006B29C0 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		76C8873B1BC3FBCD006B29C0 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		76C8873D1BC3FBCD006B29C0 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		76C8873E1BC3FBCD006B29C0 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		76C887411BC3FBCD006B29C0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		76C887431BC3FBCD006B29C0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		76C887461BC3FBCD006B29C0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		76C887481BC3FBCD006B29C0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		76C887501BC3FBE8006B29C0 /* NSManagedObject+DataStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSManagedObject+DataStorage.h"; sourceTree = "<group>"; };
+		76C887511BC3FBE8006B29C0 /* NSManagedObject+DataStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObject+DataStorage.m"; sourceTree = "<group>"; };
+		76C887521BC3FBE8006B29C0 /* NSManagedObjectContext+DataStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSManagedObjectContext+DataStorage.h"; sourceTree = "<group>"; };
+		76C887531BC3FBE8006B29C0 /* NSManagedObjectContext+DataStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObjectContext+DataStorage.m"; sourceTree = "<group>"; };
+		76C887541BC3FBE8006B29C0 /* NSManagedObjectModel+DataStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSManagedObjectModel+DataStorage.h"; sourceTree = "<group>"; };
+		76C887551BC3FBE8006B29C0 /* NSManagedObjectModel+DataStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObjectModel+DataStorage.m"; sourceTree = "<group>"; };
+		76C887561BC3FBE8006B29C0 /* DPDataStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPDataStorage.h; sourceTree = "<group>"; };
+		76C887571BC3FBE8006B29C0 /* DPDataStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPDataStorage.m; sourceTree = "<group>"; };
+		76C887631BC3FBE8006B29C0 /* NSManagedObject+DPDataStorage_Mapping.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSManagedObject+DPDataStorage_Mapping.h"; sourceTree = "<group>"; };
+		76C887641BC3FBE8006B29C0 /* NSManagedObject+DPDataStorage_Mapping.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObject+DPDataStorage_Mapping.m"; sourceTree = "<group>"; };
+		76C887701BC54977006B29C0 /* DPArrayController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPArrayController.h; sourceTree = "<group>"; };
+		76C887711BC54977006B29C0 /* DPArrayController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPArrayController.m; sourceTree = "<group>"; };
+		76C887721BC54977006B29C0 /* DPBaseDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPBaseDataSource.h; sourceTree = "<group>"; };
+		76C887731BC54977006B29C0 /* DPBaseDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPBaseDataSource.m; sourceTree = "<group>"; };
+		76C887741BC54977006B29C0 /* DPCollectionViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPCollectionViewDataSource.h; sourceTree = "<group>"; };
+		76C887751BC54977006B29C0 /* DPCollectionViewDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPCollectionViewDataSource.m; sourceTree = "<group>"; };
+		76C887761BC54977006B29C0 /* DPDataSourceCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPDataSourceCell.h; sourceTree = "<group>"; };
+		76C887771BC54977006B29C0 /* DPDataSourceContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPDataSourceContainer.h; sourceTree = "<group>"; };
+		76C887781BC54977006B29C0 /* DPTableViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPTableViewDataSource.h; sourceTree = "<group>"; };
+		76C887791BC54977006B29C0 /* DPTableViewDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPTableViewDataSource.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		76C887311BC3FBCD006B29C0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		76C8872B1BC3FBCD006B29C0 = {
+			isa = PBXGroup;
+			children = (
+				76C8874E1BC3FBE8006B29C0 /* DPDataStorage */,
+				76C887361BC3FBCD006B29C0 /* DPDataStorageDemo */,
+				76C887351BC3FBCD006B29C0 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		76C887351BC3FBCD006B29C0 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				76C887341BC3FBCD006B29C0 /* DPDataStorageDemo.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		76C887361BC3FBCD006B29C0 /* DPDataStorageDemo */ = {
+			isa = PBXGroup;
+			children = (
+				76C8873A1BC3FBCD006B29C0 /* AppDelegate.h */,
+				76C8873B1BC3FBCD006B29C0 /* AppDelegate.m */,
+				76C8873D1BC3FBCD006B29C0 /* ViewController.h */,
+				76C8873E1BC3FBCD006B29C0 /* ViewController.m */,
+				76C887401BC3FBCD006B29C0 /* Main.storyboard */,
+				76C887431BC3FBCD006B29C0 /* Assets.xcassets */,
+				76C887451BC3FBCD006B29C0 /* LaunchScreen.storyboard */,
+				76C887481BC3FBCD006B29C0 /* Info.plist */,
+				76C887371BC3FBCD006B29C0 /* Supporting Files */,
+			);
+			path = DPDataStorageDemo;
+			sourceTree = "<group>";
+		};
+		76C887371BC3FBCD006B29C0 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				76C887381BC3FBCD006B29C0 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		76C8874E1BC3FBE8006B29C0 /* DPDataStorage */ = {
+			isa = PBXGroup;
+			children = (
+				76C887561BC3FBE8006B29C0 /* DPDataStorage.h */,
+				76C887571BC3FBE8006B29C0 /* DPDataStorage.m */,
+				76C8874F1BC3FBE8006B29C0 /* Categories */,
+				76C8876F1BC54977006B29C0 /* DPDataSource */,
+				76C887621BC3FBE8006B29C0 /* Mapping */,
+			);
+			name = DPDataStorage;
+			path = ../../DPDataStorage;
+			sourceTree = "<group>";
+		};
+		76C8874F1BC3FBE8006B29C0 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				76C887501BC3FBE8006B29C0 /* NSManagedObject+DataStorage.h */,
+				76C887511BC3FBE8006B29C0 /* NSManagedObject+DataStorage.m */,
+				76C887521BC3FBE8006B29C0 /* NSManagedObjectContext+DataStorage.h */,
+				76C887531BC3FBE8006B29C0 /* NSManagedObjectContext+DataStorage.m */,
+				76C887541BC3FBE8006B29C0 /* NSManagedObjectModel+DataStorage.h */,
+				76C887551BC3FBE8006B29C0 /* NSManagedObjectModel+DataStorage.m */,
+			);
+			path = Categories;
+			sourceTree = "<group>";
+		};
+		76C887621BC3FBE8006B29C0 /* Mapping */ = {
+			isa = PBXGroup;
+			children = (
+				76C887631BC3FBE8006B29C0 /* NSManagedObject+DPDataStorage_Mapping.h */,
+				76C887641BC3FBE8006B29C0 /* NSManagedObject+DPDataStorage_Mapping.m */,
+			);
+			path = Mapping;
+			sourceTree = "<group>";
+		};
+		76C8876F1BC54977006B29C0 /* DPDataSource */ = {
+			isa = PBXGroup;
+			children = (
+				76C887701BC54977006B29C0 /* DPArrayController.h */,
+				76C887711BC54977006B29C0 /* DPArrayController.m */,
+				76C887721BC54977006B29C0 /* DPBaseDataSource.h */,
+				76C887731BC54977006B29C0 /* DPBaseDataSource.m */,
+				76C887741BC54977006B29C0 /* DPCollectionViewDataSource.h */,
+				76C887751BC54977006B29C0 /* DPCollectionViewDataSource.m */,
+				76C887761BC54977006B29C0 /* DPDataSourceCell.h */,
+				76C887771BC54977006B29C0 /* DPDataSourceContainer.h */,
+				76C887781BC54977006B29C0 /* DPTableViewDataSource.h */,
+				76C887791BC54977006B29C0 /* DPTableViewDataSource.m */,
+			);
+			path = DPDataSource;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		76C887331BC3FBCD006B29C0 /* DPDataStorageDemo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 76C8874B1BC3FBCD006B29C0 /* Build configuration list for PBXNativeTarget "DPDataStorageDemo" */;
+			buildPhases = (
+				76C887301BC3FBCD006B29C0 /* Sources */,
+				76C887311BC3FBCD006B29C0 /* Frameworks */,
+				76C887321BC3FBCD006B29C0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = DPDataStorageDemo;
+			productName = DPDataStorageDemo;
+			productReference = 76C887341BC3FBCD006B29C0 /* DPDataStorageDemo.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		76C8872C1BC3FBCD006B29C0 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0710;
+				ORGANIZATIONNAME = dmitriy.petrusevich;
+				TargetAttributes = {
+					76C887331BC3FBCD006B29C0 = {
+						CreatedOnToolsVersion = 7.1;
+					};
+				};
+			};
+			buildConfigurationList = 76C8872F1BC3FBCD006B29C0 /* Build configuration list for PBXProject "DPDataStorageDemo" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 76C8872B1BC3FBCD006B29C0;
+			productRefGroup = 76C887351BC3FBCD006B29C0 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				76C887331BC3FBCD006B29C0 /* DPDataStorageDemo */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		76C887321BC3FBCD006B29C0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				76C887471BC3FBCD006B29C0 /* LaunchScreen.storyboard in Resources */,
+				76C887441BC3FBCD006B29C0 /* Assets.xcassets in Resources */,
+				76C887421BC3FBCD006B29C0 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		76C887301BC3FBCD006B29C0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				76C887681BC3FBE8006B29C0 /* DPDataStorage.m in Sources */,
+				76C8873F1BC3FBCD006B29C0 /* ViewController.m in Sources */,
+				76C8877A1BC54977006B29C0 /* DPArrayController.m in Sources */,
+				76C8877B1BC54977006B29C0 /* DPBaseDataSource.m in Sources */,
+				76C8876D1BC3FBE8006B29C0 /* NSManagedObject+DPDataStorage_Mapping.m in Sources */,
+				76C8873C1BC3FBCD006B29C0 /* AppDelegate.m in Sources */,
+				76C887391BC3FBCD006B29C0 /* main.m in Sources */,
+				76C887651BC3FBE8006B29C0 /* NSManagedObject+DataStorage.m in Sources */,
+				76C8877D1BC54977006B29C0 /* DPTableViewDataSource.m in Sources */,
+				76C887661BC3FBE8006B29C0 /* NSManagedObjectContext+DataStorage.m in Sources */,
+				76C887671BC3FBE8006B29C0 /* NSManagedObjectModel+DataStorage.m in Sources */,
+				76C8877C1BC54977006B29C0 /* DPCollectionViewDataSource.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		76C887401BC3FBCD006B29C0 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				76C887411BC3FBCD006B29C0 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		76C887451BC3FBCD006B29C0 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				76C887461BC3FBCD006B29C0 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		76C887491BC3FBCD006B29C0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		76C8874A1BC3FBCD006B29C0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		76C8874C1BC3FBCD006B29C0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = DPDataStorageDemo/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.dmitriy.petrusevich.DPDataStorageDemo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		76C8874D1BC3FBCD006B29C0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = DPDataStorageDemo/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.dmitriy.petrusevich.DPDataStorageDemo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		76C8872F1BC3FBCD006B29C0 /* Build configuration list for PBXProject "DPDataStorageDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				76C887491BC3FBCD006B29C0 /* Debug */,
+				76C8874A1BC3FBCD006B29C0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		76C8874B1BC3FBCD006B29C0 /* Build configuration list for PBXNativeTarget "DPDataStorageDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				76C8874C1BC3FBCD006B29C0 /* Debug */,
+				76C8874D1BC3FBCD006B29C0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 76C8872C1BC3FBCD006B29C0 /* Project object */;
+}

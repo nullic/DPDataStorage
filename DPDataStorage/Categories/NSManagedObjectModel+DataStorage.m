@@ -18,13 +18,11 @@
     NSEntityDescription *result = nil;
     NSString *className = NSStringFromClass(objectClass);
 
-    if (className) {
-        NSArray *entities = [self.entitiesByName allValues];
-        for (NSEntityDescription *entityDescription in entities) {
-            if ([entityDescription.managedObjectClassName isEqualToString:className]) {
-                result = entityDescription;
-                break;
-            }
+    NSArray *entities = [self.entitiesByName allValues];
+    for (NSEntityDescription *entityDescription in entities) {
+        if ([entityDescription.managedObjectClassName isEqualToString:className]) {
+            result = entityDescription;
+            break;
         }
     }
 

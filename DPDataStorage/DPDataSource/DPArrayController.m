@@ -7,7 +7,6 @@
 //
 
 #import "DPArrayController.h"
-#import "NSManagedObject+DataStorage.h"
 
 #pragma mark - DPArrayControllerSection
 
@@ -66,7 +65,7 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
 
 @implementation DPArrayController
 
-- (instancetype)initWithDelegate:(id<CommonFetchedResultsControllerDelegate>)delegate {
+- (instancetype)initWithDelegate:(id<DataSourceContainerControllerDelegate>)delegate {
     if ((self = [self init])) {
         self.delegate = delegate;
     }
@@ -81,7 +80,7 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
     return self;
 }
 
-- (void)setDelegate:(id<CommonFetchedResultsControllerDelegate>)delegate {
+- (void)setDelegate:(id<DataSourceContainerControllerDelegate>)delegate {
     if (_delegate != delegate) {
         _delegate = delegate;
 
@@ -166,7 +165,8 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
             NSManagedObject *managedObject = object;
 
             NSManagedObjectContext *context = [managedObject managedObjectContext];
-            NSFetchRequest *request = [[managedObject class] newFetchRequestInContext:context];
+            NSFetchRequest *request = [[NSFetchRequest alloc] init];
+            request.entity = managedObject.entity;
 
             NSPredicate *selfPredicate = [NSPredicate predicateWithFormat:@"self == %@", [managedObject objectID]];
             request.predicate = [NSCompoundPredicate andPredicateWithSubpredicates:@[selfPredicate, self.filter]];
