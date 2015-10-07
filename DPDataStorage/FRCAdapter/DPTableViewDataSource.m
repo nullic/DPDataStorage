@@ -48,14 +48,14 @@
     }
 
     if (cell == nil) {
-        UITableViewCell<FRCAdaptedCell> *frc_cell = [tableView dequeueReusableCellWithIdentifier:self.cellIdentifier];
-        if ([frc_cell conformsToProtocol:@protocol(FRCAdaptedCell)]) {
+        UITableViewCell<DPDataSourceCell> *frc_cell = [tableView dequeueReusableCellWithIdentifier:self.cellIdentifier];
+        if ([frc_cell conformsToProtocol:@protocol(DPDataSourceCell)]) {
             id object = [self objectAtIndexPath:indexPath];
             [frc_cell configureWithObject:object];
             cell = frc_cell;
         }
         else {
-            NSString *reason = [NSString stringWithFormat:@"Type '%@' does not conform to protocol '%@'", NSStringFromClass([frc_cell class]), NSStringFromProtocol(@protocol(FRCAdaptedCell))];
+            NSString *reason = [NSString stringWithFormat:@"Type '%@' does not conform to protocol '%@'", NSStringFromClass([frc_cell class]), NSStringFromProtocol(@protocol(DPDataSourceCell))];
             @throw [NSException exceptionWithName:NSInternalInconsistencyException reason:reason userInfo:nil];
         }
     }

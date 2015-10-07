@@ -8,11 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "DPBaseDataSource.h"
-#import "FRCAdaptedCell.h"
+#import "DPDataSourceCell.h"
 
 @interface DPTableViewDataSource : DPBaseDataSource <UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, weak) IBOutlet UITableView *tableView;
-@property (nonatomic, copy) IBInspectable NSString *cellIdentifier; // Cell must conform <FRCAdaptedCell>
+@property (nonatomic, copy) IBInspectable NSString *cellIdentifier; // Cell must conform <DPDataSourceCell>
 @property (nonatomic) IBInspectable BOOL disableAnimations;
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView;

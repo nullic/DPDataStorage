@@ -45,7 +45,7 @@
 		76C887571BC3FBE8006B29C0 /* DPDataStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPDataStorage.m; sourceTree = "<group>"; };
 		76C887591BC3FBE8006B29C0 /* DPArrayController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPArrayController.h; sourceTree = "<group>"; };
 		76C8875A1BC3FBE8006B29C0 /* DPArrayController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPArrayController.m; sourceTree = "<group>"; };
-		76C8875B1BC3FBE8006B29C0 /* FRCAdaptedCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FRCAdaptedCell.h; sourceTree = "<group>"; };
+		76C8875B1BC3FBE8006B29C0 /* DPDataSourceCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPDataSourceCell.h; sourceTree = "<group>"; };
 		76C8875C1BC3FBE8006B29C0 /* DPBaseDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPBaseDataSource.h; sourceTree = "<group>"; };
 		76C8875D1BC3FBE8006B29C0 /* DPBaseDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPBaseDataSource.m; sourceTree = "<group>"; };
 		76C8875E1BC3FBE8006B29C0 /* DPCollectionViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPCollectionViewDataSource.h; sourceTree = "<group>"; };
@@ -54,6 +54,7 @@
 		76C887611BC3FBE8006B29C0 /* DPTableViewDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPTableViewDataSource.m; sourceTree = "<group>"; };
 		76C887631BC3FBE8006B29C0 /* NSManagedObject+DPDataStorage_Mapping.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSManagedObject+DPDataStorage_Mapping.h"; sourceTree = "<group>"; };
 		76C887641BC3FBE8006B29C0 /* NSManagedObject+DPDataStorage_Mapping.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObject+DPDataStorage_Mapping.m"; sourceTree = "<group>"; };
+		76C8876E1BC53613006B29C0 /* DPDataSourceContainer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DPDataSourceContainer.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -137,7 +138,8 @@
 		76C887581BC3FBE8006B29C0 /* FRCAdapter */ = {
 			isa = PBXGroup;
 			children = (
-				76C8875B1BC3FBE8006B29C0 /* FRCAdaptedCell.h */,
+				76C8875B1BC3FBE8006B29C0 /* DPDataSourceCell.h */,
+				76C8876E1BC53613006B29C0 /* DPDataSourceContainer.h */,
 				76C887591BC3FBE8006B29C0 /* DPArrayController.h */,
 				76C8875A1BC3FBE8006B29C0 /* DPArrayController.m */,
 				76C8875C1BC3FBE8006B29C0 /* DPBaseDataSource.h */,

@@ -48,14 +48,14 @@
     }
 
     if (cell == nil) {
-        UICollectionViewCell<FRCAdaptedCell> *frc_cell = [collectionView dequeueReusableCellWithReuseIdentifier:self.cellIdentifier forIndexPath:indexPath];
-        if ([frc_cell conformsToProtocol:@protocol(FRCAdaptedCell)]) {
+        UICollectionViewCell<DPDataSourceCell> *frc_cell = [collectionView dequeueReusableCellWithReuseIdentifier:self.cellIdentifier forIndexPath:indexPath];
+        if ([frc_cell conformsToProtocol:@protocol(DPDataSourceCell)]) {
             id object = [self objectAtIndexPath:indexPath];
             [frc_cell configureWithObject:object];
             cell = frc_cell;
         }
         else {
-            NSString *reason = [NSString stringWithFormat:@"Type '%@' does not conform to protocol '%@'", NSStringFromClass([frc_cell class]), NSStringFromProtocol(@protocol(FRCAdaptedCell))];
+            NSString *reason = [NSString stringWithFormat:@"Type '%@' does not conform to protocol '%@'", NSStringFromClass([frc_cell class]), NSStringFromProtocol(@protocol(DPDataSourceCell))];
             @throw [NSException exceptionWithName:NSInternalInconsistencyException reason:reason userInfo:nil];
         }
     }

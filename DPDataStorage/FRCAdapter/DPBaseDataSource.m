@@ -10,7 +10,6 @@
 #import "DPDataStorage.h"
 #import <UIKit/UITableView.h>
 
-
 @implementation NSFetchedResultsController (CommonFetchedResultsController)
 @end
 

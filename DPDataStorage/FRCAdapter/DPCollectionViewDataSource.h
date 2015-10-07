@@ -8,11 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "DPBaseDataSource.h"
-#import "FRCAdaptedCell.h"
+#import "DPDataSourceCell.h"
 
 @interface DPCollectionViewDataSource : DPBaseDataSource <UICollectionViewDataSource, UICollectionViewDelegate>
 @property (nonatomic, weak) IBOutlet UICollectionView *collectionView;
-@property (nonatomic, copy) IBInspectable NSString *cellIdentifier; // Cell must conform <FRCAdaptedCell>
+@property (nonatomic, copy) IBInspectable NSString *cellIdentifier; // Cell must conform <DPDataSourceCell>
 @property (nonatomic) IBInspectable BOOL disableAnimations;
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView;
