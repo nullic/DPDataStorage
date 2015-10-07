@@ -13,7 +13,7 @@ Pod::Spec.new do |s|
   s.source_files = "DPDataStorage", "DPDataStorage/*.{h,m}"
   s.requires_arc = true
 
-  s.subspec 'FRCAdapter' do |ss|
+  s.subspec 'DPDataSource' do |ss|
     ss.source_files = "DPDataStorage/DPDataSource/*.{h,m}"
   end
   
