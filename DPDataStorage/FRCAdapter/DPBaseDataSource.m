@@ -1,12 +1,12 @@
 //
-//  FRCBaseAdapter.m
+//  DPBaseDataSource.m
 //  DP Commons
 //
 //  Created by Dmitriy Petrusevich on 27/04/15.
 //  Copyright (c) 2015 Dmitriy Petrusevich. All rights reserved.
 //
 
-#import "FRCBaseAdapter.h"
+#import "DPBaseDataSource.h"
 #import "DPDataStorage.h"
 #import <UIKit/UITableView.h>
 
@@ -14,7 +14,7 @@
 @implementation NSFetchedResultsController (CommonFetchedResultsController)
 @end
 
-@implementation FRCBaseAdapter
+@implementation DPBaseDataSource
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];

@@ -7,10 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "FRCBaseAdapter.h"
+#import "DPBaseDataSource.h"
 #import "FRCAdaptedCell.h"
 
-@interface FRCTableViewAdapted : FRCBaseAdapter <UITableViewDataSource, UITableViewDelegate>
+@interface DPTableViewDataSource : DPBaseDataSource <UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, weak) IBOutlet UITableView *tableView;
 @property (nonatomic, copy) IBInspectable NSString *cellIdentifier; // Cell must conform <FRCAdaptedCell>
 @property (nonatomic) IBInspectable BOOL disableAnimations;

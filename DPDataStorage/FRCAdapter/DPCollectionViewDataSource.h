@@ -1,5 +1,5 @@
 //
-//  FRCCollectionVeiwAdapted.h
+//  DPCollectionViewDataSource.h
 //  Commentator
 //
 //  Created by Dmitriy Petrusevich on 28/04/15.
@@ -7,10 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "FRCBaseAdapter.h"
+#import "DPBaseDataSource.h"
 #import "FRCAdaptedCell.h"
 
-@interface FRCCollectionViewAdapted : FRCBaseAdapter <UICollectionViewDataSource, UICollectionViewDelegate>
+@interface DPCollectionViewDataSource : DPBaseDataSource <UICollectionViewDataSource, UICollectionViewDelegate>
 @property (nonatomic, weak) IBOutlet UICollectionView *collectionView;
 @property (nonatomic, copy) IBInspectable NSString *cellIdentifier; // Cell must conform <FRCAdaptedCell>
 @property (nonatomic) IBInspectable BOOL disableAnimations;

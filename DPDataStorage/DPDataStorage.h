@@ -13,8 +13,8 @@
 #import "NSManagedObjectModel+DataStorage.h"
 #import "NSManagedObject+DPDataStorage_Mapping.h"
 
-#import "FRCCollectionViewAdapted.h"
-#import "FRCTableViewAdapted.h"
+#import "DPCollectionViewDataSource.h"
+#import "DPTableViewDataSource.h"
 #import "DPArrayController.h"
 
 

@@ -18,9 +18,9 @@
 		76C887671BC3FBE8006B29C0 /* NSManagedObjectModel+DataStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 76C887551BC3FBE8006B29C0 /* NSManagedObjectModel+DataStorage.m */; };
 		76C887681BC3FBE8006B29C0 /* DPDataStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 76C887571BC3FBE8006B29C0 /* DPDataStorage.m */; };
 		76C887691BC3FBE8006B29C0 /* DPArrayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 76C8875A1BC3FBE8006B29C0 /* DPArrayController.m */; };
-		76C8876A1BC3FBE8006B29C0 /* FRCBaseAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 76C8875D1BC3FBE8006B29C0 /* FRCBaseAdapter.m */; };
-		76C8876B1BC3FBE8006B29C0 /* FRCCollectionViewAdapted.m in Sources */ = {isa = PBXBuildFile; fileRef = 76C8875F1BC3FBE8006B29C0 /* FRCCollectionViewAdapted.m */; };
-		76C8876C1BC3FBE8006B29C0 /* FRCTableViewAdapted.m in Sources */ = {isa = PBXBuildFile; fileRef = 76C887611BC3FBE8006B29C0 /* FRCTableViewAdapted.m */; };
+		76C8876A1BC3FBE8006B29C0 /* DPBaseDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 76C8875D1BC3FBE8006B29C0 /* DPBaseDataSource.m */; };
+		76C8876B1BC3FBE8006B29C0 /* DPCollectionViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 76C8875F1BC3FBE8006B29C0 /* DPCollectionViewDataSource.m */; };
+		76C8876C1BC3FBE8006B29C0 /* DPTableViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 76C887611BC3FBE8006B29C0 /* DPTableViewDataSource.m */; };
 		76C8876D1BC3FBE8006B29C0 /* NSManagedObject+DPDataStorage_Mapping.m in Sources */ = {isa = PBXBuildFile; fileRef = 76C887641BC3FBE8006B29C0 /* NSManagedObject+DPDataStorage_Mapping.m */; };
 /* End PBXBuildFile section */
 
@@ -46,12 +46,12 @@
 		76C887591BC3FBE8006B29C0 /* DPArrayController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPArrayController.h; sourceTree = "<group>"; };
 		76C8875A1BC3FBE8006B29C0 /* DPArrayController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPArrayController.m; sourceTree = "<group>"; };
 		76C8875B1BC3FBE8006B29C0 /* FRCAdaptedCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FRCAdaptedCell.h; sourceTree = "<group>"; };
-		76C8875C1BC3FBE8006B29C0 /* FRCBaseAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FRCBaseAdapter.h; sourceTree = "<group>"; };
-		76C8875D1BC3FBE8006B29C0 /* FRCBaseAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FRCBaseAdapter.m; sourceTree = "<group>"; };
-		76C8875E1BC3FBE8006B29C0 /* FRCCollectionViewAdapted.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FRCCollectionViewAdapted.h; sourceTree = "<group>"; };
-		76C8875F1BC3FBE8006B29C0 /* FRCCollectionViewAdapted.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FRCCollectionViewAdapted.m; sourceTree = "<group>"; };
-		76C887601BC3FBE8006B29C0 /* FRCTableViewAdapted.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FRCTableViewAdapted.h; sourceTree = "<group>"; };
-		76C887611BC3FBE8006B29C0 /* FRCTableViewAdapted.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FRCTableViewAdapted.m; sourceTree = "<group>"; };
+		76C8875C1BC3FBE8006B29C0 /* DPBaseDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPBaseDataSource.h; sourceTree = "<group>"; };
+		76C8875D1BC3FBE8006B29C0 /* DPBaseDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPBaseDataSource.m; sourceTree = "<group>"; };
+		76C8875E1BC3FBE8006B29C0 /* DPCollectionViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPCollectionViewDataSource.h; sourceTree = "<group>"; };
+		76C8875F1BC3FBE8006B29C0 /* DPCollectionViewDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPCollectionViewDataSource.m; sourceTree = "<group>"; };
+		76C887601BC3FBE8006B29C0 /* DPTableViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPTableViewDataSource.h; sourceTree = "<group>"; };
+		76C887611BC3FBE8006B29C0 /* DPTableViewDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPTableViewDataSource.m; sourceTree = "<group>"; };
 		76C887631BC3FBE8006B29C0 /* NSManagedObject+DPDataStorage_Mapping.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSManagedObject+DPDataStorage_Mapping.h"; sourceTree = "<group>"; };
 		76C887641BC3FBE8006B29C0 /* NSManagedObject+DPDataStorage_Mapping.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObject+DPDataStorage_Mapping.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -137,15 +137,15 @@
 		76C887581BC3FBE8006B29C0 /* FRCAdapter */ = {
 			isa = PBXGroup;
 			children = (
+				76C8875B1BC3FBE8006B29C0 /* FRCAdaptedCell.h */,
 				76C887591BC3FBE8006B29C0 /* DPArrayController.h */,
 				76C8875A1BC3FBE8006B29C0 /* DPArrayController.m */,
-				76C8875B1BC3FBE8006B29C0 /* FRCAdaptedCell.h */,
-				76C8875C1BC3FBE8006B29C0 /* FRCBaseAdapter.h */,
-				76C8875D1BC3FBE8006B29C0 /* FRCBaseAdapter.m */,
-				76C8875E1BC3FBE8006B29C0 /* FRCCollectionViewAdapted.h */,
-				76C8875F1BC3FBE8006B29C0 /* FRCCollectionViewAdapted.m */,
-				76C887601BC3FBE8006B29C0 /* FRCTableViewAdapted.h */,
-				76C887611BC3FBE8006B29C0 /* FRCTableViewAdapted.m */,
+				76C8875C1BC3FBE8006B29C0 /* DPBaseDataSource.h */,
+				76C8875D1BC3FBE8006B29C0 /* DPBaseDataSource.m */,
+				76C8875E1BC3FBE8006B29C0 /* DPCollectionViewDataSource.h */,
+				76C8875F1BC3FBE8006B29C0 /* DPCollectionViewDataSource.m */,
+				76C887601BC3FBE8006B29C0 /* DPTableViewDataSource.h */,
+				76C887611BC3FBE8006B29C0 /* DPTableViewDataSource.m */,
 			);
 			path = FRCAdapter;
 			sourceTree = "<group>";
@@ -229,12 +229,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				76C8876C1BC3FBE8006B29C0 /* FRCTableViewAdapted.m in Sources */,
-				76C8876B1BC3FBE8006B29C0 /* FRCCollectionViewAdapted.m in Sources */,
+				76C8876C1BC3FBE8006B29C0 /* DPTableViewDataSource.m in Sources */,
+				76C8876B1BC3FBE8006B29C0 /* DPCollectionViewDataSource.m in Sources */,
 				76C887681BC3FBE8006B29C0 /* DPDataStorage.m in Sources */,
 				76C8873F1BC3FBCD006B29C0 /* ViewController.m in Sources */,
 				76C8876D1BC3FBE8006B29C0 /* NSManagedObject+DPDataStorage_Mapping.m in Sources */,
-				76C8876A1BC3FBE8006B29C0 /* FRCBaseAdapter.m in Sources */,
+				76C8876A1BC3FBE8006B29C0 /* DPBaseDataSource.m in Sources */,
 				76C8873C1BC3FBCD006B29C0 /* AppDelegate.m in Sources */,
 				76C887391BC3FBCD006B29C0 /* main.m in Sources */,
 				76C887651BC3FBE8006B29C0 /* NSManagedObject+DataStorage.m in Sources */,
@@ -387,6 +387,7 @@
 				76C8874D1BC3FBCD006B29C0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

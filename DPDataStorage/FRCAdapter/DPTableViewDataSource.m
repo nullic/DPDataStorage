@@ -6,13 +6,13 @@
 //  Copyright (c) 2015 Dmitriy Petrusevich. All rights reserved.
 //
 
-#import "FRCTableViewAdapted.h"
+#import "DPTableViewDataSource.h"
 
-@interface FRCTableViewAdapted ()
+@interface DPTableViewDataSource ()
 @property (nonatomic, strong) NSMutableArray *updatesBlocks;
 @end
 
-@implementation FRCTableViewAdapted
+@implementation DPTableViewDataSource
 
 - (void)setTableView:(UITableView *)tableView {
     if (_tableView != tableView) {

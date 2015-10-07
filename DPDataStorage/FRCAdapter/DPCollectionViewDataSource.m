@@ -1,18 +1,18 @@
 //
-//  FRCCollectionVeiwAdapted.m
+//  DPCollectionViewDataSource.m
 //  Commentator
 //
 //  Created by Dmitriy Petrusevich on 28/04/15.
 //  Copyright (c) 2015 Dmitriy Petrusevich. All rights reserved.
 //
 
-#import "FRCCollectionViewAdapted.h"
+#import "DPCollectionViewDataSource.h"
 
-@interface FRCCollectionViewAdapted ()
+@interface DPCollectionViewDataSource ()
 @property (nonatomic, strong) NSMutableArray *updatesBlocks;
 @end
 
-@implementation FRCCollectionViewAdapted
+@implementation DPCollectionViewDataSource
 
 - (void)setCollectionView:(UICollectionView *)collectionView {
     if (_collectionView != collectionView) {

@@ -1,5 +1,5 @@
 //
-//  FRCBaseAdapter.h
+//  DPBaseDataSource.h
 //  DP Commons
 //
 //  Created by Dmitriy Petrusevich on 27/04/15.
@@ -34,7 +34,7 @@
 
 
 IB_DESIGNABLE
-@interface FRCBaseAdapter : NSObject <DataSourceContainerControllerDelegate, NSFetchedResultsControllerDelegate>
+@interface DPBaseDataSource : NSObject <DataSourceContainerControllerDelegate, NSFetchedResultsControllerDelegate>
 @property (nonatomic, weak) IBOutlet id forwardDelegate;
 @property (nonatomic, copy) IBInspectable NSString *fetchRequestTemplateName;
 @property (nonatomic, copy) IBInspectable NSString *sectionNameKeyPath;
