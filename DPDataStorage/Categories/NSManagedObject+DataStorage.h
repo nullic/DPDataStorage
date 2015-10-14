@@ -10,21 +10,21 @@
 
 @interface NSManagedObject (DataStorage)
 
-+ (instancetype)insertInContext:(NSManagedObjectContext *)context;
-+ (void)deleteAllEntriesInContext:(NSManagedObjectContext *)context;
-+ (NSUInteger)allEntriesCountInContext:(NSManagedObjectContext *)context;
++ (instancetype _Nonnull)insertInContext:(NSManagedObjectContext * _Nonnull)context;
++ (void)deleteAllEntriesInContext:(NSManagedObjectContext * _Nonnull)context;
++ (NSUInteger)allEntriesCountInContext:(NSManagedObjectContext * _Nonnull)context;
 
-+ (instancetype)entryWithValue:(id<NSObject>)value forKey:(NSString *)key inContext:(NSManagedObjectContext *)context;
-+ (NSArray *)entriesWithValue:(id<NSObject>)value forKey:(NSString *)key inContext:(NSManagedObjectContext *)context;
-+ (instancetype)anyEntryInContext:(NSManagedObjectContext *)context;
-+ (NSArray *)allEntriesInContext:(NSManagedObjectContext *)context;
++ (instancetype _Nullable)entryWithValue:(id<NSObject> _Nullable)value forKey:(NSString * _Nonnull)key inContext:(NSManagedObjectContext * _Nonnull)context;
++ (NSArray <__kindof NSManagedObject *>* _Nonnull)entriesWithValue:(id<NSObject> _Nullable)value forKey:(NSString * _Nonnull)key inContext:(NSManagedObjectContext * _Nonnull)context;
++ (instancetype _Nullable)anyEntryInContext:(NSManagedObjectContext * _Nonnull)context;
++ (NSArray <__kindof NSManagedObject *>* _Nonnull)allEntriesInContext:(NSManagedObjectContext * _Nonnull)context;
 
-+ (NSFetchRequest *)newFetchRequestInContext:(NSManagedObjectContext *)context;
-+ (NSFetchedResultsController *)fetchedResultsController:(id<NSFetchedResultsControllerDelegate>)delegate
-                                               predicate:(NSPredicate *)predicate
-                                         sortDescriptors:(NSArray *)sortDescriptors
-                                               inContext:(NSManagedObjectContext *)context;
++ (NSFetchRequest * _Nonnull)newFetchRequestInContext:(NSManagedObjectContext * _Nonnull)context;
++ (NSFetchedResultsController * _Nonnull)fetchedResultsController:(id<NSFetchedResultsControllerDelegate> _Nullable)delegate
+                                                        predicate:(NSPredicate * _Nullable)predicate
+                                                  sortDescriptors:(NSArray * _Nonnull)sortDescriptors
+                                                        inContext:(NSManagedObjectContext * _Nonnull)context;
 
-- (BOOL)validate:(NSError **)error;
+- (BOOL)validate:(NSError * _Nullable * _Nullable)error;
 
 @end

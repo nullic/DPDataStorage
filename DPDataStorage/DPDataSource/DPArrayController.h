@@ -11,27 +11,27 @@
 @interface DPArrayController : NSObject <DataSourceContainerController>
 @property (nonatomic, weak) id<DataSourceContainerControllerDelegate> delegate;
 @property (nonatomic, assign) BOOL removeEmptySectionsAutomaticaly; // Default YES
-@property (nonatomic, strong) NSPredicate *filter;
+@property (nonatomic, strong) NSPredicate * _Nullable filter;
 
-- (instancetype)initWithDelegate:(id<DataSourceContainerControllerDelegate>)delegate;
+- (instancetype _Nonnull)initWithDelegate:(id<DataSourceContainerControllerDelegate> _Nullable)delegate;
 
 - (void)removeAllObjects;
 
-- (void)insertObject:(id)object atIndextPath:(NSIndexPath *)indexPath;
-- (void)deleteObjectAtIndextPath:(NSIndexPath *)indexPath;
-- (void)reloadObjectAtIndextPath:(NSIndexPath *)indexPath;
-- (void)moveObjectAtIndextPath:(NSIndexPath *)indexPath toIndexPath:(NSIndexPath *)newIndexPath;
+- (void)insertObject:(id _Nonnull)object atIndextPath:(NSIndexPath * _Nonnull)indexPath;
+- (void)deleteObjectAtIndextPath:(NSIndexPath * _Nonnull)indexPath;
+- (void)reloadObjectAtIndextPath:(NSIndexPath * _Nonnull)indexPath;
+- (void)moveObjectAtIndextPath:(NSIndexPath * _Nonnull)indexPath toIndexPath:(NSIndexPath * _Nonnull)newIndexPath;
 
 - (void)insertSectionAtIndex:(NSUInteger)index;
 - (void)removeSectionAtIndex:(NSUInteger)index;
 - (void)removeEmptySections;
 
-- (void)addObjects:(NSArray *)objects atSection:(NSInteger)section;
-- (void)setObjects:(NSArray *)objects atSection:(NSInteger)section;
+- (void)addObjects:(NSArray * _Nullable)objects atSection:(NSInteger)section;
+- (void)setObjects:(NSArray * _Nullable)objects atSection:(NSInteger)section;
 
 - (void)startUpdating;
 - (void)endUpdating;
 
-- (id)objectAtIndexPath:(NSIndexPath *)indexPath;
-- (NSIndexPath *)indexPathForObject:(id)object;
+- (id _Nonnull)objectAtIndexPath:(NSIndexPath * _Nonnull)indexPath;
+- (NSIndexPath * _Nullable)indexPathForObject:(id _Nonnull)object;
 @end

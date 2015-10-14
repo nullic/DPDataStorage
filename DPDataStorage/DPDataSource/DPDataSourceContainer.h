@@ -12,19 +12,19 @@
 
 @protocol DataSourceContainerControllerDelegate <NSObject>
 @optional
-- (void)controller:(id<DataSourceContainerController>)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath;
+- (void)controller:(id<DataSourceContainerController> _Nonnull)controller didChangeObject:(id _Nonnull)anObject atIndexPath:(NSIndexPath * _Nullable)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath * _Nullable)newIndexPath;
 @optional
-- (void)controller:(id<DataSourceContainerController>)controller didChangeSection:(id <NSFetchedResultsSectionInfo>)sectionInfo atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type;
+- (void)controller:(id<DataSourceContainerController> _Nonnull)controller didChangeSection:(id <NSFetchedResultsSectionInfo> _Nonnull)sectionInfo atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type;
 @optional
-- (void)controllerWillChangeContent:(id<DataSourceContainerController>)controller;
+- (void)controllerWillChangeContent:(id<DataSourceContainerController> _Nonnull)controller;
 @optional
-- (void)controllerDidChangeContent:(id<DataSourceContainerController>)controller;
+- (void)controllerDidChangeContent:(id<DataSourceContainerController> _Nonnull)controller;
 @end
 
 @protocol DataSourceContainerController <NSObject>
 @property (nonatomic, weak) id<DataSourceContainerControllerDelegate> delegate;
-@property (nonatomic, readonly) NSArray *sections; // @[<NSFetchedResultsSectionInfo>]
+@property (nonatomic, readonly) NSArray * _Nonnull sections; // @[<NSFetchedResultsSectionInfo>]
 
-- (id)objectAtIndexPath:(NSIndexPath *)indexPath;
-- (NSIndexPath *)indexPathForObject:(id)object;
+- (id _Nonnull)objectAtIndexPath:(NSIndexPath * _Nonnull)indexPath;
+- (NSIndexPath * _Nullable)indexPathForObject:(id _Nonnull)object;
 @end

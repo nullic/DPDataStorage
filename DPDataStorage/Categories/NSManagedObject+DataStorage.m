@@ -69,7 +69,7 @@
     id result = [context executeFetchRequest:fetchRequest error:&error];
     FAIL_ON_ERROR(error);
 
-    return result;
+    return result ? result : @[];
 }
 
 + (instancetype)anyEntryInContext:(NSManagedObjectContext *)context {
@@ -90,7 +90,7 @@
 	NSArray *result = [context executeFetchRequest:fetchRequest error:&error];
     FAIL_ON_ERROR(error);
     
-    return result;
+    return result ? result : @[];
 }
 
 #pragma mark -

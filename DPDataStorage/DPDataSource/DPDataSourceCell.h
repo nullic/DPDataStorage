@@ -7,5 +7,5 @@
 //
 
 @protocol DPDataSourceCell <NSObject>
-- (void)configureWithObject:(id)object;
+- (void)configureWithObject:(id _Nonnull)object;
 @end

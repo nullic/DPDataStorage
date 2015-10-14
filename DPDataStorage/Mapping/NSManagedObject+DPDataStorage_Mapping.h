@@ -9,10 +9,10 @@
 #import <CoreData/CoreData.h>
 
 @interface NSManagedObject (DPDataStorage_Mapping)
-+ (id)transformImportValue:(id)value importKey:(NSString *)importKey propertyDescription:(NSPropertyDescription *)propertyDescription;
++ (id _Nullable)transformImportValue:(id _Nonnull)value importKey:(NSString * _Nonnull)importKey propertyDescription:(NSPropertyDescription * _Nonnull)propertyDescription;
 
-+ (NSArray *)updateWithArray:(NSArray *)array inContext:(NSManagedObjectContext *)context error:(NSError **)out_error;
-+ (instancetype)updateWithDictionary:(NSDictionary *)dictionary inContext:(NSManagedObjectContext *)context error:(NSError **)out_error;
-- (BOOL)updateAttributesWithDictionary:(NSDictionary *)dictionary error:(NSError **)out_error;
-- (BOOL)updateRelationshipsWithDictionary:(NSDictionary *)dictionary error:(NSError **)out_error;
++ (NSArray <__kindof NSManagedObject *>* _Nullable)updateWithArray:(NSArray * _Nonnull)array inContext:(NSManagedObjectContext * _Nonnull)context error:(NSError * _Nullable * _Nullable)out_error;
++ (instancetype _Nullable)updateWithDictionary:(NSDictionary * _Nonnull)dictionary inContext:(NSManagedObjectContext * _Nonnull)context error:(NSError * _Nullable * _Nullable)out_error;
+- (BOOL)updateAttributesWithDictionary:(NSDictionary * _Nonnull)dictionary error:(NSError * _Nullable * _Nullable)out_error;
+- (BOOL)updateRelationshipsWithDictionary:(NSDictionary * _Nonnull)dictionary error:(NSError * _Nullable * _Nullable)out_error;
 @end

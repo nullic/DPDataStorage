@@ -18,13 +18,13 @@
 #import "DPArrayController.h"
 
 
-DISPATCH_EXPORT dispatch_queue_t _dispatch_parser_q;
+DISPATCH_EXPORT dispatch_queue_t _Nonnull _dispatch_parser_q;
 #define dispatch_get_parser_queue() (_dispatch_parser_q)
 
-extern NSString * const DPDataStorageDefaultStorageDidChangeNotification;
+extern NSString * const _Nonnull DPDataStorageDefaultStorageDidChangeNotification;
 
-extern NSString * const DPDataStorageFetchRequestTemplateDidChangeNotification;
-extern NSString * const DPDataStorageNotificationNameKey;
+extern NSString * const _Nonnull DPDataStorageFetchRequestTemplateDidChangeNotification;
+extern NSString * const _Nonnull DPDataStorageNotificationNameKey;
 
 #define DPMainThreadAssert() NSAssert([NSThread isMainThread], @"%s should be call in main thread only", __FUNCTION__)
 
@@ -36,23 +36,24 @@ extern NSString * const DPDataStorageNotificationNameKey;
 #endif
 
 @interface DPDataStorage : NSObject
-@property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;
-@property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
-@property (readonly, strong, nonatomic) NSManagedObjectContext *mainContext;
-@property (readonly, strong, nonatomic) NSURL *URL;
-@property (readonly, strong, nonatomic) NSDictionary *classNameToEntityNameMap;
+@property (readonly, strong, nonatomic) NSManagedObjectModel * _Null_unspecified managedObjectModel;
+@property (readonly, strong, nonatomic) NSPersistentStoreCoordinator * _Null_unspecified persistentStoreCoordinator;
+@property (readonly, strong, nonatomic) NSManagedObjectContext * _Null_unspecified mainContext;
+@property (readonly, strong, nonatomic) NSURL * _Null_unspecified URL;
+@property (readonly, strong, nonatomic) NSDictionary * _Null_unspecified classNameToEntityNameMap;
 
-+ (NSURL *)defaultDatabaseURL;
++ (nonnull NSURL *)defaultDatabaseURL;
++ (void)resetDefaultStorage;
 
-+ (BOOL)setupDefaultStorageWithModelName:(NSString *)modelName storageURL:(NSURL *)storageURL;
-+ (instancetype)defaultStorage;
-+ (instancetype)storageWithModelURL:(NSURL *)modelURL storageURL:(NSURL *)storageURL;
++ (BOOL)setupDefaultStorageWithModelName:(NSString * _Nullable)modelName storageURL:(NSURL * _Nullable)storageURL;
++ (instancetype _Null_unspecified)defaultStorage;
++ (instancetype _Nullable)storageWithModelURL:(NSURL * _Nullable)modelURL storageURL:(NSURL * _Nullable)storageURL;
 - (void)makeDefault;
 
-- (void)setFetchRequestTemplate:(NSFetchRequest *)fetchRequestTemplate forName:(NSString *)name;
-- (void)setFetchRequestTemplateWithEntityName:(NSString *)entityName predicate:(NSPredicate *)predicate sortDescriptors:(NSArray *)sortDescriptors forName:(NSString *)name;
+- (void)setFetchRequestTemplate:(NSFetchRequest * _Nullable)fetchRequestTemplate forName:(NSString * _Null_unspecified)name;
+- (void)setFetchRequestTemplateWithEntityName:(NSString * _Nonnull)entityName predicate:(NSPredicate * _Nullable)predicate sortDescriptors:(NSArray * _Nullable)sortDescriptors forName:(NSString * _Nonnull)name;
 
-- (NSManagedObjectContext *)newManagedObjectContext;
-- (NSManagedObjectContext *)newMainQueueManagedObjectContext;
-- (NSManagedObjectContext *)newPrivateQueueManagedObjectContext;
+- (NSManagedObjectContext * _Null_unspecified)newManagedObjectContext NS_ENUM_DEPRECATED(10_4,10_11,3_0,9_0, "Use another NSManagedObjectContextConcurrencyType");
+- (NSManagedObjectContext * _Null_unspecified)newMainQueueManagedObjectContext;
+- (NSManagedObjectContext * _Null_unspecified)newPrivateQueueManagedObjectContext;
 @end

@@ -11,17 +11,17 @@
 @interface NSManagedObjectContext (DataStorage)
 @property (nonatomic, getter=isReadOnly) BOOL readOnly;
 
-+ (NSManagedObjectContext *)mainContext;
-+ (NSManagedObjectContext *)newManagedObjectContext;
-+ (NSManagedObjectContext *)newMainQueueManagedObjectContext;
-+ (NSManagedObjectContext *)newPrivateQueueManagedObjectContext;
++ (NSManagedObjectContext * _Null_unspecified)mainContext;
++ (NSManagedObjectContext * _Null_unspecified)newManagedObjectContext NS_ENUM_DEPRECATED(10_4,10_11,3_0,9_0, "Use another NSManagedObjectContextConcurrencyType");
++ (NSManagedObjectContext * _Null_unspecified)newMainQueueManagedObjectContext;
++ (NSManagedObjectContext * _Null_unspecified)newPrivateQueueManagedObjectContext;
 
-- (NSManagedObjectContext *)newChildManagedObjectContext;
-- (NSManagedObjectContext *)newChildMainQueueManagedObjectContext;
-- (NSManagedObjectContext *)newChildPrivateQueueManagedObjectContext;
+- (NSManagedObjectContext * _Null_unspecified)newChildManagedObjectContext NS_ENUM_DEPRECATED(10_4,10_11,3_0,9_0, "Use another NSManagedObjectContextConcurrencyType");
+- (NSManagedObjectContext * _Null_unspecified)newChildMainQueueManagedObjectContext;
+- (NSManagedObjectContext * _Null_unspecified)newChildPrivateQueueManagedObjectContext;
 
-- (NSString *)entityNameForManagedObjectClass:(Class)objectClass;
-- (NSEntityDescription *)entityDescriptionForManagedObjectClass:(Class)objectClass;
+- (NSString * _Nonnull)entityNameForManagedObjectClass:(Class _Nonnull)objectClass;
+- (NSEntityDescription * _Nonnull)entityDescriptionForManagedObjectClass:(Class _Nonnull)objectClass;
 
-- (BOOL)saveChanges:(NSError **)error;
+- (BOOL)saveChanges:(NSError * _Nullable * _Nullable)error;
 @end

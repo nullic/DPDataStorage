@@ -10,6 +10,6 @@
 #import "NSManagedObject+DPDataStorage_Mapping.h"
 
 @interface NSManagedObjectModel (DataStorage)
-- (NSString *)entityNameForManagedObjectClass:(Class)objectClass;
-- (NSEntityDescription *)entityDescriptionForManagedObjectClass:(Class)objectClass;
+- (NSString * _Nonnull)entityNameForManagedObjectClass:(Class _Nonnull)objectClass;
+- (NSEntityDescription * _Nonnull)entityDescriptionForManagedObjectClass:(Class _Nonnull)objectClass;
 @end

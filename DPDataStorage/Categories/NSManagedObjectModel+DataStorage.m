@@ -26,6 +26,7 @@
         }
     }
 
+    NSAssert(result != nil, @"Can't find 'NSEntityDescription' for %@", objectClass);
     return result;
 }
 
