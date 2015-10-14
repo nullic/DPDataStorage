@@ -36,13 +36,13 @@ extern NSString * const _Nonnull DPDataStorageNotificationNameKey;
 #endif
 
 @interface DPDataStorage : NSObject
-@property (readonly, strong, nonatomic) NSManagedObjectModel * _Null_unspecified managedObjectModel;
-@property (readonly, strong, nonatomic) NSPersistentStoreCoordinator * _Null_unspecified persistentStoreCoordinator;
-@property (readonly, strong, nonatomic) NSManagedObjectContext * _Null_unspecified mainContext;
-@property (readonly, strong, nonatomic) NSURL * _Null_unspecified URL;
-@property (readonly, strong, nonatomic) NSDictionary * _Null_unspecified classNameToEntityNameMap;
+@property (readonly, strong, nonatomic) NSManagedObjectModel * _Nonnull managedObjectModel;
+@property (readonly, strong, nonatomic) NSPersistentStoreCoordinator * _Nonnull persistentStoreCoordinator;
+@property (readonly, strong, nonatomic) NSManagedObjectContext * _Nonnull mainContext;
+@property (readonly, strong, nonatomic) NSURL * _Nullable URL;
+@property (readonly, strong, nonatomic) NSDictionary * _Nonnull classNameToEntityNameMap;
 
-+ (nonnull NSURL *)defaultDatabaseURL;
++ (NSURL * _Nonnull)defaultDatabaseURL;
 + (void)resetDefaultStorage;
 
 + (BOOL)setupDefaultStorageWithModelName:(NSString * _Nullable)modelName storageURL:(NSURL * _Nullable)storageURL;
@@ -53,7 +53,7 @@ extern NSString * const _Nonnull DPDataStorageNotificationNameKey;
 - (void)setFetchRequestTemplate:(NSFetchRequest * _Nullable)fetchRequestTemplate forName:(NSString * _Null_unspecified)name;
 - (void)setFetchRequestTemplateWithEntityName:(NSString * _Nonnull)entityName predicate:(NSPredicate * _Nullable)predicate sortDescriptors:(NSArray * _Nullable)sortDescriptors forName:(NSString * _Nonnull)name;
 
-- (NSManagedObjectContext * _Null_unspecified)newManagedObjectContext NS_ENUM_DEPRECATED(10_4,10_11,3_0,9_0, "Use another NSManagedObjectContextConcurrencyType");
-- (NSManagedObjectContext * _Null_unspecified)newMainQueueManagedObjectContext;
-- (NSManagedObjectContext * _Null_unspecified)newPrivateQueueManagedObjectContext;
+- (NSManagedObjectContext * _Nonnull)newManagedObjectContext NS_ENUM_DEPRECATED(10_4,10_11,3_0,9_0, "Use another NSManagedObjectContextConcurrencyType");
+- (NSManagedObjectContext * _Nonnull)newMainQueueManagedObjectContext;
+- (NSManagedObjectContext * _Nonnull)newPrivateQueueManagedObjectContext;
 @end
