@@ -42,7 +42,10 @@ extern NSString * const _Nonnull DPDataStorageNotificationNameKey;
 @property (readonly, strong, nonatomic) NSURL * _Nullable URL;
 @property (readonly, strong, nonatomic) NSDictionary * _Nonnull classNameToEntityNameMap;
 
-+ (NSURL * _Nonnull)defaultDatabaseURL;
+/**
+ @return URL for DataStorage.sqlite file in documents dir that can be used for creating storage.
+*/
++ (NSURL * _Nonnull)storageDefaultURL;
 + (void)resetDefaultStorage;
 
 + (BOOL)setupDefaultStorageWithModelName:(NSString * _Nullable)modelName storageURL:(NSURL * _Nullable)storageURL;

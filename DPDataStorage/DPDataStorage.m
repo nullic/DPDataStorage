@@ -83,7 +83,7 @@ NSString * const DPDataStorageNotificationNameKey = @"name";
     }
 }
 
-+ (NSURL *)defaultDatabaseURL {
++ (NSURL *)storageDefaultURL {
     NSString *bundleID = [[[[NSBundle mainBundle] infoDictionary] valueForKey:@"CFBundleIdentifier"] lowercaseString];
     NSString *path = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES)[0];
     path = [path stringByAppendingPathComponent:bundleID];
