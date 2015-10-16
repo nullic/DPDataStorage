@@ -12,7 +12,6 @@
 #import "DPDataStorage.h"
 
 @interface ViewController ()
-@property (nonatomic, strong) NSFetchedResultsController *controller;
 @property (strong, nonatomic) IBOutlet DPTableViewDataSource *dataSource;
 @end
 
@@ -22,9 +21,8 @@
     [super viewDidLoad];
     NSManagedObjectContext *context = [[DPDataStorage defaultStorage] mainContext];
     NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES];
-    self.controller = [Programmer fetchedResultsController:self.dataSource predicate:nil
-                                           sortDescriptors:@[sortDescriptor] inContext:context];
-    self.dataSource.listController = self.controller;
+    self.dataSource.listController = [Programmer fetchedResultsController:self.dataSource predicate:nil
+                                                          sortDescriptors:@[sortDescriptor] inContext:context];
 }
 
 - (void)didReceiveMemoryWarning {
