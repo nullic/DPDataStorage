@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		765D80051BD0F07C00CAB832 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 765D80031BD0F07C00CAB832 /* Model.xcdatamodeld */; };
+		765D800E1BD0F61200CAB832 /* Computer+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 765D80071BD0F61200CAB832 /* Computer+CoreDataProperties.m */; };
+		765D800F1BD0F61200CAB832 /* Computer.m in Sources */ = {isa = PBXBuildFile; fileRef = 765D80091BD0F61200CAB832 /* Computer.m */; };
+		765D80101BD0F61200CAB832 /* Programmer+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 765D800B1BD0F61200CAB832 /* Programmer+CoreDataProperties.m */; };
+		765D80111BD0F61200CAB832 /* Programmer.m in Sources */ = {isa = PBXBuildFile; fileRef = 765D800D1BD0F61200CAB832 /* Programmer.m */; };
 		76C887391BC3FBCD006B29C0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 76C887381BC3FBCD006B29C0 /* main.m */; };
 		76C8873C1BC3FBCD006B29C0 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 76C8873B1BC3FBCD006B29C0 /* AppDelegate.m */; };
 		76C8873F1BC3FBCD006B29C0 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 76C8873E1BC3FBCD006B29C0 /* ViewController.m */; };
@@ -25,6 +30,15 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		765D80041BD0F07C00CAB832 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		765D80061BD0F61200CAB832 /* Computer+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Computer+CoreDataProperties.h"; sourceTree = "<group>"; };
+		765D80071BD0F61200CAB832 /* Computer+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Computer+CoreDataProperties.m"; sourceTree = "<group>"; };
+		765D80081BD0F61200CAB832 /* Computer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Computer.h; sourceTree = "<group>"; };
+		765D80091BD0F61200CAB832 /* Computer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Computer.m; sourceTree = "<group>"; };
+		765D800A1BD0F61200CAB832 /* Programmer+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Programmer+CoreDataProperties.h"; sourceTree = "<group>"; };
+		765D800B1BD0F61200CAB832 /* Programmer+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Programmer+CoreDataProperties.m"; sourceTree = "<group>"; };
+		765D800C1BD0F61200CAB832 /* Programmer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Programmer.h; sourceTree = "<group>"; };
+		765D800D1BD0F61200CAB832 /* Programmer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Programmer.m; sourceTree = "<group>"; };
 		76C887341BC3FBCD006B29C0 /* DPDataStorageDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DPDataStorageDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		76C887381BC3FBCD006B29C0 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		76C8873A1BC3FBCD006B29C0 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -68,6 +82,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		765D80021BD0F06F00CAB832 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				765D80031BD0F07C00CAB832 /* Model.xcdatamodeld */,
+				765D80061BD0F61200CAB832 /* Computer+CoreDataProperties.h */,
+				765D80071BD0F61200CAB832 /* Computer+CoreDataProperties.m */,
+				765D80081BD0F61200CAB832 /* Computer.h */,
+				765D80091BD0F61200CAB832 /* Computer.m */,
+				765D800A1BD0F61200CAB832 /* Programmer+CoreDataProperties.h */,
+				765D800B1BD0F61200CAB832 /* Programmer+CoreDataProperties.m */,
+				765D800C1BD0F61200CAB832 /* Programmer.h */,
+				765D800D1BD0F61200CAB832 /* Programmer.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		76C8872B1BC3FBCD006B29C0 = {
 			isa = PBXGroup;
 			children = (
@@ -88,6 +118,7 @@
 		76C887361BC3FBCD006B29C0 /* DPDataStorageDemo */ = {
 			isa = PBXGroup;
 			children = (
+				765D80021BD0F06F00CAB832 /* Model */,
 				76C8873A1BC3FBCD006B29C0 /* AppDelegate.h */,
 				76C8873B1BC3FBCD006B29C0 /* AppDelegate.m */,
 				76C8873D1BC3FBCD006B29C0 /* ViewController.h */,
@@ -232,7 +263,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				76C887681BC3FBE8006B29C0 /* DPDataStorage.m in Sources */,
+				765D80101BD0F61200CAB832 /* Programmer+CoreDataProperties.m in Sources */,
 				76C8873F1BC3FBCD006B29C0 /* ViewController.m in Sources */,
+				765D800E1BD0F61200CAB832 /* Computer+CoreDataProperties.m in Sources */,
+				765D800F1BD0F61200CAB832 /* Computer.m in Sources */,
 				76C8877A1BC54977006B29C0 /* DPArrayController.m in Sources */,
 				76C8877B1BC54977006B29C0 /* DPBaseDataSource.m in Sources */,
 				76C8876D1BC3FBE8006B29C0 /* NSManagedObject+DPDataStorage_Mapping.m in Sources */,
@@ -240,8 +274,10 @@
 				76C887391BC3FBCD006B29C0 /* main.m in Sources */,
 				76C887651BC3FBE8006B29C0 /* NSManagedObject+DataStorage.m in Sources */,
 				76C8877D1BC54977006B29C0 /* DPTableViewDataSource.m in Sources */,
+				765D80111BD0F61200CAB832 /* Programmer.m in Sources */,
 				76C887661BC3FBE8006B29C0 /* NSManagedObjectContext+DataStorage.m in Sources */,
 				76C887671BC3FBE8006B29C0 /* NSManagedObjectModel+DataStorage.m in Sources */,
+				765D80051BD0F07C00CAB832 /* Model.xcdatamodeld in Sources */,
 				76C8877C1BC54977006B29C0 /* DPCollectionViewDataSource.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -392,6 +428,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		765D80031BD0F07C00CAB832 /* Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				765D80041BD0F07C00CAB832 /* Model.xcdatamodel */,
+			);
+			currentVersion = 765D80041BD0F07C00CAB832 /* Model.xcdatamodel */;
+			path = Model.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 76C8872C1BC3FBCD006B29C0 /* Project object */;
 }
