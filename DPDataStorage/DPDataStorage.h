@@ -42,21 +42,68 @@ extern NSString * const _Nonnull DPDataStorageNotificationNameKey;
 @property (readonly, strong, nonatomic) NSURL * _Nullable URL;
 @property (readonly, strong, nonatomic) NSDictionary * _Nonnull classNameToEntityNameMap;
 
+/*!
+ @discussion Before using should be setup with  + [self setupDefaultStorageWithModelName:storageURL:] or - [self makeDefault].
+ @return Default DPDataSotrage object associated with application.
+ */
++ (instancetype _Null_unspecified)defaultStorage;
+
 /**
- @return URL for DataStorage.sqlite file in documents dir that can be used for creating storage.
-*/
+ @function
+ @param modelName Use to set name for model that should be loaded for default storage. 
+  If passed `nil` model whould be created with 'mergedModelFromBundles:nil' that  merge all models from main bundle.
+ @param storageURL Use to set URL for storage file. You can use `storageDefaultURL` here for default path.
+  If passed `nil` persistent store whould be created with type `NSInMemoryStoreType`.
+ @return YES if setup was successed, NO otherwise.
+ */
++ (BOOL)setupDefaultStorageWithModelName:(NSString * _Nullable)modelName storageURL:(NSURL * _Nullable)storageURL;
+
+/**
+ @return URL for DataStorage.sqlite file in documents directory that can be used for creating storage.
+ */
 + (NSURL * _Nonnull)storageDefaultURL;
+
+/**
+ @function
+ @discussion Use to set current `DPDataStorage` object as default.
+ */
+- (void)makeDefault;
+
+/**
+ @function
+ @discussion Use to set current default `DPDataStorage` object to nil .
+ */
 + (void)resetDefaultStorage;
 
-+ (BOOL)setupDefaultStorageWithModelName:(NSString * _Nullable)modelName storageURL:(NSURL * _Nullable)storageURL;
-+ (instancetype _Null_unspecified)defaultStorage;
+/**
+ @function
+ @param modelURL Use to set URL for model that should be loaded for default storage.
+  If passed `nil` model whould be created with 'mergedModelFromBundles:nil' that  merge all models from main bundle.
+ @param storageURL Use to set URL for storage file. You can use `storageDefaultURL` here for default path.
+  If passed `nil` persistent store whould be created with type `NSInMemoryStoreType`.
+ @return Initialized DPDataStorage object with provided info.
+ */
 + (instancetype _Nullable)storageWithModelURL:(NSURL * _Nullable)modelURL storageURL:(NSURL * _Nullable)storageURL;
-- (void)makeDefault;
+
+/**
+ @function
+ @return Initialized NSManagedObjectContext with `NSMainQueueConcurrencyType` concurrency type.
+ */
+- (NSManagedObjectContext * _Nonnull)newMainQueueManagedObjectContext;
+
+/**
+ @function
+ @return Initialized NSManagedObjectContext with `NSPrivateQueueConcurrencyType` concurrency type.
+ */
+- (NSManagedObjectContext * _Nonnull)newPrivateQueueManagedObjectContext;
+
+/**
+ @function
+ @return Initialized NSManagedObjectContext with `NSConfinementConcurrencyType` concurrency type.
+ */
+- (NSManagedObjectContext * _Nonnull)newManagedObjectContext NS_ENUM_DEPRECATED(10_4,10_11,3_0,9_0, "Use another NSManagedObjectContextConcurrencyType");
 
 - (void)setFetchRequestTemplate:(NSFetchRequest * _Nullable)fetchRequestTemplate forName:(NSString * _Null_unspecified)name;
 - (void)setFetchRequestTemplateWithEntityName:(NSString * _Nonnull)entityName predicate:(NSPredicate * _Nullable)predicate sortDescriptors:(NSArray * _Nullable)sortDescriptors forName:(NSString * _Nonnull)name;
 
-- (NSManagedObjectContext * _Nonnull)newManagedObjectContext NS_ENUM_DEPRECATED(10_4,10_11,3_0,9_0, "Use another NSManagedObjectContextConcurrencyType");
-- (NSManagedObjectContext * _Nonnull)newMainQueueManagedObjectContext;
-- (NSManagedObjectContext * _Nonnull)newPrivateQueueManagedObjectContext;
 @end

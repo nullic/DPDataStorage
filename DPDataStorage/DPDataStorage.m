@@ -128,7 +128,7 @@ NSString * const DPDataStorageNotificationNameKey = @"name";
         storage.managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
     }
     else {
-        storage.managedObjectModel = [NSManagedObjectModel mergedModelFromBundles:@[[NSBundle mainBundle]]];
+        storage.managedObjectModel = [NSManagedObjectModel mergedModelFromBundles:nil];
     }
 
     return storage.managedObjectModel ? storage : nil;
