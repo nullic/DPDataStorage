@@ -17,12 +17,12 @@
 IB_DESIGNABLE
 @interface DPBaseDataSource : NSObject <DataSourceContainerControllerDelegate, NSFetchedResultsControllerDelegate>
 @property (nonatomic, weak) IBOutlet id forwardDelegate;
-@property (nonatomic, strong) id<DataSourceContainerController> _Nullable listController;
+@property (nonatomic, strong, nullable) IBOutlet id<DataSourceContainerController> listController;
 
 - (NSInteger)numberOfSections;
 - (NSInteger)numberOfItemsInSection:(NSInteger)section;
 
-- (id _Nonnull)objectAtIndexPath:(NSIndexPath * _Nonnull)indexPath;
+- (id _Null_unspecified)objectAtIndexPath:(NSIndexPath * _Nonnull)indexPath;
 - (NSIndexPath * _Nullable)indexPathForObject:(id _Nonnull)object;
 @end
 

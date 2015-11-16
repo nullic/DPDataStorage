@@ -9,9 +9,9 @@
 #import "DPBaseDataSource.h"
 
 @interface DPArrayController : NSObject <DataSourceContainerController>
-@property (nonatomic, weak) id<DataSourceContainerControllerDelegate> delegate;
-@property (nonatomic, assign) BOOL removeEmptySectionsAutomaticaly; // Default YES
-@property (nonatomic, strong) NSPredicate * _Nullable filter;
+@property (nonatomic, weak) IBOutlet id<DataSourceContainerControllerDelegate> delegate;
+@property (nonatomic, assign) IBInspectable BOOL removeEmptySectionsAutomaticaly; // Default YES
+@property (nonatomic, strong, nullable) NSPredicate *filter;
 
 - (instancetype _Nonnull)initWithDelegate:(id<DataSourceContainerControllerDelegate> _Nullable)delegate;
 

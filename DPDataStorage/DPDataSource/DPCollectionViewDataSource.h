@@ -10,7 +10,7 @@
 
 @interface DPCollectionViewDataSource : DPBaseDataSource <UICollectionViewDataSource, UICollectionViewDelegate>
 @property (nonatomic, weak) IBOutlet UICollectionView *collectionView;
-@property (nonatomic, copy) IBInspectable NSString * _Nullable cellIdentifier; // Cell must conform <DPDataSourceCell>
+@property (nonatomic, copy, nullable) IBInspectable NSString *cellIdentifier; // Cell must conform <DPDataSourceCell>
 @property (nonatomic) IBInspectable BOOL disableAnimations;
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView * _Nullable)collectionView;

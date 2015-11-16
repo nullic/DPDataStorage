@@ -10,7 +10,7 @@
 
 @interface DPTableViewDataSource : DPBaseDataSource <UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, weak) IBOutlet UITableView *tableView;
-@property (nonatomic, copy) IBInspectable NSString * _Nullable cellIdentifier; // Cell must conform <DPDataSourceCell>
+@property (nonatomic, copy, nullable) IBInspectable NSString *cellIdentifier; // Cell must conform <DPDataSourceCell>
 @property (nonatomic) IBInspectable BOOL disableAnimations;
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView * _Nullable)tableView;
