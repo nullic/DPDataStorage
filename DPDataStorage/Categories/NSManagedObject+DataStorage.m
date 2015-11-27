@@ -93,6 +93,17 @@
     return result ? result : @[];
 }
 
++ (NSArray<NSManagedObject *> *)allEntriesWithSortDescriptors:(NSArray<NSSortDescriptor *> *)sortDescrptors inContext:(NSManagedObjectContext *)context {
+    NSFetchRequest *fetchRequest = [self newFetchRequestInContext:context];
+    fetchRequest.sortDescriptors = sortDescrptors;
+    
+    NSError *error = nil;
+    NSArray *result = [context executeFetchRequest:fetchRequest error:&error];
+    FAIL_ON_ERROR(error);
+    
+    return result ? result : @[];
+}
+
 #pragma mark -
 
 + (NSFetchRequest *)newFetchRequestInContext:(NSManagedObjectContext *)context {

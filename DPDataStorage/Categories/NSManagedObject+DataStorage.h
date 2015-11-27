@@ -21,7 +21,10 @@
                                                             forKey:(NSString * _Nonnull)key
                                                          inContext:(NSManagedObjectContext * _Nonnull)context;
 + (instancetype _Nullable)anyEntryInContext:(NSManagedObjectContext * _Nonnull)context;
+
 + (NSArray <__kindof NSManagedObject *>* _Nonnull)allEntriesInContext:(NSManagedObjectContext * _Nonnull)context;
++ (NSArray <__kindof NSManagedObject *>* _Nonnull)allEntriesWithSortDescriptors:(NSArray <NSSortDescriptor *> * _Nullable)sortDescrptors
+                                                                      inContext:(NSManagedObjectContext * _Nonnull)context;
 
 + (NSFetchRequest * _Nonnull)newFetchRequestInContext:(NSManagedObjectContext * _Nonnull)context;
 + (NSFetchedResultsController * _Nonnull)fetchedResultsController:(id<NSFetchedResultsControllerDelegate> _Nullable)delegate
