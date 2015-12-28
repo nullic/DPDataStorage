@@ -350,6 +350,20 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
 
 #pragma mark -
 
+- (void)removeAllObjectsAtSection:(NSInteger)section {
+    if (section < self.sections.count) {
+        [self startUpdating];
+
+        DPArrayControllerSection *sectionInfo = self.sections[section];
+        for (NSInteger i = sectionInfo.objects.count; i > 0; i--) {
+            NSInteger row = i - 1;
+            [self deleteObjectAtIndextPath:[NSIndexPath indexPathForItem:row inSection:section]];
+        }
+
+        [self endUpdating];
+    }
+}
+
 - (void)addObjects:(NSArray *)objects atSection:(NSInteger)section {
     NSParameterAssert(section >= 0);
 
@@ -407,11 +421,7 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
         [self startUpdating];
 
         if (newObjects.count == 0) {
-            DPArrayControllerSection *sectionInfo = self.sections[section];
-            for (NSInteger i = sectionInfo.objects.count; i > 0; i--) {
-                NSInteger row = i - 1;
-                [self deleteObjectAtIndextPath:[NSIndexPath indexPathForItem:row inSection:section]];
-            }
+            [self removeAllObjectsAtSection:section];
         }
         else if (self.filter) {
             DPArrayControllerSection *sectionInfo = self.sections[section];
@@ -423,39 +433,8 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
             [self addObjects:newObjects atSection:section];
         }
         else {
-            DPArrayControllerSection *sectionInfo = self.sections[section];
-
-            NSMutableArray *deletedPaths = [NSMutableArray new];
-            for (NSInteger i = sectionInfo.objects.count; i > 0; i--) {
-                NSInteger row = i - 1;
-                id object = sectionInfo.objects[row];
-                if ([newObjects indexOfObject:object] == NSNotFound) {
-                    [deletedPaths addObject:[NSIndexPath indexPathForItem:row inSection:section]];
-                }
-            }
-
-            for (NSIndexPath *path in deletedPaths) {
-                [self deleteObjectAtIndextPath:path];
-            }
-
-            for (NSInteger row = 0; row < newObjects.count; row++) {
-                id object = newObjects[row];
-                if ([sectionInfo.objects indexOfObject:object] == NSNotFound) {
-                    [self insertObject:object atIndextPath:[NSIndexPath indexPathForItem:row inSection:section]];
-                }
-            }
-
-            NSAssert(newObjects.count == sectionInfo.objects.count, @"Oops ... worng result array lenght");
-
-            // TODO: optimize
-            for (NSInteger index = 0; index < [sectionInfo numberOfObjects]; index++) {
-                id object = sectionInfo.objects[index];
-                NSInteger newIndex = [newObjects indexOfObject:object];
-
-                if (newIndex != index) {
-                    [self moveObjectAtIndextPath:[NSIndexPath indexPathForItem:index inSection:section] toIndexPath:[NSIndexPath indexPathForItem:newIndex inSection:section]];
-                }
-            }
+            [self removeAllObjectsAtSection:section];
+            [self addObjects:newObjects atSection:section];
         }
 
         [self endUpdating];
