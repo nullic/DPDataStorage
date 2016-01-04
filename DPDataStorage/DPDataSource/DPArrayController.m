@@ -118,8 +118,6 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
             for (NSIndexPath *indexPath in deletedPaths) {
                 [self deleteObjectAtIndextPath:indexPath];
             }
-
-            [self removeEmptySections];
             [self endUpdating];
         }
 
