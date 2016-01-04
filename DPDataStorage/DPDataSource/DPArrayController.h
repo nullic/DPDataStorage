@@ -32,6 +32,8 @@
 - (void)startUpdating;
 - (void)endUpdating;
 
+- (NSInteger)numberOfSections;
+- (NSInteger)numberOfItemsInSection:(NSInteger)section;
 - (id _Nonnull)objectAtIndexPath:(NSIndexPath * _Nonnull)indexPath;
 - (NSIndexPath * _Nullable)indexPathForObject:(id _Nonnull)object;
 @end

@@ -9,6 +9,20 @@
 #import "DPBaseDataSource.h"
 
 @implementation NSFetchedResultsController (DataSourceContainerController)
+
+- (NSInteger)numberOfSections {
+    return [self.sections count];
+}
+
+- (NSInteger)numberOfItemsInSection:(NSInteger)section {
+    NSInteger result = 0;
+    if (section < [self.sections count] && section >= 0) {
+        id <NSFetchedResultsSectionInfo> sectionInfo =  [self.sections objectAtIndex:section];
+        result = [sectionInfo numberOfObjects];
+    }
+    return result;
+}
+
 @end
 
 @implementation DPBaseDataSource
@@ -27,16 +41,11 @@
 #pragma mark -
 
 - (NSInteger)numberOfSections {
-    return [[self.listController sections] count];
+    return [self.listController numberOfSections];
 }
 
 - (NSInteger)numberOfItemsInSection:(NSInteger)section {
-    NSInteger result = 0;
-    if (section < [self numberOfSections] && section >= 0) {
-        id <NSFetchedResultsSectionInfo> sectionInfo =  [[self.listController sections] objectAtIndex:section];
-        result = [sectionInfo numberOfObjects];
-    }
-    return result;
+    return [self.listController numberOfItemsInSection:section];
 }
 
 - (id)objectAtIndexPath:(NSIndexPath *)indexPath {

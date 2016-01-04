@@ -12,6 +12,8 @@
 #import "DPDataSourceContainer.h"
 
 @interface NSFetchedResultsController (DataSourceContainerController) <DataSourceContainerController>
+- (NSInteger)numberOfSections;
+- (NSInteger)numberOfItemsInSection:(NSInteger)section;
 @end
 
 IB_DESIGNABLE

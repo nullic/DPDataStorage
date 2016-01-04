@@ -145,7 +145,8 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
     [NSThread isMainThread] ? action() : dispatch_async(dispatch_get_main_queue(), action);
 }
 
-#pragma mark - Utils
+
+#pragma mark - Helper
 
 - (NSArray *)pathsForObjects:(id<NSFastEnumeration>)collection sortComparator:(NSComparator)comparator {
     NSMutableArray *paths = [NSMutableArray new];
@@ -199,7 +200,7 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
     }
 }
 
-#pragma mark -
+#pragma mark - Editing: Items
 
 - (void)removeAllObjects {
     if (self.sections.count) {
@@ -298,7 +299,7 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
     [self endUpdating];
 }
 
-#pragma mark -
+#pragma mark - Editing: Sections
 
 - (void)insertSectionAtIndex:(NSUInteger)index {
     [self startUpdating];
@@ -348,7 +349,7 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
     }
 }
 
-#pragma mark -
+#pragma mark - Editing: Complex
 
 - (void)removeAllObjectsAtSection:(NSInteger)section {
     if (section < self.sections.count) {
@@ -444,37 +445,6 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
     }
 }
 
-#pragma mark -
-
-- (id)objectAtIndexPath:(NSIndexPath *)indexPath {
-    DPArrayControllerSection *sectionInfo = self.sections[indexPath.section];
-    return sectionInfo.objects[indexPath.row];
-}
-
-- (NSIndexPath *)indexPathForObject:(id)object {
-    NSIndexPath *result = nil;
-
-    if (object) {
-        id left = [object isKindOfClass:[NSManagedObject class]] ? [object objectID] : object;
-
-        for (NSInteger section = 0; section < self.sections.count; section++) {
-            DPArrayControllerSection *sectionInfo = self.sections[section];
-            
-            for (NSInteger index = 0; index < sectionInfo.objects.count; index++) {
-                id right = sectionInfo.objects[index];
-                right = [right isKindOfClass:[NSManagedObject class]] ? [right objectID] : right;
-
-                if ([left isEqual:right]) {
-                    result = [NSIndexPath indexPathForItem:index inSection:section];
-                    break;
-                }
-            }
-        }
-    }
-
-    return result;
-}
-
 #pragma mark - Updating
 
 - (void)startUpdating {
@@ -507,6 +477,50 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
             [self removeEmptySections];
         }
     }
+}
+
+#pragma mark - Getters
+
+- (NSInteger)numberOfSections {
+    return [self.sections count];
+}
+
+- (NSInteger)numberOfItemsInSection:(NSInteger)section {
+    NSInteger result = 0;
+    if (section < [self.sections count] && section >= 0) {
+        id <NSFetchedResultsSectionInfo> sectionInfo =  [self.sections objectAtIndex:section];
+        result = [sectionInfo numberOfObjects];
+    }
+    return result;
+}
+
+- (id)objectAtIndexPath:(NSIndexPath *)indexPath {
+    DPArrayControllerSection *sectionInfo = self.sections[indexPath.section];
+    return sectionInfo.objects[indexPath.row];
+}
+
+- (NSIndexPath *)indexPathForObject:(id)object {
+    NSIndexPath *result = nil;
+
+    if (object) {
+        id left = [object isKindOfClass:[NSManagedObject class]] ? [object objectID] : object;
+
+        for (NSInteger section = 0; section < self.sections.count; section++) {
+            DPArrayControllerSection *sectionInfo = self.sections[section];
+            
+            for (NSInteger index = 0; index < sectionInfo.objects.count; index++) {
+                id right = sectionInfo.objects[index];
+                right = [right isKindOfClass:[NSManagedObject class]] ? [right objectID] : right;
+
+                if ([left isEqual:right]) {
+                    result = [NSIndexPath indexPathForItem:index inSection:section];
+                    break;
+                }
+            }
+        }
+    }
+
+    return result;
 }
 
 @end

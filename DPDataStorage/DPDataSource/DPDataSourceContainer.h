@@ -27,4 +27,6 @@
 
 - (id _Nonnull)objectAtIndexPath:(NSIndexPath * _Nonnull)indexPath;
 - (NSIndexPath * _Nullable)indexPathForObject:(id _Nonnull)object;
+- (NSInteger)numberOfSections;
+- (NSInteger)numberOfItemsInSection:(NSInteger)section;
 @end
