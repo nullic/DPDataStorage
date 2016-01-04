@@ -23,7 +23,7 @@
 
 @protocol DataSourceContainerController <NSObject>
 @property (nonatomic, weak) id<DataSourceContainerControllerDelegate> delegate;
-@property (nonatomic, readonly) NSArray * _Nonnull sections; // @[<NSFetchedResultsSectionInfo>]
+@property (nonatomic, readonly) NSArray<id<NSFetchedResultsSectionInfo>> * _Nonnull sections;
 
 - (id _Nonnull)objectAtIndexPath:(NSIndexPath * _Nonnull)indexPath;
 - (NSIndexPath * _Nullable)indexPathForObject:(id _Nonnull)object;

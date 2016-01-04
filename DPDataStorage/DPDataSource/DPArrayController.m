@@ -58,7 +58,7 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
 };
 
 @interface DPArrayController ()
-@property (nonatomic, strong) NSMutableArray *sections; // @[<NSFetchedResultsSectionInfo>]
+@property (nonatomic, strong) NSMutableArray<DPArrayControllerSection *> *sections;
 @property (nonatomic, assign) NSInteger updating;
 @property (nonatomic, assign) enum ResponseMask responseMask;
 @end
