@@ -23,13 +23,15 @@ static NSString * const kImportKey = @"importKey";
 
 + (NSArray *)updateWithArray:(NSArray *)array inContext:(NSManagedObjectContext *)context error:(NSError **)out_error {
     NSError *error = nil;
-    NSMutableArray *result = [NSMutableArray arrayWithCapacity:array.count];
+    NSMutableArray *result = nil;
 
     if ([array isKindOfClass:[NSArray class]] == NO) {
         NSString *details = [NSString stringWithFormat:@"Invalid root import object (expected: %@, actual: %@) for class: %@", NSStringFromClass([NSArray class]), NSStringFromClass([array class]), NSStringFromClass([self class])];
         error = [NSError errorWithDomain:NSCocoaErrorDomain code:NSExternalRecordImportError userInfo:@{NSLocalizedFailureReasonErrorKey: details}];
     }
     else {
+        result = [NSMutableArray arrayWithCapacity:array.count];
+
         NSEntityDescription *entityDescription = [context entityDescriptionForManagedObjectClass:[self class]];
         NSDictionary *entityAttributes = [entityDescription attributesByName];
 
