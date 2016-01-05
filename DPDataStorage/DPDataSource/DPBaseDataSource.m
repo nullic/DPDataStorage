@@ -50,7 +50,7 @@
 
 - (id)objectAtIndexPath:(NSIndexPath *)indexPath {
     id result = nil;
-    if (indexPath.section < [self numberOfSections] && indexPath.row < [self numberOfItemsInSection:indexPath.section]) {
+    if (indexPath && indexPath.section < [self numberOfSections] && indexPath.row < [self numberOfItemsInSection:indexPath.section]) {
         result = [self.listController objectAtIndexPath:indexPath];
     }
     return result;

@@ -493,8 +493,12 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
 }
 
 - (id)objectAtIndexPath:(NSIndexPath *)indexPath {
-    DPArrayControllerSection *sectionInfo = self.sections[indexPath.section];
-    return sectionInfo.objects[indexPath.row];
+    id result = nil;
+    if (indexPath) {
+        DPArrayControllerSection *sectionInfo = self.sections[indexPath.section];
+        result = sectionInfo.objects[indexPath.row];
+    }
+    return result;
 }
 
 - (NSIndexPath *)indexPathForObject:(id)object {
