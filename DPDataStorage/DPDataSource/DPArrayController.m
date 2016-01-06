@@ -363,11 +363,18 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
 
 - (void)setSectionName:(NSString *)name atIndex:(NSUInteger)index {
     if (index <= self.sections.count) {
+        [self startUpdating];
         [self insertSectionAtIndex:index];
-    }
 
-    DPArrayControllerSection *section = self.sections[index];
-    section->_name = name;
+        DPArrayControllerSection *section = self.sections[index];
+        section->_name = name;
+        
+        [self endUpdating];
+    }
+    else {
+        DPArrayControllerSection *section = self.sections[index];
+        section->_name = name;
+    }
 }
 
 #pragma mark - Editing: Complex
