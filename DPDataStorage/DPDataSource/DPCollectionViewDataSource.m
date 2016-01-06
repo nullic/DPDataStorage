@@ -136,6 +136,9 @@
                 case NSFetchedResultsChangeDelete:
                     [cv deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex]];
                     break;
+                case NSFetchedResultsChangeUpdate:
+                    [cv reloadSections:[NSIndexSet indexSetWithIndex:sectionIndex]];
+                    break;
                 default:
                     break;
             }

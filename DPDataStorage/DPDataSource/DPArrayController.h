@@ -16,7 +16,6 @@
 - (instancetype _Nonnull)initWithDelegate:(id<DataSourceContainerControllerDelegate> _Nullable)delegate;
 
 - (void)removeAllObjects;
-
 - (void)insertObject:(id _Nonnull)object atIndextPath:(NSIndexPath * _Nonnull)indexPath;
 - (void)deleteObjectAtIndextPath:(NSIndexPath * _Nonnull)indexPath;
 - (void)reloadObjectAtIndextPath:(NSIndexPath * _Nonnull)indexPath;
@@ -24,7 +23,9 @@
 
 - (void)insertSectionAtIndex:(NSUInteger)index;
 - (void)removeSectionAtIndex:(NSUInteger)index;
+- (void)reloadSectionAtIndex:(NSUInteger)index;
 - (void)removeEmptySections;
+- (void)setSectionName:(NSString * _Nullable)name atIndex:(NSUInteger)index;
 
 - (void)addObjects:(NSArray * _Nullable)objects atSection:(NSInteger)section;
 - (void)setObjects:(NSArray * _Nullable)objects atSection:(NSInteger)section;

@@ -133,6 +133,9 @@
                 case NSFetchedResultsChangeDelete:
                     [tv deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
                     break;
+                case NSFetchedResultsChangeUpdate:
+                    [tv reloadSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationNone];
+                    break;
                 default:
                     break;
             }

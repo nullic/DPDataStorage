@@ -10,7 +10,10 @@
 
 #pragma mark - DPArrayControllerSection
 
-@interface DPArrayControllerSection : NSObject  <NSFetchedResultsSectionInfo>
+@interface DPArrayControllerSection : NSObject  <NSFetchedResultsSectionInfo> {
+    @public NSString *_name;
+    @public NSString *_indexTitle;
+}
 @property (nonatomic, readonly) NSString *name;
 @property (nonatomic, readonly) NSString *indexTitle;
 @property (nonatomic, readonly) NSUInteger numberOfObjects;
@@ -26,7 +29,6 @@
 - (instancetype)init {
     if ((self = [super init])) {
         _isInserted = YES;
-        _name = @"";
     }
     return  self;
 }
@@ -38,6 +40,7 @@
 
 - (NSString *)description {return [NSString stringWithFormat:@"%@ {numberOfObjects: %lu}", [super description], (unsigned long)self.numberOfObjects];}
 - (NSUInteger)numberOfObjects {return self.objects.count;};
+- (NSString *)name {return _name ?: @"";}
 
 @end
 
@@ -327,6 +330,17 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
     [self endUpdating];
 }
 
+- (void)reloadSectionAtIndex:(NSUInteger)index {
+    [self startUpdating];
+
+    DPArrayControllerSection *section = self.sections[index];
+    if (self.responseMask & ResponseMaskDidChangeSection) {
+        [self.delegate controller:self didChangeSection:section atIndex:index forChangeType:NSFetchedResultsChangeUpdate];
+    }
+
+    [self endUpdating];
+}
+
 - (void)removeEmptySections {
     NSInteger count = self.sections.count;
 
@@ -345,6 +359,15 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
         
         hasEmptySections ? [self endUpdating] : nil;
     }
+}
+
+- (void)setSectionName:(NSString *)name atIndex:(NSUInteger)index {
+    if (index <= self.sections.count) {
+        [self insertSectionAtIndex:index];
+    }
+
+    DPArrayControllerSection *section = self.sections[index];
+    section->_name = name;
 }
 
 #pragma mark - Editing: Complex
@@ -421,15 +444,6 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
 
         if (newObjects.count == 0) {
             [self removeAllObjectsAtSection:section];
-        }
-        else if (self.filter) {
-            DPArrayControllerSection *sectionInfo = self.sections[section];
-            for (NSInteger i = sectionInfo.objects.count; i > 0; i--) {
-                NSInteger row = i - 1;
-                [self deleteObjectAtIndextPath:[NSIndexPath indexPathForItem:row inSection:section]];
-            }
-
-            [self addObjects:newObjects atSection:section];
         }
         else {
             [self removeAllObjectsAtSection:section];
