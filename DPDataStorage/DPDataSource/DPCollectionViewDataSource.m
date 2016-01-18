@@ -31,6 +31,24 @@
     [self.collectionView reloadData];
 }
 
+#pragma mark - Init
+
+- (instancetype)initWithCollectionView:(UICollectionView *)collectionView listController:(id<DataSourceContainerController>)listController forwardDelegate:(id)forwardDelegate cellIdentifier:(NSString *)cellIdentifier {
+    if ((self = [super init])) {
+        self.cellIdentifier = cellIdentifier;
+
+        self.forwardDelegate = forwardDelegate;
+        self.listController = listController;
+        self.listController.delegate = self;
+
+        collectionView.dataSource = self;
+        collectionView.delegate = self;
+        self.collectionView = collectionView;
+    }
+
+    return self;
+}
+
 #pragma mark - UICollectionView
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {

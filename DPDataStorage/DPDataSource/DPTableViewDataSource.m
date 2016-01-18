@@ -31,6 +31,24 @@
     [self.tableView reloadData];
 }
 
+#pragma mark - Init
+
+- (instancetype)initWithTableView:(UITableView *)tableView listController:(id<DataSourceContainerController>)listController forwardDelegate:(id)forwardDelegate cellIdentifier:(NSString *)cellIdentifier {
+    if ((self = [super init])) {
+        self.cellIdentifier = cellIdentifier;
+
+        self.forwardDelegate = forwardDelegate;
+        self.listController = listController;
+        self.listController.delegate = self;
+
+        tableView.dataSource = self;
+        tableView.delegate = self;
+        self.tableView = tableView;
+    }
+
+    return self;
+}
+
 #pragma mark - UITableView
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
