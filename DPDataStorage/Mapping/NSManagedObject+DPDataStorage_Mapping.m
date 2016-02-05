@@ -37,7 +37,17 @@ static NSString * const kImportKey = @"importKey";
 
         NSString *entityUniqueKey = entityDescription.userInfo[kUniqueKey];
         NSAttributeDescription *uniqueAttr = entityUniqueKey ? entityAttributes[entityUniqueKey] : nil;
-        NSString *importUniqueKey = uniqueAttr.userInfo[kImportKey];
+
+        NSString *importUniqueKey = nil;
+        for (NSString *key in uniqueAttr.userInfo) {
+            if ([key hasPrefix:kImportKey]) {
+                NSDictionary *dictionary = [array.firstObject isKindOfClass:[NSDictionary class]] ? array.firstObject : nil;
+                importUniqueKey = uniqueAttr.userInfo[key];
+                if (dictionary[importUniqueKey] != nil) {
+                    break;
+                }
+            }
+        }
         Class uniqueValueClass = uniqueAttr ? NSClassFromString(uniqueAttr.attributeValueClassName) : nil;
 
         if (importUniqueKey != nil || entityUniqueKey == nil) {
@@ -110,7 +120,16 @@ static NSString * const kImportKey = @"importKey";
 
         NSString *entityUniqueKey = entityDescription.userInfo[kUniqueKey];
         NSAttributeDescription *uniqueAttr = entityUniqueKey ? entityAttributes[entityUniqueKey] : nil;
-        NSString *importUniqueKey = uniqueAttr.userInfo[kImportKey];
+
+        NSString *importUniqueKey = nil;
+        for (NSString *key in uniqueAttr.userInfo) {
+            if ([key hasPrefix:kImportKey]) {
+                importUniqueKey = uniqueAttr.userInfo[key];
+                if (dictionary[importUniqueKey] != nil) {
+                    break;
+                }
+            }
+        }
 
         if (importUniqueKey != nil) {
             Class valueClass = NSClassFromString(uniqueAttr.attributeValueClassName);
@@ -161,8 +180,18 @@ static NSString * const kImportKey = @"importKey";
 
     for (NSString *attributeName in entityAttributes) {
         NSAttributeDescription *attributeDescription = entityAttributes[attributeName];
-        NSString *importKey = attributeDescription.userInfo[kImportKey];
-        id importValue = importKey ? dictionary[importKey] : nil;
+
+        id importValue = nil;
+        NSString *importKey = nil;
+        for (NSString *key in attributeDescription.userInfo) {
+            if ([key hasPrefix:kImportKey]) {
+                importKey = attributeDescription.userInfo[key];
+                importValue = dictionary[importKey];
+                if (importValue != nil) {
+                    break;
+                }
+            }
+        }
         id value = importValue ? [[self class] transformImportValue:importValue importKey:importKey propertyDescription:attributeDescription] : nil;
 
         if (value != nil) {
@@ -200,8 +229,18 @@ static NSString * const kImportKey = @"importKey";
 
     for (NSString *keyName in entityRelationships) {
         NSRelationshipDescription *relationshipDescription = entityRelationships[keyName];
-        NSString *importKey = relationshipDescription.userInfo[kImportKey];
-        id importValue = importKey ? dictionary[importKey] : nil;
+
+        id importValue = nil;
+        NSString *importKey = nil;
+        for (NSString *key in relationshipDescription.userInfo) {
+            if ([key hasPrefix:kImportKey]) {
+                importKey = relationshipDescription.userInfo[key];
+                importValue = dictionary[importKey];
+                if (importValue != nil) {
+                    break;
+                }
+            }
+        }
         id value = importValue ? [[self class] transformImportValue:importValue importKey:importKey propertyDescription:relationshipDescription] : nil;
 
         if (value != nil) {
