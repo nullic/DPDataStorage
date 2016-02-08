@@ -65,6 +65,7 @@ NSString * const DPDataStorageNotificationNameKey = @"name";
 @property (readwrite, strong, nonatomic) NSManagedObjectModel *managedObjectModel;
 @property (readwrite, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 @property (readwrite, strong, nonatomic) NSManagedObjectContext *mainContext;
+@property (readwrite, strong, nonatomic) NSManagedObjectContext *parseContext;
 @property (readwrite, strong, nonatomic) NSURL *URL;
 @property (readwrite, strong, nonatomic) NSDictionary *classNameToEntityNameMap;
 @end
@@ -240,6 +241,31 @@ NSString * const DPDataStorageNotificationNameKey = @"name";
         return _mainContext;
     }
 }
+
+- (NSManagedObjectContext *)parseContext {
+    @synchronized(self) {
+        if (!_parseContext) {
+            _parseContext = [self newPrivateQueueManagedObjectContext];
+
+            id __weak weakContext = _parseContext;
+            id observer = [[NSNotificationCenter defaultCenter] addObserverForName:NSManagedObjectContextDidSaveNotification object:nil queue:nil usingBlock:^(NSNotification *notification) {
+                NSManagedObjectContext *context = weakContext;
+                if ([context persistentStoreCoordinator] == [notification.object persistentStoreCoordinator]) {
+                    [context performBlockAndWait:^{
+                        [context mergeChangesFromContextDidSaveNotification:notification];
+                    }];
+                }
+            }];
+
+            [_parseContext __executeOnDealloc__:^{
+                [[NSNotificationCenter defaultCenter] removeObserver:observer];
+            }];
+        }
+
+        return _parseContext;
+    }
+}
+
 
 #pragma mark - Context
 

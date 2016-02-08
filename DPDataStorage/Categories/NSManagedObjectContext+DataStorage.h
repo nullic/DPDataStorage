@@ -12,6 +12,7 @@
 @property (nonatomic, getter=isReadOnly) BOOL readOnly;
 
 + (NSManagedObjectContext * _Null_unspecified)mainContext;
++ (NSManagedObjectContext * _Null_unspecified)parseContext;
 + (NSManagedObjectContext * _Null_unspecified)newManagedObjectContext NS_ENUM_DEPRECATED(10_4,10_11,3_0,9_0, "Use another NSManagedObjectContextConcurrencyType");
 + (NSManagedObjectContext * _Null_unspecified)newMainQueueManagedObjectContext;
 + (NSManagedObjectContext * _Null_unspecified)newPrivateQueueManagedObjectContext;

@@ -39,6 +39,7 @@ extern NSString * const _Nonnull DPDataStorageNotificationNameKey;
 @property (readonly, strong, nonatomic) NSManagedObjectModel * _Nonnull managedObjectModel;
 @property (readonly, strong, nonatomic) NSPersistentStoreCoordinator * _Nonnull persistentStoreCoordinator;
 @property (readonly, strong, nonatomic) NSManagedObjectContext * _Nonnull mainContext;
+@property (readonly, strong, nonatomic) NSManagedObjectContext * _Nonnull parseContext;
 @property (readonly, strong, nonatomic) NSURL * _Nullable URL;
 @property (readonly, strong, nonatomic) NSDictionary * _Nonnull classNameToEntityNameMap;
 

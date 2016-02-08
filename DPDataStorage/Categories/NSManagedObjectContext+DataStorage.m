@@ -22,6 +22,10 @@
     return [[DPDataStorage defaultStorage] mainContext];
 }
 
++ (NSManagedObjectContext *)parseContext {
+    return [[DPDataStorage defaultStorage] parseContext];
+}
+
 + (NSManagedObjectContext*)newManagedObjectContext {
     return [[DPDataStorage defaultStorage] newManagedObjectContext];
 }
