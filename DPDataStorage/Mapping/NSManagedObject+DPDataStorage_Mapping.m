@@ -174,6 +174,21 @@ static NSString * const kImportKey = @"importKey";
     return (error == nil) ? result : nil;
 }
 
+- (BOOL)updateWithDictionary:(NSDictionary *)dictionary error:(NSError **)out_error {
+    NSError *error = nil;
+    if ([dictionary isKindOfClass:[NSDictionary class]] == NO) {
+        NSString *details = [NSString stringWithFormat:@"Invalid root import object (expected: %@, actual: %@) for class: %@", NSStringFromClass([NSDictionary class]), NSStringFromClass([dictionary class]), NSStringFromClass([self class])];
+        error = [NSError errorWithDomain:NSCocoaErrorDomain code:NSExternalRecordImportError userInfo:@{NSLocalizedFailureReasonErrorKey: details}];
+    }
+    else {
+        [self updateAttributesWithDictionary:dictionary error:&error];
+        [self updateRelationshipsWithDictionary:dictionary error:&error];
+    }
+    
+    if (error && out_error) *out_error = error;
+    return (error == nil);
+}
+
 - (BOOL)updateAttributesWithDictionary:(NSDictionary *)dictionary error:(NSError *__autoreleasing *)out_error {
     NSMutableArray *errors = [NSMutableArray array];
     NSDictionary *entityAttributes = [self.entity attributesByName];
