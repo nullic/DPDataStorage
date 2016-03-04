@@ -513,6 +513,13 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
     return result;
 }
 
+- (BOOL)hasData {
+    for (id <NSFetchedResultsSectionInfo> section in self.sections) {
+        if ([section numberOfObjects] > 0) return YES;
+    }
+    return NO;
+}
+
 - (id)objectAtIndexPath:(NSIndexPath *)indexPath {
     id result = nil;
     if (indexPath) {

@@ -11,16 +11,20 @@
 @implementation NSFetchedResultsController (DataSourceContainerController)
 
 - (NSInteger)numberOfSections {
-    return [self.sections count];
+    return self.sections.count;
 }
 
 - (NSInteger)numberOfItemsInSection:(NSInteger)section {
     NSInteger result = 0;
-    if (section < [self.sections count] && section >= 0) {
+    if (section < self.sections.count && section >= 0) {
         id <NSFetchedResultsSectionInfo> sectionInfo =  [self.sections objectAtIndex:section];
         result = [sectionInfo numberOfObjects];
     }
     return result;
+}
+
+- (BOOL)hasData {
+    return self.fetchedObjects.count > 0;
 }
 
 @end
@@ -46,6 +50,10 @@
 
 - (NSInteger)numberOfItemsInSection:(NSInteger)section {
     return [self.listController numberOfItemsInSection:section];
+}
+
+- (BOOL)hasData {
+    return self.listController.hasData;
 }
 
 - (id)objectAtIndexPath:(NSIndexPath *)indexPath {

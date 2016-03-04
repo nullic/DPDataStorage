@@ -12,6 +12,7 @@
 #import "DPDataSourceContainer.h"
 
 @interface NSFetchedResultsController (DataSourceContainerController) <DataSourceContainerController>
+@property (nonatomic, readonly) BOOL hasData;
 - (NSInteger)numberOfSections;
 - (NSInteger)numberOfItemsInSection:(NSInteger)section;
 @end
@@ -20,6 +21,7 @@ IB_DESIGNABLE
 @interface DPBaseDataSource : NSObject <DataSourceContainerControllerDelegate, NSFetchedResultsControllerDelegate>
 @property (nonatomic, weak) IBOutlet id forwardDelegate;
 @property (nonatomic, strong, nullable) IBOutlet id<DataSourceContainerController> listController;
+@property (nonatomic, readonly) BOOL hasData;
 
 - (NSInteger)numberOfSections;
 - (NSInteger)numberOfItemsInSection:(NSInteger)section;

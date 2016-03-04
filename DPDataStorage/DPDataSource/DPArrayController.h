@@ -12,6 +12,7 @@
 @property (nonatomic, weak) IBOutlet id<DataSourceContainerControllerDelegate> delegate;
 @property (nonatomic, assign) IBInspectable BOOL removeEmptySectionsAutomaticaly; // Default YES
 @property (nonatomic, strong, nullable) NSPredicate *filter;
+@property (nonatomic, readonly) BOOL hasData;
 
 - (instancetype _Nonnull)initWithDelegate:(id<DataSourceContainerControllerDelegate> _Nullable)delegate;
 
