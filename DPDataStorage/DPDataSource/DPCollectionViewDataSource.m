@@ -18,17 +18,27 @@
     if (_collectionView != collectionView) {
         _collectionView = collectionView;
         [_collectionView reloadData];
+        [self showNoDataViewIfNeeded];
     }
 }
 
 - (void)setCellIdentifier:(NSString *)cellIdentifier {
     _cellIdentifier = [cellIdentifier copy];
     [self.collectionView reloadData];
+    [self showNoDataViewIfNeeded];
 }
 
 - (void)setListController:(id<DataSourceContainerController>)listController {
     [super setListController:listController];
     [self.collectionView reloadData];
+    [self showNoDataViewIfNeeded];
+}
+
+- (void)setNoDataView:(UIView *)noDataView {
+    if (_noDataView != noDataView) {
+        _noDataView = noDataView;
+        [self showNoDataViewIfNeeded];
+    }
 }
 
 #pragma mark - Init
@@ -44,9 +54,45 @@
         collectionView.dataSource = self;
         collectionView.delegate = self;
         self.collectionView = collectionView;
+
     }
 
     return self;
+}
+
+#pragma mark - NoData view
+
+- (void)showNoDataViewIfNeeded {
+    [self setNoDataViewHidden:[self hasData]];
+}
+
+- (void)setNoDataViewHidden:(BOOL)hidden {
+    if (self.noDataView == nil || self.collectionView == nil) return;
+
+    if (self.noDataView.superview == nil && hidden == NO) {
+        self.noDataView.translatesAutoresizingMaskIntoConstraints = NO;
+        NSLayoutConstraint *width = [NSLayoutConstraint constraintWithItem:self.noDataView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self.collectionView attribute:NSLayoutAttributeWidth multiplier:1 constant:0];
+        NSLayoutConstraint *height = [NSLayoutConstraint constraintWithItem:self.noDataView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.collectionView attribute:NSLayoutAttributeHeight multiplier:1 constant:0];
+        NSLayoutConstraint *centerX = [NSLayoutConstraint constraintWithItem:self.noDataView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.collectionView attribute:NSLayoutAttributeCenterX multiplier:1 constant:0];
+        NSLayoutConstraint *centerY = [NSLayoutConstraint constraintWithItem:self.noDataView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.collectionView attribute:NSLayoutAttributeCenterY multiplier:1 constant:0];
+
+        if (self.collectionView.backgroundView) {
+            [self.collectionView.backgroundView addSubview:self.noDataView];
+        }
+        else {
+            self.collectionView.backgroundView = self.noDataView;
+        }
+
+        [self.collectionView addConstraints:@[width, height, centerX, centerY]];
+    }
+    else if (self.noDataView.superview != nil && hidden == YES) {
+        if (self.collectionView.backgroundView == self.noDataView) {
+            self.collectionView.backgroundView = nil;
+        }
+        else {
+            [self.noDataView removeFromSuperview];
+        }
+    }
 }
 
 #pragma mark - UICollectionView
@@ -104,6 +150,8 @@
         else {
             [self.collectionView reloadData];
         }
+
+        [self showNoDataViewIfNeeded];
     }
 }
 

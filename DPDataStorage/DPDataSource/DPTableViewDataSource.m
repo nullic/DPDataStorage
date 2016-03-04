@@ -18,17 +18,27 @@
     if (_tableView != tableView) {
         _tableView = tableView;
         [_tableView reloadData];
+        [self showNoDataViewIfNeeded];
     }
 }
 
 - (void)setCellIdentifier:(NSString *)cellIdentifier {
     _cellIdentifier = [cellIdentifier copy];
     [self.tableView reloadData];
+    [self showNoDataViewIfNeeded];
 }
 
 - (void)setListController:(id<DataSourceContainerController>)listController {
     [super setListController:listController];
     [self.tableView reloadData];
+    [self showNoDataViewIfNeeded];
+}
+
+- (void)setNoDataView:(UIView *)noDataView {
+    if (_noDataView != noDataView) {
+        _noDataView = noDataView;
+        [self showNoDataViewIfNeeded];
+    }
 }
 
 #pragma mark - Init
@@ -47,6 +57,41 @@
     }
 
     return self;
+}
+
+#pragma mark - NoData view
+
+- (void)showNoDataViewIfNeeded {
+    [self setNoDataViewHidden:[self hasData]];
+}
+
+- (void)setNoDataViewHidden:(BOOL)hidden {
+    if (self.noDataView == nil || self.tableView == nil) return;
+
+    if (self.noDataView.superview == nil && hidden == NO) {
+        self.noDataView.translatesAutoresizingMaskIntoConstraints = NO;
+        NSLayoutConstraint *width = [NSLayoutConstraint constraintWithItem:self.noDataView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self.tableView attribute:NSLayoutAttributeWidth multiplier:1 constant:0];
+        NSLayoutConstraint *height = [NSLayoutConstraint constraintWithItem:self.noDataView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.tableView attribute:NSLayoutAttributeHeight multiplier:1 constant:0];
+        NSLayoutConstraint *centerX = [NSLayoutConstraint constraintWithItem:self.noDataView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.tableView attribute:NSLayoutAttributeCenterX multiplier:1 constant:0];
+        NSLayoutConstraint *centerY = [NSLayoutConstraint constraintWithItem:self.noDataView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.tableView attribute:NSLayoutAttributeCenterY multiplier:1 constant:0];
+
+        if (self.tableView.backgroundView) {
+            [self.tableView.backgroundView addSubview:self.noDataView];
+        }
+        else {
+            self.tableView.backgroundView = self.noDataView;
+        }
+
+        [self.tableView addConstraints:@[width, height, centerX, centerY]];
+    }
+    else if (self.noDataView.superview != nil && hidden == YES) {
+        if (self.tableView.backgroundView == self.noDataView) {
+            self.tableView.backgroundView = nil;
+        }
+        else {
+            [self.noDataView removeFromSuperview];
+        }
+    }
 }
 
 #pragma mark - UITableView
@@ -102,6 +147,8 @@
         else {
             [self.tableView reloadData];
         }
+
+        [self showNoDataViewIfNeeded];
     }
 }
 
