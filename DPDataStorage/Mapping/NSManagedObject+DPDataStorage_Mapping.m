@@ -221,6 +221,9 @@ static NSString * const kImportKey = @"importKey";
                 if ([value isKindOfClass:valueClass]) {
                     [self setValue:value forKey:attributeName];
                 }
+                else if (valueClass == [NSDecimalNumber class] &&  [value isKindOfClass:[NSNumber class]]) {
+                    [self setValue:[NSDecimalNumber numberWithDouble:[value doubleValue]] forKey:attributeName];
+                }
                 else {
                     NSString *details = [NSString stringWithFormat:@"Invalid import value class (expected: %@, actual: %@) for key: '%@' in object: '%@'", attributeDescription.attributeValueClassName, NSStringFromClass([value class]), attributeName, NSStringFromClass([self class])];
                     [errors addObject:[NSError errorWithDomain:NSCocoaErrorDomain code:NSExternalRecordImportError userInfo:@{NSLocalizedFailureReasonErrorKey: details}]];
