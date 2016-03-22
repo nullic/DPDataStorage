@@ -9,7 +9,7 @@
 #import "DPBaseDataSource.h"
 
 @interface DPCollectionViewDataSource : DPBaseDataSource <UICollectionViewDataSource, UICollectionViewDelegate>
-@property (nonatomic, weak) IBOutlet UICollectionView *collectionView;
+@property (nonatomic, weak, nullable) IBOutlet UICollectionView *collectionView;
 @property (nonatomic, strong, nullable) IBOutlet UIView *noDataView;
 @property (nonatomic, copy, nullable) IBInspectable NSString *cellIdentifier; // Cell must conform <DPDataSourceCell>
 @property (nonatomic) IBInspectable BOOL disableAnimations;

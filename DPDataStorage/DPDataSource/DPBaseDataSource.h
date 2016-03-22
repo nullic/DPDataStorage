@@ -19,7 +19,7 @@
 
 IB_DESIGNABLE
 @interface DPBaseDataSource : NSObject <DataSourceContainerControllerDelegate, NSFetchedResultsControllerDelegate>
-@property (nonatomic, weak) IBOutlet id forwardDelegate;
+@property (nonatomic, weak, nullable) IBOutlet id forwardDelegate;
 @property (nonatomic, strong, nullable) IBOutlet id<DataSourceContainerController> listController;
 @property (nonatomic, readonly) BOOL hasData;
 

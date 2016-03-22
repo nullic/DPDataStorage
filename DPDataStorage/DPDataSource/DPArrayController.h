@@ -9,7 +9,7 @@
 #import "DPBaseDataSource.h"
 
 @interface DPArrayController : NSObject <DataSourceContainerController>
-@property (nonatomic, weak) IBOutlet id<DataSourceContainerControllerDelegate> delegate;
+@property (nonatomic, weak, nullable) IBOutlet id<DataSourceContainerControllerDelegate> delegate;
 @property (nonatomic, assign) IBInspectable BOOL removeEmptySectionsAutomaticaly; // Default YES
 @property (nonatomic, strong, nullable) NSPredicate *filter;
 @property (nonatomic, readonly) BOOL hasData;

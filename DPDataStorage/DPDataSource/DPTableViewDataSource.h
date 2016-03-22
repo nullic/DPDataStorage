@@ -9,7 +9,7 @@
 #import "DPBaseDataSource.h"
 
 @interface DPTableViewDataSource : DPBaseDataSource <UITableViewDataSource, UITableViewDelegate>
-@property (nonatomic, weak) IBOutlet UITableView *tableView;
+@property (nonatomic, weak, nullable) IBOutlet UITableView *tableView;
 @property (nonatomic, strong, nullable) IBOutlet UIView *noDataView;
 @property (nonatomic, copy, nullable) IBInspectable NSString *cellIdentifier; // Cell must conform <DPDataSourceCell>
 @property (nonatomic) IBInspectable BOOL disableAnimations;

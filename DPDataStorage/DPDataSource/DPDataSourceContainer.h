@@ -22,7 +22,7 @@
 @end
 
 @protocol DataSourceContainerController <NSObject>
-@property (nonatomic, weak) id<DataSourceContainerControllerDelegate> delegate;
+@property (nonatomic, weak) id<DataSourceContainerControllerDelegate> _Nullable delegate;
 @property (nonatomic, readonly) NSArray<id<NSFetchedResultsSectionInfo>> * _Nonnull sections;
 @property (nonatomic, readonly) BOOL hasData;
 
