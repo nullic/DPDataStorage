@@ -24,5 +24,6 @@
 - (NSString * _Nonnull)entityNameForManagedObjectClass:(Class _Nonnull)objectClass;
 - (NSEntityDescription * _Nonnull)entityDescriptionForManagedObjectClass:(Class _Nonnull)objectClass;
 
+- (void)deleteObjects:(id<NSFastEnumeration> _Nullable)objects; // expects a collection of NSManagedObjects
 - (BOOL)saveChanges:(NSError * _Nullable * _Nullable)error;
 @end

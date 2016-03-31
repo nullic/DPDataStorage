@@ -88,6 +88,14 @@ static NSString * const kReadOnlyFlagKey = @"isReadOnly";
 
 #pragma mark -
 
+- (void)deleteObjects:(id<NSFastEnumeration>)objects {
+    for (NSManagedObject *object in objects) {
+        [self deleteObject:object];
+    }
+}
+
+#pragma mark -
+
 - (BOOL)saveChanges:(NSError **)inout_error {
     NSAssert(self.isReadOnly == false, @"Try to save readonly context");
 
