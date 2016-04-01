@@ -36,6 +36,7 @@
 
 - (void)setNoDataView:(UIView *)noDataView {
     if (_noDataView != noDataView) {
+        [_noDataView removeFromSuperview];
         _noDataView = noDataView;
         [self showNoDataViewIfNeeded];
     }
