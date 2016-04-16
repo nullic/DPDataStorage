@@ -13,9 +13,12 @@
 
 static NSString * const kUniqueKey = @"uniqueKey";
 static NSString * const kImportKey = @"importKey";
+static NSString * const kExportKey = @"exportKey";
 
 
 @implementation NSManagedObject (DPDataStorage_Mapping)
+
+#pragma mark - Import
 
 + (id)transformImportValue:(id)value importKey:(NSString *)importKey propertyDescription:(NSPropertyDescription *)propertyDescription {
     return value;
@@ -325,6 +328,77 @@ static NSString * const kImportKey = @"importKey";
     
     if (error && out_error) *out_error = error;
     return (error == nil);
+}
+
+#pragma mark - Export
+
++ (id)transformExportValue:(id)value exportKey:(NSString *)importKey propertyDescription:(NSPropertyDescription *)propertyDescription {
+    return value;
+}
+
+- (NSDictionary *)exportDictionary {
+    NSMutableDictionary *result = [NSMutableDictionary dictionary];
+    [result setValuesForKeysWithDictionary:[self exportAttributesDictionary]];
+    [result setValuesForKeysWithDictionary:[self exportRelationshipsDictionary]];
+    return result;
+}
+
+- (NSDictionary *)exportAttributesDictionary {
+    NSMutableDictionary *result = [NSMutableDictionary dictionary];
+    
+    NSDictionary *entityAttributes = [self.entity attributesByName];
+    for (NSString *keyName in entityAttributes) {
+        NSAttributeDescription *attributeDescription = entityAttributes[keyName];
+        
+        NSString *exportKey = attributeDescription.userInfo[kExportKey];
+        if (exportKey) {
+            id value = [[self class] transformExportValue:[self valueForKey:keyName] exportKey:exportKey propertyDescription:attributeDescription];
+            [result setValue:value forKey:exportKey];
+        }
+    }
+    
+    return result;
+}
+
+- (NSDictionary *)exportRelationshipsDictionary {
+    NSMutableDictionary *result = [NSMutableDictionary dictionary];
+    
+    NSDictionary *entityRelationships = [self.entity relationshipsByName];
+    for (NSString *keyName in entityRelationships) {
+        NSRelationshipDescription *relationshipDescription = entityRelationships[keyName];
+        
+        NSString *exportKey = relationshipDescription.userInfo[kExportKey];
+        if (exportKey) {
+            id value = [[self class] transformExportValue:[self valueForKey:keyName] exportKey:exportKey propertyDescription:relationshipDescription];
+            
+            if ([value isKindOfClass:[NSManagedObject class]]) { // usually 'one to one' relationship
+                 [result setValue:[value exportDictionary] forKey:exportKey];
+            }
+            else if ([value isKindOfClass:[NSDictionary class]]) {
+                [result setValue:value forKey:exportKey];
+            }
+            else if ([value conformsToProtocol:@protocol(NSFastEnumeration)]) { // Collection (NSSet, NSOrderedSet, NSArray)
+                NSMutableArray *array = [NSMutableArray array];
+                
+                for (id innerObject in value) {
+                    if ([innerObject isKindOfClass:[NSManagedObject class]]) {
+                        NSDictionary *exportValue = [innerObject exportDictionary];
+                        exportValue ? [array addObject:exportValue] : nil;
+                    }
+                    else {
+                        [array addObject:innerObject];
+                    }
+                }
+                
+                [result setValue:array forKey:exportKey];
+            }
+            else { // any other object (NSNumber, NSNull, NSString)
+                [result setValue:value forKey:exportKey];
+            }
+        }
+    }
+    
+    return result;
 }
 
 @end

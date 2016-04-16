@@ -16,4 +16,9 @@
 - (BOOL)updateWithDictionary:(NSDictionary * _Nonnull)dictionary error:(NSError * _Nullable * _Nullable)out_error;
 - (BOOL)updateAttributesWithDictionary:(NSDictionary * _Nonnull)dictionary error:(NSError * _Nullable * _Nullable)out_error;
 - (BOOL)updateRelationshipsWithDictionary:(NSDictionary * _Nonnull)dictionary error:(NSError * _Nullable * _Nullable)out_error;
+
++ (id _Nullable)transformExportValue:(id _Nullable)value exportKey:(NSString * _Nonnull)importKey propertyDescription:(NSPropertyDescription * _Nonnull)propertyDescription;
+- (NSDictionary * _Nonnull)exportDictionary;
+- (NSDictionary * _Nonnull)exportAttributesDictionary;
+- (NSDictionary * _Nonnull)exportRelationshipsDictionary;
 @end
