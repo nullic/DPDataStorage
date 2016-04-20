@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Dmitriy Petrusevich. All rights reserved.
 //
 
-@import UIKit;
+#import <UIKit/UIKit.h>
 
 #import "DPDataSourceCell.h"
 #import "DPDataSourceContainer.h"

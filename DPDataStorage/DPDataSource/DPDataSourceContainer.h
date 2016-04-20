@@ -6,7 +6,7 @@
 //  Copyright © 2015 dmitriy.petrusevich. All rights reserved.
 //
 
-@import CoreData;
+#import <CoreData/CoreData.h>
 
 @protocol DataSourceContainerController;
 
