@@ -8,8 +8,10 @@ Pod::Spec.new do |s|
   s.license      = "MIT"
   s.author       = { "Dmitriy Petrusevich" => "nullic@gmail.com" }
   s.platform     = :ios, "5.0"
+  s.framework    = 'CoreData'
 
   s.source       = { :git => "https://github.com/nullic/DPDataStorage.git", :tag => "1.0" }
+
   s.source_files = "DPDataStorage", "DPDataStorage/*.{h,m}"
   s.requires_arc = true
 
@@ -24,5 +26,5 @@ Pod::Spec.new do |s|
   s.subspec 'Categories' do |ss|
     ss.source_files = "DPDataStorage/Categories/*.{h,m}"
   end
-  
+
 end
