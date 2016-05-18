@@ -71,6 +71,8 @@
     if (self.noDataView == nil || self.collectionView == nil) return;
 
     if (self.noDataView.superview == nil && hidden == NO) {
+        self.collectionView.bounces = NO;
+
         self.noDataView.translatesAutoresizingMaskIntoConstraints = NO;
         NSLayoutConstraint *width = [NSLayoutConstraint constraintWithItem:self.noDataView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self.collectionView attribute:NSLayoutAttributeWidth multiplier:1 constant:0];
         NSLayoutConstraint *height = [NSLayoutConstraint constraintWithItem:self.noDataView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.collectionView attribute:NSLayoutAttributeHeight multiplier:1 constant:0];
@@ -87,6 +89,8 @@
         [self.collectionView addConstraints:@[width, height, centerX, centerY]];
     }
     else if (self.noDataView.superview != nil && hidden == YES) {
+        self.collectionView.bounces = YES;
+
         if (self.collectionView.backgroundView == self.noDataView) {
             self.collectionView.backgroundView = nil;
         }
