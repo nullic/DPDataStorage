@@ -60,6 +60,11 @@
     return self;
 }
 
+- (void)dealloc {
+    if (self.tableView.delegate == self) self.tableView.delegate = nil;
+    if (self.tableView.dataSource == self) self.tableView.dataSource = nil;
+}
+
 #pragma mark - NoData view
 
 - (void)showNoDataViewIfNeeded {

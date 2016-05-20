@@ -61,6 +61,11 @@
     return self;
 }
 
+- (void)dealloc {
+    if (self.collectionView.delegate == self) self.collectionView.delegate = nil;
+    if (self.collectionView.dataSource == self) self.collectionView.dataSource = nil;
+}
+
 #pragma mark - NoData view
 
 - (void)showNoDataViewIfNeeded {
