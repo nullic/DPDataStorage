@@ -7,7 +7,7 @@ Pod::Spec.new do |s|
   s.homepage     = "https://github.com/nullic/DPDataStorage.git"
   s.license      = "MIT"
   s.author       = { "Dmitriy Petrusevich" => "nullic@gmail.com" }
-  s.platform     = :ios, "5.0"
+  s.platform     = { :ios => "5.0", :tvos => "9.0" }
   s.framework    = 'CoreData'
 
   s.source       = { :git => "https://github.com/nullic/DPDataStorage.git", :tag => "1.0" }
