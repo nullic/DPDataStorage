@@ -23,7 +23,7 @@
 }
 
 - (void)setCellIdentifier:(NSString *)cellIdentifier {
-    _cellIdentifier = [cellIdentifier copy];
+    super.cellIdentifier = [cellIdentifier copy];
     [self.tableView reloadData];
     [self showNoDataViewIfNeeded];
 }
@@ -35,9 +35,9 @@
 }
 
 - (void)setNoDataView:(UIView *)noDataView {
-    if (_noDataView != noDataView) {
-        [_noDataView removeFromSuperview];
-        _noDataView = noDataView;
+    if (super.noDataView != noDataView) {
+        [super.noDataView removeFromSuperview];
+        super.noDataView = noDataView;
         [self showNoDataViewIfNeeded];
     }
 }
@@ -76,12 +76,6 @@
 
     if (self.noDataView.superview == nil && hidden == NO) {
         self.tableView.bounces = NO;
-        
-        self.noDataView.translatesAutoresizingMaskIntoConstraints = YES;
-        NSLayoutConstraint *width = [NSLayoutConstraint constraintWithItem:self.noDataView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self.tableView attribute:NSLayoutAttributeWidth multiplier:1 constant:0];
-        NSLayoutConstraint *height = [NSLayoutConstraint constraintWithItem:self.noDataView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.tableView attribute:NSLayoutAttributeHeight multiplier:1 constant:0];
-        NSLayoutConstraint *centerX = [NSLayoutConstraint constraintWithItem:self.noDataView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.tableView attribute:NSLayoutAttributeCenterX multiplier:1 constant:0];
-        NSLayoutConstraint *centerY = [NSLayoutConstraint constraintWithItem:self.noDataView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.tableView attribute:NSLayoutAttributeCenterY multiplier:1 constant:0];
 
         if (self.tableView.backgroundView) {
             [self.tableView.backgroundView addSubview:self.noDataView];
@@ -90,7 +84,11 @@
             self.tableView.backgroundView = self.noDataView;
         }
 
-        [self.tableView addConstraints:@[width, height, centerX, centerY]];
+        self.noDataView.translatesAutoresizingMaskIntoConstraints = NO;
+        [[self.noDataView.topAnchor constraintEqualToAnchor:self.tableView.topAnchor] setActive:YES];
+        [[self.noDataView.leftAnchor constraintEqualToAnchor:self.tableView.leftAnchor] setActive:YES];
+        [[self.noDataView.rightAnchor constraintEqualToAnchor:self.tableView.rightAnchor] setActive:YES];
+        [[self.noDataView.bottomAnchor constraintEqualToAnchor:self.tableView.bottomAnchor] setActive:YES];
     }
     else if (self.noDataView.superview != nil && hidden == YES) {
         self.tableView.bounces = YES;

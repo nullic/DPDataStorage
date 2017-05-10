@@ -8,6 +8,8 @@
 
 #import "DPArrayController.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 #pragma mark - DPArrayControllerSection
 
 @interface DPArrayControllerSection : NSObject  <NSFetchedResultsSectionInfo> {
@@ -68,7 +70,7 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
 
 @implementation DPArrayController
 
-- (instancetype)initWithDelegate:(id<DataSourceContainerControllerDelegate>)delegate {
+- (instancetype)initWithDelegate:(id<DataSourceContainerControllerDelegate> _Nullable)delegate {
     if ((self = [self init])) {
         self.delegate = delegate;
     }
@@ -83,7 +85,7 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
     return self;
 }
 
-- (void)setDelegate:(id<DataSourceContainerControllerDelegate>)delegate {
+- (void)setDelegate:(id<DataSourceContainerControllerDelegate> _Nullable)delegate {
     if (_delegate != delegate) {
         _delegate = delegate;
 
@@ -183,7 +185,7 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
     return result;
 }
 
-- (void)setFilter:(NSPredicate *)filter {
+- (void)setFilter:(NSPredicate * _Nullable)filter {
     if (_filter != filter) {
         _filter = filter;
 
@@ -553,4 +555,14 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
     return result;
 }
 
+- (NSArray *)fetchedObjects {
+    NSMutableArray *fetchedObjects = [NSMutableArray array];
+    for (id <NSFetchedResultsSectionInfo> section in self.sections) {
+        [fetchedObjects addObjectsFromArray:section.objects];
+    }
+    return fetchedObjects;
+}
+
 @end
+
+NS_ASSUME_NONNULL_END

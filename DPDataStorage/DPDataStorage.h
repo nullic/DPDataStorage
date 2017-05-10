@@ -15,6 +15,7 @@
 
 #import "DPCollectionViewDataSource.h"
 #import "DPTableViewDataSource.h"
+#import "DPMapViewDataSource.h"
 #import "DPArrayController.h"
 
 

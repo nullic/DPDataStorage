@@ -10,9 +10,6 @@
 
 @interface DPTableViewDataSource : DPBaseDataSource <UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, weak, nullable) IBOutlet UITableView *tableView;
-@property (nonatomic, strong, nullable) IBOutlet UIView *noDataView;
-@property (nonatomic, copy, nullable) IBInspectable NSString *cellIdentifier; // Cell must conform <DPDataSourceCell>
-@property (nonatomic) IBInspectable BOOL disableAnimations;
 
 - (instancetype _Nonnull)initWithTableView:(UITableView * _Nullable)tableView listController:(id<DataSourceContainerController> _Nullable)listController forwardDelegate:(id _Nullable)forwardDelegate cellIdentifier:(NSString * _Nullable)cellIdentifier;
 

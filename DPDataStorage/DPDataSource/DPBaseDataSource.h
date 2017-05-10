@@ -19,8 +19,11 @@
 
 IB_DESIGNABLE
 @interface DPBaseDataSource : NSObject <DataSourceContainerControllerDelegate, NSFetchedResultsControllerDelegate>
-@property (nonatomic, weak, nullable) IBOutlet id forwardDelegate;
+@property (nonatomic, copy, nullable) IBInspectable NSString *cellIdentifier; // Cell must conform <DPDataSourceCell>
 @property (nonatomic, strong, nullable) IBOutlet id<DataSourceContainerController> listController;
+@property (nonatomic, strong, nullable) IBOutlet UIView *noDataView;
+@property (nonatomic, weak, nullable) IBOutlet id forwardDelegate;
+@property (nonatomic) IBInspectable BOOL disableAnimations;
 @property (nonatomic, readonly) BOOL hasData;
 
 - (NSInteger)numberOfSections;
