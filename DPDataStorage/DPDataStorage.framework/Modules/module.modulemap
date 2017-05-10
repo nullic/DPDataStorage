@@ -1,0 +1,6 @@
+framework module DPDataStorage {
+  umbrella header "DPDataStorage.h"
+
+  export *
+  module * { export * }
+}
