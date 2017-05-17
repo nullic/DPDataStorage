@@ -64,7 +64,6 @@
 - (void)reloadAnnotations {
     if (self.mapView == nil || self.listController == nil || self.cellIdentifier == nil || self.annotationViewClass == nil) return;
 
-    [self.mapView removeAnnotations:self.mapView.annotations];
     for (id<MKAnnotation> annotation in self.listController.fetchedObjects) {
         if ([annotation conformsToProtocol:@protocol(MKAnnotation)]) {
             [self.mapView addAnnotation:annotation];
@@ -92,7 +91,7 @@
         }
 
         if ([annotationView conformsToProtocol:@protocol(DPDataSourceCell)]) {
-            MKAnnotationView<DPDataSourceCell> *dataSourceCell = annotationView;
+            MKAnnotationView<DPDataSourceCell> *dataSourceCell = (id)annotationView;
             [dataSourceCell configureWithObject:annotation];
         }
         else {
@@ -117,12 +116,30 @@
 
 #pragma mark - NSFetchedResultsController
 
+- (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject
+       atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type
+      newIndexPath:(NSIndexPath *)newIndexPath {
 
-- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
     if (controller == self.listController && self.mapView.delegate != nil) {
-        [self reloadAnnotations];
-        [self showNoDataViewIfNeeded];
-    }
+        switch(type) {
+            case NSFetchedResultsChangeInsert:
+                [self.mapView addAnnotation:anObject];
+                break;
+
+            case NSFetchedResultsChangeDelete:
+                [self.mapView removeAnnotation:anObject];
+                break;
+
+            case NSFetchedResultsChangeUpdate:
+                [self.mapView removeAnnotation:anObject];
+                [self.mapView addAnnotation:anObject];
+                break;
+
+            case NSFetchedResultsChangeMove:
+                break;
+        }
+    };
+    [self showNoDataViewIfNeeded];
 }
 
 @end
