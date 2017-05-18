@@ -1,2 +1,2 @@
 language: objective-c
-script: xctool -project DPDataStorage/DPDataStorage.xcodeproj-scheme DPDataStorage -sdk iphonesimulator clean build test ONLY_ACTIVE_ARCH=NO CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
+script: xctool -project DPDataStorage/DPDataStorage.xcodeproj -scheme DPDataStorage -sdk iphonesimulator clean build test ONLY_ACTIVE_ARCH=NO CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
