@@ -24,6 +24,9 @@
 }
 
 - (void)setListController:(id<DataSourceContainerController>)listController {
+    if (super.listController) {
+        [self.mapView removeAnnotations:super.listController.fetchedObjects];
+    }
     [super setListController:listController];
     [self reloadAnnotations];
     [self showNoDataViewIfNeeded];
