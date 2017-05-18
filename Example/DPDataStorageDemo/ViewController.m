@@ -9,7 +9,7 @@
 #import "ViewController.h"
 #import <CoreData/CoreData.h>
 #import "Programmer.h"
-#import "DPDataStorage.h"
+#import <DPDataStorage/DPDataStorage.h>
 
 @interface ViewController ()
 @property (strong, nonatomic) IBOutlet DPTableViewDataSource *dataSource;

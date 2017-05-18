@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import "DPDataStorage.h"
+#import <DPDataStorage/DPDataStorage.h>
 #import "Programmer.h"
 
 @interface AppDelegate ()
