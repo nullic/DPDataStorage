@@ -108,13 +108,19 @@
 
 #pragma mark - NoData view
 
+- (BOOL)hasData {
+    return self.mapView.annotations.count > 0;
+}
+
 - (void)showNoDataViewIfNeeded {
     [self setNoDataViewHidden:[self hasData]];
 }
 
 - (void)setNoDataViewHidden:(BOOL)hidden {
     if (self.noDataView == nil || self.mapView == nil) return;
-    NSAssert(false, @"Not implemented");
+
+    self.mapView.hidden = !hidden;
+    [self.noDataView setHidden:hidden];
 }
 
 #pragma mark - NSFetchedResultsController
