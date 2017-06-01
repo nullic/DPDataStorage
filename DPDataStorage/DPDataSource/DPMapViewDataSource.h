@@ -17,6 +17,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)initWithMapView:(MKMapView * _Nullable)mapView listController:(id<DataSourceContainerController> _Nullable)listController forwardDelegate:(id _Nullable)forwardDelegate cellIdentifier:(NSString * _Nullable)cellIdentifier;
 
+- (void)addAnnotation:(id<MKAnnotation>)annotation;
+- (void)removeAnnotation:(id<MKAnnotation>)annotation;
+
 @end
 
 NS_ASSUME_NONNULL_END

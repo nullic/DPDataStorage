@@ -25,7 +25,9 @@
 
 - (void)setListController:(id<DataSourceContainerController>)listController {
     if (super.listController) {
-        [self.mapView removeAnnotations:super.listController.fetchedObjects];
+        for (id<MKAnnotation> annotation in super.listController.fetchedObjects) {
+            [self removeAnnotation:annotation];
+        }
     }
     [super setListController:listController];
     [self reloadAnnotations];
@@ -69,13 +71,21 @@
 
     for (id<MKAnnotation> annotation in self.listController.fetchedObjects) {
         if ([annotation conformsToProtocol:@protocol(MKAnnotation)]) {
-            [self.mapView addAnnotation:annotation];
+            [self addAnnotation:annotation];
         }
         else {
             NSString *reason = [NSString stringWithFormat:@"Type '%@' does not conform to protocol '%@'", NSStringFromClass(annotation.class), NSStringFromProtocol(@protocol(MKAnnotation))];
             @throw [NSException exceptionWithName:NSInternalInconsistencyException reason:reason userInfo:nil];
         }
     }
+}
+
+- (void)addAnnotation:(id<MKAnnotation>)annotation {
+    [self.mapView addAnnotation:annotation];
+}
+
+- (void)removeAnnotation:(id<MKAnnotation>)annotation {
+    [self.mapView removeAnnotation:annotation];
 }
 
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation {
@@ -132,16 +142,16 @@
     if (controller == self.listController && self.mapView.delegate != nil) {
         switch(type) {
             case NSFetchedResultsChangeInsert:
-                [self.mapView addAnnotation:anObject];
+                [self addAnnotation:anObject];
                 break;
 
             case NSFetchedResultsChangeDelete:
-                [self.mapView removeAnnotation:anObject];
+                [self removeAnnotation:anObject];
                 break;
 
             case NSFetchedResultsChangeUpdate:
-                [self.mapView removeAnnotation:anObject];
-                [self.mapView addAnnotation:anObject];
+                [self removeAnnotation:anObject];
+                [self addAnnotation:anObject];
                 break;
 
             case NSFetchedResultsChangeMove:
