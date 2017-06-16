@@ -157,7 +157,7 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
         NSIndexPath *path = [self indexPathForObject:object];
         path ? [paths addObject:path] : nil;
     }
-    comparator ? [paths sortedArrayUsingComparator:comparator] : nil;
+    comparator ? [paths sortUsingComparator:comparator] : nil;
 
     return paths;
 }

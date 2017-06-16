@@ -20,6 +20,32 @@ static NSString * const kExportKey = @"exportKey";
 
 #pragma mark - Import
 
++ (NSArray<NSString *> *)importKeysInContext:(NSManagedObjectContext *)context {
+    NSMutableArray *importKeys = [NSMutableArray array];
+    NSEntityDescription *entityDescription = [context entityDescriptionForManagedObjectClass:[self class]];
+    NSDictionary *entityAttributes = entityDescription.attributesByName;
+
+    for (NSString *attributeName in entityAttributes) {
+        NSAttributeDescription *attributeDescription = entityAttributes[attributeName];
+        for (NSString *key in attributeDescription.userInfo) {
+            if ([key hasPrefix:kImportKey]) {
+                [importKeys addObject:attributeDescription.userInfo[key]];
+            }
+        }
+    }
+
+    NSDictionary *entityRelationships = entityDescription.relationshipsByName;
+    for (NSString *relationshipName in entityRelationships) {
+        NSRelationshipDescription *relationshipDescription = entityRelationships[relationshipName];
+        for (NSString *key in relationshipDescription.userInfo) {
+            if ([key hasPrefix:kImportKey]) {
+                [importKeys addObject:relationshipDescription.userInfo[key]];
+            }
+        }
+    }
+    return importKeys;
+}
+
 + (id)transformImportValue:(id)value importKey:(NSString *)importKey propertyDescription:(NSPropertyDescription *)propertyDescription {
     return value;
 }
