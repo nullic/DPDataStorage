@@ -77,6 +77,20 @@
     if (self.noDataView.superview == nil && hidden == NO) {
         self.tableView.bounces = NO;
 
+        self.noDataView.translatesAutoresizingMaskIntoConstraints = YES;
+        NSLayoutConstraint *width =
+        [NSLayoutConstraint constraintWithItem:self.noDataView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self.tableView
+                                     attribute:NSLayoutAttributeWidth multiplier:1 constant:0];
+        NSLayoutConstraint *height =
+        [NSLayoutConstraint constraintWithItem:self.noDataView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.tableView
+                                     attribute:NSLayoutAttributeHeight multiplier:1 constant:0];
+        NSLayoutConstraint *centerX =
+        [NSLayoutConstraint constraintWithItem:self.noDataView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.tableView
+                                     attribute:NSLayoutAttributeCenterX multiplier:1 constant:0];
+        NSLayoutConstraint *centerY =
+        [NSLayoutConstraint constraintWithItem:self.noDataView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.tableView
+                                     attribute:NSLayoutAttributeCenterY multiplier:1 constant:0];
+
         if (self.tableView.backgroundView) {
             [self.tableView.backgroundView addSubview:self.noDataView];
         }
@@ -84,11 +98,7 @@
             self.tableView.backgroundView = self.noDataView;
         }
 
-        self.noDataView.translatesAutoresizingMaskIntoConstraints = NO;
-        [[self.noDataView.topAnchor constraintEqualToAnchor:self.tableView.topAnchor] setActive:YES];
-        [[self.noDataView.leftAnchor constraintEqualToAnchor:self.tableView.leftAnchor] setActive:YES];
-        [[self.noDataView.rightAnchor constraintEqualToAnchor:self.tableView.rightAnchor] setActive:YES];
-        [[self.noDataView.bottomAnchor constraintEqualToAnchor:self.tableView.bottomAnchor] setActive:YES];
+        [self.tableView addConstraints:@[width, height, centerX, centerY]];
     }
     else if (self.noDataView.superview != nil && hidden == YES) {
         self.tableView.bounces = YES;
@@ -170,15 +180,15 @@
         dispatch_block_t block = ^{
             switch(type) {
                 case NSFetchedResultsChangeInsert:
-                    [tv insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+                    [tv insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
                     break;
 
                 case NSFetchedResultsChangeDelete:
-                    [tv deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+                    [tv deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
                     break;
 
                 case NSFetchedResultsChangeUpdate:
-                    [tv reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+                    [tv reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
                     break;
 
                 case NSFetchedResultsChangeMove:
@@ -201,13 +211,13 @@
         dispatch_block_t block = ^{
             switch (type) {
                 case NSFetchedResultsChangeInsert:
-                    [tv insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
+                    [tv insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationAutomatic];
                     break;
                 case NSFetchedResultsChangeDelete:
-                    [tv deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
+                    [tv deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationAutomatic];
                     break;
                 case NSFetchedResultsChangeUpdate:
-                    [tv reloadSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationNone];
+                    [tv reloadSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationAutomatic];
                     break;
                 default:
                     break;
