@@ -18,8 +18,8 @@
     }
 }
 
-- (void)setCellIdentifier:(NSString *)cellIdentifier {
-    super.cellIdentifier = [cellIdentifier copy];
+- (void)setAnnotationViewIdentifier:(NSString *)annotationViewIdentifier {
+    _annotationViewIdentifier = [annotationViewIdentifier copy];
     [self reloadAnnotations];
 }
 
@@ -42,18 +42,18 @@
 }
 
 - (void)setNoDataView:(UIView *)noDataView {
-    if (super.noDataView != noDataView) {
-        [super.noDataView removeFromSuperview];
-        super.noDataView = noDataView;
+    if (_noDataView != noDataView) {
+        [_noDataView removeFromSuperview];
+        _noDataView = noDataView;
         [self showNoDataViewIfNeeded];
     }
 }
 
 #pragma mark - Init
 
-- (instancetype)initWithMapView:(MKMapView *)mapView listController:(id<DataSourceContainerController>)listController forwardDelegate:(id)forwardDelegate cellIdentifier:(NSString *)cellIdentifier {
+- (instancetype)initWithMapView:(MKMapView *)mapView listController:(id<DataSourceContainerController>)listController forwardDelegate:(id)forwardDelegate annotationViewIdentifier:(NSString *)annotationViewIdentifier {
     if ((self = [super init])) {
-        self.cellIdentifier = cellIdentifier;
+        self.annotationViewIdentifier = annotationViewIdentifier;
 
         self.forwardDelegate = forwardDelegate;
         self.listController = listController;
@@ -67,7 +67,7 @@
 }
 
 - (void)reloadAnnotations {
-    if (self.mapView == nil || self.listController == nil || self.cellIdentifier == nil || self.annotationViewClass == nil) return;
+    if (self.mapView == nil || self.listController == nil || self.annotationViewIdentifier == nil || self.annotationViewClass == nil) return;
 
     for (id<MKAnnotation> annotation in self.listController.fetchedObjects) {
         if ([annotation conformsToProtocol:@protocol(MKAnnotation)]) {
@@ -95,9 +95,9 @@
     }
 
     if (annotationView == nil) {
-        annotationView = (id)[mapView dequeueReusableAnnotationViewWithIdentifier:self.cellIdentifier];
+        annotationView = (id)[mapView dequeueReusableAnnotationViewWithIdentifier:self.annotationViewIdentifier];
         if (annotationView == nil) {
-            annotationView = [[NSClassFromString(self.annotationViewClass) alloc] initWithAnnotation:annotation reuseIdentifier:self.cellIdentifier];
+            annotationView = [[NSClassFromString(self.annotationViewClass) alloc] initWithAnnotation:annotation reuseIdentifier:self.annotationViewIdentifier];
         }
         else {
             annotationView.annotation = annotation;
@@ -117,10 +117,6 @@
 }
 
 #pragma mark - NoData view
-
-- (BOOL)hasData {
-    return self.mapView.annotations.count > 0;
-}
 
 - (void)showNoDataViewIfNeeded {
     [self setNoDataViewHidden:[self hasData]];

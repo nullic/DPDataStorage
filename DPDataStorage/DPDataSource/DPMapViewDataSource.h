@@ -14,8 +14,10 @@ NS_ASSUME_NONNULL_BEGIN
 @interface DPMapViewDataSource : DPBaseDataSource <MKMapViewDelegate>
 @property (nonatomic, weak, nullable) IBOutlet MKMapView *mapView;
 @property (nonatomic, copy, nullable) IBInspectable NSString *annotationViewClass; // View must conform <DPDataSourceCell>
+@property (nonatomic, strong, nullable) IBOutlet UIView *noDataView;
+@property (nonatomic, copy, nullable) IBInspectable NSString *annotationViewIdentifier;
 
-- (instancetype)initWithMapView:(MKMapView * _Nullable)mapView listController:(id<DataSourceContainerController> _Nullable)listController forwardDelegate:(id _Nullable)forwardDelegate cellIdentifier:(NSString * _Nullable)cellIdentifier;
+- (instancetype)initWithMapView:(MKMapView * _Nullable)mapView listController:(id<DataSourceContainerController> _Nullable)listController forwardDelegate:(id _Nullable)forwardDelegate annotationViewIdentifier:(NSString *)annotationViewIdentifier;
 
 - (void)addAnnotation:(id<MKAnnotation>)annotation;
 - (void)removeAnnotation:(id<MKAnnotation>)annotation;

@@ -23,7 +23,7 @@
 }
 
 - (void)setCellIdentifier:(NSString *)cellIdentifier {
-    super.cellIdentifier = [cellIdentifier copy];
+    _cellIdentifier = [cellIdentifier copy];
     [self.collectionView reloadData];
     [self showNoDataViewIfNeeded];
 }
@@ -35,9 +35,9 @@
 }
 
 - (void)setNoDataView:(UIView *)noDataView {
-    if (super.noDataView != noDataView) {
-        [super.noDataView removeFromSuperview];
-        super.noDataView = noDataView;
+    if (_noDataView != noDataView) {
+        [_noDataView removeFromSuperview];
+        _noDataView = noDataView;
         [self showNoDataViewIfNeeded];
     }
 }

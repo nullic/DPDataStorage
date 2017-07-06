@@ -128,16 +128,16 @@
 		765EF8211EBCB60700C21E2E /* DPDataSource */ = {
 			isa = PBXGroup;
 			children = (
+				765EF8291EBCB60700C21E2E /* DPDataSourceContainer.h */,
 				765EF8221EBCB60700C21E2E /* DPArrayController.h */,
 				765EF8231EBCB60700C21E2E /* DPArrayController.m */,
 				765EF8241EBCB60700C21E2E /* DPBaseDataSource.h */,
 				765EF8251EBCB60700C21E2E /* DPBaseDataSource.m */,
-				765EF8261EBCB60700C21E2E /* DPCollectionViewDataSource.h */,
-				765EF8271EBCB60700C21E2E /* DPCollectionViewDataSource.m */,
 				765EF8281EBCB60700C21E2E /* DPDataSourceCell.h */,
-				765EF8291EBCB60700C21E2E /* DPDataSourceContainer.h */,
 				765EF82A1EBCB60700C21E2E /* DPTableViewDataSource.h */,
 				765EF82B1EBCB60700C21E2E /* DPTableViewDataSource.m */,
+				765EF8261EBCB60700C21E2E /* DPCollectionViewDataSource.h */,
+				765EF8271EBCB60700C21E2E /* DPCollectionViewDataSource.m */,
 				7690ADE71EC35DC5003C1CDD /* DPMapViewDataSource.h */,
 				7690ADE81EC35DC5003C1CDD /* DPMapViewDataSource.m */,
 			);

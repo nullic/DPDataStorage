@@ -23,7 +23,7 @@
 }
 
 - (void)setCellIdentifier:(NSString *)cellIdentifier {
-    super.cellIdentifier = [cellIdentifier copy];
+    _cellIdentifier = [cellIdentifier copy];
     [self.tableView reloadData];
     [self showNoDataViewIfNeeded];
 }
@@ -35,9 +35,9 @@
 }
 
 - (void)setNoDataView:(UIView *)noDataView {
-    if (super.noDataView != noDataView) {
-        [super.noDataView removeFromSuperview];
-        super.noDataView = noDataView;
+    if (_noDataView != noDataView) {
+        [_noDataView removeFromSuperview];
+        _noDataView = noDataView;
         [self showNoDataViewIfNeeded];
     }
 }
@@ -77,7 +77,7 @@
     if (self.noDataView.superview == nil && hidden == NO) {
         self.tableView.bounces = NO;
 
-        self.noDataView.translatesAutoresizingMaskIntoConstraints = YES;
+        self.noDataView.translatesAutoresizingMaskIntoConstraints = NO;
         NSLayoutConstraint *width =
         [NSLayoutConstraint constraintWithItem:self.noDataView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self.tableView
                                      attribute:NSLayoutAttributeWidth multiplier:1 constant:0];
