@@ -23,13 +23,13 @@
 + (instancetype _Nullable)anyEntryInContext:(NSManagedObjectContext * _Nonnull)context;
 
 + (NSArray <__kindof NSManagedObject *>* _Nonnull)allEntriesInContext:(NSManagedObjectContext * _Nonnull)context;
-+ (NSArray <__kindof NSManagedObject *>* _Nonnull)allEntriesWithSortDescriptors:(NSArray <NSSortDescriptor *> * _Nullable)sortDescrptors
++ (NSArray <__kindof NSManagedObject *>* _Nonnull)allEntriesWithSortDescriptors:(NSArray<NSSortDescriptor *> * _Nullable)sortDescrptors
                                                                       inContext:(NSManagedObjectContext * _Nonnull)context;
 
 + (NSFetchRequest * _Nonnull)newFetchRequestInContext:(NSManagedObjectContext * _Nonnull)context;
 + (NSFetchedResultsController * _Nonnull)fetchedResultsController:(id<NSFetchedResultsControllerDelegate> _Nullable)delegate
                                                         predicate:(NSPredicate * _Nullable)predicate
-                                                  sortDescriptors:(NSArray * _Nonnull)sortDescriptors
+                                                  sortDescriptors:(NSArray<NSSortDescriptor *> * _Nonnull)sortDescriptors
                                                         inContext:(NSManagedObjectContext * _Nonnull)context;
 
 - (BOOL)validate:(NSError * _Nullable * _Nullable)error;
