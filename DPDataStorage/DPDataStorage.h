@@ -51,7 +51,7 @@ extern NSString * const _Nonnull DPDataStorageNotificationNameKey;
 + (instancetype _Null_unspecified)defaultStorage;
 
 /**
- @function
+ @method
  @param modelName Use to set name for model that should be loaded for default storage. 
   If passed `nil` model whould be created with 'mergedModelFromBundles:nil' that  merge all models from main bundle.
  @param storageURL Use to set URL for storage file. You can use `storageDefaultURL` here for default path.
@@ -66,19 +66,19 @@ extern NSString * const _Nonnull DPDataStorageNotificationNameKey;
 + (NSURL * _Nonnull)storageDefaultURL;
 
 /**
- @function
+ @method
  @discussion Use to set current `DPDataStorage` object as default.
  */
 - (void)makeDefault;
 
 /**
- @function
+ @method
  @discussion Use to set current default `DPDataStorage` object to nil .
  */
 + (void)resetDefaultStorage;
 
 /**
- @function
+ @method
  @param modelURL Use to set URL for model that should be loaded for default storage.
   If passed `nil` model whould be created with 'mergedModelFromBundles:nil' that  merge all models from main bundle.
  @param storageURL Use to set URL for storage file. You can use `storageDefaultURL` here for default path.
@@ -88,19 +88,19 @@ extern NSString * const _Nonnull DPDataStorageNotificationNameKey;
 + (instancetype _Nullable)storageWithModelURL:(NSURL * _Nullable)modelURL storageURL:(NSURL * _Nullable)storageURL;
 
 /**
- @function
+ @method
  @return Initialized NSManagedObjectContext with `NSMainQueueConcurrencyType` concurrency type.
  */
 - (NSManagedObjectContext * _Nonnull)newMainQueueManagedObjectContext;
 
 /**
- @function
+ @method
  @return Initialized NSManagedObjectContext with `NSPrivateQueueConcurrencyType` concurrency type.
  */
 - (NSManagedObjectContext * _Nonnull)newPrivateQueueManagedObjectContext;
 
 /**
- @function
+ @method
  @return Initialized NSManagedObjectContext with `NSConfinementConcurrencyType` concurrency type.
  */
 - (NSManagedObjectContext * _Nonnull)newManagedObjectContext NS_ENUM_DEPRECATED(10_4,10_11,3_0,9_0, "Use another NSManagedObjectContextConcurrencyType");
