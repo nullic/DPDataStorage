@@ -155,20 +155,27 @@
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
     if (controller == self.listController && self.collectionView.dataSource != nil) {
+        NSArray *indexPathsForSelectedItems = self.collectionView.indexPathsForSelectedItems;
+        dispatch_block_t updateCompletionBlock = ^{
+            for (NSIndexPath *indexPath in indexPathsForSelectedItems) {
+                [self.collectionView selectItemAtIndexPath:indexPath animated:false scrollPosition:UICollectionViewScrollPositionNone];
+            }
+        };
+
         if (self.updatesBlocks.count > 0 && self.collectionView.window) {
             NSArray *blocks = self.updatesBlocks;
             self.updatesBlocks = nil;
 
             [self.collectionView performBatchUpdates:^{
-                for (dispatch_block_t updates in blocks) {
-                    updates();
-                }
-            } completion:nil];
+                for (dispatch_block_t updates in blocks) { updates(); }
+            } completion:^(BOOL finished) {
+                updateCompletionBlock();
+            }];
         }
         else {
             [self.collectionView reloadData];
+            updateCompletionBlock();
         }
-
         [self showNoDataViewIfNeeded];
     }
 }
