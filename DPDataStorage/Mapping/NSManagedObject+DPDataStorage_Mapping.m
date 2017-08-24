@@ -147,7 +147,13 @@ static NSString * const kExportKey = @"exportKey";
         NSEntityDescription *entityDescription = [context entityDescriptionForManagedObjectClass:[self class]];
         NSDictionary *entityAttributes = [entityDescription attributesByName];
 
-        NSString *entityUniqueKey = entityDescription.userInfo[kUniqueKey];
+        NSString *entityUniqueKey = nil;
+        NSEntityDescription *parent = entityDescription;
+        while (parent != nil && entityUniqueKey == nil) {
+            entityUniqueKey = parent.userInfo[kUniqueKey];
+            parent = parent.superentity;
+        }
+
         NSAttributeDescription *uniqueAttr = entityUniqueKey ? entityAttributes[entityUniqueKey] : nil;
 
         NSString *importUniqueKey = nil;
