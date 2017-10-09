@@ -16,12 +16,12 @@
 
 
 @interface __DPDS_OnDeallocContainer__ : NSObject
-@property (nonatomic, copy) void(^block)();
+@property (nonatomic, copy) void(^block)(void);
 @end
 
 @implementation __DPDS_OnDeallocContainer__
 
-- (id)initWithBlock:(void(^)())block {
+- (id)initWithBlock:(void(^)(void))block {
     self = [super init];
     if (self) {
         self.block = block;
@@ -41,7 +41,7 @@
 @end
 
 @implementation NSObject (DPCommons)
-- (void)__executeOnDealloc__:(void(^)())onDeallocBlock {
+- (void)__executeOnDealloc__:(void(^)(void))onDeallocBlock {
     if (onDeallocBlock) {
         __DPDS_OnDeallocContainer__ *action = [[__DPDS_OnDeallocContainer__ alloc] initWithBlock:onDeallocBlock];
         objc_setAssociatedObject(self, (__bridge void *)(action), action, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
