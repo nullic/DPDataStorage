@@ -61,6 +61,7 @@
 #pragma mark -
 
 static NSString * const kReadOnlyFlagKey = @"isReadOnly";
+static NSString * const kDeleteInvalidObjectsFlagKey = @"deleteInvalidObjects";
 
 - (void)setReadOnly:(BOOL)readOnly {
     objc_setAssociatedObject(self, (__bridge void *)(kReadOnlyFlagKey), @(readOnly), OBJC_ASSOCIATION_RETAIN);
@@ -68,6 +69,14 @@ static NSString * const kReadOnlyFlagKey = @"isReadOnly";
 
 - (BOOL)isReadOnly {
     return [objc_getAssociatedObject(self, (__bridge const void *)(kReadOnlyFlagKey)) boolValue];
+}
+
+- (void)setDeleteInvalidObjectsOnSave:(BOOL)deleteInvalidObjectsOnSave {
+    objc_setAssociatedObject(self, (__bridge void *)(kDeleteInvalidObjectsFlagKey), @(deleteInvalidObjectsOnSave), OBJC_ASSOCIATION_RETAIN);
+}
+
+- (BOOL)deleteInvalidObjectsOnSave {
+    return [objc_getAssociatedObject(self, (__bridge const void *)(kDeleteInvalidObjectsFlagKey)) boolValue];
 }
 
 - (NSString *)entityNameForManagedObjectClass:(Class)objectClass {
@@ -100,12 +109,35 @@ static NSString * const kReadOnlyFlagKey = @"isReadOnly";
     NSAssert(self.isReadOnly == false, @"Try to save readonly context");
 
     NSError *error = nil;
-    if ([self hasChanges] && ![self save:&error]) {
+    if ([self hasChanges]) {
+        if (self.deleteInvalidObjectsOnSave) {
+            while ([self deleteInvalidObjects] == NO);
+        }
+        
+        [self save:&error];
         LOG_ON_ERROR(error);
     }
 
     if (error && inout_error) *inout_error = error;
     return (error == nil);
+}
+
+- (BOOL)deleteInvalidObjects {
+    BOOL result = YES;
+    for (NSManagedObject *obj in [self updatedObjects]) {
+        if ([obj validateForUpdate:nil] == NO) {
+            [self deleteObject:obj];
+            result = NO;
+        }
+    }
+    
+    for (NSManagedObject *obj in [self insertedObjects]) {
+        if ([obj validateForUpdate:nil] == NO) {
+            [self deleteObject:obj];
+            result = NO;
+        }
+    }
+    return result;
 }
 
 @end
