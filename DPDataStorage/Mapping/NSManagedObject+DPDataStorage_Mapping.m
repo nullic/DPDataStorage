@@ -14,6 +14,7 @@
 static NSString * const kUniqueKey = @"uniqueKey";
 static NSString * const kImportKey = @"importKey";
 static NSString * const kExportKey = @"exportKey";
+static NSString * const kDeleteOnReplaceKey = @"deleteOnReplace";
 
 
 @implementation NSManagedObject (DPDataStorage_Mapping)
@@ -299,6 +300,19 @@ static NSString * const kExportKey = @"exportKey";
         if (value != nil) {
             Class valueClass = relationshipDescription.isToMany ? [NSArray class] : [NSDictionary class];
             Class relationClass = NSClassFromString(relationshipDescription.destinationEntity.managedObjectClassName);
+            
+            BOOL deleteOnReplace = [relationshipDescription.userInfo[kDeleteOnReplaceKey] boolValue];
+            if (deleteOnReplace) {
+                id value = [self valueForKey:keyName];
+                if ([value isKindOfClass:[NSManagedObject class]]) {
+                    [self.managedObjectContext deleteObject:value];
+                }
+                else { // assume that value is collection
+                    for (NSManagedObject *obj in value) {
+                        [self.managedObjectContext deleteObject:obj];
+                    }
+                }
+            }
 
             if (value == [NSNull null]) {
                 [self setValue:nil forKey:keyName];
