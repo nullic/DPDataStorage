@@ -43,6 +43,10 @@
 		765EF8421EBCB77D00C21E2E /* DPDataStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 765EF8411EBCB77D00C21E2E /* DPDataStorage.m */; };
 		7690ADE91EC35DC5003C1CDD /* DPMapViewDataSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 7690ADE71EC35DC5003C1CDD /* DPMapViewDataSource.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7690ADEA1EC35DC5003C1CDD /* DPMapViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 7690ADE81EC35DC5003C1CDD /* DPMapViewDataSource.m */; };
+		FA813D8E1F880FE8003125C2 /* DataSourceContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA813D8D1F880FE8003125C2 /* DataSourceContainer.swift */; };
+		FAAE4E951FBD79D400503440 /* TableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAAE4E941FBD79D400503440 /* TableViewDataSource.swift */; };
+		FADA78061F8B9D1F0011141B /* CoreDataContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADA78051F8B9D1F0011141B /* CoreDataContainer.swift */; };
+		FADA780C1F988F030011141B /* DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADA780B1F988F030011141B /* DataSource.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -70,6 +74,10 @@
 		765EF8411EBCB77D00C21E2E /* DPDataStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPDataStorage.m; sourceTree = "<group>"; };
 		7690ADE71EC35DC5003C1CDD /* DPMapViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPMapViewDataSource.h; sourceTree = "<group>"; };
 		7690ADE81EC35DC5003C1CDD /* DPMapViewDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPMapViewDataSource.m; sourceTree = "<group>"; };
+		FA813D8D1F880FE8003125C2 /* DataSourceContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSourceContainer.swift; sourceTree = "<group>"; };
+		FAAE4E941FBD79D400503440 /* TableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewDataSource.swift; sourceTree = "<group>"; };
+		FADA78051F8B9D1F0011141B /* CoreDataContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataContainer.swift; sourceTree = "<group>"; };
+		FADA780B1F988F030011141B /* DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSource.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -129,8 +137,10 @@
 			isa = PBXGroup;
 			children = (
 				765EF8291EBCB60700C21E2E /* DPDataSourceContainer.h */,
-				765EF8221EBCB60700C21E2E /* DPArrayController.h */,
-				765EF8231EBCB60700C21E2E /* DPArrayController.m */,
+				FA813D8D1F880FE8003125C2 /* DataSourceContainer.swift */,
+				FADA78051F8B9D1F0011141B /* CoreDataContainer.swift */,
+				FADA780B1F988F030011141B /* DataSource.swift */,
+				FAAE4E941FBD79D400503440 /* TableViewDataSource.swift */,
 				765EF8241EBCB60700C21E2E /* DPBaseDataSource.h */,
 				765EF8251EBCB60700C21E2E /* DPBaseDataSource.m */,
 				765EF8281EBCB60700C21E2E /* DPDataSourceCell.h */,
@@ -140,6 +150,8 @@
 				765EF8271EBCB60700C21E2E /* DPCollectionViewDataSource.m */,
 				7690ADE71EC35DC5003C1CDD /* DPMapViewDataSource.h */,
 				7690ADE81EC35DC5003C1CDD /* DPMapViewDataSource.m */,
+				765EF8221EBCB60700C21E2E /* DPArrayController.h */,
+				765EF8231EBCB60700C21E2E /* DPArrayController.m */,
 			);
 			path = DPDataSource;
 			sourceTree = "<group>";
@@ -207,6 +219,7 @@
 				TargetAttributes = {
 					765EF80E1EBCB53D00C21E2E = {
 						CreatedOnToolsVersion = 8.3.1;
+						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
 					};
 					765EF8431EBCB96900C21E2E = {
@@ -268,12 +281,16 @@
 				765EF8401EBCB60D00C21E2E /* NSManagedObject+DPDataStorage_Mapping.m in Sources */,
 				765EF82D1EBCB60700C21E2E /* NSManagedObject+DataStorage.m in Sources */,
 				765EF8331EBCB60800C21E2E /* DPArrayController.m in Sources */,
+				FADA780C1F988F030011141B /* DataSource.swift in Sources */,
 				765EF82F1EBCB60800C21E2E /* NSManagedObjectContext+DataStorage.m in Sources */,
 				765EF8371EBCB60800C21E2E /* DPCollectionViewDataSource.m in Sources */,
 				765EF8421EBCB77D00C21E2E /* DPDataStorage.m in Sources */,
 				765EF8351EBCB60800C21E2E /* DPBaseDataSource.m in Sources */,
 				765EF83B1EBCB60800C21E2E /* DPTableViewDataSource.m in Sources */,
+				FADA78061F8B9D1F0011141B /* CoreDataContainer.swift in Sources */,
 				7690ADEA1EC35DC5003C1CDD /* DPMapViewDataSource.m in Sources */,
+				FA813D8E1F880FE8003125C2 /* DataSourceContainer.swift in Sources */,
+				FAAE4E951FBD79D400503440 /* TableViewDataSource.swift in Sources */,
 				765EF8311EBCB60800C21E2E /* NSManagedObjectModel+DataStorage.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -384,6 +401,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -394,6 +412,7 @@
 		765EF8181EBCB53D00C21E2E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
@@ -407,12 +426,15 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.effectivesoft.DPDataStorage;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
 		765EF8191EBCB53D00C21E2E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
@@ -426,6 +448,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.effectivesoft.DPDataStorage;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
