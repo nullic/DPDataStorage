@@ -110,11 +110,16 @@ static NSString * const kDeleteInvalidObjectsFlagKey = @"deleteInvalidObjects";
 
     NSError *error = nil;
     if ([self hasChanges]) {
-        if (self.deleteInvalidObjectsOnSave) {
-            while ([self deleteInvalidObjects] == NO);
+        while (YES) {
+            if ([self save:&error] == NO && self.deleteInvalidObjectsOnSave) {
+                if ([self deleteInvalidObjects] == NO) {
+                    error = nil;
+                }
+                continue;
+            }
+            else break;
         }
-        
-        [self save:&error];
+
         LOG_ON_ERROR(error);
     }
 
@@ -132,11 +137,12 @@ static NSString * const kDeleteInvalidObjectsFlagKey = @"deleteInvalidObjects";
     }
     
     for (NSManagedObject *obj in [self insertedObjects]) {
-        if ([obj validateForUpdate:nil] == NO) {
+        if (obj.isDeleted == NO && [obj validateForInsert:nil] == NO) {
             [self deleteObject:obj];
             result = NO;
         }
     }
+
     return result;
 }
 
