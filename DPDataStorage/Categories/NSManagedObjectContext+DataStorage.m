@@ -111,13 +111,14 @@ static NSString * const kDeleteInvalidObjectsFlagKey = @"deleteInvalidObjects";
     NSError *error = nil;
     if ([self hasChanges]) {
         while (YES) {
-            if ([self save:&error] == NO && self.deleteInvalidObjectsOnSave) {
-                if ([self deleteInvalidObjects] == NO) {
-                    error = nil;
-                }
+            [self save:&error];
+            
+            if (error && self.deleteInvalidObjectsOnSave && [self deleteInvalidObjectsFromError:error] == NO) {
+                error = nil;
                 continue;
             }
-            else break;
+            
+            break;
         }
 
         LOG_ON_ERROR(error);
@@ -127,22 +128,43 @@ static NSString * const kDeleteInvalidObjectsFlagKey = @"deleteInvalidObjects";
     return (error == nil);
 }
 
-- (BOOL)deleteInvalidObjects {
+- (BOOL)deleteInvalidObjectsFromError:(NSError *)error {
     BOOL result = YES;
-    for (NSManagedObject *obj in [self updatedObjects]) {
-        if ([obj validateForUpdate:nil] == NO) {
-            [self deleteObject:obj];
-            result = NO;
+    
+    NSArray *errors = @[error];
+    if (error.code == NSValidationMultipleErrorsError) {
+        errors = error.userInfo[NSDetailedErrorsKey];
+    }
+
+    for (NSError *e in errors) {
+        switch (e.code) {
+            case NSManagedObjectValidationError:
+            case NSManagedObjectConstraintValidationError:
+            case NSValidationMissingMandatoryPropertyError:
+            case NSValidationRelationshipLacksMinimumCountError:
+            case NSValidationRelationshipExceedsMaximumCountError:
+            case NSValidationRelationshipDeniedDeleteError:
+            case NSValidationNumberTooLargeError:
+            case NSValidationNumberTooSmallError:
+            case NSValidationDateTooLateError:
+            case NSValidationDateTooSoonError:
+            case NSValidationInvalidDateError:
+            case NSValidationStringTooLongError:
+            case NSValidationStringTooShortError:
+            case NSValidationStringPatternMatchingError:
+            case NSValidationInvalidURIError:
+            {
+                NSManagedObject *obj = e.userInfo[NSValidationObjectErrorKey];
+                if (obj && obj.isDeleted == NO) {
+                    [self deleteObject:obj];
+                    result = NO;
+                }
+                break;
+            }
+            default: break;
         }
     }
     
-    for (NSManagedObject *obj in [self insertedObjects]) {
-        if (obj.isDeleted == NO && [obj validateForInsert:nil] == NO) {
-            [self deleteObject:obj];
-            result = NO;
-        }
-    }
-
     return result;
 }
 
