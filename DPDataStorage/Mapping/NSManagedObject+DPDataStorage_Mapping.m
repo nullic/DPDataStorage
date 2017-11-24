@@ -94,7 +94,7 @@ static NSString * const kDeleteOnReplaceKey = @"deleteOnReplace";
                         id value = [self transformImportValue:itemInfo[importUniqueKey] importKey:importUniqueKey propertyDescription:uniqueAttr];
                         if (value) {
                             if ([value isKindOfClass:uniqueValueClass]) {
-                                NSManagedObject *existObject = [self entryWithValue:value forKey:entityUniqueKey inContext:context];
+                                NSManagedObject *existObject = [self entryWithValue:value forKey:entityUniqueKey includesPendingChanges:context.parseDataHasDuplicates inContext:context];
                                 [result addObject:existObject ? existObject : [NSNull null]];
                             }
                             else {
@@ -173,7 +173,7 @@ static NSString * const kDeleteOnReplaceKey = @"deleteOnReplace";
 
             if (value) {
                 if ([value isKindOfClass:valueClass]) {
-                    result = [self entryWithValue:value forKey:entityUniqueKey inContext:context];
+                    result = [self entryWithValue:value forKey:entityUniqueKey includesPendingChanges:context.parseDataHasDuplicates inContext:context];
                     if (result == nil) {
                         result = [self insertInContext:context];
                         [result setValue:value forKey:entityUniqueKey];

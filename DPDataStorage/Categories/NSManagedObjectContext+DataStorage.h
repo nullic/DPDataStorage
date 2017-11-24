@@ -11,6 +11,7 @@
 @interface NSManagedObjectContext (DataStorage)
 @property (nonatomic, getter=isReadOnly) BOOL readOnly;
 @property (nonatomic) BOOL deleteInvalidObjectsOnSave;
+@property (nonatomic) BOOL parseDataHasDuplicates;
 
 + (NSManagedObjectContext * _Null_unspecified)mainContext;
 + (NSManagedObjectContext * _Null_unspecified)parseContext;

@@ -17,7 +17,7 @@
 
 + (instancetype)insertInContext:(NSManagedObjectContext *)context {
     NSParameterAssert(context != nil);
-
+    
     NSString *entityName = [context entityNameForManagedObjectClass:self];
     return entityName ? [NSEntityDescription insertNewObjectForEntityForName:entityName inManagedObjectContext:context] : nil;
 }
@@ -35,7 +35,7 @@
     NSError *error = nil;
     NSUInteger result = [context countForFetchRequest:fetchRequest error:&error];
     FAIL_ON_ERROR(error);
-
+    
     return result;
 }
 
@@ -44,50 +44,67 @@
 + (instancetype)entryWithValue:(id<NSObject>)value forKey:(NSString *)key inContext:(NSManagedObjectContext *)context {
     NSParameterAssert(key != nil);
     NSParameterAssert(context != nil);
-
+    
     NSFetchRequest *fetchRequest = [self newFetchRequestInContext:context];
-	NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K == %@", key, value];
-	[fetchRequest setPredicate:predicate];
-    [fetchRequest setFetchLimit:1];
-
-	NSError *error = nil;
-	id result = [[context executeFetchRequest:fetchRequest error:&error] lastObject];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K == %@", key, value];
+    fetchRequest.predicate = predicate;
+    fetchRequest.fetchLimit = 1;
+    
+    NSError *error = nil;
+    id result = [[context executeFetchRequest:fetchRequest error:&error] lastObject];
     FAIL_ON_ERROR(error);
+    
+    return result;
+}
 
++ (instancetype)entryWithValue:(id<NSObject>)value forKey:(NSString *)key includesPendingChanges:(BOOL)includesPendingChanges inContext:(NSManagedObjectContext *)context {
+    NSParameterAssert(key != nil);
+    NSParameterAssert(context != nil);
+    
+    NSFetchRequest *fetchRequest = [self newFetchRequestInContext:context];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K == %@", key, value];
+    fetchRequest.predicate = predicate;
+    fetchRequest.fetchLimit = 1;
+    fetchRequest.includesPendingChanges = includesPendingChanges;
+    
+    NSError *error = nil;
+    id result = [[context executeFetchRequest:fetchRequest error:&error] lastObject];
+    FAIL_ON_ERROR(error);
+    
     return result;
 }
 
 + (NSArray *)entriesWithValue:(id<NSObject>)value forKey:(NSString *)key inContext:(NSManagedObjectContext *)context {
     NSParameterAssert(key != nil);
     NSParameterAssert(context != nil);
-
+    
     NSFetchRequest *fetchRequest = [self newFetchRequestInContext:context];
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K == %@", key, value];
-    [fetchRequest setPredicate:predicate];
-
+    fetchRequest.predicate = predicate;
+    
     NSError *error = nil;
     id result = [context executeFetchRequest:fetchRequest error:&error];
     FAIL_ON_ERROR(error);
-
+    
     return result ? result : @[];
 }
 
 + (instancetype)anyEntryInContext:(NSManagedObjectContext *)context {
     NSFetchRequest *fetchRequest = [self newFetchRequestInContext:context];
     [fetchRequest setFetchLimit:1];
-
-	NSError *error = nil;
-	id result = [[context executeFetchRequest:fetchRequest error:&error] lastObject];
+    
+    NSError *error = nil;
+    id result = [[context executeFetchRequest:fetchRequest error:&error] lastObject];
     FAIL_ON_ERROR(error);
-
+    
     return result;
 }
 
 + (NSArray *)allEntriesInContext:(NSManagedObjectContext *)context {
     NSFetchRequest *fetchRequest = [self newFetchRequestInContext:context];
     
-	NSError *error = nil;
-	NSArray *result = [context executeFetchRequest:fetchRequest error:&error];
+    NSError *error = nil;
+    NSArray *result = [context executeFetchRequest:fetchRequest error:&error];
     FAIL_ON_ERROR(error);
     
     return result ? result : @[];
@@ -122,21 +139,21 @@
 {
     NSFetchRequest *fetchRequest = [self newFetchRequestInContext:context];
     if (fetchRequest == nil) return nil;
-
-	[fetchRequest setSortDescriptors:sortDescriptors];
+    
+    [fetchRequest setSortDescriptors:sortDescriptors];
     [fetchRequest setPredicate:predicate];
     
-	NSFetchedResultsController *fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
-																							   managedObjectContext:context
-																								 sectionNameKeyPath:nil
-																										  cacheName:nil];
-	fetchedResultsController.delegate = delegate;
+    NSFetchedResultsController *fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
+                                                                                               managedObjectContext:context
+                                                                                                 sectionNameKeyPath:nil
+                                                                                                          cacheName:nil];
+    fetchedResultsController.delegate = delegate;
     
-	NSError *error = nil;
+    NSError *error = nil;
     [fetchedResultsController performFetch:&error];
     FAIL_ON_ERROR(error);
     
-	return fetchedResultsController;
+    return fetchedResultsController;
 }
 
 #pragma mark -

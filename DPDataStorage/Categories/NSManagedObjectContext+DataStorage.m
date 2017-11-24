@@ -62,6 +62,8 @@
 
 static NSString * const kReadOnlyFlagKey = @"isReadOnly";
 static NSString * const kDeleteInvalidObjectsFlagKey = @"deleteInvalidObjects";
+static NSString * const kParseDataHasDuplicatesKey = @"parseDataHasDuplicates";
+
 
 - (void)setReadOnly:(BOOL)readOnly {
     objc_setAssociatedObject(self, (__bridge void *)(kReadOnlyFlagKey), @(readOnly), OBJC_ASSOCIATION_RETAIN);
@@ -77,6 +79,14 @@ static NSString * const kDeleteInvalidObjectsFlagKey = @"deleteInvalidObjects";
 
 - (BOOL)deleteInvalidObjectsOnSave {
     return [objc_getAssociatedObject(self, (__bridge const void *)(kDeleteInvalidObjectsFlagKey)) boolValue];
+}
+
+- (void)setParseDataHasDuplicates:(BOOL)parseDataHasDuplicates {
+    objc_setAssociatedObject(self, (__bridge void *)(kParseDataHasDuplicatesKey), @(parseDataHasDuplicates), OBJC_ASSOCIATION_RETAIN);
+}
+
+- (BOOL)parseDataHasDuplicates {
+    return [(objc_getAssociatedObject(self, (__bridge const void *)(kParseDataHasDuplicatesKey)) ?: @YES) boolValue];
 }
 
 - (NSString *)entityNameForManagedObjectClass:(Class)objectClass {

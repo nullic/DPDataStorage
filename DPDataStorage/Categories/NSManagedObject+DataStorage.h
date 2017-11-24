@@ -17,6 +17,10 @@
 + (instancetype _Nullable)entryWithValue:(id<NSObject> _Nullable)value
                                   forKey:(NSString * _Nonnull)key
                                inContext:(NSManagedObjectContext * _Nonnull)context;
++ (instancetype _Nullable)entryWithValue:(id<NSObject> _Nullable)value
+                                  forKey:(NSString * _Nonnull)key
+                  includesPendingChanges:(BOOL)includesPendingChanges
+                               inContext:(NSManagedObjectContext * _Nonnull)context;
 + (NSArray <__kindof NSManagedObject *>* _Nonnull)entriesWithValue:(id<NSObject> _Nullable)value
                                                             forKey:(NSString * _Nonnull)key
                                                          inContext:(NSManagedObjectContext * _Nonnull)context;
