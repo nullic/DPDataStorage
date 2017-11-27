@@ -15,6 +15,7 @@ static NSString * const kUniqueKey = @"uniqueKey";
 static NSString * const kImportKey = @"importKey";
 static NSString * const kExportKey = @"exportKey";
 static NSString * const kDeleteOnReplaceKey = @"deleteOnReplace";
+static NSString * const kDeleteNotUpdatedKey = @"deleteNotUpdated";
 
 
 @implementation NSManagedObject (DPDataStorage_Mapping)
@@ -302,6 +303,8 @@ static NSString * const kDeleteOnReplaceKey = @"deleteOnReplace";
             Class relationClass = NSClassFromString(relationshipDescription.destinationEntity.managedObjectClassName);
             
             BOOL deleteOnReplace = [relationshipDescription.userInfo[kDeleteOnReplaceKey] boolValue];
+            BOOL deleteNotUpdated = [relationshipDescription.userInfo[kDeleteNotUpdatedKey] boolValue];
+
             if (deleteOnReplace) {
                 id value = [self valueForKey:keyName];
                 if ([value isKindOfClass:[NSManagedObject class]]) {
@@ -338,6 +341,13 @@ static NSString * const kDeleteOnReplaceKey = @"deleteOnReplace";
                     }
 
                     if (error == nil) {
+                        if (deleteNotUpdated) {
+                            NSManagedObject *obj = [self valueForKey:keyName];
+                            if (obj && [obj hasChanges] == NO) {
+                                [[self managedObjectContext] deleteObject:obj];
+                            }
+                        }
+
                         [self setValue:object forKey:keyName];
                     }
                 }
@@ -351,6 +361,15 @@ static NSString * const kDeleteOnReplaceKey = @"deleteOnReplace";
                     }
 
                     if (error == nil) {
+                        if (deleteNotUpdated) {
+                            id<NSFastEnumeration> collection = [self valueForKey:keyName];
+                            for (NSManagedObject *obj in collection) {
+                                if ([obj hasChanges] == NO) {
+                                    [[self managedObjectContext] deleteObject:obj];
+                                }
+                            }
+                        }
+
                         [self setValue:set forKey:keyName];
                     }
                 }
