@@ -16,6 +16,7 @@ static NSString * const kImportKey = @"importKey";
 static NSString * const kExportKey = @"exportKey";
 static NSString * const kDeleteOnReplaceKey = @"deleteOnReplace";
 static NSString * const kDeleteNotUpdatedKey = @"deleteNotUpdated";
+static NSString * const kParseDataHasDuplicatesKey = @"parseDuplicates";
 
 
 @implementation NSManagedObject (DPDataStorage_Mapping)
@@ -68,6 +69,7 @@ static NSString * const kDeleteNotUpdatedKey = @"deleteNotUpdated";
 
         NSString *entityUniqueKey = entityDescription.userInfo[kUniqueKey];
         NSAttributeDescription *uniqueAttr = entityUniqueKey ? entityAttributes[entityUniqueKey] : nil;
+        BOOL parseDataHasDuplicates = entityDescription.userInfo[kParseDataHasDuplicatesKey] ? [entityDescription.userInfo[kParseDataHasDuplicatesKey] boolValue] : context.parseDataHasDuplicates;
 
         NSString *importUniqueKey = nil;
         for (NSString *key in uniqueAttr.userInfo) {
@@ -95,7 +97,7 @@ static NSString * const kDeleteNotUpdatedKey = @"deleteNotUpdated";
                         id value = [self transformImportValue:itemInfo[importUniqueKey] importKey:importUniqueKey propertyDescription:uniqueAttr];
                         if (value) {
                             if ([value isKindOfClass:uniqueValueClass]) {
-                                NSManagedObject *existObject = [self entryWithValue:value forKey:entityUniqueKey includesPendingChanges:context.parseDataHasDuplicates inContext:context];
+                                NSManagedObject *existObject = [self entryWithValue:value forKey:entityUniqueKey includesPendingChanges:parseDataHasDuplicates inContext:context];
                                 [result addObject:existObject ? existObject : [NSNull null]];
                             }
                             else {
@@ -157,6 +159,7 @@ static NSString * const kDeleteNotUpdatedKey = @"deleteNotUpdated";
         }
 
         NSAttributeDescription *uniqueAttr = entityUniqueKey ? entityAttributes[entityUniqueKey] : nil;
+        BOOL parseDataHasDuplicates = entityDescription.userInfo[kParseDataHasDuplicatesKey] ? [entityDescription.userInfo[kParseDataHasDuplicatesKey] boolValue] : context.parseDataHasDuplicates;
 
         NSString *importUniqueKey = nil;
         for (NSString *key in uniqueAttr.userInfo) {
@@ -174,7 +177,7 @@ static NSString * const kDeleteNotUpdatedKey = @"deleteNotUpdated";
 
             if (value) {
                 if ([value isKindOfClass:valueClass]) {
-                    result = [self entryWithValue:value forKey:entityUniqueKey includesPendingChanges:context.parseDataHasDuplicates inContext:context];
+                    result = [self entryWithValue:value forKey:entityUniqueKey includesPendingChanges:parseDataHasDuplicates inContext:context];
                     if (result == nil) {
                         result = [self insertInContext:context];
                         [result setValue:value forKey:entityUniqueKey];
@@ -304,6 +307,7 @@ static NSString * const kDeleteNotUpdatedKey = @"deleteNotUpdated";
             
             BOOL deleteOnReplace = [relationshipDescription.userInfo[kDeleteOnReplaceKey] boolValue];
             BOOL deleteNotUpdated = [relationshipDescription.userInfo[kDeleteNotUpdatedKey] boolValue];
+
 
             if (deleteOnReplace) {
                 id value = [self valueForKey:keyName];
