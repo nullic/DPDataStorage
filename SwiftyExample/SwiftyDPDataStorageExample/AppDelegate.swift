@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import DPDataStorage
+import CoreData
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -15,7 +17,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        DPDataStorage.setupDefaultStorage(withModelName: nil, storageURL: nil)
+        let content = NSArray(contentsOf: Bundle.main.url(forResource: "Content", withExtension: "plist")!)! as Array
+        let context = DPDataStorage.default().parseContext
+        context.perform {
+            try! Employee.update(with: content, in: context)
+            try! context.save()
+        }
         return true
     }
 

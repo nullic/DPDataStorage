@@ -9,18 +9,28 @@
 import UIKit
 import DPDataStorage
 
-class ViewController: UIViewController {
+class ViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        let sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
+        dataSource.listController = Employee.fetchedResultsController(dataSource, predicate: nil, sortDescriptors: sortDescriptors, in: DPDataStorage.default().mainContext)
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    @IBOutlet var dataSource: DPTableViewDataSource!
+
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        return tableView.dequeueReusableCell(withIdentifier: "TableViewCell")!
     }
 
-
+    @objc(numberOfSectionsInTableView:)
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
+    }
+    
+    @objc(tableView:numberOfRowsInSection:)
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 2
+    }
 }
 

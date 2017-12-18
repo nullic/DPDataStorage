@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		FA6189501FE820B2008F1A7C /* DPDataStorage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA61894F1FE82059008F1A7C /* DPDataStorage.framework */; };
 		FA6189511FE820B2008F1A7C /* DPDataStorage.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FA61894F1FE82059008F1A7C /* DPDataStorage.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		FA6189541FE82C26008F1A7C /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FA6189521FE82C25008F1A7C /* Model.xcdatamodeld */; };
+		FA6189561FE82E03008F1A7C /* Content.plist in Resources */ = {isa = PBXBuildFile; fileRef = FA6189551FE82E03008F1A7C /* Content.plist */; };
+		FA6189581FE83080008F1A7C /* EmployeeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6189571FE83080008F1A7C /* EmployeeCell.swift */; };
 		FAAE4EA31FBE061400503440 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAAE4EA21FBE061400503440 /* AppDelegate.swift */; };
 		FAAE4EA51FBE061400503440 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAAE4EA41FBE061400503440 /* ViewController.swift */; };
 		FAAE4EA81FBE061400503440 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FAAE4EA61FBE061400503440 /* Main.storyboard */; };
@@ -32,6 +35,9 @@
 
 /* Begin PBXFileReference section */
 		FA61894F1FE82059008F1A7C /* DPDataStorage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DPDataStorage.framework; path = Carthage/Build/iOS/DPDataStorage.framework; sourceTree = SOURCE_ROOT; };
+		FA6189531FE82C26008F1A7C /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		FA6189551FE82E03008F1A7C /* Content.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Content.plist; sourceTree = "<group>"; };
+		FA6189571FE83080008F1A7C /* EmployeeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeeCell.swift; sourceTree = "<group>"; };
 		FAAE4E9F1FBE061400503440 /* SwiftyDPDataStorageExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftyDPDataStorageExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAAE4EA21FBE061400503440 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FAAE4EA41FBE061400503440 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -77,7 +83,10 @@
 				FAAE4EBC1FBE081300503440 /* Cartfile */,
 				FAAE4EA21FBE061400503440 /* AppDelegate.swift */,
 				FAAE4EA41FBE061400503440 /* ViewController.swift */,
+				FA6189521FE82C25008F1A7C /* Model.xcdatamodeld */,
+				FA6189551FE82E03008F1A7C /* Content.plist */,
 				FAAE4EA61FBE061400503440 /* Main.storyboard */,
+				FA6189571FE83080008F1A7C /* EmployeeCell.swift */,
 				FAAE4EA91FBE061400503440 /* Assets.xcassets */,
 				FAAE4EAB1FBE061400503440 /* LaunchScreen.storyboard */,
 				FAAE4EAE1FBE061400503440 /* Info.plist */,
@@ -147,6 +156,7 @@
 			files = (
 				FAAE4EAD1FBE061400503440 /* LaunchScreen.storyboard in Resources */,
 				FAAE4EAA1FBE061400503440 /* Assets.xcassets in Resources */,
+				FA6189561FE82E03008F1A7C /* Content.plist in Resources */,
 				FAAE4EA81FBE061400503440 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -159,7 +169,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				FAAE4EA51FBE061400503440 /* ViewController.swift in Sources */,
+				FA6189581FE83080008F1A7C /* EmployeeCell.swift in Sources */,
 				FAAE4EA31FBE061400503440 /* AppDelegate.swift in Sources */,
+				FA6189541FE82C26008F1A7C /* Model.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -352,6 +364,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		FA6189521FE82C25008F1A7C /* Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				FA6189531FE82C26008F1A7C /* Model.xcdatamodel */,
+			);
+			currentVersion = FA6189531FE82C26008F1A7C /* Model.xcdatamodel */;
+			path = Model.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = FAAE4E971FBE061400503440 /* Project object */;
 }
