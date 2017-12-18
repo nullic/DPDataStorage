@@ -9,11 +9,20 @@
 import UIKit
 
 protocol TableViewDataSourceDelegate: class {
-    func dataSource(_ dataSource: TableViewDataSourceProtocol, cellIdentifierForRowAt indexPath: IndexPath) -> String
+    func dataSource(_ dataSource: TableViewDataSourceProtocol, cellIdentifierForObject object: Any) -> String
     func dataSource(_ dataSource: TableViewDataSourceProtocol, didSelect object:Any)
 }
 
-public protocol TableViewDataSourceProtocol {}
+extension TableViewDataSourceDelegate {
+    func dataSource(_ dataSource: TableViewDataSourceProtocol, cellIdentifierForObject object: Any) -> String {
+        guard let dataSource = dataSource as? TableViewDataSource<Any>, let cellIdentifier = dataSource.cellIdentifier else {
+            fatalError("Could not load")
+        }
+        return cellIdentifier
+    }
+}
+
+protocol TableViewDataSourceProtocol {}
 
 class TableViewDataSource<ObjectType>: DataSource<ObjectType>, TableViewDataSourceProtocol, UITableViewDataSource, UITableViewDelegate {
     @IBOutlet weak var tableView: UITableView?
@@ -42,12 +51,12 @@ class TableViewDataSource<ObjectType>: DataSource<ObjectType>, TableViewDataSour
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var cellIdentifier: String? = nil
-        if let delegateCellIdentifier = delegate?.dataSource(self, cellIdentifierForRowAt: indexPath) {
-            cellIdentifier = delegateCellIdentifier
+        guard let object = container?.object(at: indexPath) else {
+            fatalError("Could not load cell with provided cell identifier")
         }
-        if cellIdentifier == nil {
-            cellIdentifier = self.cellIdentifier
+        var cellIdentifier: String? = nil
+        if let delegateCellIdentifier = delegate?.dataSource(self, cellIdentifierForObject: object) {
+            cellIdentifier = delegateCellIdentifier
         }
         guard let identifier = cellIdentifier else {
             fatalError("Nor delegate, nor cellIdentifier returns valid value")

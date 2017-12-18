@@ -1,9 +1,12 @@
-Example/DPDataStorageDemo/DPDataStorageDemo.xcodeproj/project.xcworkspace/xcuserdata
-Example/DPDataStorageDemo/DPDataStorageDemo.xcodeproj/xcuserdata
-Example/DPDataStorageDemo.xcodeproj/project.xcworkspace/xcuserdata
-Example/DPDataStorageDemo.xcodeproj/xcuserdata
-DPDataStorage/build
-DPDataStorage/DPDataStorage.xcodeproj/xcuserdata
-DPDataStorage/DPDataStorage.xcodeproj/project.xcworkspace/xcuserdata
-DPDataStorage/DPDataStorage/DPDataStorage.xcodeproj/xcuserdata
-DPDataStorage/DPDataStorage/DPDataStorage.xcodeproj/project.xcworkspace/xcuserdata
+# EffectiveSoft
+# iOS project git ignore
+
+**/xcuserdata
+
+**/build/
+
+#**/build/iOS/*
+#!/**/*.framework
+
+**/Checkouts
+
