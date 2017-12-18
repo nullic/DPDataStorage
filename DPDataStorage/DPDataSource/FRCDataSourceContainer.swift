@@ -1,5 +1,5 @@
 //
-//  CoreDataDataSourceContainer.swift
+//  FRCDataSourceContainer.swift
 //  DPDataStorage
 //
 //  Created by Alex on 10/9/17.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-public class CoreDataDataSourceContainer<ResultType: NSFetchRequestResult>: DataSourceContainer<ResultType> {
+public class FRCDataSourceContainer<ResultType: NSFetchRequestResult>: DataSourceContainer<ResultType> {
 
     fileprivate let fetchedResultController: NSFetchedResultsController<ResultType>
     fileprivate var delegateForwarder: CoreDataDelegateForwarder<ResultType>
@@ -62,9 +62,9 @@ public class CoreDataDataSourceContainer<ResultType: NSFetchRequestResult>: Data
 class CoreDataDelegateForwarder<ResultType: NSFetchRequestResult>: NSObject, NSFetchedResultsControllerDelegate {
     
     let delegate: DataSourceContainerDelegate?
-    weak var container: CoreDataDataSourceContainer<ResultType>?
+    weak var container: FRCDataSourceContainer<ResultType>?
     
-    init(delegate: DataSourceContainerDelegate? = nil, container: CoreDataDataSourceContainer<ResultType>? = nil) {
+    init(delegate: DataSourceContainerDelegate? = nil, container: FRCDataSourceContainer<ResultType>? = nil) {
         self.delegate = delegate
         self.container = container
     }

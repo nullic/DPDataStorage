@@ -17,16 +17,20 @@ class SwiftyViewController: UITableViewController {
         super.viewDidLoad()
         
         let context = DPDataStorage.default().mainContext
-        let fetchRequest: NSFetchRequest<Employee> = Employee.fetchRequest()
-        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
-        let container = CoreDataDataSourceContainer(fetchRequest: fetchRequest, context: context, sectionNameKeyPath: nil, delegate: nil)
+        let desciptors = [NSSortDescriptor(key: "name", ascending: true)]
+        let fetchRequest: NSFetchRequest<Employee> = Employee.fetchRequest().sorted(by: desciptors)
+        let container = FRCDataSourceContainer(fetchRequest: fetchRequest, context: context, sectionNameKeyPath: nil, delegate: nil)
         dataSource = TableViewDataSource(tableView: tableView, dataSourceContainer: container, delegate: self, cellIdentifier: "TableViewCell")
     }
-
 }
 
 extension SwiftyViewController: TableViewDataSourceDelegate {
-    func dataSource(_ dataSource: TableViewDataSourceProtocol, didSelect object: Any) {
-        
+    
+    func dataSource(_ dataSource: TableViewDataSourceProtocol, willDispaly cell: DataSourceConfigurable, for object: Any, at indexPath: IndexPath) {
+        guard let cell = cell as? SwiftyEmployeeCell else {
+            return
+        }
+        cell.textLabel?.textColor = UIColor.red
     }
+    
 }
