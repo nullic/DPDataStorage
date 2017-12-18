@@ -8,67 +8,71 @@
 
 import UIKit
 
-protocol TableViewDataSourceDelegate: class {
-    func dataSource(_ dataSource: TableViewDataSourceProtocol, cellIdentifierForObject object: Any) -> String
+public protocol TableViewDataSourceDelegate: class {
+    func dataSource(_ dataSource: TableViewDataSourceProtocol, cellIdentifierForObject object: Any) -> String?
     func dataSource(_ dataSource: TableViewDataSourceProtocol, didSelect object:Any)
 }
 
-extension TableViewDataSourceDelegate {
-    func dataSource(_ dataSource: TableViewDataSourceProtocol, cellIdentifierForObject object: Any) -> String {
-        guard let dataSource = dataSource as? TableViewDataSource<Any>, let cellIdentifier = dataSource.cellIdentifier else {
-            fatalError("Could not load")
-        }
-        return cellIdentifier
+public extension TableViewDataSourceDelegate {
+    func dataSource(_ dataSource: TableViewDataSourceProtocol, cellIdentifierForObject object: Any) -> String? {
+        return nil
     }
 }
 
-protocol TableViewDataSourceProtocol {}
+public protocol TableViewDataSourceProtocol {}
 
-class TableViewDataSource<ObjectType>: DataSource<ObjectType>, TableViewDataSourceProtocol, UITableViewDataSource, UITableViewDelegate {
-    @IBOutlet weak var tableView: UITableView?
-    @IBInspectable var cellIdentifier: String?
-    weak var delegate: TableViewDataSourceDelegate?
+public class TableViewDataSource<ObjectType>: DataSource<ObjectType>, TableViewDataSourceProtocol, UITableViewDataSource, UITableViewDelegate {
+    @IBOutlet public weak var tableView: UITableView?
+    @IBInspectable public var cellIdentifier: String?
+    public weak var delegate: TableViewDataSourceDelegate?
     
-    init(tableView: UITableView,
+    public init(tableView: UITableView,
          dataSourceContainer: DataSourceContainer<ObjectType>,
          delegate: TableViewDataSourceDelegate?,
          cellIdentifier: String?) {
+        self.tableView = tableView
+        self.delegate = delegate
+        self.cellIdentifier = cellIdentifier
         
+        super.init()
+        self.container = dataSourceContainer
+        self.tableView?.dataSource = self
+        self.tableView?.delegate = self
     }
     
-    func numberOfSections(in tableView: UITableView) -> Int {
+    public func numberOfSections(in tableView: UITableView) -> Int {
         guard let container = container, let numberOfSections = container.numberOfSections() else {
             return 0
         }
         return numberOfSections
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard let container = container, let numberOfItems = container.numberOfItems(in: section) else {
             return 0
         }
         return numberOfItems
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let object = container?.object(at: indexPath) else {
-            fatalError("Could not load cell with provided cell identifier")
-        }
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cellIdentifier: String? = nil
         if let delegateCellIdentifier = delegate?.dataSource(self, cellIdentifierForObject: object) {
             cellIdentifier = delegateCellIdentifier
         }
-        guard let identifier = cellIdentifier else {
-            fatalError("Nor delegate, nor cellIdentifier returns valid value")
+        if cellIdentifier == nil {
+            cellIdentifier = self.cellIdentifier
         }
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: identifier) else {
+        guard let identifier = cellIdentifier,
+            let cell = tableView.dequeueReusableCell(withIdentifier: identifier),
+            let configurableCell = cell as? DataSourceConfigurable,
+            let object = container?.object(at: indexPath) else {
             fatalError("Could not load cell with provided cell identifier")
         }
-
+        configurableCell.configure(with: object)
         return cell
     }
 
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let object = container?.object(at: indexPath) as Any? else {
             fatalError("Object non exists")
         }

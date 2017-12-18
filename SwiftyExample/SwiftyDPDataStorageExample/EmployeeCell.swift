@@ -26,3 +26,20 @@ class EmployeeCell: UITableViewCell, DPDataSourceCell {
         self.textLabel?.text = employee.name
     }
 }
+
+class SwiftyEmployeeCell: UITableViewCell, DataSourceConfigurable {
+    override func awakeFromNib() {
+        super.awakeFromNib()
+    }
+    
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+    }
+    
+    func configure(with object: Any) {
+        guard let employee = object as? Employee else {
+            return
+        }
+        self.textLabel?.text = employee.name
+    }
+}

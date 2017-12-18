@@ -45,7 +45,7 @@
 		7690ADEA1EC35DC5003C1CDD /* DPMapViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 7690ADE81EC35DC5003C1CDD /* DPMapViewDataSource.m */; };
 		FA813D8E1F880FE8003125C2 /* DataSourceContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA813D8D1F880FE8003125C2 /* DataSourceContainer.swift */; };
 		FAAE4E951FBD79D400503440 /* TableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAAE4E941FBD79D400503440 /* TableViewDataSource.swift */; };
-		FADA78061F8B9D1F0011141B /* CoreDataContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADA78051F8B9D1F0011141B /* CoreDataContainer.swift */; };
+		FADA78061F8B9D1F0011141B /* CoreDataDataSourceContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADA78051F8B9D1F0011141B /* CoreDataDataSourceContainer.swift */; };
 		FADA780C1F988F030011141B /* DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADA780B1F988F030011141B /* DataSource.swift */; };
 /* End PBXBuildFile section */
 
@@ -76,7 +76,7 @@
 		7690ADE81EC35DC5003C1CDD /* DPMapViewDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPMapViewDataSource.m; sourceTree = "<group>"; };
 		FA813D8D1F880FE8003125C2 /* DataSourceContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSourceContainer.swift; sourceTree = "<group>"; };
 		FAAE4E941FBD79D400503440 /* TableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewDataSource.swift; sourceTree = "<group>"; };
-		FADA78051F8B9D1F0011141B /* CoreDataContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataContainer.swift; sourceTree = "<group>"; };
+		FADA78051F8B9D1F0011141B /* CoreDataDataSourceContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataDataSourceContainer.swift; sourceTree = "<group>"; };
 		FADA780B1F988F030011141B /* DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSource.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -136,11 +136,11 @@
 		765EF8211EBCB60700C21E2E /* DPDataSource */ = {
 			isa = PBXGroup;
 			children = (
-				765EF8291EBCB60700C21E2E /* DPDataSourceContainer.h */,
-				FA813D8D1F880FE8003125C2 /* DataSourceContainer.swift */,
-				FADA78051F8B9D1F0011141B /* CoreDataContainer.swift */,
 				FADA780B1F988F030011141B /* DataSource.swift */,
+				FA813D8D1F880FE8003125C2 /* DataSourceContainer.swift */,
+				FADA78051F8B9D1F0011141B /* CoreDataDataSourceContainer.swift */,
 				FAAE4E941FBD79D400503440 /* TableViewDataSource.swift */,
+				765EF8291EBCB60700C21E2E /* DPDataSourceContainer.h */,
 				765EF8241EBCB60700C21E2E /* DPBaseDataSource.h */,
 				765EF8251EBCB60700C21E2E /* DPBaseDataSource.m */,
 				765EF8281EBCB60700C21E2E /* DPDataSourceCell.h */,
@@ -287,7 +287,7 @@
 				765EF8421EBCB77D00C21E2E /* DPDataStorage.m in Sources */,
 				765EF8351EBCB60800C21E2E /* DPBaseDataSource.m in Sources */,
 				765EF83B1EBCB60800C21E2E /* DPTableViewDataSource.m in Sources */,
-				FADA78061F8B9D1F0011141B /* CoreDataContainer.swift in Sources */,
+				FADA78061F8B9D1F0011141B /* CoreDataDataSourceContainer.swift in Sources */,
 				7690ADEA1EC35DC5003C1CDD /* DPMapViewDataSource.m in Sources */,
 				FA813D8E1F880FE8003125C2 /* DataSourceContainer.swift in Sources */,
 				FAAE4E951FBD79D400503440 /* TableViewDataSource.swift in Sources */,

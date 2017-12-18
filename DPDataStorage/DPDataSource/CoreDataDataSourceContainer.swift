@@ -1,5 +1,5 @@
 //
-//  CoreDataContainer.swift
+//  CoreDataDataSourceContainer.swift
 //  DPDataStorage
 //
 //  Created by Alex on 10/9/17.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-public class CoreDataContainer<ResultType: NSFetchRequestResult>: DataSourceContainer<ResultType> {
+public class CoreDataDataSourceContainer<ResultType: NSFetchRequestResult>: DataSourceContainer<ResultType> {
 
     fileprivate let fetchedResultController: NSFetchedResultsController<ResultType>
     fileprivate var delegateForwarder: CoreDataDelegateForwarder<ResultType>
@@ -25,6 +25,7 @@ public class CoreDataContainer<ResultType: NSFetchRequestResult>: DataSourceCont
         delegateForwarder = CoreDataDelegateForwarder<ResultType>(delegate: delegate)
         super.init()
         fetchedResultController.delegate = delegateForwarder
+        try! fetchedResultController.performFetch()
         delegateForwarder.container = self
     }
 
@@ -55,13 +56,15 @@ public class CoreDataContainer<ResultType: NSFetchRequestResult>: DataSourceCont
     override public func numberOfItems(in section: Int) -> Int? {
         return fetchedResultController.numberOfItems(inSection:section)
     }
+
 }
 
 class CoreDataDelegateForwarder<ResultType: NSFetchRequestResult>: NSObject, NSFetchedResultsControllerDelegate {
-    let delegate: DataSourceContainerDelegate?
-    weak var container: CoreDataContainer<ResultType>?
     
-    init(delegate: DataSourceContainerDelegate? = nil, container: CoreDataContainer<ResultType>? = nil) {
+    let delegate: DataSourceContainerDelegate?
+    weak var container: CoreDataDataSourceContainer<ResultType>?
+    
+    init(delegate: DataSourceContainerDelegate? = nil, container: CoreDataDataSourceContainer<ResultType>? = nil) {
         self.delegate = delegate
         self.container = container
     }
@@ -98,4 +101,5 @@ class CoreDataDelegateForwarder<ResultType: NSFetchRequestResult>: NSObject, NSF
         guard let container = container else { return nil }
         return delegate?.container(container, sectionIndexTitleForSectionName: sectionName)
     }
+    
 }

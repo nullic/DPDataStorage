@@ -8,9 +8,8 @@
 
 import UIKit
 
-protocol DataSourceConfigurable {
-    associatedtype ObjectType
-    func configure(with object: ObjectType)
+public protocol DataSourceConfigurable {
+    func configure(with object: Any)
 }
 
 class DataSource<ObjectType>: NSObject {

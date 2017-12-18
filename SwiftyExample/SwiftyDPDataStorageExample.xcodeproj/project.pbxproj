@@ -7,17 +7,28 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		FA6189501FE820B2008F1A7C /* DPDataStorage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA61894F1FE82059008F1A7C /* DPDataStorage.framework */; };
-		FA6189511FE820B2008F1A7C /* DPDataStorage.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FA61894F1FE82059008F1A7C /* DPDataStorage.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FA6189541FE82C26008F1A7C /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FA6189521FE82C25008F1A7C /* Model.xcdatamodeld */; };
 		FA6189561FE82E03008F1A7C /* Content.plist in Resources */ = {isa = PBXBuildFile; fileRef = FA6189551FE82E03008F1A7C /* Content.plist */; };
 		FA6189581FE83080008F1A7C /* EmployeeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6189571FE83080008F1A7C /* EmployeeCell.swift */; };
+		FA93A2311FE83E6200CD3FBB /* DPDataStorage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA93A2301FE83E3A00CD3FBB /* DPDataStorage.framework */; };
+		FA93A2321FE83E6200CD3FBB /* DPDataStorage.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FA93A2301FE83E3A00CD3FBB /* DPDataStorage.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		FA93A2341FE83F2500CD3FBB /* SwiftyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA93A2331FE83F2500CD3FBB /* SwiftyViewController.swift */; };
 		FAAE4EA31FBE061400503440 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAAE4EA21FBE061400503440 /* AppDelegate.swift */; };
 		FAAE4EA51FBE061400503440 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAAE4EA41FBE061400503440 /* ViewController.swift */; };
 		FAAE4EA81FBE061400503440 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FAAE4EA61FBE061400503440 /* Main.storyboard */; };
 		FAAE4EAA1FBE061400503440 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FAAE4EA91FBE061400503440 /* Assets.xcassets */; };
 		FAAE4EAD1FBE061400503440 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FAAE4EAB1FBE061400503440 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		FA93A22C1FE83DA800CD3FBB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FA93A2271FE83DA800CD3FBB /* DPDataStorage.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 765EF80F1EBCB53D00C21E2E;
+			remoteInfo = DPDataStorage;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		FAAE4EB81FBE073800503440 /* Embed Frameworks */ = {
@@ -26,7 +37,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				FA6189511FE820B2008F1A7C /* DPDataStorage.framework in Embed Frameworks */,
+				FA93A2321FE83E6200CD3FBB /* DPDataStorage.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -34,10 +45,12 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		FA61894F1FE82059008F1A7C /* DPDataStorage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DPDataStorage.framework; path = Carthage/Build/iOS/DPDataStorage.framework; sourceTree = SOURCE_ROOT; };
 		FA6189531FE82C26008F1A7C /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		FA6189551FE82E03008F1A7C /* Content.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Content.plist; sourceTree = "<group>"; };
 		FA6189571FE83080008F1A7C /* EmployeeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeeCell.swift; sourceTree = "<group>"; };
+		FA93A2271FE83DA800CD3FBB /* DPDataStorage.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = DPDataStorage.xcodeproj; path = ../../DPDataStorage/DPDataStorage.xcodeproj; sourceTree = "<group>"; };
+		FA93A2301FE83E3A00CD3FBB /* DPDataStorage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DPDataStorage.framework; path = "../../../../../Library/Developer/Xcode/DerivedData/SwiftyDPDataStorageExample-ebdhkvekjdavpnalnvfhhpiitzkw/Build/Products/Debug-universal/DPDataStorage.framework"; sourceTree = "<group>"; };
+		FA93A2331FE83F2500CD3FBB /* SwiftyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftyViewController.swift; sourceTree = "<group>"; };
 		FAAE4E9F1FBE061400503440 /* SwiftyDPDataStorageExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftyDPDataStorageExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAAE4EA21FBE061400503440 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FAAE4EA41FBE061400503440 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -53,13 +66,21 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FA6189501FE820B2008F1A7C /* DPDataStorage.framework in Frameworks */,
+				FA93A2311FE83E6200CD3FBB /* DPDataStorage.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		FA93A2281FE83DA800CD3FBB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				FA93A22D1FE83DA800CD3FBB /* DPDataStorage.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		FAAE4E961FBE061400503440 = {
 			isa = PBXGroup;
 			children = (
@@ -79,14 +100,16 @@
 		FAAE4EA11FBE061400503440 /* SwiftyDPDataStorageExample */ = {
 			isa = PBXGroup;
 			children = (
-				FA61894F1FE82059008F1A7C /* DPDataStorage.framework */,
+				FA93A2271FE83DA800CD3FBB /* DPDataStorage.xcodeproj */,
+				FA93A2301FE83E3A00CD3FBB /* DPDataStorage.framework */,
 				FAAE4EBC1FBE081300503440 /* Cartfile */,
 				FAAE4EA21FBE061400503440 /* AppDelegate.swift */,
 				FAAE4EA41FBE061400503440 /* ViewController.swift */,
+				FA93A2331FE83F2500CD3FBB /* SwiftyViewController.swift */,
+				FA6189571FE83080008F1A7C /* EmployeeCell.swift */,
 				FA6189521FE82C25008F1A7C /* Model.xcdatamodeld */,
 				FA6189551FE82E03008F1A7C /* Content.plist */,
 				FAAE4EA61FBE061400503440 /* Main.storyboard */,
-				FA6189571FE83080008F1A7C /* EmployeeCell.swift */,
 				FAAE4EA91FBE061400503440 /* Assets.xcassets */,
 				FAAE4EAB1FBE061400503440 /* LaunchScreen.storyboard */,
 				FAAE4EAE1FBE061400503440 /* Info.plist */,
@@ -142,12 +165,28 @@
 			mainGroup = FAAE4E961FBE061400503440;
 			productRefGroup = FAAE4EA01FBE061400503440 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = FA93A2281FE83DA800CD3FBB /* Products */;
+					ProjectRef = FA93A2271FE83DA800CD3FBB /* DPDataStorage.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				FAAE4E9E1FBE061400503440 /* SwiftyDPDataStorageExample */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		FA93A22D1FE83DA800CD3FBB /* DPDataStorage.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = DPDataStorage.framework;
+			remoteRef = FA93A22C1FE83DA800CD3FBB /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		FAAE4E9D1FBE061400503440 /* Resources */ = {
@@ -172,6 +211,7 @@
 				FA6189581FE83080008F1A7C /* EmployeeCell.swift in Sources */,
 				FAAE4EA31FBE061400503440 /* AppDelegate.swift in Sources */,
 				FA6189541FE82C26008F1A7C /* Model.xcdatamodeld in Sources */,
+				FA93A2341FE83F2500CD3FBB /* SwiftyViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
