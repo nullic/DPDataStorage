@@ -1,61 +1,74 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="7kX-29-alg">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ZHR-yJ-fn3">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--ViewController-->
-        <scene sceneID="7oe-Vd-V8b">
+        <!--Forward Delegate-->
+        <scene sceneID="OEL-J7-x8N">
             <objects>
-                <tableViewController id="aFX-lF-bCd" userLabel="ViewController" customClass="ViewController" customModule="SwiftyDPDataStorageExample" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="vtl-Ca-oFG">
+                <viewController id="ZHR-yJ-fn3" customClass="ViewController" customModule="SwiftyDPDataStorageExample" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ros-XM-fLD">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TableViewCell" textLabel="V0M-gH-l97" style="IBUITableViewCellStyleDefault" id="SGU-KG-AUI" customClass="EmployeeCell" customModule="SwiftyDPDataStorageExample" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="SGU-KG-AUI" id="czw-f3-UXl">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="V0M-gH-l97">
-                                            <rect key="frame" x="16" y="0.0" width="344" height="43.5"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="EEZ-8v-9gP">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TableViewCell" textLabel="KsW-6a-4R4" style="IBUITableViewCellStyleDefault" id="ktT-2c-acd" customClass="EmployeeCell" customModule="SwiftyDPDataStorageExample" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ktT-2c-acd" id="lIb-is-fK4">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="jV4-O7-NAy" id="q2g-P4-JXc"/>
-                            <outlet property="delegate" destination="jV4-O7-NAy" id="pXM-OP-JPp"/>
-                        </connections>
-                    </tableView>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="KsW-6a-4R4">
+                                                    <rect key="frame" x="15" y="0.0" width="345" height="43.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="jV4-O7-NAy" id="IXD-QY-an4"/>
+                                    <outlet property="delegate" destination="jV4-O7-NAy" id="OOt-Ib-Cud"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="ANn-s6-RNT" firstAttribute="top" secondItem="EEZ-8v-9gP" secondAttribute="top" constant="20" id="8sg-Nx-sSg"/>
+                            <constraint firstItem="ANn-s6-RNT" firstAttribute="trailing" secondItem="EEZ-8v-9gP" secondAttribute="trailing" id="BTX-qE-UGL"/>
+                            <constraint firstItem="ANn-s6-RNT" firstAttribute="bottom" secondItem="EEZ-8v-9gP" secondAttribute="bottom" id="J2M-gG-12f"/>
+                            <constraint firstItem="EEZ-8v-9gP" firstAttribute="leading" secondItem="ANn-s6-RNT" secondAttribute="leading" id="Jgm-c5-JTE"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="ANn-s6-RNT"/>
+                    </view>
                     <connections>
-                        <outlet property="dataSource" destination="jV4-O7-NAy" id="Evr-Oe-gHI"/>
+                        <outlet property="dataSource" destination="jV4-O7-NAy" id="7xv-XP-Kbo"/>
                     </connections>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="JWP-cT-vAD" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="meR-ex-LEp" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <customObject id="jV4-O7-NAy" customClass="DPTableViewDataSource">
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="cellIdentifier" value="TableViewCell"/>
                     </userDefinedRuntimeAttributes>
                     <connections>
-                        <outlet property="forwardDelegate" destination="aFX-lF-bCd" id="fB5-wM-lJx"/>
-                        <outlet property="tableView" destination="vtl-Ca-oFG" id="aDD-tX-T7c"/>
+                        <outlet property="forwardDelegate" destination="ZHR-yJ-fn3" id="Ues-aS-WK9"/>
                     </connections>
                 </customObject>
             </objects>
-            <point key="canvasLocation" x="-196" y="304"/>
+            <point key="canvasLocation" x="474" y="287"/>
         </scene>
         <!--Swifty View Controller-->
         <scene sceneID="BEJ-FY-c31">
@@ -74,7 +87,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="uxr-MS-Gwe">
-                                            <rect key="frame" x="16" y="0.0" width="344" height="43.5"/>
+                                            <rect key="frame" x="16" y="0.0" width="343" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
@@ -89,9 +102,6 @@
                             <outlet property="delegate" destination="7kX-29-alg" id="Pza-5I-DMQ"/>
                         </connections>
                     </tableView>
-                    <connections>
-                        <outlet property="dataSource" destination="jV4-O7-NAy" id="VUX-v6-7RX"/>
-                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="M6L-dY-WOM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

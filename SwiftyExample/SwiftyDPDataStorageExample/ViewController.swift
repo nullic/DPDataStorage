@@ -9,7 +9,7 @@
 import UIKit
 import DPDataStorage
 
-class ViewController: UITableViewController {
+class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,18 +19,12 @@ class ViewController: UITableViewController {
 
     @IBOutlet var dataSource: DPTableViewDataSource!
 
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    // Uncomment to reproduce
+//    @objc(tableView:cellForRowAtIndexPath:)
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         return tableView.dequeueReusableCell(withIdentifier: "TableViewCell")!
     }
 
-    @objc(numberOfSectionsInTableView:)
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
-    }
     
-    @objc(tableView:numberOfRowsInSection:)
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
-    }
 }
 
