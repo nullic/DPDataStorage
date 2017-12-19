@@ -19,13 +19,8 @@ public protocol DataSource: DataSourceProtocol {
     associatedtype ObjectType
     
     var container: DataSourceContainer<ObjectType>? { get set }
-    
-    var hasData: Bool? {
-        get
-    }
-    
+    var hasData: Bool? { get }
     var numberOfSections: Int? { get }
-
     func numberOfItems(in section: Int) -> Int?
     func object(at indexPath: IndexPath) -> ObjectType?
     func indexPath(for object: ObjectType) -> IndexPath?
@@ -34,20 +29,17 @@ public protocol DataSource: DataSourceProtocol {
 extension DataSource {
     
     public var hasData: Bool? {
-        get {
-            return container?.hasData
-        }
+        return container?.hasData
     }
     
     public var numberOfSections: Int? {
-        get {
-            return container?.numberOfSections()
-        }
+        return container?.numberOfSections()
     }
     
     public func numberOfItems(in section: Int) -> Int? {
         return container?.numberOfItems(in: section)
     }
+    
     public func object(at indexPath: IndexPath) -> ObjectType? {
         return container?.object(at: indexPath)
     }

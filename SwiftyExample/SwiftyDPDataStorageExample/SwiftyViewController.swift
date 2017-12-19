@@ -9,7 +9,7 @@
 import UIKit
 import DPDataStorage
 
-class SwiftyViewController: UITableViewController {
+class SwiftyViewController: UITableViewController, TableViewDataSourceDelegate {
     
     private var dataSource: TableViewDataSource<Employee>!
     
@@ -20,17 +20,14 @@ class SwiftyViewController: UITableViewController {
         let desciptors = [NSSortDescriptor(key: "name", ascending: true)]
         let fetchRequest: NSFetchRequest<Employee> = Employee.fetchRequest().sorted(by: desciptors)
         let container = FRCDataSourceContainer(fetchRequest: fetchRequest, context: context, sectionNameKeyPath: nil, delegate: nil)
-        dataSource = TableViewDataSource(tableView: tableView, container: container, delegate: self, cellIdentifier: "TableViewCell")
+        dataSource = SwiftyViewControllerDataSource(container: container, delegate: self, tableView: tableView, cellIdentifier: "TableViewCell")
     }
 }
 
-extension SwiftyViewController: TableViewDataSourceDelegate {
-    
-    func dataSource(_ dataSource: DataSourceProtocol, willDispaly cell: DataSourceConfigurable, for object: Any, at indexPath: IndexPath) {
-        guard let cell = cell as? SwiftyEmployeeCell else {
-            return
-        }
+class SwiftyViewControllerDataSource<ObjectType>: TableViewDataSource<ObjectType> {
+
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         cell.textLabel?.textColor = UIColor.red
     }
-    
+
 }

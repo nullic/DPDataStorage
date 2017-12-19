@@ -10,17 +10,11 @@ import UIKit
 
 protocol CollectionViewDataSourceDelegate: class {
     func dataSource(_ dataSource: DataSourceProtocol, cellIdentifierFor object: Any, at indexPath: IndexPath) -> String?
-    func dataSource(_ dataSource: DataSourceProtocol, didSelect object:Any, at indexPath: IndexPath)
-    func dataSource(_ dataSource: DataSourceProtocol, willDispaly cell:DataSourceConfigurable, for object:Any, at indexPath: IndexPath)
 }
 
 extension CollectionViewDataSourceDelegate {
     func dataSource(_ dataSource: DataSourceProtocol, cellIdentifierFor object: Any, at indexPath: IndexPath) -> String? {
         return nil
-    }
-    func dataSource(_ dataSource: DataSourceProtocol, didSelect object:Any, at indexPath: IndexPath) { }
-    func dataSource(_ dataSource: DataSourceProtocol, willDispaly cell:DataSourceConfigurable, for object:Any, at indexPath: IndexPath) {
-        
     }
 }
 
@@ -63,12 +57,7 @@ class CollectionViewDataSource<ObjectType>: NSObject, DataSource, UICollectionVi
         guard let object = object(at: indexPath) else {
             fatalError("Could not retrieve object at \(indexPath)")
         }
-        if let delegateCellIdentifier = delegate?.dataSource(self, cellIdentifierFor: object, at: indexPath) {
-            cellIdentifier = delegateCellIdentifier
-        }
-        if cellIdentifier == nil {
-            cellIdentifier = self.cellIdentifier
-        }
+        let delegateCellIdentifier = delegate?.dataSource(self, cellIdentifierFor: object, at: indexPath) ?? self.cellIdentifier
         guard let identifier = cellIdentifier else {
             fatalError("Cell identifier is empty")
         }
@@ -78,22 +67,6 @@ class CollectionViewDataSource<ObjectType>: NSObject, DataSource, UICollectionVi
         }
         configurableCell.configure(with: object)
         return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        guard let configurableCell = cell as? DataSourceConfigurable,
-            let object = object(at: indexPath) else {
-                return
-        }
-
-        delegate?.dataSource(self, willDispaly: configurableCell, for: object, at: indexPath)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let object = object(at: indexPath) else {
-            fatalError("Object non exists")
-        }
-        self.delegate?.dataSource(self, didSelect: object, at: indexPath)
     }
 }
 
