@@ -12,38 +12,48 @@ public protocol DataSourceConfigurable {
     func configure(with object: Any)
 }
 
-public protocol DataSourceProtocol {}
+public protocol DataSourceProtocol {
+}
 
-class DataSource<ObjectType>: NSObject, DataSourceProtocol {
-
-    init(container: DataSourceContainer<ObjectType>) {
-        self.container = container
-    }
+public protocol DataSource: DataSourceProtocol {
+    associatedtype ObjectType
     
-    var container: DataSourceContainer<ObjectType>?
+    var container: DataSourceContainer<ObjectType>? { get set }
     
     var hasData: Bool? {
+        get
+    }
+    
+    var numberOfSections: Int? { get }
+
+    func numberOfItems(in section: Int) -> Int?
+    func object(at indexPath: IndexPath) -> ObjectType?
+    func indexPath(for object: ObjectType) -> IndexPath?
+}
+
+extension DataSource {
+    
+    public var hasData: Bool? {
         get {
-            guard let container = container else { return false }
-            return container.hasData
+            return container?.hasData
         }
     }
     
-    var numberOfSections: Int? {
-        guard let container = container else { return 0 }
-        return container.numberOfSections()
+    public var numberOfSections: Int? {
+        get {
+            return container?.numberOfSections()
+        }
     }
-
-    func numberOfItems(in section: Int) -> Int? {
+    
+    public func numberOfItems(in section: Int) -> Int? {
         return container?.numberOfItems(in: section)
     }
-
-    func object(at indexPath: IndexPath) -> ObjectType? {
+    public func object(at indexPath: IndexPath) -> ObjectType? {
         return container?.object(at: indexPath)
     }
     
-    func indexPath(for object: ObjectType) -> IndexPath? {
+    public func indexPath(for object: ObjectType) -> IndexPath? {
         return container?.indexPath(for: object)
     }
+    
 }
-

@@ -24,7 +24,9 @@ extension CollectionViewDataSourceDelegate {
     }
 }
 
-class CollectionViewDataSource<ObjectType>: DataSource<ObjectType>, UICollectionViewDataSource, UICollectionViewDelegate {
+class CollectionViewDataSource<ObjectType>: NSObject, DataSource, UICollectionViewDataSource, UICollectionViewDelegate {
+    public var container: DataSourceContainer<ObjectType>?
+
     @IBOutlet public weak var collectionView: UICollectionView?
     @IBInspectable public var cellIdentifier: String?
     public weak var delegate: CollectionViewDataSourceDelegate?
@@ -36,20 +38,21 @@ class CollectionViewDataSource<ObjectType>: DataSource<ObjectType>, UICollection
         self.collectionView = collectionView
         self.delegate = delegate
         self.cellIdentifier = cellIdentifier
-        super.init(container: container)
+        self.container = container
+        super.init()
         self.collectionView?.dataSource = self
         self.collectionView?.delegate = self
     }
 
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        guard let container = container, let numberOfSections = container.numberOfSections() else {
+        guard let numberOfSections = numberOfSections else {
             return 0
         }
         return numberOfSections
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        guard let container = container, let numberOfItems = container.numberOfItems(in: section) else {
+        guard let numberOfItems = numberOfItems(in: section) else {
             return 0
         }
         return numberOfItems
@@ -57,6 +60,9 @@ class CollectionViewDataSource<ObjectType>: DataSource<ObjectType>, UICollection
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         var cellIdentifier: String? = nil
+        guard let object = object(at: indexPath) else {
+            fatalError("Could not retrieve object at \(indexPath)")
+        }
         if let delegateCellIdentifier = delegate?.dataSource(self, cellIdentifierFor: object, at: indexPath) {
             cellIdentifier = delegateCellIdentifier
         }
@@ -70,16 +76,13 @@ class CollectionViewDataSource<ObjectType>: DataSource<ObjectType>, UICollection
         guard let configurableCell = cell as? DataSourceConfigurable else {
             fatalError("Cell is not implementing DataSourceConfigurable protocol")
         }
-        guard let object = container?.object(at: indexPath) else {
-            fatalError("Could not retrieve object at \(indexPath)")
-        }
         configurableCell.configure(with: object)
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         guard let configurableCell = cell as? DataSourceConfigurable,
-            let object = container?.object(at: indexPath) else {
+            let object = object(at: indexPath) else {
                 return
         }
 
@@ -87,7 +90,7 @@ class CollectionViewDataSource<ObjectType>: DataSource<ObjectType>, UICollection
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let object = container?.object(at: indexPath) as Any? else {
+        guard let object = object(at: indexPath) else {
             fatalError("Object non exists")
         }
         self.delegate?.dataSource(self, didSelect: object, at: indexPath)

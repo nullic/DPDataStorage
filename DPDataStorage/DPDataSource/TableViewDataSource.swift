@@ -22,7 +22,11 @@ public extension TableViewDataSourceDelegate {
     func dataSource(_ dataSource: DataSourceProtocol, willDispaly cell:DataSourceConfigurable, for object:Any, at indexPath: IndexPath) { }
 }
 
-public class TableViewDataSource<ObjectType>: DataSource<ObjectType>, UITableViewDataSource, UITableViewDelegate {
+
+public class TableViewDataSource<ObjectType>: NSObject, DataSource, UITableViewDataSource, UITableViewDelegate {
+    
+    public var container: DataSourceContainer<ObjectType>?
+    
     @IBOutlet public weak var tableView: UITableView?
     @IBInspectable public var cellIdentifier: String?
     public weak var delegate: TableViewDataSourceDelegate?
@@ -34,20 +38,21 @@ public class TableViewDataSource<ObjectType>: DataSource<ObjectType>, UITableVie
         self.tableView = tableView
         self.delegate = delegate
         self.cellIdentifier = cellIdentifier
-        super.init(container: container)
+        self.container = container
+        super.init()
         self.tableView?.dataSource = self
         self.tableView?.delegate = self
     }
     
     public func numberOfSections(in tableView: UITableView) -> Int {
-        guard let container = container, let numberOfSections = container.numberOfSections() else {
+        guard let numberOfSections = numberOfSections else {
             return 0
         }
         return numberOfSections
     }
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let container = container, let numberOfItems = container.numberOfItems(in: section) else {
+        guard let numberOfItems = numberOfItems(in: section) else {
             return 0
         }
         return numberOfItems
@@ -79,14 +84,14 @@ public class TableViewDataSource<ObjectType>: DataSource<ObjectType>, UITableVie
 
     public func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         guard let configurableCell = cell as? DataSourceConfigurable,
-            let object = container?.object(at: indexPath) else {
+            let object = object(at: indexPath) else {
                 return
         }
         delegate?.dataSource(self, willDispaly: configurableCell, for: object, at: indexPath)
     }
     
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let object = container?.object(at: indexPath) as Any? else {
+        guard let object = object(at: indexPath) as Any? else {
             fatalError("Object non exists")
         }
         self.delegate?.dataSource(self, didSelect: object, at: indexPath)
