@@ -12,8 +12,14 @@ public protocol DataSourceConfigurable {
     func configure(with object: Any)
 }
 
-class DataSource<ObjectType>: NSObject {
+public protocol DataSourceProtocol {}
 
+class DataSource<ObjectType>: NSObject, DataSourceProtocol {
+
+    init(container: DataSourceContainer<ObjectType>) {
+        self.container = container
+    }
+    
     var container: DataSourceContainer<ObjectType>?
     
     var hasData: Bool? {

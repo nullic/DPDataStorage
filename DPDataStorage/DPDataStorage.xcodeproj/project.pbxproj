@@ -45,6 +45,7 @@
 		7690ADEA1EC35DC5003C1CDD /* DPMapViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 7690ADE81EC35DC5003C1CDD /* DPMapViewDataSource.m */; };
 		FA813D8E1F880FE8003125C2 /* DataSourceContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA813D8D1F880FE8003125C2 /* DataSourceContainer.swift */; };
 		FA93A2361FE85DC300CD3FBB /* NSFetchRequest+Sorting.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA93A2351FE85DC300CD3FBB /* NSFetchRequest+Sorting.swift */; };
+		FA93A2381FE8F23C00CD3FBB /* CollectionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA93A2371FE8F23C00CD3FBB /* CollectionViewDataSource.swift */; };
 		FAAE4E951FBD79D400503440 /* TableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAAE4E941FBD79D400503440 /* TableViewDataSource.swift */; };
 		FADA78061F8B9D1F0011141B /* FRCDataSourceContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADA78051F8B9D1F0011141B /* FRCDataSourceContainer.swift */; };
 		FADA780C1F988F030011141B /* DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADA780B1F988F030011141B /* DataSource.swift */; };
@@ -77,6 +78,7 @@
 		7690ADE81EC35DC5003C1CDD /* DPMapViewDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPMapViewDataSource.m; sourceTree = "<group>"; };
 		FA813D8D1F880FE8003125C2 /* DataSourceContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSourceContainer.swift; sourceTree = "<group>"; };
 		FA93A2351FE85DC300CD3FBB /* NSFetchRequest+Sorting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSFetchRequest+Sorting.swift"; sourceTree = "<group>"; };
+		FA93A2371FE8F23C00CD3FBB /* CollectionViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewDataSource.swift; sourceTree = "<group>"; };
 		FAAE4E941FBD79D400503440 /* TableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewDataSource.swift; sourceTree = "<group>"; };
 		FADA78051F8B9D1F0011141B /* FRCDataSourceContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FRCDataSourceContainer.swift; sourceTree = "<group>"; };
 		FADA780B1F988F030011141B /* DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSource.swift; sourceTree = "<group>"; };
@@ -142,6 +144,7 @@
 				FA813D8D1F880FE8003125C2 /* DataSourceContainer.swift */,
 				FADA78051F8B9D1F0011141B /* FRCDataSourceContainer.swift */,
 				FAAE4E941FBD79D400503440 /* TableViewDataSource.swift */,
+				FA93A2371FE8F23C00CD3FBB /* CollectionViewDataSource.swift */,
 				FA93A2351FE85DC300CD3FBB /* NSFetchRequest+Sorting.swift */,
 				765EF8291EBCB60700C21E2E /* DPDataSourceContainer.h */,
 				765EF8241EBCB60700C21E2E /* DPBaseDataSource.h */,
@@ -292,6 +295,7 @@
 				FA93A2361FE85DC300CD3FBB /* NSFetchRequest+Sorting.swift in Sources */,
 				765EF83B1EBCB60800C21E2E /* DPTableViewDataSource.m in Sources */,
 				FADA78061F8B9D1F0011141B /* FRCDataSourceContainer.swift in Sources */,
+				FA93A2381FE8F23C00CD3FBB /* CollectionViewDataSource.swift in Sources */,
 				7690ADEA1EC35DC5003C1CDD /* DPMapViewDataSource.m in Sources */,
 				FA813D8E1F880FE8003125C2 /* DataSourceContainer.swift in Sources */,
 				FAAE4E951FBD79D400503440 /* TableViewDataSource.swift in Sources */,

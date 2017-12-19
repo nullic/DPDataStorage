@@ -1,59 +1,61 @@
 //
-//  TableViewDataSource.swift
+//  CollectionViewDataSource.swift
 //  DPDataStorage
 //
-//  Created by Alex on 11/16/17.
+//  Created by Alex on 12/19/17.
 //  Copyright © 2017 EffectiveSoft. All rights reserved.
 //
 
 import UIKit
 
-public protocol TableViewDataSourceDelegate: class {
+protocol CollectionViewDataSourceDelegate: class {
     func dataSource(_ dataSource: DataSourceProtocol, cellIdentifierFor object: Any, at indexPath: IndexPath) -> String?
     func dataSource(_ dataSource: DataSourceProtocol, didSelect object:Any, at indexPath: IndexPath)
     func dataSource(_ dataSource: DataSourceProtocol, willDispaly cell:DataSourceConfigurable, for object:Any, at indexPath: IndexPath)
 }
 
-public extension TableViewDataSourceDelegate {
+extension CollectionViewDataSourceDelegate {
     func dataSource(_ dataSource: DataSourceProtocol, cellIdentifierFor object: Any, at indexPath: IndexPath) -> String? {
         return nil
     }
     func dataSource(_ dataSource: DataSourceProtocol, didSelect object:Any, at indexPath: IndexPath) { }
-    func dataSource(_ dataSource: DataSourceProtocol, willDispaly cell:DataSourceConfigurable, for object:Any, at indexPath: IndexPath) { }
+    func dataSource(_ dataSource: DataSourceProtocol, willDispaly cell:DataSourceConfigurable, for object:Any, at indexPath: IndexPath) {
+        
+    }
 }
 
-public class TableViewDataSource<ObjectType>: DataSource<ObjectType>, UITableViewDataSource, UITableViewDelegate {
-    @IBOutlet public weak var tableView: UITableView?
+class CollectionViewDataSource<ObjectType>: DataSource<ObjectType>, UICollectionViewDataSource, UICollectionViewDelegate {
+    @IBOutlet public weak var collectionView: UICollectionView?
     @IBInspectable public var cellIdentifier: String?
-    public weak var delegate: TableViewDataSourceDelegate?
-    
-    public init(tableView: UITableView,
-         container: DataSourceContainer<ObjectType>,
-         delegate: TableViewDataSourceDelegate?,
-         cellIdentifier: String?) {
-        self.tableView = tableView
+    public weak var delegate: CollectionViewDataSourceDelegate?
+
+    public init(collectionView: UICollectionView,
+                container: DataSourceContainer<ObjectType>,
+                delegate: CollectionViewDataSourceDelegate?,
+                cellIdentifier: String?) {
+        self.collectionView = collectionView
         self.delegate = delegate
         self.cellIdentifier = cellIdentifier
         super.init(container: container)
-        self.tableView?.dataSource = self
-        self.tableView?.delegate = self
+        self.collectionView?.dataSource = self
+        self.collectionView?.delegate = self
     }
-    
-    public func numberOfSections(in tableView: UITableView) -> Int {
+
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
         guard let container = container, let numberOfSections = container.numberOfSections() else {
             return 0
         }
         return numberOfSections
     }
-    
-    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         guard let container = container, let numberOfItems = container.numberOfItems(in: section) else {
             return 0
         }
         return numberOfItems
     }
-    
-    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         var cellIdentifier: String? = nil
         if let delegateCellIdentifier = delegate?.dataSource(self, cellIdentifierFor: object, at: indexPath) {
             cellIdentifier = delegateCellIdentifier
@@ -64,9 +66,7 @@ public class TableViewDataSource<ObjectType>: DataSource<ObjectType>, UITableVie
         guard let identifier = cellIdentifier else {
             fatalError("Cell identifier is empty")
         }
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: identifier) else {
-            fatalError("Cell is nil after dequeuring")
-        }
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) 
         guard let configurableCell = cell as? DataSourceConfigurable else {
             fatalError("Cell is not implementing DataSourceConfigurable protocol")
         }
@@ -76,19 +76,21 @@ public class TableViewDataSource<ObjectType>: DataSource<ObjectType>, UITableVie
         configurableCell.configure(with: object)
         return cell
     }
-
-    public func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         guard let configurableCell = cell as? DataSourceConfigurable,
             let object = container?.object(at: indexPath) else {
                 return
         }
+
         delegate?.dataSource(self, willDispaly: configurableCell, for: object, at: indexPath)
     }
-    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let object = container?.object(at: indexPath) as Any? else {
             fatalError("Object non exists")
         }
         self.delegate?.dataSource(self, didSelect: object, at: indexPath)
     }
-    
 }
+
