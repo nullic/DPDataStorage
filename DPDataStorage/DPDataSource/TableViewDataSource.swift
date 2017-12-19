@@ -54,6 +54,9 @@ public class TableViewDataSource<ObjectType>: DataSource<ObjectType>, UITableVie
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let object = object(at: indexPath) else {
+            fatalError("Could not retrieve object at \(indexPath)")
+        }
         var cellIdentifier: String? = nil
         if let delegateCellIdentifier = delegate?.dataSource(self, cellIdentifierFor: object, at: indexPath) {
             cellIdentifier = delegateCellIdentifier
@@ -70,9 +73,6 @@ public class TableViewDataSource<ObjectType>: DataSource<ObjectType>, UITableVie
         guard let configurableCell = cell as? DataSourceConfigurable else {
             fatalError("Cell is not implementing DataSourceConfigurable protocol")
         }
-        guard let object = container?.object(at: indexPath) else {
-            fatalError("Could not retrieve object at \(indexPath)")
-        }
         configurableCell.configure(with: object)
         return cell
     }
@@ -84,6 +84,7 @@ public class TableViewDataSource<ObjectType>: DataSource<ObjectType>, UITableVie
         }
         delegate?.dataSource(self, willDispaly: configurableCell, for: object, at: indexPath)
     }
+    
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let object = container?.object(at: indexPath) as Any? else {
             fatalError("Object non exists")
