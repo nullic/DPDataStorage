@@ -53,11 +53,10 @@ class CollectionViewDataSource<ObjectType>: NSObject, DataSource, UICollectionVi
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        var cellIdentifier: String? = nil
         guard let object = object(at: indexPath) else {
             fatalError("Could not retrieve object at \(indexPath)")
         }
-        let delegateCellIdentifier = delegate?.dataSource(self, cellIdentifierFor: object, at: indexPath) ?? self.cellIdentifier
+        let cellIdentifier = delegate?.dataSource(self, cellIdentifierFor: object, at: indexPath) ?? self.cellIdentifier
         guard let identifier = cellIdentifier else {
             fatalError("Cell identifier is empty")
         }
