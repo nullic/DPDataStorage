@@ -83,4 +83,7 @@ open class TableViewDataSource<ObjectType>: NSObject, DataSource, UITableViewDat
         return cell
     }
     
+//    open func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+//        print("displayed")
+//    }
 }

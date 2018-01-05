@@ -23,7 +23,7 @@ public class FRCDataSourceContainer<ResultType: NSFetchRequestResult>: DataSourc
                                        sectionNameKeyPath: sectionNameKeyPath,
                                        cacheName: nil)
         delegateForwarder = CoreDataDelegateForwarder<ResultType>(delegate: delegate)
-        super.init()
+        super.init(delegate: delegate)
         fetchedResultController.delegate = delegateForwarder
         try! fetchedResultController.performFetch()
         delegateForwarder.container = self

@@ -15,8 +15,12 @@ public protocol DataSourceContainerProtocol { }
 
 public class DataSourceContainer<ResultType>: DataSourceContainerProtocol {
     
-    var delegate: DataSourceContainerDelegate?
-    var sections: [DataSourceSectionInfo]? {
+    init(delegate: DataSourceContainerDelegate?) {
+        self.delegate = delegate
+    }
+    
+    public var delegate: DataSourceContainerDelegate?
+    public var sections: [DataSourceSectionInfo]? {
         get {
             return nil
         }

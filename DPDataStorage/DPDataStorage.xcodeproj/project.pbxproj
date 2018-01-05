@@ -21,6 +21,7 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		1D789D981FEA68480016D476 /* ArrayDataSourceContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D789D971FEA68480016D476 /* ArrayDataSourceContainer.swift */; };
 		765EF8141EBCB53D00C21E2E /* DPDataStorage.h in Headers */ = {isa = PBXBuildFile; fileRef = 765EF8121EBCB53D00C21E2E /* DPDataStorage.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		765EF82C1EBCB60700C21E2E /* NSManagedObject+DataStorage.h in Headers */ = {isa = PBXBuildFile; fileRef = 765EF81B1EBCB60700C21E2E /* NSManagedObject+DataStorage.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		765EF82D1EBCB60700C21E2E /* NSManagedObject+DataStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 765EF81C1EBCB60700C21E2E /* NSManagedObject+DataStorage.m */; };
@@ -52,6 +53,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1D789D971FEA68480016D476 /* ArrayDataSourceContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayDataSourceContainer.swift; sourceTree = "<group>"; };
 		765EF80F1EBCB53D00C21E2E /* DPDataStorage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DPDataStorage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		765EF8121EBCB53D00C21E2E /* DPDataStorage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DPDataStorage.h; sourceTree = "<group>"; };
 		765EF8131EBCB53D00C21E2E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -141,10 +143,11 @@
 			isa = PBXGroup;
 			children = (
 				FADA780B1F988F030011141B /* DataSource.swift */,
-				FA813D8D1F880FE8003125C2 /* DataSourceContainer.swift */,
-				FADA78051F8B9D1F0011141B /* FRCDataSourceContainer.swift */,
 				FAAE4E941FBD79D400503440 /* TableViewDataSource.swift */,
 				FA93A2371FE8F23C00CD3FBB /* CollectionViewDataSource.swift */,
+				FA813D8D1F880FE8003125C2 /* DataSourceContainer.swift */,
+				FADA78051F8B9D1F0011141B /* FRCDataSourceContainer.swift */,
+				1D789D971FEA68480016D476 /* ArrayDataSourceContainer.swift */,
 				FA93A2351FE85DC300CD3FBB /* NSFetchRequest+Sorting.swift */,
 				765EF8291EBCB60700C21E2E /* DPDataSourceContainer.h */,
 				765EF8241EBCB60700C21E2E /* DPBaseDataSource.h */,
@@ -298,6 +301,7 @@
 				FA93A2381FE8F23C00CD3FBB /* CollectionViewDataSource.swift in Sources */,
 				7690ADEA1EC35DC5003C1CDD /* DPMapViewDataSource.m in Sources */,
 				FA813D8E1F880FE8003125C2 /* DataSourceContainer.swift in Sources */,
+				1D789D981FEA68480016D476 /* ArrayDataSourceContainer.swift in Sources */,
 				FAAE4E951FBD79D400503440 /* TableViewDataSource.swift in Sources */,
 				765EF8311EBCB60800C21E2E /* NSManagedObjectModel+DataStorage.m in Sources */,
 			);
