@@ -407,8 +407,8 @@ static NSString * const kParseDataHasDuplicatesKey = @"parseDuplicates";
 
 - (NSDictionary *)exportDictionary {
     NSMutableDictionary *result = [NSMutableDictionary dictionary];
-    [result setValuesForKeysWithDictionary:[self exportAttributesDictionary]];
-    [result setValuesForKeysWithDictionary:[self exportRelationshipsDictionary]];
+    [result addEntriesFromDictionary::[self exportAttributesDictionary]];
+    [result addEntriesFromDictionary:[self exportRelationshipsDictionary]];
     return result;
 }
 
@@ -422,6 +422,9 @@ static NSString * const kParseDataHasDuplicatesKey = @"parseDuplicates";
         NSString *exportKey = attributeDescription.userInfo[kExportKey];
         if (exportKey) {
             id value = [[self class] transformExportValue:[self valueForKey:keyName] exportKey:exportKey propertyDescription:attributeDescription];
+            if (value == nil) {
+                value = [NSNull null];
+            }
             [result setValue:value forKey:exportKey];
         }
     }
