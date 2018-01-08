@@ -407,8 +407,8 @@ static NSString * const kParseDataHasDuplicatesKey = @"parseDuplicates";
 
 - (NSDictionary *)exportDictionary {
     NSMutableDictionary *result = [NSMutableDictionary dictionary];
-    [result setValuesForKeysWithDictionary:[self exportAttributesDictionary]];
-    [result setValuesForKeysWithDictionary:[self exportRelationshipsDictionary]];
+    [result addEntriesFromDictionary:[self exportAttributesDictionary]];
+    [result addEntriesFromDictionary:[self exportRelationshipsDictionary]];
     return result;
 }
 
