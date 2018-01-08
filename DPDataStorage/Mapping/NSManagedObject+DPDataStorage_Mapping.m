@@ -402,7 +402,7 @@ static NSString * const kParseDataHasDuplicatesKey = @"parseDuplicates";
 #pragma mark - Export
 
 + (id)transformExportValue:(id)value exportKey:(NSString *)importKey propertyDescription:(NSPropertyDescription *)propertyDescription {
-    return value;
+    return value ?: [NSNull null];
 }
 
 - (NSDictionary *)exportDictionary {
