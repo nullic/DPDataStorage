@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 public class FRCDataSourceContainer<ResultType: NSFetchRequestResult>: DataSourceContainer<ResultType> {
 
@@ -51,11 +52,17 @@ public class FRCDataSourceContainer<ResultType: NSFetchRequestResult>: DataSourc
     }
     
     open override func numberOfSections() -> Int {
-        return fetchedResultController.numberOfSections()
+        guard let sections = fetchedResultController.sections else {
+            return 0
+        }
+        return sections.count
     }
     
     open override func numberOfItems(in section: Int) -> Int? {
-        return fetchedResultController.numberOfItems(inSection:section)
+        guard let sections = fetchedResultController.sections else {
+            return 0
+        }
+        return sections[section].numberOfObjects
     }
 
     // MARK: Storage implementing

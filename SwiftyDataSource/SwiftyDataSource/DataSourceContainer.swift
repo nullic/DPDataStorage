@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreData
 
 public typealias DataSourceSectionInfo = NSFetchedResultsSectionInfo
 public typealias DataSourceObjectChangeType = NSFetchedResultsChangeType
