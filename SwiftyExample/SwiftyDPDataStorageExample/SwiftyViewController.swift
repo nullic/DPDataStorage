@@ -27,7 +27,7 @@ class SwiftyViewController: UITableViewController, TableViewDataSourceDelegate {
 class SwiftyViewControllerDataSource<ObjectType>: TableViewDataSource<ObjectType> {
 
     @objc (tableView:willDisplayCell:forRowAtIndexPath:)
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         cell.textLabel?.textColor = UIColor.red
     }
 

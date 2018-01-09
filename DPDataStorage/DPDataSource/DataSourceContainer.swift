@@ -15,24 +15,31 @@ public protocol DataSourceContainerProtocol { }
 
 public class DataSourceContainer<ResultType>: DataSourceContainerProtocol {
     
+    // MARK: Initializer
+    
     init(delegate: DataSourceContainerDelegate?) {
         self.delegate = delegate
     }
-    
+
+    // MARK: Delegate
+
     public var delegate: DataSourceContainerDelegate?
-    public var sections: [DataSourceSectionInfo]? {
+
+    // MARK: Methods for overriding in subclasses
+    
+    open var sections: [DataSourceSectionInfo]? {
         get {
             return nil
         }
     }
     
-    var fetchedObjects: [ResultType]? {
+    open var fetchedObjects: [ResultType]? {
         get {
             return nil
         }
     }
 
-    public var hasData: Bool {
+    open var hasData: Bool {
         get {
             if let fetchedObjects = fetchedObjects {
                 return fetchedObjects.count > 0
@@ -41,22 +48,24 @@ public class DataSourceContainer<ResultType>: DataSourceContainerProtocol {
         }
     }
 
-    func object(at indexPath: IndexPath) -> ResultType? {
+    open func object(at indexPath: IndexPath) -> ResultType? {
         return nil
     }
     
-    func indexPath(for object: ResultType) -> IndexPath? {
+    open func indexPath(for object: ResultType) -> IndexPath? {
         return nil
     }
 
-    func numberOfSections() -> Int? {
+    open func numberOfSections() -> Int? {
         return nil
     }
     
-    func numberOfItems(in section: Int) -> Int? {
+    open func numberOfItems(in section: Int) -> Int? {
         return nil
     }
 }
+
+// MARK: DataSourceContainerDelegate
 
 public protocol DataSourceContainerDelegate {
     

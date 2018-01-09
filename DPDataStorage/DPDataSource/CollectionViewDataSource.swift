@@ -19,12 +19,9 @@ extension CollectionViewDataSourceDelegate {
 }
 
 class CollectionViewDataSource<ObjectType>: NSObject, DataSource, UICollectionViewDataSource, UICollectionViewDelegate {
-    public var container: DataSourceContainer<ObjectType>?
-
-    @IBOutlet public weak var collectionView: UICollectionView?
-    @IBInspectable public var cellIdentifier: String?
-    public weak var delegate: CollectionViewDataSourceDelegate?
-
+    
+    // MARK: Initializer
+    
     public init(collectionView: UICollectionView,
                 container: DataSourceContainer<ObjectType>,
                 delegate: CollectionViewDataSourceDelegate?,
@@ -38,6 +35,31 @@ class CollectionViewDataSource<ObjectType>: NSObject, DataSource, UICollectionVi
         self.collectionView?.delegate = self
     }
 
+    // MARK: Public properties
+    
+    public var container: DataSourceContainer<ObjectType>? {
+        didSet {
+            collectionView?.reloadData()
+        }
+    }
+
+    public var collectionView: UICollectionView? {
+        didSet {
+            self.collectionView?.dataSource = self
+            self.collectionView?.delegate = self
+        }
+    }
+    
+    public var cellIdentifier: String? {
+        didSet {
+            self.collectionView?.reloadData()
+        }
+    }
+    
+    public weak var delegate: CollectionViewDataSourceDelegate?
+
+    // MARK: Implementing of datasource methods
+    
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         guard let numberOfSections = numberOfSections else {
             return 0

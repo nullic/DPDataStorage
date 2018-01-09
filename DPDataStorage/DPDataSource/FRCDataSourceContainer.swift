@@ -10,8 +10,7 @@ import UIKit
 
 public class FRCDataSourceContainer<ResultType: NSFetchRequestResult>: DataSourceContainer<ResultType> {
 
-    fileprivate let fetchedResultController: NSFetchedResultsController<ResultType>
-    fileprivate var delegateForwarder: CoreDataDelegateForwarder<ResultType>
+    // MARK: Initializer
     
     public init(fetchRequest: NSFetchRequest<ResultType>,
                 context: NSManagedObjectContext,
@@ -29,34 +28,40 @@ public class FRCDataSourceContainer<ResultType: NSFetchRequestResult>: DataSourc
         delegateForwarder.container = self
     }
 
-    override public var sections: [DataSourceSectionInfo]? {
+    // MARK: DataSourceContainer implementing
+
+    open override var sections: [DataSourceSectionInfo]? {
         get {
             return fetchedResultController.sections
         }
     }
     
-    override public var fetchedObjects: [ResultType]? {
+    open override var fetchedObjects: [ResultType]? {
         get {
             return fetchedResultController.fetchedObjects
         }
     }
     
-    override public func object(at indexPath: IndexPath) -> ResultType {
+    open override func object(at indexPath: IndexPath) -> ResultType {
         return fetchedResultController.object(at: indexPath)
     }
     
-    override public func indexPath(for object: ResultType) -> IndexPath? {
+    open override func indexPath(for object: ResultType) -> IndexPath? {
         return fetchedResultController.indexPath(forObject: object)
     }
     
-    override public func numberOfSections() -> Int {
+    open override func numberOfSections() -> Int {
         return fetchedResultController.numberOfSections()
     }
     
-    override public func numberOfItems(in section: Int) -> Int? {
+    open override func numberOfItems(in section: Int) -> Int? {
         return fetchedResultController.numberOfItems(inSection:section)
     }
 
+    // MARK: Storage implementing
+    
+    fileprivate let fetchedResultController: NSFetchedResultsController<ResultType>
+    fileprivate var delegateForwarder: CoreDataDelegateForwarder<ResultType>
 }
 
 class CoreDataDelegateForwarder<ResultType: NSFetchRequestResult>: NSObject, NSFetchedResultsControllerDelegate {
