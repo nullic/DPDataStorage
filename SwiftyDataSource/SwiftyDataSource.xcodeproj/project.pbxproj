@@ -8,12 +8,33 @@
 
 /* Begin PBXBuildFile section */
 		1D7B8F472004D1B100400613 /* SwiftyDataSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 1D7B8F452004D1B100400613 /* SwiftyDataSource.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1D7B8F542004D27C00400613 /* FRCDataSourceContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D7B8F4D2004D27B00400613 /* FRCDataSourceContainer.swift */; };
+		1D7B8F552004D27C00400613 /* DataSourceContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D7B8F4E2004D27B00400613 /* DataSourceContainer.swift */; };
+		1D7B8F562004D27C00400613 /* DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D7B8F4F2004D27B00400613 /* DataSource.swift */; };
+		1D7B8F572004D27C00400613 /* CollectionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D7B8F502004D27B00400613 /* CollectionViewDataSource.swift */; };
+		1D7B8F582004D27C00400613 /* ArrayDataSourceContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D7B8F512004D27C00400613 /* ArrayDataSourceContainer.swift */; };
+		1D7B8F592004D27C00400613 /* NSFetchRequest+Sorting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D7B8F522004D27C00400613 /* NSFetchRequest+Sorting.swift */; };
+		1D7B8F5A2004D27C00400613 /* TableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D7B8F532004D27C00400613 /* TableViewDataSource.swift */; };
+		1D7B8F5C2004D32500400613 /* DataSource.swift in Headers */ = {isa = PBXBuildFile; fileRef = 1D7B8F4F2004D27B00400613 /* DataSource.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		1D7B8F5D2004D32500400613 /* TableViewDataSource.swift in Headers */ = {isa = PBXBuildFile; fileRef = 1D7B8F532004D27C00400613 /* TableViewDataSource.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		1D7B8F5E2004D32500400613 /* CollectionViewDataSource.swift in Headers */ = {isa = PBXBuildFile; fileRef = 1D7B8F502004D27B00400613 /* CollectionViewDataSource.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		1D7B8F5F2004D32500400613 /* DataSourceContainer.swift in Headers */ = {isa = PBXBuildFile; fileRef = 1D7B8F4E2004D27B00400613 /* DataSourceContainer.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		1D7B8F602004D32500400613 /* FRCDataSourceContainer.swift in Headers */ = {isa = PBXBuildFile; fileRef = 1D7B8F4D2004D27B00400613 /* FRCDataSourceContainer.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		1D7B8F612004D32500400613 /* ArrayDataSourceContainer.swift in Headers */ = {isa = PBXBuildFile; fileRef = 1D7B8F512004D27C00400613 /* ArrayDataSourceContainer.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		1D7B8F622004D32500400613 /* NSFetchRequest+Sorting.swift in Headers */ = {isa = PBXBuildFile; fileRef = 1D7B8F522004D27C00400613 /* NSFetchRequest+Sorting.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		1D7B8F422004D1B100400613 /* SwiftyDataSource.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftyDataSource.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1D7B8F452004D1B100400613 /* SwiftyDataSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SwiftyDataSource.h; sourceTree = "<group>"; };
 		1D7B8F462004D1B100400613 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1D7B8F4D2004D27B00400613 /* FRCDataSourceContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FRCDataSourceContainer.swift; sourceTree = "<group>"; };
+		1D7B8F4E2004D27B00400613 /* DataSourceContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSourceContainer.swift; sourceTree = "<group>"; };
+		1D7B8F4F2004D27B00400613 /* DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSource.swift; sourceTree = "<group>"; };
+		1D7B8F502004D27B00400613 /* CollectionViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewDataSource.swift; sourceTree = "<group>"; };
+		1D7B8F512004D27C00400613 /* ArrayDataSourceContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayDataSourceContainer.swift; sourceTree = "<group>"; };
+		1D7B8F522004D27C00400613 /* NSFetchRequest+Sorting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSFetchRequest+Sorting.swift"; sourceTree = "<group>"; };
+		1D7B8F532004D27C00400613 /* TableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewDataSource.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -46,6 +67,13 @@
 		1D7B8F442004D1B100400613 /* SwiftyDataSource */ = {
 			isa = PBXGroup;
 			children = (
+				1D7B8F4F2004D27B00400613 /* DataSource.swift */,
+				1D7B8F532004D27C00400613 /* TableViewDataSource.swift */,
+				1D7B8F502004D27B00400613 /* CollectionViewDataSource.swift */,
+				1D7B8F4E2004D27B00400613 /* DataSourceContainer.swift */,
+				1D7B8F4D2004D27B00400613 /* FRCDataSourceContainer.swift */,
+				1D7B8F512004D27C00400613 /* ArrayDataSourceContainer.swift */,
+				1D7B8F522004D27C00400613 /* NSFetchRequest+Sorting.swift */,
 				1D7B8F452004D1B100400613 /* SwiftyDataSource.h */,
 				1D7B8F462004D1B100400613 /* Info.plist */,
 			);
@@ -60,6 +88,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				1D7B8F472004D1B100400613 /* SwiftyDataSource.h in Headers */,
+				1D7B8F5C2004D32500400613 /* DataSource.swift in Headers */,
+				1D7B8F5D2004D32500400613 /* TableViewDataSource.swift in Headers */,
+				1D7B8F5E2004D32500400613 /* CollectionViewDataSource.swift in Headers */,
+				1D7B8F5F2004D32500400613 /* DataSourceContainer.swift in Headers */,
+				1D7B8F602004D32500400613 /* FRCDataSourceContainer.swift in Headers */,
+				1D7B8F612004D32500400613 /* ArrayDataSourceContainer.swift in Headers */,
+				1D7B8F622004D32500400613 /* NSFetchRequest+Sorting.swift in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -131,6 +166,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1D7B8F562004D27C00400613 /* DataSource.swift in Sources */,
+				1D7B8F552004D27C00400613 /* DataSourceContainer.swift in Sources */,
+				1D7B8F592004D27C00400613 /* NSFetchRequest+Sorting.swift in Sources */,
+				1D7B8F542004D27C00400613 /* FRCDataSourceContainer.swift in Sources */,
+				1D7B8F572004D27C00400613 /* CollectionViewDataSource.swift in Sources */,
+				1D7B8F5A2004D27C00400613 /* TableViewDataSource.swift in Sources */,
+				1D7B8F582004D27C00400613 /* ArrayDataSourceContainer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
