@@ -44,8 +44,17 @@
 
 #pragma mark - Init
 
-- (instancetype)initWithTableView:(UITableView *)tableView listController:(id<DataSourceContainerController>)listController forwardDelegate:(id)forwardDelegate cellIdentifier:(NSString *)cellIdentifier {
+- (instancetype)init {
     if ((self = [super init])) {
+        self.insertAnimation = UITableViewRowAnimationAutomatic;
+        self.deleteAnimation = UITableViewRowAnimationAutomatic;
+        self.updateAnimation = UITableViewRowAnimationNone;
+    }
+    return self;
+}
+
+- (instancetype)initWithTableView:(UITableView *)tableView listController:(id<DataSourceContainerController>)listController forwardDelegate:(id)forwardDelegate cellIdentifier:(NSString *)cellIdentifier {
+    if ((self = [self init])) {
         self.cellIdentifier = cellIdentifier;
 
         self.forwardDelegate = forwardDelegate;
@@ -180,15 +189,15 @@
         dispatch_block_t block = ^{
             switch(type) {
                 case NSFetchedResultsChangeInsert:
-                    [tv insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+                    [tv insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:self.insertAnimation];
                     break;
 
                 case NSFetchedResultsChangeDelete:
-                    [tv deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+                    [tv deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:self.deleteAnimation];
                     break;
 
                 case NSFetchedResultsChangeUpdate:
-                    [tv reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+                    [tv reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:self.updateAnimation];
                     break;
 
                 case NSFetchedResultsChangeMove:

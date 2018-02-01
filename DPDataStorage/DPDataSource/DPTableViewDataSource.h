@@ -14,6 +14,11 @@
 @property (nonatomic, copy, nullable) IBInspectable NSString *cellIdentifier; // Cell must conform <DPDataSourceCell>
 @property (nonatomic) IBInspectable BOOL disableAnimations;
 
+@property (nonatomic) IBInspectable UITableViewRowAnimation insertAnimation; // Default is UITableViewRowAnimationAutomatic
+@property (nonatomic) IBInspectable UITableViewRowAnimation deleteAnimation; // Default is UITableViewRowAnimationAutomatic
+@property (nonatomic) IBInspectable UITableViewRowAnimation updateAnimation; // Default is UITableViewRowAnimationNone
+
+
 - (instancetype _Nonnull)initWithTableView:(UITableView * _Nullable)tableView listController:(id<DataSourceContainerController> _Nullable)listController forwardDelegate:(id _Nullable)forwardDelegate cellIdentifier:(NSString * _Nullable)cellIdentifier;
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView * _Nullable)tableView;
