@@ -108,4 +108,8 @@ extern NSString * const _Nonnull DPDataStorageNotificationNameKey;
 - (void)setFetchRequestTemplate:(NSFetchRequest * _Nullable)fetchRequestTemplate forName:(NSString * _Null_unspecified)name;
 - (void)setFetchRequestTemplateWithEntityName:(NSString * _Nonnull)entityName predicate:(NSPredicate * _Nullable)predicate sortDescriptors:(NSArray * _Nullable)sortDescriptors forName:(NSString * _Nonnull)name;
 
+
+- (void)resetAllData;
+
+
 @end
