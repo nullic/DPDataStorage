@@ -9,26 +9,21 @@
 import UIKit
 import DPDataStorage
 
-class SwiftyViewController: UITableViewController, TableViewDataSourceDelegate {
+class SwiftyViewController: UITableViewController {
     
-    private var dataSource: TableViewDataSource<Employee>!
+    private var dataSource: DPTableViewDataSource!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         let context = DPDataStorage.default().mainContext
-        let desciptors = [NSSortDescriptor(key: "name", ascending: true)]
-        let fetchRequest: NSFetchRequest<Employee> = Employee.fetchRequest().sorted(by: desciptors)
-        let container = FRCDataSourceContainer(fetchRequest: fetchRequest, context: context, sectionNameKeyPath: nil, delegate: nil)
-        dataSource = SwiftyViewControllerDataSource(container: container, delegate: self, tableView: tableView, cellIdentifier: "TableViewCell")
-    }
-}
-
-class SwiftyViewControllerDataSource<ObjectType>: TableViewDataSource<ObjectType> {
-
-    @objc (tableView:willDisplayCell:forRowAtIndexPath:)
-    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        cell.textLabel?.textColor = UIColor.red
+        let fetchRequest: NSFetchRequest<Employee> = Employee.fetchRequest()
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
+        let controller = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
+        dataSource = DPTableViewDataSource(tableView: tableView, listController: controller, forwardDelegate: self, cellIdentifier: "TableViewCell")
     }
 
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+    }
 }

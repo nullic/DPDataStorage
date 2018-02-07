@@ -27,7 +27,7 @@ class EmployeeCell: UITableViewCell, DPDataSourceCell {
     }
 }
 
-class SwiftyEmployeeCell: UITableViewCell, DataSourceConfigurable {
+class SwiftyEmployeeCell: UITableViewCell, DPDataSourceCell {
     override func awakeFromNib() {
         super.awakeFromNib()
     }

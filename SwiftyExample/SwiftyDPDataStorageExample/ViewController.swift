@@ -19,8 +19,8 @@ class ViewController: UIViewController {
 
     @IBOutlet var dataSource: DPTableViewDataSource!
 
-    // Uncomment to reproduce
-//    @objc(tableView:cellForRowAtIndexPath:)
+    // This allows using datasource from swift code
+    // @objc(tableView:cellForRowAtIndexPath:)
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         return tableView.dequeueReusableCell(withIdentifier: "TableViewCell")!
     }
