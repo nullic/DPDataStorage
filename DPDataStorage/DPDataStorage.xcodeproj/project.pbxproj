@@ -129,8 +129,6 @@
 			isa = PBXGroup;
 			children = (
 				765EF8291EBCB60700C21E2E /* DPDataSourceContainer.h */,
-				765EF8221EBCB60700C21E2E /* DPArrayController.h */,
-				765EF8231EBCB60700C21E2E /* DPArrayController.m */,
 				765EF8241EBCB60700C21E2E /* DPBaseDataSource.h */,
 				765EF8251EBCB60700C21E2E /* DPBaseDataSource.m */,
 				765EF8281EBCB60700C21E2E /* DPDataSourceCell.h */,
@@ -140,6 +138,8 @@
 				765EF8271EBCB60700C21E2E /* DPCollectionViewDataSource.m */,
 				7690ADE71EC35DC5003C1CDD /* DPMapViewDataSource.h */,
 				7690ADE81EC35DC5003C1CDD /* DPMapViewDataSource.m */,
+				765EF8221EBCB60700C21E2E /* DPArrayController.h */,
+				765EF8231EBCB60700C21E2E /* DPArrayController.m */,
 			);
 			path = DPDataSource;
 			sourceTree = "<group>";
@@ -207,6 +207,7 @@
 				TargetAttributes = {
 					765EF80E1EBCB53D00C21E2E = {
 						CreatedOnToolsVersion = 8.3.1;
+						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
 					};
 					765EF8431EBCB96900C21E2E = {
@@ -384,6 +385,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -394,6 +396,7 @@
 		765EF8181EBCB53D00C21E2E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
@@ -407,12 +410,15 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.effectivesoft.DPDataStorage;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
 		765EF8191EBCB53D00C21E2E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
@@ -426,6 +432,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.effectivesoft.DPDataStorage;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
