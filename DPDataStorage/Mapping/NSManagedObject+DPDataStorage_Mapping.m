@@ -19,6 +19,16 @@ static NSString * const kDeleteNotUpdatedKey = @"deleteNotUpdated";
 static NSString * const kParseDataHasDuplicatesKey = @"parseDuplicates";
 
 
+static NSString * uniqueKeyForEntity(NSEntityDescription *entityDescription) {
+    NSString *entityUniqueKey = nil;
+    NSEntityDescription *parent = entityDescription;
+    while (parent != nil && entityUniqueKey == nil) {
+        entityUniqueKey = parent.userInfo[kUniqueKey];
+        parent = parent.superentity;
+    }
+    return entityUniqueKey;
+}
+
 @implementation NSManagedObject (DPDataStorage_Mapping)
 
 #pragma mark - Import
@@ -66,8 +76,8 @@ static NSString * const kParseDataHasDuplicatesKey = @"parseDuplicates";
 
         NSEntityDescription *entityDescription = [context entityDescriptionForManagedObjectClass:[self class]];
         NSDictionary *entityAttributes = [entityDescription attributesByName];
-
-        NSString *entityUniqueKey = entityDescription.userInfo[kUniqueKey];
+        
+        NSString *entityUniqueKey = uniqueKeyForEntity(entityDescription);
         NSAttributeDescription *uniqueAttr = entityUniqueKey ? entityAttributes[entityUniqueKey] : nil;
         BOOL parseDataHasDuplicates = entityDescription.userInfo[kParseDataHasDuplicatesKey] ? [entityDescription.userInfo[kParseDataHasDuplicatesKey] boolValue] : context.parseDataHasDuplicates;
 
@@ -151,12 +161,7 @@ static NSString * const kParseDataHasDuplicatesKey = @"parseDuplicates";
         NSEntityDescription *entityDescription = [context entityDescriptionForManagedObjectClass:[self class]];
         NSDictionary *entityAttributes = [entityDescription attributesByName];
 
-        NSString *entityUniqueKey = nil;
-        NSEntityDescription *parent = entityDescription;
-        while (parent != nil && entityUniqueKey == nil) {
-            entityUniqueKey = parent.userInfo[kUniqueKey];
-            parent = parent.superentity;
-        }
+        NSString *entityUniqueKey = uniqueKeyForEntity(entityDescription);
 
         NSAttributeDescription *uniqueAttr = entityUniqueKey ? entityAttributes[entityUniqueKey] : nil;
         BOOL parseDataHasDuplicates = entityDescription.userInfo[kParseDataHasDuplicatesKey] ? [entityDescription.userInfo[kParseDataHasDuplicatesKey] boolValue] : context.parseDataHasDuplicates;
@@ -382,6 +387,11 @@ static NSString * const kParseDataHasDuplicatesKey = @"parseDuplicates";
                     [errors addObject:error];
                     break;
                 }
+            }
+            else if (valueClass == [NSDictionary class] && uniqueKeyForEntity(relationshipDescription.destinationEntity) != nil) {
+                NSString *entityUniqueKey = uniqueKeyForEntity(relationshipDescription.destinationEntity);
+                NSManagedObject *object = [relationClass entryWithValue:value forKey:entityUniqueKey includesPendingChanges:YES inContext:[self managedObjectContext]];
+                [self setValue:object forKey:keyName];
             }
             else {
                 NSString *details = [NSString stringWithFormat:@"Invalid import value class (expected: %@, actual: %@) for key: '%@' in object: '%@'", NSStringFromClass(valueClass), NSStringFromClass([value class]), keyName, NSStringFromClass([self class])];
