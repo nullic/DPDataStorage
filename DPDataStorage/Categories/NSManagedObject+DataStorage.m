@@ -74,6 +74,28 @@
     return result;
 }
 
++ (instancetype)entryWithPairs:(NSDictionary *)pairs includesPendingChanges:(BOOL)includesPendingChanges inContext:(NSManagedObjectContext *)context {
+    NSParameterAssert(pairs != nil);
+    NSParameterAssert(context != nil);
+    
+    NSFetchRequest *fetchRequest = [self newFetchRequestInContext:context];
+    
+    NSMutableArray *predicates = [NSMutableArray array];
+    for (NSString *key in pairs) {
+        [predicates addObject:[NSPredicate predicateWithFormat:@"%K == %@", key, pairs[key]]];
+    }
+    
+    fetchRequest.predicate = [NSCompoundPredicate andPredicateWithSubpredicates:predicates];
+    fetchRequest.fetchLimit = 1;
+    fetchRequest.includesPendingChanges = includesPendingChanges;
+    
+    NSError *error = nil;
+    id result = [[context executeFetchRequest:fetchRequest error:&error] lastObject];
+    FAIL_ON_ERROR(error);
+    
+    return result;
+}
+
 + (NSArray *)entriesWithValue:(id<NSObject>)value forKey:(NSString *)key inContext:(NSManagedObjectContext *)context {
     NSParameterAssert(key != nil);
     NSParameterAssert(context != nil);

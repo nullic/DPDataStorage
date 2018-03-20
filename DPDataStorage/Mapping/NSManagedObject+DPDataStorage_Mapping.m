@@ -29,6 +29,42 @@ static NSString * uniqueKeyForEntity(NSEntityDescription *entityDescription) {
     return entityUniqueKey;
 }
 
+@interface NSEntityDescription (DPDataStorage_Mapping)
+@end
+
+@implementation NSEntityDescription (DPDataStorage_Mapping)
+
+- (NSArray<NSString *> *)importKeysForAttributeKeys:(NSArray<NSString *> *)keys inDictionary:(NSDictionary *)dictionary error:(NSError **)out_error {
+    NSError *error = nil;
+    NSMutableArray *result = [NSMutableArray array];
+    
+    for (NSString *key in keys) {
+        NSAttributeDescription *attr = self.attributesByName[key];
+        
+        for (NSString *key in attr.userInfo) {
+            if ([key hasPrefix:kImportKey]) {
+                NSString *importKey = attr.userInfo[key];
+                
+                if (dictionary[importKey] != nil) {
+                    [result addObject:importKey];
+                    break;
+                }
+            }
+        }
+    }
+    
+    if (result.count != keys.count) {
+        NSString *details = [NSString stringWithFormat:@"Not found '%@' for '%@' in class: %@", kImportKey, kUniqueKey, NSStringFromClass([self class])];
+        error = [NSError errorWithDomain:NSCocoaErrorDomain code:NSExternalRecordImportError userInfo:@{NSLocalizedFailureReasonErrorKey: details}];
+    }
+    
+    if (error && out_error) *out_error = error;
+    return (error == nil) ? result : nil;
+}
+
+@end
+
+
 @implementation NSManagedObject (DPDataStorage_Mapping)
 
 #pragma mark - Import
@@ -162,44 +198,50 @@ static NSString * uniqueKeyForEntity(NSEntityDescription *entityDescription) {
         NSDictionary *entityAttributes = [entityDescription attributesByName];
 
         NSString *entityUniqueKey = uniqueKeyForEntity(entityDescription);
-
-        NSAttributeDescription *uniqueAttr = entityUniqueKey ? entityAttributes[entityUniqueKey] : nil;
+        NSArray *uniqueKeys = [entityUniqueKey componentsSeparatedByString:@"+"];
+        NSArray *importUniqueKeys = [entityDescription importKeysForAttributeKeys:uniqueKeys inDictionary:dictionary error:&error];
+        
         BOOL parseDataHasDuplicates = entityDescription.userInfo[kParseDataHasDuplicatesKey] ? [entityDescription.userInfo[kParseDataHasDuplicatesKey] boolValue] : context.parseDataHasDuplicates;
 
-        NSString *importUniqueKey = nil;
-        for (NSString *key in uniqueAttr.userInfo) {
-            if ([key hasPrefix:kImportKey]) {
-                importUniqueKey = uniqueAttr.userInfo[key];
-                if (dictionary[importUniqueKey] != nil) {
-                    break;
-                }
-            }
+        if (entityUniqueKey == nil) {
+            result = [self insertInContext:context];
         }
-
-        if (importUniqueKey != nil) {
-            Class valueClass = NSClassFromString(uniqueAttr.attributeValueClassName);
-            id value = [self transformImportValue:dictionary[importUniqueKey] importKey:importUniqueKey propertyDescription:uniqueAttr];
-
-            if (value) {
-                if ([value isKindOfClass:valueClass]) {
-                    result = [self entryWithValue:value forKey:entityUniqueKey includesPendingChanges:parseDataHasDuplicates inContext:context];
-                    if (result == nil) {
-                        result = [self insertInContext:context];
-                        [result setValue:value forKey:entityUniqueKey];
+        else if (error == nil && importUniqueKeys.count > 0 && importUniqueKeys.count == uniqueKeys.count) {
+            NSMutableDictionary *pairs = [NSMutableDictionary dictionary];
+            
+            for (NSInteger i = 0; i < importUniqueKeys.count; i++) {
+                NSString *uniqueAttributeKey = uniqueKeys[i];
+                NSAttributeDescription *uniqueAttr = entityAttributes[uniqueAttributeKey];
+                NSString *importUniqueKey = importUniqueKeys[i];
+                
+                Class valueClass = NSClassFromString(uniqueAttr.attributeValueClassName);
+                id value = [self transformImportValue:dictionary[importUniqueKey] importKey:importUniqueKey propertyDescription:uniqueAttr];
+                
+                if (value) {
+                    if ([value isKindOfClass:valueClass]) {
+                        pairs[uniqueAttributeKey] = value;
+                    }
+                    else {
+                        NSString *details = [NSString stringWithFormat:@"Invalid import value class (expected: %@, actual: %@) for key: '%@' in object: '%@'", uniqueAttr.attributeValueClassName, NSStringFromClass([value class]), uniqueAttributeKey, NSStringFromClass([self class])];
+                        error = [NSError errorWithDomain:NSCocoaErrorDomain code:NSExternalRecordImportError userInfo:@{NSLocalizedFailureReasonErrorKey: details}];
                     }
                 }
                 else {
-                    NSString *details = [NSString stringWithFormat:@"Invalid import value class (expected: %@, actual: %@) for key: '%@' in object: '%@'", uniqueAttr.attributeValueClassName, NSStringFromClass([value class]), entityUniqueKey, NSStringFromClass([self class])];
+                    NSString *details = [NSString stringWithFormat:@"Import value for unique key cannot be 'nil' (class: %@)", NSStringFromClass([self class])];
                     error = [NSError errorWithDomain:NSCocoaErrorDomain code:NSExternalRecordImportError userInfo:@{NSLocalizedFailureReasonErrorKey: details}];
+                    break;
                 }
             }
-            else {
-                NSString *details = [NSString stringWithFormat:@"Import value for unique key cannot be 'nil' (class: %@)", NSStringFromClass([self class])];
-                error = [NSError errorWithDomain:NSCocoaErrorDomain code:NSExternalRecordImportError userInfo:@{NSLocalizedFailureReasonErrorKey: details}];
+            
+            if (error == nil) {
+                result = [self entryWithPairs:pairs includesPendingChanges:parseDataHasDuplicates inContext:context];
+                if (result == nil) {
+                    result = [self insertInContext:context];
+                    for (NSString *key in pairs) {
+                        [result setValue:pairs[key] forKey:key];
+                    }
+                }
             }
-        }
-        else if (entityUniqueKey == nil) {
-            result = [self insertInContext:context];
         }
         else {
             NSString *details = [NSString stringWithFormat:@"Not found '%@' for '%@' in class: %@", kImportKey, kUniqueKey, NSStringFromClass([self class])];
