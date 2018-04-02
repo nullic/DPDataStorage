@@ -64,6 +64,14 @@
     return result;
 }
 
+- (NSArray<id> *)objectsAtIndexPaths:(NSArray<NSIndexPath *> *)indexPaths {
+    NSMutableArray *result = [NSMutableArray array];
+    for (NSIndexPath *indexPath in indexPaths) {
+        [result addObject:[self objectAtIndexPath:indexPath]];
+    }
+    return result;
+}
+
 - (NSIndexPath *)indexPathForObject:(id)object {
     return object ? [self.listController indexPathForObject:object] : nil;
 }

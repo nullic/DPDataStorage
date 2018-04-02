@@ -26,7 +26,8 @@ IB_DESIGNABLE
 - (NSInteger)numberOfSections;
 - (NSInteger)numberOfItemsInSection:(NSInteger)section;
 
-- (id _Null_unspecified)objectAtIndexPath:(NSIndexPath * _Nonnull)indexPath;
+- (id _Nullable)objectAtIndexPath:(NSIndexPath * _Nonnull)indexPath;
+- (NSArray<id> * _Nullable)objectsAtIndexPaths:(NSArray<NSIndexPath *> * _Nonnull)indexPaths;
 - (NSIndexPath * _Nullable)indexPathForObject:(id _Nonnull)object;
 @end
 
