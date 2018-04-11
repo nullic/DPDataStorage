@@ -174,7 +174,7 @@ static NSString * uniqueKeyForEntity(NSEntityDescription *entityDescription) {
 
                 NSDictionary *itemInfo = array[i];
                 NSManagedObject *object = result[i];
-                if (![object updateAttributesWithDictionary:itemInfo error:&error] || ![object updateRelationshipsWithDictionary:itemInfo error:&error]) {
+                if (![object updateWithDictionary:itemInfo error:&error]) {
                     break;
                 }
             }
@@ -186,6 +186,10 @@ static NSString * uniqueKeyForEntity(NSEntityDescription *entityDescription) {
 }
 
 + (instancetype)updateWithDictionary:(NSDictionary *)dictionary inContext:(NSManagedObjectContext *)context error:(NSError **)out_error {
+    return [self updateChildObjectWithDictionary:dictionary parent:nil inContext:context error:out_error];
+}
+
++ (instancetype)updateChildObjectWithDictionary:(NSDictionary *)dictionary parent:(NSManagedObject *)parent inContext:(NSManagedObjectContext *)context error:(NSError **)out_error {
     NSError *error = nil;
     NSManagedObject *result = nil;
 
@@ -203,7 +207,7 @@ static NSString * uniqueKeyForEntity(NSEntityDescription *entityDescription) {
         
         BOOL parseDataHasDuplicates = entityDescription.userInfo[kParseDataHasDuplicatesKey] ? [entityDescription.userInfo[kParseDataHasDuplicatesKey] boolValue] : context.parseDataHasDuplicates;
 
-        if (entityUniqueKey == nil) {
+        if (entityUniqueKey == nil || (parseDataHasDuplicates == false && parent.isInserted == true)) {
             result = [self insertInContext:context];
         }
         else if (error == nil && importUniqueKeys.count > 0 && importUniqueKeys.count == uniqueKeys.count) {
@@ -249,11 +253,7 @@ static NSString * uniqueKeyForEntity(NSEntityDescription *entityDescription) {
         }
 
         if (error == nil) {
-            [result updateAttributesWithDictionary:dictionary error:&error];
-        }
-
-        if (error == nil) {
-            [result updateRelationshipsWithDictionary:dictionary error:&error];
+           [result updateWithDictionary:dictionary error:&error];
         }
     }
 
@@ -378,16 +378,15 @@ static NSString * uniqueKeyForEntity(NSEntityDescription *entityDescription) {
                     NSManagedObject *object = nil;
 
                     if (relationshipDescription.inverseRelationship.isToMany) {
-                        object = [relationClass updateWithDictionary:(NSDictionary *)value inContext:[self managedObjectContext] error:&error];
+                        object = [relationClass updateChildObjectWithDictionary:(NSDictionary *)value parent:self inContext:[self managedObjectContext] error:&error];
                     }
                     else {
                         object = [self valueForKey:keyName];
                         if (object == nil) {
-                            object = [relationClass updateWithDictionary:(NSDictionary *)value inContext:[self managedObjectContext] error:&error];
+                            object = [relationClass updateChildObjectWithDictionary:(NSDictionary *)value parent:self inContext:[self managedObjectContext] error:&error];
                         }
                         else {
-                            [object updateAttributesWithDictionary:(NSDictionary *)value error:&error];
-                            [object updateRelationshipsWithDictionary:(NSDictionary *)value error:&error];
+                            [object updateWithDictionary:(NSDictionary *)value error:&error];
                         }
                     }
 
@@ -406,7 +405,7 @@ static NSString * uniqueKeyForEntity(NSEntityDescription *entityDescription) {
                     id set = relationshipDescription.isOrdered ? [NSMutableOrderedSet new] : [NSMutableSet new];
 
                     for (NSDictionary *info in value) {
-                        NSManagedObject *object = [relationClass updateWithDictionary:(NSDictionary *)info inContext:[self managedObjectContext] error:&error];
+                        NSManagedObject *object = [relationClass updateChildObjectWithDictionary:(NSDictionary *)info parent:self inContext:[self managedObjectContext] error:&error];
                         if (object) [set addObject:object];
                         else break;
                     }
