@@ -185,11 +185,26 @@ static NSString * uniqueKeyForEntity(NSEntityDescription *entityDescription) {
     return (error == nil) ? result : nil;
 }
 
-+ (instancetype)updateWithDictionary:(NSDictionary *)dictionary inContext:(NSManagedObjectContext *)context error:(NSError **)out_error {
-    return [self updateChildObjectWithDictionary:dictionary parent:nil inContext:context error:out_error];
++ (BOOL)_classHasCustomUpdateWithDictionaryMethod {
+    IMP classImpl = [self methodForSelector:@selector(updateWithDictionary:inContext:error:)];
+    IMP baseImpl = [NSManagedObject methodForSelector:@selector(updateWithDictionary:inContext:error:)];
+    return classImpl != baseImpl;
 }
 
 + (instancetype)updateChildObjectWithDictionary:(NSDictionary *)dictionary parent:(NSManagedObject *)parent inContext:(NSManagedObjectContext *)context error:(NSError **)out_error {
+    if ([self _classHasCustomUpdateWithDictionaryMethod]) {
+        return [self updateWithDictionary:dictionary inContext:context error:out_error];
+    }
+    else {
+        return [self _updateChildObjectWithDictionary:dictionary parent:parent inContext:context error:out_error];
+    }
+}
+
++ (instancetype)updateWithDictionary:(NSDictionary *)dictionary inContext:(NSManagedObjectContext *)context error:(NSError **)out_error {
+    return [self _updateChildObjectWithDictionary:dictionary parent:nil inContext:context error:out_error];
+}
+
++ (instancetype)_updateChildObjectWithDictionary:(NSDictionary *)dictionary parent:(NSManagedObject *)parent inContext:(NSManagedObjectContext *)context error:(NSError **)out_error {
     NSError *error = nil;
     NSManagedObject *result = nil;
 
