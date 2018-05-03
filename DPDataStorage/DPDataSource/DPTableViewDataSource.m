@@ -83,9 +83,14 @@
 - (void)setNoDataViewHidden:(BOOL)hidden {
     if (self.noDataView == nil || self.tableView == nil) return;
 
-    if (self.noDataView.superview == nil && hidden == NO) {
-        self.tableView.bounces = NO;
+    self.tableView.bounces = hidden;
 
+    if (self.noDataView.superview != nil && self.noDataView.superview != self.tableView.backgroundView && self.noDataView != self.tableView.backgroundView) {
+        // In case if no data view can not be added to table view it should be added to another view mannually
+        self.noDataView.hidden = hidden;
+        [self.noDataView.superview bringSubviewToFront:self.noDataView];
+        self.tableView.hidden = !hidden;
+    } else if (self.noDataView.superview == nil && hidden == NO) {
         self.noDataView.translatesAutoresizingMaskIntoConstraints = NO;
         NSLayoutConstraint *width =
         [NSLayoutConstraint constraintWithItem:self.noDataView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self.tableView
@@ -102,20 +107,15 @@
 
         if (self.tableView.backgroundView) {
             [self.tableView.backgroundView addSubview:self.noDataView];
-        }
-        else {
+        } else {
             self.tableView.backgroundView = self.noDataView;
         }
 
         [self.tableView addConstraints:@[width, height, centerX, centerY]];
-    }
-    else if (self.noDataView.superview != nil && hidden == YES) {
-        self.tableView.bounces = YES;
-
+    } else if (self.noDataView.superview != nil && hidden == YES) {
         if (self.tableView.backgroundView == self.noDataView) {
             self.tableView.backgroundView = nil;
-        }
-        else {
+        } else {
             [self.noDataView removeFromSuperview];
         }
     }
