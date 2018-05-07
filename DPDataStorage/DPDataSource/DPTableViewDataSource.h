@@ -12,6 +12,7 @@
 @property (nonatomic, weak, nullable) IBOutlet UITableView *tableView;
 @property (nonatomic, strong, nullable) IBOutlet UIView *noDataView;
 @property (nonatomic, copy, nullable) IBInspectable NSString *cellIdentifier; // Cell must conform <DPDataSourceCell>
+@property (nonatomic, assign) IBInspectable BOOL disableBouncingIfNoDataPresented; // Default is YES;
 @property (nonatomic) IBInspectable BOOL disableAnimations;
 
 @property (nonatomic) IBInspectable UITableViewRowAnimation insertAnimation; // Default is UITableViewRowAnimationAutomatic
