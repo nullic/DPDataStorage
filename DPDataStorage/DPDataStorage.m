@@ -68,6 +68,8 @@ NSString * const DPDataStorageNotificationNameKey = @"name";
 @property (readwrite, strong, nonatomic) NSManagedObjectContext *parseContext;
 @property (readwrite, strong, nonatomic) NSURL *URL;
 @property (readwrite, strong, nonatomic) NSDictionary *classNameToEntityNameMap;
+@property (readwrite, assign, nonatomic) BOOL allowStoreDropOnError;
+
 @end
 
 @implementation DPDataStorage
@@ -122,16 +124,25 @@ NSString * const DPDataStorageNotificationNameKey = @"name";
 }
 
 + (instancetype)storageWithModelURL:(NSURL *)modelURL storageURL:(NSURL *)storageURL {
-    DPDataStorage *storage = [[self alloc] init];
-    storage.URL = storageURL;
+    BOOL allowStoreDropOnError = NO;
+#if DEBUG
+    allowStoreDropOnError = YES;
+#endif
+    return [self storageWithModelURL:modelURL storageURL:storageURL allowStoreDropOnError:allowStoreDropOnError];
+}
 
++ (instancetype)storageWithModelURL:(NSURL *)modelURL storageURL:(NSURL *)storageURL allowStoreDropOnError:(BOOL)allowStoreDropOnError{
+    DPDataStorage *storage = [[self alloc] init];
+    storage.allowStoreDropOnError = allowStoreDropOnError;
+    storage.URL = storageURL;
+    
     if (modelURL) {
         storage.managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
     }
     else {
         storage.managedObjectModel = [NSManagedObjectModel mergedModelFromBundles:nil];
     }
-
+    
     return storage.managedObjectModel ? storage : nil;
 }
 
@@ -191,17 +202,17 @@ NSString * const DPDataStorageNotificationNameKey = @"name";
                 NSError *error = nil;
                 _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
                 if (![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:self.URL options:options error:&error]) {
-#if DEBUG
-                    LOG_ON_ERROR(error); error = nil;
-                    [[NSFileManager defaultManager] removeItemAtURL:self.URL error:&error];
-                    FAIL_ON_ERROR(error);
-
-                    if (![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:self.URL options:options error:&error]) {
+                    if (self.allowStoreDropOnError) {
+                        LOG_ON_ERROR(error); error = nil;
+                        [[NSFileManager defaultManager] removeItemAtURL:self.URL error:&error];
+                        FAIL_ON_ERROR(error);
+                        
+                        if (![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:self.URL options:options error:&error]) {
+                            FAIL_ON_ERROR(error);
+                        }
+                    } else {
                         FAIL_ON_ERROR(error);
                     }
-#else
-                    FAIL_ON_ERROR(error);
-#endif
                 }
             }
             else {

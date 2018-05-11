@@ -83,8 +83,11 @@ extern NSString * const _Nonnull DPDataStorageNotificationNameKey;
   If passed `nil` model whould be created with 'mergedModelFromBundles:nil' that  merge all models from main bundle.
  @param storageURL Use to set URL for storage file. You can use `storageDefaultURL` here for default path.
   If passed `nil` persistent store whould be created with type `NSInMemoryStoreType`.
+ @param allowStoreDropOnError Use to allow remove store from disk if model can not be added to coordinator
+  By defaut equal to YES if DEBUG defined, else equal to NO.
  @return Initialized DPDataStorage object with provided info.
  */
++ (instancetype _Nullable)storageWithModelURL:(NSURL * _Nullable)modelURL storageURL:(NSURL * _Nullable)storageURL allowStoreDropOnError:(BOOL)allowStoreDropOnError;
 + (instancetype _Nullable)storageWithModelURL:(NSURL * _Nullable)modelURL storageURL:(NSURL * _Nullable)storageURL;
 
 /**
