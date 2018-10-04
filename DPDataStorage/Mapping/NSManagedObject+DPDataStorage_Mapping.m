@@ -34,16 +34,16 @@ static NSString * uniqueKeyForEntity(NSEntityDescription *entityDescription) {
 
 @implementation NSEntityDescription (DPDataStorage_Mapping)
 
-- (NSArray<NSString *> *)importKeysForAttributeKeys:(NSArray<NSString *> *)keys inDictionary:(NSDictionary *)dictionary error:(NSError **)out_error {
+- (NSArray<NSString *> *)importKeysForPropertyKeys:(NSArray<NSString *> *)keys inDictionary:(NSDictionary *)dictionary error:(NSError **)out_error {
     NSError *error = nil;
     NSMutableArray *result = [NSMutableArray array];
     
     for (NSString *key in keys) {
-        NSAttributeDescription *attr = self.attributesByName[key];
+        NSPropertyDescription *prop = self.propertiesByName[key];
         
-        for (NSString *key in attr.userInfo) {
+        for (NSString *key in prop.userInfo) {
             if ([key hasPrefix:kImportKey]) {
-                NSString *importKey = attr.userInfo[key];
+                NSString *importKey = prop.userInfo[key];
                 
                 if (dictionary[importKey] != nil) {
                     [result addObject:importKey];
@@ -111,23 +111,23 @@ static NSString * uniqueKeyForEntity(NSEntityDescription *entityDescription) {
         result = [NSMutableArray arrayWithCapacity:array.count];
 
         NSEntityDescription *entityDescription = [context entityDescriptionForManagedObjectClass:[self class]];
-        NSDictionary *entityAttributes = [entityDescription attributesByName];
+        NSDictionary *entityProperties = [entityDescription propertiesByName];
         
         NSString *entityUniqueKey = uniqueKeyForEntity(entityDescription);
-        NSAttributeDescription *uniqueAttr = entityUniqueKey ? entityAttributes[entityUniqueKey] : nil;
+        NSPropertyDescription *uniqueProp = entityUniqueKey ? entityProperties[entityUniqueKey] : nil;
         BOOL parseDataHasDuplicates = entityDescription.userInfo[kParseDataHasDuplicatesKey] ? [entityDescription.userInfo[kParseDataHasDuplicatesKey] boolValue] : context.parseDataHasDuplicates;
 
         NSString *importUniqueKey = nil;
-        for (NSString *key in uniqueAttr.userInfo) {
+        for (NSString *key in uniqueProp.userInfo) {
             if ([key hasPrefix:kImportKey]) {
                 NSDictionary *dictionary = [array.firstObject isKindOfClass:[NSDictionary class]] ? array.firstObject : nil;
-                importUniqueKey = uniqueAttr.userInfo[key];
+                importUniqueKey = uniqueProp.userInfo[key];
                 if (dictionary[importUniqueKey] != nil) {
                     break;
                 }
             }
         }
-        Class uniqueValueClass = uniqueAttr ? NSClassFromString(uniqueAttr.attributeValueClassName) : nil;
+        
 
         if (importUniqueKey != nil || entityUniqueKey == nil) {
             for (NSDictionary *itemInfo in array) {
@@ -139,9 +139,13 @@ static NSString * uniqueKeyForEntity(NSEntityDescription *entityDescription) {
                     if (entityUniqueKey == nil) {
                         [result addObject:[NSNull null]];
                     }
-                    else {
-                        id value = [self transformImportValue:itemInfo[importUniqueKey] importKey:importUniqueKey propertyDescription:uniqueAttr];
+                    else if ([uniqueProp isKindOfClass:[NSAttributeDescription class]]) {
+                        NSAttributeDescription *uniqueAttr = (NSAttributeDescription *)uniqueProp;
+                        id value = [self transformImportValue:itemInfo[importUniqueKey] importKey:importUniqueKey propertyDescription:uniqueProp];
+                        
                         if (value) {
+                            Class uniqueValueClass = uniqueProp ? NSClassFromString(uniqueAttr.attributeValueClassName) : nil;
+                            
                             if ([value isKindOfClass:uniqueValueClass]) {
                                 NSManagedObject *existObject = [self entryWithValue:value forKey:entityUniqueKey includesPendingChanges:parseDataHasDuplicates inContext:context];
                                 [result addObject:existObject ? existObject : [NSNull null]];
@@ -155,6 +159,26 @@ static NSString * uniqueKeyForEntity(NSEntityDescription *entityDescription) {
                             NSString *details = [NSString stringWithFormat:@"Import value for unique key cannot be 'nil' (class: %@)", NSStringFromClass([self class])];
                             error = [NSError errorWithDomain:NSCocoaErrorDomain code:NSExternalRecordImportError userInfo:@{NSLocalizedFailureReasonErrorKey: details}];
                         }
+                    }
+                    else if ([uniqueProp isKindOfClass:[NSRelationshipDescription class]]) {
+                        NSRelationshipDescription *uniqueRelationship = (NSRelationshipDescription *)uniqueProp;
+                        id value = [self transformImportValue:itemInfo[importUniqueKey] importKey:importUniqueKey propertyDescription:uniqueProp];
+                        
+                        if (uniqueRelationship.isToMany == true) {
+                            NSString *details = [NSString stringWithFormat:@"Unique 'to many relationship' not supported (class: %@)", NSStringFromClass([self class])];
+                            error = [NSError errorWithDomain:NSCocoaErrorDomain code:NSExternalRecordImportError userInfo:@{NSLocalizedFailureReasonErrorKey: details}];
+                        }
+                        else {
+                            NSString *relationshipUniqueKey = uniqueKeyForEntity(uniqueRelationship.destinationEntity);
+                            NSString *key = [NSString stringWithFormat:@"%@.%@", entityUniqueKey, relationshipUniqueKey];
+                            
+                            NSManagedObject *existObject = [self entryWithValue:value forKey:key includesPendingChanges:parseDataHasDuplicates inContext:context];
+                            [result addObject:existObject ? existObject : [NSNull null]];
+                        }
+                    }
+                    else {
+                        NSString *details = [NSString stringWithFormat:@"Unknow property type (class: %@)", NSStringFromClass([self class])];
+                        error = [NSError errorWithDomain:NSCocoaErrorDomain code:NSExternalRecordImportError userInfo:@{NSLocalizedFailureReasonErrorKey: details}];
                     }
                 }
             }
@@ -214,11 +238,11 @@ static NSString * uniqueKeyForEntity(NSEntityDescription *entityDescription) {
     }
     else {
         NSEntityDescription *entityDescription = [context entityDescriptionForManagedObjectClass:[self class]];
-        NSDictionary *entityAttributes = [entityDescription attributesByName];
+        NSDictionary *entityProperties = [entityDescription propertiesByName];
 
         NSString *entityUniqueKey = uniqueKeyForEntity(entityDescription);
         NSArray *uniqueKeys = [entityUniqueKey componentsSeparatedByString:@"+"];
-        NSArray *importUniqueKeys = [entityDescription importKeysForAttributeKeys:uniqueKeys inDictionary:dictionary error:&error];
+        NSArray *importUniqueKeys = [entityDescription importKeysForPropertyKeys:uniqueKeys inDictionary:dictionary error:&error];
         
         BOOL parseDataHasDuplicates = entityDescription.userInfo[kParseDataHasDuplicatesKey] ? [entityDescription.userInfo[kParseDataHasDuplicatesKey] boolValue] : context.parseDataHasDuplicates;
 
@@ -229,24 +253,45 @@ static NSString * uniqueKeyForEntity(NSEntityDescription *entityDescription) {
             NSMutableDictionary *pairs = [NSMutableDictionary dictionary];
             
             for (NSInteger i = 0; i < importUniqueKeys.count; i++) {
-                NSString *uniqueAttributeKey = uniqueKeys[i];
-                NSAttributeDescription *uniqueAttr = entityAttributes[uniqueAttributeKey];
+                NSString *uniquePropertyKey = uniqueKeys[i];
+                NSPropertyDescription *uniqueProperty = entityProperties[uniquePropertyKey];
                 NSString *importUniqueKey = importUniqueKeys[i];
                 
-                Class valueClass = NSClassFromString(uniqueAttr.attributeValueClassName);
-                id value = [self transformImportValue:dictionary[importUniqueKey] importKey:importUniqueKey propertyDescription:uniqueAttr];
+                id value = [self transformImportValue:dictionary[importUniqueKey] importKey:importUniqueKey propertyDescription:uniqueProperty];
                 
-                if (value) {
-                    if ([value isKindOfClass:valueClass]) {
-                        pairs[uniqueAttributeKey] = value;
+                if ([uniqueProperty isKindOfClass:[NSAttributeDescription class]]) {
+                    NSAttributeDescription *uniqueAttr = (NSAttributeDescription *)uniqueProperty;
+                    Class valueClass = NSClassFromString(uniqueAttr.attributeValueClassName);
+                    
+                    if (value) {
+                        if ([value isKindOfClass:valueClass]) {
+                            pairs[uniquePropertyKey] = value;
+                        }
+                        else {
+                            NSString *details = [NSString stringWithFormat:@"Invalid import value class (expected: %@, actual: %@) for key: '%@' in object: '%@'", uniqueAttr.attributeValueClassName, NSStringFromClass([value class]), uniquePropertyKey, NSStringFromClass([self class])];
+                            error = [NSError errorWithDomain:NSCocoaErrorDomain code:NSExternalRecordImportError userInfo:@{NSLocalizedFailureReasonErrorKey: details}];
+                        }
                     }
                     else {
-                        NSString *details = [NSString stringWithFormat:@"Invalid import value class (expected: %@, actual: %@) for key: '%@' in object: '%@'", uniqueAttr.attributeValueClassName, NSStringFromClass([value class]), uniqueAttributeKey, NSStringFromClass([self class])];
+                        NSString *details = [NSString stringWithFormat:@"Import value for unique key cannot be 'nil' (class: %@)", NSStringFromClass([self class])];
                         error = [NSError errorWithDomain:NSCocoaErrorDomain code:NSExternalRecordImportError userInfo:@{NSLocalizedFailureReasonErrorKey: details}];
+                        break;
                     }
                 }
+                else if ([uniqueProperty isKindOfClass:[NSRelationshipDescription class]]) {
+                    NSRelationshipDescription *uniqueRelationship = (NSRelationshipDescription *)uniqueProperty;
+                    if (uniqueRelationship.isToMany == true) {
+                        NSString *details = [NSString stringWithFormat:@"Unique 'to many relationship' not supported (class: %@)", NSStringFromClass([self class])];
+                        error = [NSError errorWithDomain:NSCocoaErrorDomain code:NSExternalRecordImportError userInfo:@{NSLocalizedFailureReasonErrorKey: details}];
+                        break;
+                    }
+                    
+                    NSString *relationshipUniqueKey = uniqueKeyForEntity(uniqueRelationship.destinationEntity);
+                    NSString *key = [NSString stringWithFormat:@"%@.%@", uniquePropertyKey, relationshipUniqueKey];
+                    pairs[key] = value;
+                }
                 else {
-                    NSString *details = [NSString stringWithFormat:@"Import value for unique key cannot be 'nil' (class: %@)", NSStringFromClass([self class])];
+                    NSString *details = [NSString stringWithFormat:@"Unknow property type (class: %@)", NSStringFromClass([self class])];
                     error = [NSError errorWithDomain:NSCocoaErrorDomain code:NSExternalRecordImportError userInfo:@{NSLocalizedFailureReasonErrorKey: details}];
                     break;
                 }
@@ -256,9 +301,6 @@ static NSString * uniqueKeyForEntity(NSEntityDescription *entityDescription) {
                 result = [self entryWithPairs:pairs includesPendingChanges:parseDataHasDuplicates inContext:context];
                 if (result == nil) {
                     result = [self insertInContext:context];
-                    for (NSString *key in pairs) {
-                        [result setValue:pairs[key] forKey:key];
-                    }
                 }
             }
         }
