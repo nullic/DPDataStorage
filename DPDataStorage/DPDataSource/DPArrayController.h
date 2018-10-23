@@ -39,7 +39,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSInteger)numberOfSections;
 - (NSInteger)numberOfItemsInSection:(NSInteger)section;
 - (id)objectAtIndexPath:(NSIndexPath *)indexPath;
-- (NSIndexPath *)indexPathForObject:(id)object;
+- (NSIndexPath * _Nullable)indexPathForObject:(id)object;
 @end
 
 NS_ASSUME_NONNULL_END

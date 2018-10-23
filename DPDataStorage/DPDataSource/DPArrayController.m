@@ -531,7 +531,7 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
     return result;
 }
 
-- (NSIndexPath *)indexPathForObject:(id)object {
+- (NSIndexPath * _Nullable)indexPathForObject:(id)object {
     NSIndexPath *result = nil;
 
     if (object) {
