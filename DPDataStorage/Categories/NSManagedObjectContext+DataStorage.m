@@ -113,6 +113,21 @@ static NSString * const kParseDataHasDuplicatesKey = @"parseDataHasDuplicates";
     }
 }
 
+- (NSArray<__kindof NSManagedObject*> *)existingObjectsWithIds:(NSArray<NSManagedObjectID *> *)ids error:(NSError **)error {
+    NSMutableArray *resultArray = [NSMutableArray arrayWithCapacity:ids.count];
+    __block NSError *resultError = nil;
+    [ids enumerateObjectsUsingBlock:^(NSManagedObjectID *objectID, NSUInteger idx, BOOL *stop) {
+        NSManagedObject *managedObject = [self existingObjectWithID:objectID error:&resultError];
+        if (resultError != nil) {
+            *stop = YES;
+        } else if (managedObject != nil) {
+            [resultArray addObject:managedObject];
+        }
+    }];
+    if (error) *error = resultError;
+    return resultError == nil ? resultArray : nil;
+}
+
 #pragma mark -
 
 - (BOOL)saveChanges:(NSError **)inout_error {

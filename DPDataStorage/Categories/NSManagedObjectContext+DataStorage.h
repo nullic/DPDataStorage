@@ -27,5 +27,7 @@
 - (NSEntityDescription * _Nonnull)entityDescriptionForManagedObjectClass:(Class _Nonnull)objectClass;
 
 - (void)deleteObjects:(id<NSFastEnumeration> _Nullable)objects; // expects a collection of NSManagedObjects
+- (NSArray<__kindof NSManagedObject*> *)existingObjectsWithIds:(NSArray<NSManagedObjectID *> *)ids error:(NSError **)error;
+
 - (BOOL)saveChanges:(NSError * _Nullable * _Nullable)error;
 @end
