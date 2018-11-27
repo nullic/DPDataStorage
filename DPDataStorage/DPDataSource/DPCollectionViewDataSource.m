@@ -36,7 +36,12 @@
 
 - (void)setNoDataView:(UIView *)noDataView {
     if (_noDataView != noDataView) {
-        [_noDataView removeFromSuperview];
+        if (self.collectionView.backgroundView == _noDataView) {
+            self.collectionView.backgroundView = nil;
+        }
+        else {
+            [_noDataView removeFromSuperview];
+        }
         _noDataView = noDataView;
         [self showNoDataViewIfNeeded];
     }
