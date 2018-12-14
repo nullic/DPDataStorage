@@ -237,7 +237,7 @@ NSString * const DPDataStorageNotificationNameKey = @"name";
             id __weak weakContext = _mainContext;
             id observer = [[NSNotificationCenter defaultCenter] addObserverForName:NSManagedObjectContextDidSaveNotification object:nil queue:nil usingBlock:^(NSNotification *notification) {
                 NSManagedObjectContext *context = weakContext;
-                if ([context persistentStoreCoordinator] == [notification.object persistentStoreCoordinator]) {
+                if ([context persistentStoreCoordinator] == [notification.object persistentStoreCoordinator] && ([notification.object parentContext] == nil || [notification.object parentContext] == context)) {
                     [context performBlock:^{
                         [context mergeChangesFromContextDidSaveNotification:notification];
                     }];
@@ -261,7 +261,7 @@ NSString * const DPDataStorageNotificationNameKey = @"name";
             id __weak weakContext = _parseContext;
             id observer = [[NSNotificationCenter defaultCenter] addObserverForName:NSManagedObjectContextDidSaveNotification object:nil queue:nil usingBlock:^(NSNotification *notification) {
                 NSManagedObjectContext *context = weakContext;
-                if ([context persistentStoreCoordinator] == [notification.object persistentStoreCoordinator]) {
+                if ([context persistentStoreCoordinator] == [notification.object persistentStoreCoordinator] && ([notification.object parentContext] == nil || [notification.object parentContext] == context)) {
                     [context performBlock:^{
                         [context mergeChangesFromContextDidSaveNotification:notification];
                     }];
