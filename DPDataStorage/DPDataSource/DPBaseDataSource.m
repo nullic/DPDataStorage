@@ -31,6 +31,8 @@
 
 @implementation DPBaseDataSource
 
+@synthesize listController = _listController;
+
 - (instancetype)init {
     self = [super init];
     if (self) {
@@ -40,6 +42,13 @@
 
 - (void)dealloc {
     if (self.listController.delegate == self) self.listController.delegate = nil;
+}
+
+- (void)setListController:(id<DataSourceContainerController>)listController {
+    _listController = listController;
+    if ([listController isKindOfClass:[NSFetchedResultsController class]]) {
+        [((NSFetchedResultsController *)listController) performFetch:nil];
+    }
 }
 
 #pragma mark -
