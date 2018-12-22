@@ -6,9 +6,9 @@
 //  Copyright (c) 2015 Dmitriy Petrusevich. All rights reserved.
 //
 
-#import "NSManagedObjectModel+DataStorage.h"
+#import "NSManagedObjectModel+EntityDescription.h"
 
-@implementation NSManagedObjectModel (DataStorage)
+@implementation NSManagedObjectModel (EntityDescription)
 
 - (NSString *)entityNameForManagedObjectClass:(Class)objectClass {
     return [[self entityDescriptionForManagedObjectClass:objectClass] name];

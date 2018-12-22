@@ -10,7 +10,7 @@
 
 #import "NSManagedObject+DataStorage.h"
 #import "NSManagedObjectContext+DataStorage.h"
-#import "NSManagedObjectModel+DataStorage.h"
+#import "NSManagedObjectModel+EntityDescription.h"
 #import "NSManagedObject+DPDataStorage_Mapping.h"
 
 #import "DPCollectionViewDataSource.h"

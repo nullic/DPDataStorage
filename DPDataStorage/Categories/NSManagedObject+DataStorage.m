@@ -7,6 +7,7 @@
 //
 
 #import "NSManagedObject+DataStorage.h"
+#import "NSManagedObjectContext+EntityDescription.h"
 #import "DPDataStorage.h"
 
 #if !__has_feature(objc_arc)
