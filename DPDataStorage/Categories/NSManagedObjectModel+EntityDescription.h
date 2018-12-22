@@ -7,9 +7,8 @@
 //
 
 #import <CoreData/CoreData.h>
-#import "NSManagedObject+DPDataStorage_Mapping.h"
 
-@interface NSManagedObjectModel (DataStorage)
+@interface NSManagedObjectModel (EntityDescription)
 - (NSString * _Nonnull)entityNameForManagedObjectClass:(Class _Nonnull)objectClass;
 - (NSEntityDescription * _Nonnull)entityDescriptionForManagedObjectClass:(Class _Nonnull)objectClass;
 @end

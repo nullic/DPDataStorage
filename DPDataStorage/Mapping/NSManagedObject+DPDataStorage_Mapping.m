@@ -7,9 +7,9 @@
 //
 
 #import "NSManagedObject+DPDataStorage_Mapping.h"
+#import "NSManagedObjectContext+EntityDescription.h"
 #import "NSManagedObject+DataStorage.h"
-#import "DPDataStorage.h"
-
+#import "NSManagedObjectContext+DPDataStorage_Mapping.h"
 
 static NSString * const kUniqueKey = @"uniqueKey";
 static NSString * const kImportKey = @"importKey";

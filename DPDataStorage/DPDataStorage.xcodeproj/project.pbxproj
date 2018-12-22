@@ -26,8 +26,8 @@
 		765EF82D1EBCB60700C21E2E /* NSManagedObject+DataStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 765EF81C1EBCB60700C21E2E /* NSManagedObject+DataStorage.m */; };
 		765EF82E1EBCB60800C21E2E /* NSManagedObjectContext+DataStorage.h in Headers */ = {isa = PBXBuildFile; fileRef = 765EF81D1EBCB60700C21E2E /* NSManagedObjectContext+DataStorage.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		765EF82F1EBCB60800C21E2E /* NSManagedObjectContext+DataStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 765EF81E1EBCB60700C21E2E /* NSManagedObjectContext+DataStorage.m */; };
-		765EF8301EBCB60800C21E2E /* NSManagedObjectModel+DataStorage.h in Headers */ = {isa = PBXBuildFile; fileRef = 765EF81F1EBCB60700C21E2E /* NSManagedObjectModel+DataStorage.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		765EF8311EBCB60800C21E2E /* NSManagedObjectModel+DataStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 765EF8201EBCB60700C21E2E /* NSManagedObjectModel+DataStorage.m */; };
+		765EF8301EBCB60800C21E2E /* NSManagedObjectModel+EntityDescription.h in Headers */ = {isa = PBXBuildFile; fileRef = 765EF81F1EBCB60700C21E2E /* NSManagedObjectModel+EntityDescription.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		765EF8311EBCB60800C21E2E /* NSManagedObjectModel+EntityDescription.m in Sources */ = {isa = PBXBuildFile; fileRef = 765EF8201EBCB60700C21E2E /* NSManagedObjectModel+EntityDescription.m */; };
 		765EF8321EBCB60800C21E2E /* DPArrayController.h in Headers */ = {isa = PBXBuildFile; fileRef = 765EF8221EBCB60700C21E2E /* DPArrayController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		765EF8331EBCB60800C21E2E /* DPArrayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 765EF8231EBCB60700C21E2E /* DPArrayController.m */; };
 		765EF8341EBCB60800C21E2E /* DPBaseDataSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 765EF8241EBCB60700C21E2E /* DPBaseDataSource.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -43,6 +43,16 @@
 		765EF8421EBCB77D00C21E2E /* DPDataStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 765EF8411EBCB77D00C21E2E /* DPDataStorage.m */; };
 		7690ADE91EC35DC5003C1CDD /* DPMapViewDataSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 7690ADE71EC35DC5003C1CDD /* DPMapViewDataSource.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7690ADEA1EC35DC5003C1CDD /* DPMapViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 7690ADE81EC35DC5003C1CDD /* DPMapViewDataSource.m */; };
+		B84F3CCA21CE3ECE00489349 /* NSManagedObject+DPDataStorage_Mapping.m in Sources */ = {isa = PBXBuildFile; fileRef = 765EF83E1EBCB60D00C21E2E /* NSManagedObject+DPDataStorage_Mapping.m */; };
+		B84F3CCB21CE3ECE00489349 /* NSManagedObject+DataStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 765EF81C1EBCB60700C21E2E /* NSManagedObject+DataStorage.m */; };
+		B84F3CD821CE3ECE00489349 /* NSManagedObject+DPDataStorage_Mapping.h in Headers */ = {isa = PBXBuildFile; fileRef = 765EF83D1EBCB60D00C21E2E /* NSManagedObject+DPDataStorage_Mapping.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B84F3CEA21CE3FF600489349 /* NSManagedObjectContext+EntityDescription.h in Headers */ = {isa = PBXBuildFile; fileRef = B84F3CE821CE3FF600489349 /* NSManagedObjectContext+EntityDescription.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B84F3CEC21CE3FF600489349 /* NSManagedObjectContext+EntityDescription.m in Sources */ = {isa = PBXBuildFile; fileRef = B84F3CE921CE3FF600489349 /* NSManagedObjectContext+EntityDescription.m */; };
+		B84F3CED21CE3FF600489349 /* NSManagedObjectContext+EntityDescription.m in Sources */ = {isa = PBXBuildFile; fileRef = B84F3CE921CE3FF600489349 /* NSManagedObjectContext+EntityDescription.m */; };
+		B84F3CF021CE422A00489349 /* NSManagedObjectContext+DPDataStorage_Mapping.h in Headers */ = {isa = PBXBuildFile; fileRef = B84F3CEE21CE422A00489349 /* NSManagedObjectContext+DPDataStorage_Mapping.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B84F3CF121CE422A00489349 /* NSManagedObjectContext+DPDataStorage_Mapping.h in Headers */ = {isa = PBXBuildFile; fileRef = B84F3CEE21CE422A00489349 /* NSManagedObjectContext+DPDataStorage_Mapping.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B84F3CF221CE422A00489349 /* NSManagedObjectContext+DPDataStorage_Mapping.m in Sources */ = {isa = PBXBuildFile; fileRef = B84F3CEF21CE422A00489349 /* NSManagedObjectContext+DPDataStorage_Mapping.m */; };
+		B84F3CF321CE422A00489349 /* NSManagedObjectContext+DPDataStorage_Mapping.m in Sources */ = {isa = PBXBuildFile; fileRef = B84F3CEF21CE422A00489349 /* NSManagedObjectContext+DPDataStorage_Mapping.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -53,8 +63,8 @@
 		765EF81C1EBCB60700C21E2E /* NSManagedObject+DataStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObject+DataStorage.m"; sourceTree = "<group>"; };
 		765EF81D1EBCB60700C21E2E /* NSManagedObjectContext+DataStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSManagedObjectContext+DataStorage.h"; sourceTree = "<group>"; };
 		765EF81E1EBCB60700C21E2E /* NSManagedObjectContext+DataStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObjectContext+DataStorage.m"; sourceTree = "<group>"; };
-		765EF81F1EBCB60700C21E2E /* NSManagedObjectModel+DataStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSManagedObjectModel+DataStorage.h"; sourceTree = "<group>"; };
-		765EF8201EBCB60700C21E2E /* NSManagedObjectModel+DataStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObjectModel+DataStorage.m"; sourceTree = "<group>"; };
+		765EF81F1EBCB60700C21E2E /* NSManagedObjectModel+EntityDescription.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSManagedObjectModel+EntityDescription.h"; sourceTree = "<group>"; };
+		765EF8201EBCB60700C21E2E /* NSManagedObjectModel+EntityDescription.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObjectModel+EntityDescription.m"; sourceTree = "<group>"; };
 		765EF8221EBCB60700C21E2E /* DPArrayController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPArrayController.h; sourceTree = "<group>"; };
 		765EF8231EBCB60700C21E2E /* DPArrayController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPArrayController.m; sourceTree = "<group>"; };
 		765EF8241EBCB60700C21E2E /* DPBaseDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPBaseDataSource.h; sourceTree = "<group>"; };
@@ -70,10 +80,22 @@
 		765EF8411EBCB77D00C21E2E /* DPDataStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPDataStorage.m; sourceTree = "<group>"; };
 		7690ADE71EC35DC5003C1CDD /* DPMapViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPMapViewDataSource.h; sourceTree = "<group>"; };
 		7690ADE81EC35DC5003C1CDD /* DPMapViewDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPMapViewDataSource.m; sourceTree = "<group>"; };
+		B84F3CE621CE3ECE00489349 /* CoreDataMapping.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CoreDataMapping.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B84F3CE821CE3FF600489349 /* NSManagedObjectContext+EntityDescription.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSManagedObjectContext+EntityDescription.h"; sourceTree = "<group>"; };
+		B84F3CE921CE3FF600489349 /* NSManagedObjectContext+EntityDescription.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObjectContext+EntityDescription.m"; sourceTree = "<group>"; };
+		B84F3CEE21CE422A00489349 /* NSManagedObjectContext+DPDataStorage_Mapping.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSManagedObjectContext+DPDataStorage_Mapping.h"; sourceTree = "<group>"; };
+		B84F3CEF21CE422A00489349 /* NSManagedObjectContext+DPDataStorage_Mapping.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObjectContext+DPDataStorage_Mapping.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		765EF80B1EBCB53D00C21E2E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B84F3CD421CE3ECE00489349 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -95,6 +117,7 @@
 			isa = PBXGroup;
 			children = (
 				765EF80F1EBCB53D00C21E2E /* DPDataStorage.framework */,
+				B84F3CE621CE3ECE00489349 /* CoreDataMapping.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -119,8 +142,10 @@
 				765EF81C1EBCB60700C21E2E /* NSManagedObject+DataStorage.m */,
 				765EF81D1EBCB60700C21E2E /* NSManagedObjectContext+DataStorage.h */,
 				765EF81E1EBCB60700C21E2E /* NSManagedObjectContext+DataStorage.m */,
-				765EF81F1EBCB60700C21E2E /* NSManagedObjectModel+DataStorage.h */,
-				765EF8201EBCB60700C21E2E /* NSManagedObjectModel+DataStorage.m */,
+				765EF81F1EBCB60700C21E2E /* NSManagedObjectModel+EntityDescription.h */,
+				765EF8201EBCB60700C21E2E /* NSManagedObjectModel+EntityDescription.m */,
+				B84F3CE821CE3FF600489349 /* NSManagedObjectContext+EntityDescription.h */,
+				B84F3CE921CE3FF600489349 /* NSManagedObjectContext+EntityDescription.m */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -149,6 +174,8 @@
 			children = (
 				765EF83D1EBCB60D00C21E2E /* NSManagedObject+DPDataStorage_Mapping.h */,
 				765EF83E1EBCB60D00C21E2E /* NSManagedObject+DPDataStorage_Mapping.m */,
+				B84F3CEE21CE422A00489349 /* NSManagedObjectContext+DPDataStorage_Mapping.h */,
+				B84F3CEF21CE422A00489349 /* NSManagedObjectContext+DPDataStorage_Mapping.m */,
 			);
 			path = Mapping;
 			sourceTree = "<group>";
@@ -161,8 +188,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				765EF82C1EBCB60700C21E2E /* NSManagedObject+DataStorage.h in Headers */,
-				765EF8301EBCB60800C21E2E /* NSManagedObjectModel+DataStorage.h in Headers */,
+				765EF8301EBCB60800C21E2E /* NSManagedObjectModel+EntityDescription.h in Headers */,
+				B84F3CEA21CE3FF600489349 /* NSManagedObjectContext+EntityDescription.h in Headers */,
 				765EF83F1EBCB60D00C21E2E /* NSManagedObject+DPDataStorage_Mapping.h in Headers */,
+				B84F3CF021CE422A00489349 /* NSManagedObjectContext+DPDataStorage_Mapping.h in Headers */,
 				765EF82E1EBCB60800C21E2E /* NSManagedObjectContext+DataStorage.h in Headers */,
 				765EF8361EBCB60800C21E2E /* DPCollectionViewDataSource.h in Headers */,
 				765EF83A1EBCB60800C21E2E /* DPTableViewDataSource.h in Headers */,
@@ -172,6 +201,15 @@
 				765EF8381EBCB60800C21E2E /* DPDataSourceCell.h in Headers */,
 				765EF8321EBCB60800C21E2E /* DPArrayController.h in Headers */,
 				765EF8141EBCB53D00C21E2E /* DPDataStorage.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B84F3CD521CE3ECE00489349 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B84F3CF121CE422A00489349 /* NSManagedObjectContext+DPDataStorage_Mapping.h in Headers */,
+				B84F3CD821CE3ECE00489349 /* NSManagedObject+DPDataStorage_Mapping.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -194,6 +232,24 @@
 			name = DPDataStorage;
 			productName = DPDataStorage;
 			productReference = 765EF80F1EBCB53D00C21E2E /* DPDataStorage.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		B84F3CC821CE3ECE00489349 /* CoreDataMapping */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B84F3CE321CE3ECE00489349 /* Build configuration list for PBXNativeTarget "CoreDataMapping" */;
+			buildPhases = (
+				B84F3CC921CE3ECE00489349 /* Sources */,
+				B84F3CD421CE3ECE00489349 /* Frameworks */,
+				B84F3CD521CE3ECE00489349 /* Headers */,
+				B84F3CE221CE3ECE00489349 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CoreDataMapping;
+			productName = DPDataStorage;
+			productReference = B84F3CE621CE3ECE00489349 /* CoreDataMapping.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
@@ -231,12 +287,20 @@
 			targets = (
 				765EF80E1EBCB53D00C21E2E /* DPDataStorage */,
 				765EF8431EBCB96900C21E2E /* DPDataStorageAggregate */,
+				B84F3CC821CE3ECE00489349 /* CoreDataMapping */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		765EF80D1EBCB53D00C21E2E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B84F3CE221CE3ECE00489349 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -271,11 +335,24 @@
 				765EF8331EBCB60800C21E2E /* DPArrayController.m in Sources */,
 				765EF82F1EBCB60800C21E2E /* NSManagedObjectContext+DataStorage.m in Sources */,
 				765EF8371EBCB60800C21E2E /* DPCollectionViewDataSource.m in Sources */,
+				B84F3CEC21CE3FF600489349 /* NSManagedObjectContext+EntityDescription.m in Sources */,
 				765EF8421EBCB77D00C21E2E /* DPDataStorage.m in Sources */,
 				765EF8351EBCB60800C21E2E /* DPBaseDataSource.m in Sources */,
 				765EF83B1EBCB60800C21E2E /* DPTableViewDataSource.m in Sources */,
+				B84F3CF221CE422A00489349 /* NSManagedObjectContext+DPDataStorage_Mapping.m in Sources */,
 				7690ADEA1EC35DC5003C1CDD /* DPMapViewDataSource.m in Sources */,
-				765EF8311EBCB60800C21E2E /* NSManagedObjectModel+DataStorage.m in Sources */,
+				765EF8311EBCB60800C21E2E /* NSManagedObjectModel+EntityDescription.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B84F3CC921CE3ECE00489349 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B84F3CED21CE3FF600489349 /* NSManagedObjectContext+EntityDescription.m in Sources */,
+				B84F3CF321CE422A00489349 /* NSManagedObjectContext+DPDataStorage_Mapping.m in Sources */,
+				B84F3CCA21CE3ECE00489349 /* NSManagedObject+DPDataStorage_Mapping.m in Sources */,
+				B84F3CCB21CE3ECE00489349 /* NSManagedObject+DataStorage.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -452,6 +529,49 @@
 			};
 			name = Release;
 		};
+		B84F3CE421CE3ECE00489349 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "";
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = "";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "$(SRCROOT)/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.dpdatastorage.mapping;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		B84F3CE521CE3ECE00489349 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "";
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = "";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "$(SRCROOT)/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.dpdatastorage.mapping;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -478,6 +598,15 @@
 			buildConfigurations = (
 				765EF8451EBCB96A00C21E2E /* Debug */,
 				765EF8461EBCB96A00C21E2E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B84F3CE321CE3ECE00489349 /* Build configuration list for PBXNativeTarget "CoreDataMapping" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B84F3CE421CE3ECE00489349 /* Debug */,
+				B84F3CE521CE3ECE00489349 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

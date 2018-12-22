@@ -7,7 +7,7 @@
 //
 
 #import "NSManagedObjectContext+DataStorage.h"
-#import "NSManagedObjectModel+DataStorage.h"
+#import "NSManagedObjectModel+EntityDescription.h"
 #import "DPDataStorage.h"
 #import <objc/runtime.h>
 
@@ -89,21 +89,6 @@ static NSString * const kParseDataHasDuplicatesKey = @"parseDataHasDuplicates";
     return [(objc_getAssociatedObject(self, (__bridge const void *)(kParseDataHasDuplicatesKey)) ?: @YES) boolValue];
 }
 
-- (NSString *)entityNameForManagedObjectClass:(Class)objectClass {
-    return [[self entityDescriptionForManagedObjectClass:objectClass] name];
-}
-
-- (NSEntityDescription *)entityDescriptionForManagedObjectClass:(Class)objectClass {
-    NSManagedObjectModel *model = nil;
-
-    NSManagedObjectContext *context = self;
-    while (context && context.persistentStoreCoordinator == nil) {
-        context = context.parentContext;
-    }
-
-    model = context.persistentStoreCoordinator.managedObjectModel;
-    return [model entityDescriptionForManagedObjectClass:objectClass];
-}
 
 #pragma mark -
 

@@ -11,7 +11,6 @@
 @interface NSManagedObjectContext (DataStorage)
 @property (nonatomic, getter=isReadOnly) BOOL readOnly;
 @property (nonatomic) BOOL deleteInvalidObjectsOnSave;
-@property (nonatomic) BOOL parseDataHasDuplicates;
 
 + (NSManagedObjectContext * _Null_unspecified)mainContext;
 + (NSManagedObjectContext * _Null_unspecified)parseContext;
@@ -22,9 +21,6 @@
 - (NSManagedObjectContext * _Null_unspecified)newChildManagedObjectContext NS_ENUM_DEPRECATED(10_4,10_11,3_0,9_0, "Use another NSManagedObjectContextConcurrencyType");
 - (NSManagedObjectContext * _Null_unspecified)newChildMainQueueManagedObjectContext;
 - (NSManagedObjectContext * _Null_unspecified)newChildPrivateQueueManagedObjectContext;
-
-- (NSString * _Nonnull)entityNameForManagedObjectClass:(Class _Nonnull)objectClass;
-- (NSEntityDescription * _Nonnull)entityDescriptionForManagedObjectClass:(Class _Nonnull)objectClass;
 
 - (void)deleteObjects:(id<NSFastEnumeration> _Nullable)objects; // expects a collection of NSManagedObjects
 - (NSArray<__kindof NSManagedObject*> *)existingObjectsWithIds:(NSArray<NSManagedObjectID *> *)ids error:(NSError **)error;
