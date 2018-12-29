@@ -54,6 +54,11 @@
         self.insertAnimation = UITableViewRowAnimationAutomatic;
         self.deleteAnimation = UITableViewRowAnimationAutomatic;
         self.updateAnimation = UITableViewRowAnimationNone;
+
+        self.sectionInsertAnimation = UITableViewRowAnimationAutomatic;
+        self.sectionDeleteAnimation = UITableViewRowAnimationAutomatic;
+        self.sectionUpdateAnimation = UITableViewRowAnimationNone;
+
         self.disableBouncingIfNoDataPresented = YES;
     }
     return self;
@@ -227,13 +232,13 @@
         dispatch_block_t block = ^{
             switch (type) {
                 case NSFetchedResultsChangeInsert:
-                    [tv insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationAutomatic];
+                    [tv insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:self.sectionInsertAnimation];
                     break;
                 case NSFetchedResultsChangeDelete:
-                    [tv deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationAutomatic];
+                    [tv deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:self.sectionDeleteAnimation];
                     break;
                 case NSFetchedResultsChangeUpdate:
-                    [tv reloadSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationAutomatic];
+                    [tv reloadSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:self.sectionUpdateAnimation];
                     break;
                 default:
                     break;

@@ -19,6 +19,9 @@
 @property (nonatomic) IBInspectable UITableViewRowAnimation deleteAnimation; // Default is UITableViewRowAnimationAutomatic
 @property (nonatomic) IBInspectable UITableViewRowAnimation updateAnimation; // Default is UITableViewRowAnimationNone
 
+@property (nonatomic) IBInspectable UITableViewRowAnimation sectionInsertAnimation; // Default is UITableViewRowAnimationAutomatic
+@property (nonatomic) IBInspectable UITableViewRowAnimation sectionDeleteAnimation; // Default is UITableViewRowAnimationAutomatic
+@property (nonatomic) IBInspectable UITableViewRowAnimation sectionUpdateAnimation; // Default is UITableViewRowAnimationNone
 
 - (instancetype _Nonnull)initWithTableView:(UITableView * _Nullable)tableView listController:(id<DataSourceContainerController> _Nullable)listController forwardDelegate:(id _Nullable)forwardDelegate cellIdentifier:(NSString * _Nullable)cellIdentifier;
 
