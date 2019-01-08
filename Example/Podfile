@@ -3,5 +3,5 @@ platform :ios, '9.0'
 use_frameworks!
 
 target "DPDataStorageDemo" do
-    pod 'DPDataStorage', :git => 'https://github.com/nullic/DPDataStorage.git'
+    pod 'DPDataStorage', :path => '../'
 end

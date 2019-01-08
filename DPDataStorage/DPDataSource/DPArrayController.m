@@ -148,7 +148,6 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
     [NSThread isMainThread] ? action() : dispatch_async(dispatch_get_main_queue(), action);
 }
 
-
 #pragma mark - Helper
 
 - (NSArray *)pathsForObjects:(id<NSFastEnumeration>)collection sortComparator:(NSComparator)comparator {
@@ -160,47 +159,6 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
     comparator ? [paths sortUsingComparator:comparator] : nil;
 
     return paths;
-}
-
-- (BOOL)isObjectMatchFilter:(id)object {
-    BOOL result = YES;
-    if (self.filter) {
-        if ([object isKindOfClass:[NSManagedObject class]]) {
-            NSManagedObject *managedObject = object;
-
-            NSManagedObjectContext *context = [managedObject managedObjectContext];
-            NSFetchRequest *request = [[NSFetchRequest alloc] init];
-            request.entity = managedObject.entity;
-
-            NSPredicate *selfPredicate = [NSPredicate predicateWithFormat:@"self == %@", [managedObject objectID]];
-            request.predicate = [NSCompoundPredicate andPredicateWithSubpredicates:@[selfPredicate, self.filter]];
-            request.fetchLimit = 1;
-
-            result = ([context countForFetchRequest:request error:nil] > 0);
-        }
-        else {
-            result = [self.filter evaluateWithObject:object];
-        }
-    }
-    return result;
-}
-
-- (void)setFilter:(NSPredicate * _Nullable)filter {
-    if (_filter != filter) {
-        _filter = filter;
-
-        if (filter != nil) {
-            [self startUpdating];
-            for (NSUInteger section = 0; section < self.sections.count; section++) {
-                DPArrayControllerSection *sectionInfo = self.sections[section];
-                for (NSInteger i = sectionInfo.objects.count; i > 0; i--) {
-                    NSInteger row = i - 1;
-                    [self reloadObjectAtIndextPath:[NSIndexPath indexPathForItem:row inSection:section]];
-                }
-            }
-            [self endUpdating];
-        }
-    }
 }
 
 #pragma mark - Editing: Items
@@ -221,7 +179,7 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
 - (void)insertObject:(id)object atIndextPath:(NSIndexPath *)indexPath {
     NSParameterAssert(indexPath != nil);
 
-    if (object != nil && [self isObjectMatchFilter:object]) {
+    if (object != nil) {
         [self startUpdating];
         [self insertSectionAtIndex:indexPath.section];
 
@@ -262,17 +220,11 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
     NSParameterAssert(indexPath != nil);
 
     DPArrayControllerSection *sectionInfo = self.sections[indexPath.section];
-    id object = sectionInfo.objects[indexPath.row];
-
-    if ([self isObjectMatchFilter:object] == YES) {
-        if (self.responseMask & ResponseMaskDidChangeObject) {
-            [self startUpdating];
-            [self.delegate controller:self didChangeObject:object atIndexPath:indexPath forChangeType:NSFetchedResultsChangeUpdate newIndexPath:nil];
-            [self endUpdating];
-        }
-    }
-    else if (self.filter != nil) {
-        [self deleteObjectAtIndextPath:indexPath];
+    if (self.responseMask & ResponseMaskDidChangeObject) {
+        [self startUpdating];
+        id object = sectionInfo.objects[indexPath.row];
+        [self.delegate controller:self didChangeObject:object atIndexPath:indexPath forChangeType:NSFetchedResultsChangeUpdate newIndexPath:nil];
+        [self endUpdating];
     }
 }
 
@@ -409,36 +361,14 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
             }
         }
         else {
-            if (self.filter) {
-                NSMutableArray *filtedArray = [[NSMutableArray alloc] initWithCapacity:objects.count];
-                for (id object in objects) {
-                    if ([self isObjectMatchFilter:object]) {
-                        [filtedArray addObject:object];
-                    }
-                }
+            DPArrayControllerSection *sectionInfo = self.sections[section];
+            [sectionInfo.objects addObjectsFromArray:objects];
 
-                DPArrayControllerSection *sectionInfo = self.sections[section];
-                [sectionInfo.objects addObjectsFromArray:filtedArray];
-
-                for (id object in filtedArray) {
-                    if ([object isKindOfClass:[NSManagedObject class]]) {
-                        NSManagedObjectContext *context = [object managedObjectContext];
-                        [[NSNotificationCenter defaultCenter] removeObserver:self name:NSManagedObjectContextObjectsDidChangeNotification object:context];
-                        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(managedObjectContextObjectsDidChange:) name:NSManagedObjectContextObjectsDidChangeNotification object:context];
-                    }
-                }
-
-            }
-            else {
-                DPArrayControllerSection *sectionInfo = self.sections[section];
-                [sectionInfo.objects addObjectsFromArray:objects];
-
-                for (id object in objects) {
-                    if ([object isKindOfClass:[NSManagedObject class]]) {
-                        NSManagedObjectContext *context = [object managedObjectContext];
-                        [[NSNotificationCenter defaultCenter] removeObserver:self name:NSManagedObjectContextObjectsDidChangeNotification object:context];
-                        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(managedObjectContextObjectsDidChange:) name:NSManagedObjectContextObjectsDidChangeNotification object:context];
-                    }
+            for (id object in objects) {
+                if ([object isKindOfClass:[NSManagedObject class]]) {
+                    NSManagedObjectContext *context = [object managedObjectContext];
+                    [[NSNotificationCenter defaultCenter] removeObserver:self name:NSManagedObjectContextObjectsDidChangeNotification object:context];
+                    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(managedObjectContextObjectsDidChange:) name:NSManagedObjectContextObjectsDidChangeNotification object:context];
                 }
             }
         }
