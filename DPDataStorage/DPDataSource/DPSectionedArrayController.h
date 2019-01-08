@@ -14,9 +14,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSSortDescriptor *sectionSortDescriptor;
 @property (nonatomic, copy, nullable) NSString *sectionKeyPath;
  
-- (instancetype)initWitDelegate:(id<DataSourceContainerControllerDelegate> _Nullable)delegate sectionKeyPath:(NSString * _Nullable)sectionKeyPath sectionSortDescriptor:(NSSortDescriptor *)sectionSortDescriptor NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithDelegate:(id<DataSourceContainerControllerDelegate> _Nullable)delegate sectionKeyPath:(NSString * _Nullable)sectionKeyPath sectionSortDescriptor:(NSSortDescriptor *)sectionSortDescriptor NS_DESIGNATED_INITIALIZER;
 
-- (void)setObjects:(NSArray *)objects;
+- (void)setObjects:(NSArray * _Nullable)objects;
 
 - (void)insertObject:(id)object atIndextPath:(NSIndexPath *)indexPath NS_UNAVAILABLE;
 - (void)deleteObjectAtIndextPath:(NSIndexPath *)indexPath NS_UNAVAILABLE;
