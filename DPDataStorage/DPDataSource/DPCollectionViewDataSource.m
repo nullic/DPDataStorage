@@ -83,28 +83,16 @@
     if (self.noDataView.superview == nil && hidden == NO) {
         self.collectionView.bounces = NO;
 
-        self.noDataView.translatesAutoresizingMaskIntoConstraints = NO;
-        NSLayoutConstraint *width =
-        [NSLayoutConstraint constraintWithItem:self.noDataView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual
-                                        toItem:self.collectionView attribute:NSLayoutAttributeWidth multiplier:1 constant:0];
-        NSLayoutConstraint *height =
-        [NSLayoutConstraint constraintWithItem:self.noDataView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual
-                                        toItem:self.collectionView attribute:NSLayoutAttributeHeight multiplier:1 constant:0];
-        NSLayoutConstraint *centerX =
-        [NSLayoutConstraint constraintWithItem:self.noDataView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual
-                                        toItem:self.collectionView attribute:NSLayoutAttributeCenterX multiplier:1 constant:0];
-        NSLayoutConstraint *centerY =
-        [NSLayoutConstraint constraintWithItem:self.noDataView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual
-                                        toItem:self.collectionView attribute:NSLayoutAttributeCenterY multiplier:1 constant:0];
+        self.noDataView.translatesAutoresizingMaskIntoConstraints = YES;
+        self.noDataView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 
         if (self.collectionView.backgroundView) {
+            self.noDataView.frame = self.collectionView.backgroundView.bounds;
             [self.collectionView.backgroundView addSubview:self.noDataView];
-        }
-        else {
+        } else {
+            self.noDataView.frame = self.collectionView.bounds;
             self.collectionView.backgroundView = self.noDataView;
         }
-
-        [self.collectionView addConstraints:@[width, height, centerX, centerY]];
     }
     else if (self.noDataView.superview != nil && hidden == YES) {
         self.collectionView.bounces = YES;

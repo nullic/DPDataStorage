@@ -103,27 +103,16 @@
         self.noDataView.hidden = noDataViewHidden;
         [self.noDataView.superview bringSubviewToFront:self.noDataView];
     } else if (self.noDataView.superview == nil && noDataViewHidden == NO) {
-        self.noDataView.translatesAutoresizingMaskIntoConstraints = NO;
-        NSLayoutConstraint *width =
-        [NSLayoutConstraint constraintWithItem:self.noDataView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self.tableView
-                                     attribute:NSLayoutAttributeWidth multiplier:1 constant:0];
-        NSLayoutConstraint *height =
-        [NSLayoutConstraint constraintWithItem:self.noDataView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.tableView
-                                     attribute:NSLayoutAttributeHeight multiplier:1 constant:0];
-        NSLayoutConstraint *centerX =
-        [NSLayoutConstraint constraintWithItem:self.noDataView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.tableView
-                                     attribute:NSLayoutAttributeCenterX multiplier:1 constant:0];
-        NSLayoutConstraint *centerY =
-        [NSLayoutConstraint constraintWithItem:self.noDataView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.tableView
-                                     attribute:NSLayoutAttributeCenterY multiplier:1 constant:0];
+        self.noDataView.translatesAutoresizingMaskIntoConstraints = YES;
+        self.noDataView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 
         if (self.tableView.backgroundView) {
+            self.noDataView.frame = self.tableView.backgroundView.bounds;
             [self.tableView.backgroundView addSubview:self.noDataView];
         } else {
+            self.noDataView.frame = self.tableView.bounds;
             self.tableView.backgroundView = self.noDataView;
         }
-
-        [self.tableView addConstraints:@[width, height, centerX, centerY]];
     } else if (self.noDataView.superview != nil && noDataViewHidden == YES) {
         if (self.tableView.backgroundView == self.noDataView) {
             self.tableView.backgroundView = nil;
