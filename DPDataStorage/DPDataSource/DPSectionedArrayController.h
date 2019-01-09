@@ -6,18 +6,30 @@
 //  Copyright © 2019 EffectiveSoft. All rights reserved.
 //
 
-#import <DPDataStorage/DPDataStorage.h>
+#import "DPArrayController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface DPSectionedArrayController : DPArrayController
-@property (nonatomic, strong) NSSortDescriptor *sectionSortDescriptor;
-@property (nonatomic, copy, nullable) NSString *sectionKeyPath;
- 
+@property (nonatomic, readonly, strong) NSSortDescriptor *sectionSortDescriptor;
+@property (nonatomic, readonly, copy, nullable) NSString *sectionKeyPath;
+
+- (instancetype)init NS_UNAVAILABLE;
+- (instancetype)initWithDelegate:(id<DataSourceContainerControllerDelegate> _Nullable)delegate NS_UNAVAILABLE;
 - (instancetype)initWithDelegate:(id<DataSourceContainerControllerDelegate> _Nullable)delegate sectionKeyPath:(NSString * _Nullable)sectionKeyPath sectionSortDescriptor:(NSSortDescriptor *)sectionSortDescriptor NS_DESIGNATED_INITIALIZER;
 
 - (void)setObjects:(NSArray * _Nullable)objects;
 
+- (id)objectAtIndex:(NSUInteger)index;
+- (NSUInteger)indexOfObject:(id)object;
+- (NSUInteger)countOfObjects;
+
+- (void)insertObject:(id)object atIndex:(NSUInteger)index;
+- (void)removeObjectAtIndex:(NSUInteger)index;
+- (void)reloadObjectAtIndex:(NSUInteger)index;
+- (void)moveObjectAtIndex:(NSUInteger)index toIndex:(NSUInteger)newIndex;
+
+- (void)removeAllObjects NS_UNAVAILABLE;
 - (void)insertObject:(id)object atIndextPath:(NSIndexPath *)indexPath NS_UNAVAILABLE;
 - (void)deleteObjectAtIndextPath:(NSIndexPath *)indexPath NS_UNAVAILABLE;
 - (void)reloadObjectAtIndextPath:(NSIndexPath *)indexPath NS_UNAVAILABLE;

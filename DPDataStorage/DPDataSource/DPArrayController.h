@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) IBInspectable BOOL removeEmptySectionsAutomaticaly; // Default YES
 @property (nonatomic, readonly) BOOL hasData;
 
-- (instancetype _Nonnull)initWithDelegate:(id<DataSourceContainerControllerDelegate> _Nullable)delegate;
+- (instancetype)initWithDelegate:(id<DataSourceContainerControllerDelegate> _Nullable)delegate;
 
 - (void)removeAllObjects;
 - (void)insertObject:(id)object atIndextPath:(NSIndexPath *)indexPath;

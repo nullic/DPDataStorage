@@ -6,7 +6,7 @@
 //  Copyright © 2019 EffectiveSoft. All rights reserved.
 //
 
-#import <DPDataStorage/DPDataStorage.h>
+#import "DPArrayController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
