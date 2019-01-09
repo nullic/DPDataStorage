@@ -32,7 +32,7 @@
         };
 
         for (NSInteger i = 1; i < sortedObjects.count; i++) {
-            if (self.sectionSortDescriptor.comparator(sortedObjects[i-1], sortedObjects[i]) != NSOrderedSame) {
+            if ([self.sectionSortDescriptor compareObject:sortedObjects[i-1] toObject:sortedObjects[i]] != NSOrderedSame) {
                 [sectionObjects sortUsingComparator:sectionComarator];
                 [super setObjects:sectionObjects atSection:sectionIndex];
                 if (self.sectionKeyPath.length > 0) {
@@ -48,6 +48,10 @@
         }
 
         [super setObjects:sectionObjects atSection:sectionIndex];
+        if (self.sectionKeyPath.length > 0) {
+            NSString *name = [[sectionObjects.firstObject valueForKeyPath:self.sectionKeyPath] description];
+            [self setSectionName:name atIndex:sectionIndex];
+        }
 
         // Remove old sections
         while ((sectionIndex + 1) < [self numberOfSections]) {
