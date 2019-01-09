@@ -21,11 +21,11 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		074B16BE21E46D6400FAF431 /* DPFilteredArrayController.h in Headers */ = {isa = PBXBuildFile; fileRef = 074B16BC21E46D6400FAF431 /* DPFilteredArrayController.h */; };
+		074B16BE21E46D6400FAF431 /* DPFilteredArrayController.h in Headers */ = {isa = PBXBuildFile; fileRef = 074B16BC21E46D6400FAF431 /* DPFilteredArrayController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		074B16BF21E46D6400FAF431 /* DPFilteredArrayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 074B16BD21E46D6400FAF431 /* DPFilteredArrayController.m */; };
-		074B16C221E4734D00FAF431 /* DPSectionedArrayController.h in Headers */ = {isa = PBXBuildFile; fileRef = 074B16C021E4734D00FAF431 /* DPSectionedArrayController.h */; };
+		074B16C221E4734D00FAF431 /* DPSectionedArrayController.h in Headers */ = {isa = PBXBuildFile; fileRef = 074B16C021E4734D00FAF431 /* DPSectionedArrayController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		074B16C321E4734D00FAF431 /* DPSectionedArrayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 074B16C121E4734D00FAF431 /* DPSectionedArrayController.m */; };
-		074B16D421E5E0C300FAF431 /* DPSectionedFetchedResultsController.h in Headers */ = {isa = PBXBuildFile; fileRef = 074B16D221E5E0C300FAF431 /* DPSectionedFetchedResultsController.h */; };
+		074B16D421E5E0C300FAF431 /* DPSectionedFetchedResultsController.h in Headers */ = {isa = PBXBuildFile; fileRef = 074B16D221E5E0C300FAF431 /* DPSectionedFetchedResultsController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		074B16D521E5E0C300FAF431 /* DPSectionedFetchedResultsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 074B16D321E5E0C300FAF431 /* DPSectionedFetchedResultsController.m */; };
 		765EF8141EBCB53D00C21E2E /* DPDataStorage.h in Headers */ = {isa = PBXBuildFile; fileRef = 765EF8121EBCB53D00C21E2E /* DPDataStorage.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		765EF82C1EBCB60700C21E2E /* NSManagedObject+DataStorage.h in Headers */ = {isa = PBXBuildFile; fileRef = 765EF81B1EBCB60700C21E2E /* NSManagedObject+DataStorage.h */; settings = {ATTRIBUTES = (Public, ); }; };
