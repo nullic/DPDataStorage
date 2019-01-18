@@ -43,13 +43,6 @@
     };
 }
 
-- (NSArray *)sortedInnerStorage {
-    NSMutableArray *sortedObjects = [[self.innerStorage sortedArrayUsingDescriptors:@[self.sectionSortDescriptor]] mutableCopy];
-    [sortedObjects sortUsingComparator:self.sectionComarator];
-
-    return sortedObjects;
-}
-
 - (void)_setObjects:(NSArray *)objects atSection:(NSInteger)section {
     if (self.sectionKeyPath.length > 0) {
         NSString *name = [[objects.firstObject valueForKeyPath:self.sectionKeyPath] description];
@@ -67,12 +60,13 @@
     self.innerStorage = [objects mutableCopy];
 
     if (objects.count > 0) {
-        NSArray *sortedObjects = [self sortedInnerStorage];
+        NSArray *sortedObjects = [self.innerStorage sortedArrayUsingDescriptors:@[self.sectionSortDescriptor]];
         NSMutableArray *sectionObjects = [NSMutableArray arrayWithObject:sortedObjects.firstObject];
         NSInteger sectionIndex = 0;
 
         for (NSInteger i = 1; i < sortedObjects.count; i++) {
             if ([self.sectionSortDescriptor compareObject:sortedObjects[i-1] toObject:sortedObjects[i]] != NSOrderedSame) {
+                [sectionObjects sortUsingComparator:self.sectionComarator];
                 [self _setObjects:sectionObjects atSection:sectionIndex];
                 sectionObjects = [NSMutableArray array];
                 sectionIndex++;
