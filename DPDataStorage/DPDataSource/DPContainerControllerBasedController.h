@@ -7,13 +7,12 @@
 //
 
 #import "DPFilteredArrayController.h"
-#import <CoreData/CoreData.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface DPFetchedResultsBasedController : DPArrayController <NSFetchedResultsControllerDelegate>
+@interface DPContainerControllerBasedController : DPArrayController <DataSourceContainerControllerDelegate>
 - (instancetype)initWithDelegate:(id<DataSourceContainerControllerDelegate> _Nullable)delegate NS_UNAVAILABLE;
-- (instancetype)initWithDelegate:(id<DataSourceContainerControllerDelegate> _Nullable)delegate frc:(NSFetchedResultsController *)frc NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithDelegate:(id<DataSourceContainerControllerDelegate> _Nullable)delegate otherController:(id<DataSourceContainerController>)controller NS_DESIGNATED_INITIALIZER;
 
 - (void)removeAllObjects NS_UNAVAILABLE;
 - (void)insertObject:(id)object atIndextPath:(NSIndexPath *)indexPath NS_UNAVAILABLE;

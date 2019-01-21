@@ -27,8 +27,8 @@
 		074B16C321E4734D00FAF431 /* DPSectionedArrayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 074B16C121E4734D00FAF431 /* DPSectionedArrayController.m */; };
 		074B16D421E5E0C300FAF431 /* DPSectionedFetchedResultsController.h in Headers */ = {isa = PBXBuildFile; fileRef = 074B16D221E5E0C300FAF431 /* DPSectionedFetchedResultsController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		074B16D521E5E0C300FAF431 /* DPSectionedFetchedResultsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 074B16D321E5E0C300FAF431 /* DPSectionedFetchedResultsController.m */; };
-		07750BBC21F599F4009B5C45 /* DPFetchedResultsBasedController.h in Headers */ = {isa = PBXBuildFile; fileRef = 07750BBA21F599F4009B5C45 /* DPFetchedResultsBasedController.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		07750BBD21F599F4009B5C45 /* DPFetchedResultsBasedController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07750BBB21F599F4009B5C45 /* DPFetchedResultsBasedController.m */; };
+		07750BBC21F599F4009B5C45 /* DPContainerControllerBasedController.h in Headers */ = {isa = PBXBuildFile; fileRef = 07750BBA21F599F4009B5C45 /* DPContainerControllerBasedController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		07750BBD21F599F4009B5C45 /* DPContainerControllerBasedController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07750BBB21F599F4009B5C45 /* DPContainerControllerBasedController.m */; };
 		765EF8141EBCB53D00C21E2E /* DPDataStorage.h in Headers */ = {isa = PBXBuildFile; fileRef = 765EF8121EBCB53D00C21E2E /* DPDataStorage.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		765EF82C1EBCB60700C21E2E /* NSManagedObject+DataStorage.h in Headers */ = {isa = PBXBuildFile; fileRef = 765EF81B1EBCB60700C21E2E /* NSManagedObject+DataStorage.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		765EF82D1EBCB60700C21E2E /* NSManagedObject+DataStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 765EF81C1EBCB60700C21E2E /* NSManagedObject+DataStorage.m */; };
@@ -70,8 +70,8 @@
 		074B16C121E4734D00FAF431 /* DPSectionedArrayController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DPSectionedArrayController.m; sourceTree = "<group>"; };
 		074B16D221E5E0C300FAF431 /* DPSectionedFetchedResultsController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DPSectionedFetchedResultsController.h; sourceTree = "<group>"; };
 		074B16D321E5E0C300FAF431 /* DPSectionedFetchedResultsController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DPSectionedFetchedResultsController.m; sourceTree = "<group>"; };
-		07750BBA21F599F4009B5C45 /* DPFetchedResultsBasedController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DPFetchedResultsBasedController.h; sourceTree = "<group>"; };
-		07750BBB21F599F4009B5C45 /* DPFetchedResultsBasedController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DPFetchedResultsBasedController.m; sourceTree = "<group>"; };
+		07750BBA21F599F4009B5C45 /* DPContainerControllerBasedController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DPContainerControllerBasedController.h; sourceTree = "<group>"; };
+		07750BBB21F599F4009B5C45 /* DPContainerControllerBasedController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DPContainerControllerBasedController.m; sourceTree = "<group>"; };
 		765EF80F1EBCB53D00C21E2E /* DPDataStorage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DPDataStorage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		765EF8121EBCB53D00C21E2E /* DPDataStorage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DPDataStorage.h; sourceTree = "<group>"; };
 		765EF8131EBCB53D00C21E2E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -187,8 +187,8 @@
 				074B16C121E4734D00FAF431 /* DPSectionedArrayController.m */,
 				074B16D221E5E0C300FAF431 /* DPSectionedFetchedResultsController.h */,
 				074B16D321E5E0C300FAF431 /* DPSectionedFetchedResultsController.m */,
-				07750BBA21F599F4009B5C45 /* DPFetchedResultsBasedController.h */,
-				07750BBB21F599F4009B5C45 /* DPFetchedResultsBasedController.m */,
+				07750BBA21F599F4009B5C45 /* DPContainerControllerBasedController.h */,
+				07750BBB21F599F4009B5C45 /* DPContainerControllerBasedController.m */,
 			);
 			path = DPDataSource;
 			sourceTree = "<group>";
@@ -214,7 +214,7 @@
 				074B16D421E5E0C300FAF431 /* DPSectionedFetchedResultsController.h in Headers */,
 				765EF82C1EBCB60700C21E2E /* NSManagedObject+DataStorage.h in Headers */,
 				765EF8301EBCB60800C21E2E /* NSManagedObjectModel+EntityDescription.h in Headers */,
-				07750BBC21F599F4009B5C45 /* DPFetchedResultsBasedController.h in Headers */,
+				07750BBC21F599F4009B5C45 /* DPContainerControllerBasedController.h in Headers */,
 				B84F3CEA21CE3FF600489349 /* NSManagedObjectContext+EntityDescription.h in Headers */,
 				765EF83F1EBCB60D00C21E2E /* NSManagedObject+DPDataStorage_Mapping.h in Headers */,
 				B84F3CF021CE422A00489349 /* NSManagedObjectContext+DPDataStorage_Mapping.h in Headers */,
@@ -286,7 +286,7 @@
 		765EF8061EBCB53D00C21E2E /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0900;
+				LastUpgradeCheck = 1010;
 				ORGANIZATIONNAME = EffectiveSoft;
 				TargetAttributes = {
 					765EF80E1EBCB53D00C21E2E = {
@@ -368,7 +368,7 @@
 				765EF8421EBCB77D00C21E2E /* DPDataStorage.m in Sources */,
 				765EF8351EBCB60800C21E2E /* DPBaseDataSource.m in Sources */,
 				765EF83B1EBCB60800C21E2E /* DPTableViewDataSource.m in Sources */,
-				07750BBD21F599F4009B5C45 /* DPFetchedResultsBasedController.m in Sources */,
+				07750BBD21F599F4009B5C45 /* DPContainerControllerBasedController.m in Sources */,
 				074B16D521E5E0C300FAF431 /* DPSectionedFetchedResultsController.m in Sources */,
 				074B16C321E4734D00FAF431 /* DPSectionedArrayController.m in Sources */,
 				B84F3CF221CE422A00489349 /* NSManagedObjectContext+DPDataStorage_Mapping.m in Sources */,
@@ -405,6 +405,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -412,6 +413,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -463,6 +465,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -470,6 +473,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;

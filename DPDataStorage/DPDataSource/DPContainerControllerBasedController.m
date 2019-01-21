@@ -1,27 +1,31 @@
 //
-//  DPFetchedResultsBasedController.m
+//  DPContainerControllerBasedController.m
 //  DPDataStorage
 //
 //  Created by Dmitriy Petrusevich on 1/21/19.
 //  Copyright © 2019 EffectiveSoft. All rights reserved.
 //
 
-#import "DPFetchedResultsBasedController.h"
+#import "DPContainerControllerBasedController.h"
+#import <CoreData/CoreData.h>
 
-@interface DPFetchedResultsBasedController ()
-@property (nonatomic, strong) NSFetchedResultsController *frc;
+@interface DPContainerControllerBasedController ()
+@property (nonatomic, strong) id<DataSourceContainerController> controller;
 @end
 
-@implementation DPFetchedResultsBasedController
+@implementation DPContainerControllerBasedController
 
-- (instancetype)initWithDelegate:(id<DataSourceContainerControllerDelegate>)delegate frc:(NSFetchedResultsController *)frc {
+- (instancetype)initWithDelegate:(id<DataSourceContainerControllerDelegate> _Nullable)delegate otherController:(id<DataSourceContainerController>)controller {
     if ((self = [super initWithDelegate:nil])) {
-        self.frc = frc;
-        self.frc.delegate = self;
-        [self.frc performFetch:nil];
+        self.controller = controller;
+        self.controller.delegate = self;
 
-        for (NSInteger i = 0; i < self.frc.sections.count; i++) {
-            [super setObjects:self.frc.sections[i].objects atSection:i];
+        if ([controller isKindOfClass:[NSFetchedResultsController class]]) {
+            [(NSFetchedResultsController *)controller performFetch:nil];
+        }
+
+        for (NSInteger i = 0; i < self.controller.sections.count; i++) {
+            [super setObjects:self.controller.sections[i].objects atSection:i];
         }
 
         self.delegate = delegate;
@@ -31,15 +35,15 @@
 
 #pragma mark - NSFetchedResultsController
 
-- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
+- (void)controllerWillChangeContent:(id<DataSourceContainerController>)controller {
     [super startUpdating];
 }
 
-- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
+- (void)controllerDidChangeContent:(id<DataSourceContainerController>)controller {
     [super endUpdating];
 }
 
-- (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject
+- (void)controller:(id<DataSourceContainerController>)controller didChangeObject:(id)anObject
        atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type
       newIndexPath:(NSIndexPath *)newIndexPath
 {
@@ -62,7 +66,7 @@
     }
 }
 
-- (void)controller:(NSFetchedResultsController *)controller didChangeSection:(id<NSFetchedResultsSectionInfo>)sectionInfo atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type
+- (void)controller:(id<DataSourceContainerController>)controller didChangeSection:(id<NSFetchedResultsSectionInfo>)sectionInfo atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type
 {
     switch(type) {
         case NSFetchedResultsChangeInsert:
