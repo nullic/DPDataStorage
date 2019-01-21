@@ -12,11 +12,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface DPSectionedArrayController : DPArrayController
 @property (nonatomic, readonly, strong) NSSortDescriptor *sectionSortDescriptor;
-@property (nonatomic, readonly, copy, nullable) NSString *sectionKeyPath;
+@property (nonatomic, copy, nullable) NSString * sectionKeyPath;
+@property (nonatomic, copy, nullable) NSString * _Nullable(^sectionNameSetter)(NSArray<id> * _Nullable);
 
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithDelegate:(id<DataSourceContainerControllerDelegate> _Nullable)delegate NS_UNAVAILABLE;
 - (instancetype)initWithDelegate:(id<DataSourceContainerControllerDelegate> _Nullable)delegate sectionKeyPath:(NSString * _Nullable)sectionKeyPath sectionSortDescriptor:(NSSortDescriptor *)sectionSortDescriptor NS_DESIGNATED_INITIALIZER;
+
+- (void)reloadSectionsName;
 
 - (void)setObjects:(NSArray * _Nullable)objects;
 

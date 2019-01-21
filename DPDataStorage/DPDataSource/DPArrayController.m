@@ -431,6 +431,10 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
     }
 }
 
+- (BOOL)isUpdating {
+    return self.updating > 0;
+}
+
 #pragma mark - Getters
 
 - (NSInteger)numberOfSections {

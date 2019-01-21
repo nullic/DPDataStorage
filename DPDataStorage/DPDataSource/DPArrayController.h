@@ -34,6 +34,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)startUpdating;
 - (void)endUpdating;
+- (BOOL)isUpdating;
 
 - (NSInteger)numberOfSections;
 - (NSInteger)numberOfItemsInSection:(NSInteger)section;

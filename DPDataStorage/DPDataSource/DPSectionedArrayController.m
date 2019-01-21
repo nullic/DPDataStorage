@@ -11,7 +11,6 @@
 
 @interface DPSectionedArrayController ()
 @property (nonatomic, readwrite, strong) NSSortDescriptor *sectionSortDescriptor;
-@property (nonatomic, readwrite, copy, nullable) NSString *sectionKeyPath;
 @property (nonatomic, strong) NSMutableArray *innerStorage;
 @end
 
@@ -26,6 +25,20 @@
         self.sectionSortDescriptor = sectionSortDescriptor;
     }
     return self;
+}
+
+#pragma mark -
+
+- (void)setSectionKeyPath:(NSString *)sectionKeyPath {
+    _sectionKeyPath = [sectionKeyPath copy];
+    _sectionNameSetter = nil;
+    [self reloadSectionsName];
+}
+
+- (void)setSectionNameSetter:(NSString * _Nullable (^)(NSArray<id> * _Nullable))sectionNameSetter {
+    _sectionNameSetter = sectionNameSetter;
+    _sectionKeyPath = nil;
+    [self reloadSectionsName];
 }
 
 - (void)setRemoveEmptySectionsAutomaticaly:(BOOL)removeEmptySectionsAutomaticaly {
@@ -43,15 +56,30 @@
     };
 }
 
-- (void)_setObjects:(NSArray *)objects atSection:(NSInteger)section {
+- (void)_setSectionNameWithObjects:(NSArray *)objects atSection:(NSInteger)section {
     if (self.sectionKeyPath.length > 0) {
         NSString *name = [[objects.firstObject valueForKeyPath:self.sectionKeyPath] description];
         [self setSectionName:name atIndex:section];
     }
+    else if (self.sectionNameSetter != nil) {
+        NSString *name = self.sectionNameSetter(objects);
+        [self setSectionName:name atIndex:section];
+    }
+}
+
+- (void)_setObjects:(NSArray *)objects atSection:(NSInteger)section {
+    [self _setSectionNameWithObjects:objects atSection:section];
     [super setObjects:objects atSection:section];
 }
 
 #pragma mark -
+
+- (void)reloadSectionsName {
+    for (NSInteger i = 0; i < self.sections.count; i++) {
+        NSArray *objects = self.sections[i].objects;
+        [self _setSectionNameWithObjects:objects atSection:i];
+    }
+}
 
 - (void)setObjects:(NSArray *)objects {
     [super startUpdating];
