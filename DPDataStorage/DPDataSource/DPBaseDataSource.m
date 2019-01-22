@@ -76,7 +76,10 @@
 - (NSArray<id> *)objectsAtIndexPaths:(NSArray<NSIndexPath *> *)indexPaths {
     NSMutableArray *result = [NSMutableArray array];
     for (NSIndexPath *indexPath in indexPaths) {
-        [result addObject:[self objectAtIndexPath:indexPath]];
+        id object = [self objectAtIndexPath:indexPath];
+        if (object != nil) {
+            [result addObject:object];
+        }
     }
     return result;
 }
