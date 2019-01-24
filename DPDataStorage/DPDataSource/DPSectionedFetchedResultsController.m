@@ -40,32 +40,33 @@
 }
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
+    [super setObjects:self.frc.sections.firstObject.objects];
     [super endUpdating];
 }
-
-- (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject
-       atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type
-      newIndexPath:(NSIndexPath *)newIndexPath
-{
-    switch(type) {
-        case NSFetchedResultsChangeInsert:
-            [super insertObject:anObject atIndex:newIndexPath.item];
-            break;
-
-        case NSFetchedResultsChangeDelete:
-             [super removeObjectAtIndex:indexPath.item];
-            break;
-
-        case NSFetchedResultsChangeUpdate:
-            [super reloadObjectAtIndex:indexPath.item];
-            break;
-
-        case NSFetchedResultsChangeMove:
-            if ([newIndexPath isEqual:indexPath] == NO) {
-                [super moveObjectAtIndex:indexPath.item toIndex:newIndexPath.item];
-            }
-            break;
-    }
-}
+//
+//- (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject
+//       atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type
+//      newIndexPath:(NSIndexPath *)newIndexPath
+//{
+//    switch(type) {
+//        case NSFetchedResultsChangeInsert:
+//            [super insertObject:anObject atIndex:newIndexPath.item];
+//            break;
+//
+//        case NSFetchedResultsChangeDelete:
+//             [super removeObjectAtIndex:indexPath.item];
+//            break;
+//
+//        case NSFetchedResultsChangeUpdate:
+//            [super reloadObjectAtIndex:indexPath.item];
+//            break;
+//
+//        case NSFetchedResultsChangeMove:
+//            if ([newIndexPath isEqual:indexPath] == NO) {
+//                [super moveObjectAtIndex:indexPath.item toIndex:newIndexPath.item];
+//            }
+//            break;
+//    }
+//}
 
 @end
