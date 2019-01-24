@@ -16,6 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly) BOOL hasData;
 
 - (instancetype)initWithDelegate:(id<DataSourceContainerControllerDelegate> _Nullable)delegate;
+- (void)managedObjectContextObjectsDidChange:(NSNotification *)notification;
 
 - (void)removeAllObjects;
 - (void)insertObject:(id)object atIndextPath:(NSIndexPath *)indexPath;

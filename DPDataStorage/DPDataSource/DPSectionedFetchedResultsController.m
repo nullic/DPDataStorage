@@ -29,6 +29,10 @@
     return self;
 }
 
+- (void)managedObjectContextObjectsDidChange:(NSNotification *)notification {
+    // Do Nothing, all changes should come from 'frc'
+}
+
 #pragma mark - NSFetchedResultsController
 
 - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {

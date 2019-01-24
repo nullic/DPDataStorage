@@ -123,15 +123,13 @@
     return [self.innerStorage count];
 }
 
-- (void)insertObject:(id)object atIndex:(NSUInteger)index {
-    [self startUpdating];
-    [self.innerStorage insertObject:object atIndex:index];
-
+- (NSIndexPath *)newIndexPathForObject:(id)object newSection:(BOOL *)newSection {
     NSUInteger section = 0;
-    BOOL needInsert = NO;
+
     for (; section < [self numberOfSections]; section++) {
         NSIndexPath *ip = [NSIndexPath indexPathForItem:0 inSection:section];
         id firstObject = [self objectAtIndexPath:ip];
+        if (firstObject == nil) continue;
 
         NSComparisonResult result = [self.sectionSortDescriptor compareObject:firstObject toObject:object];
         if (result == NSOrderedSame) {
@@ -140,19 +138,28 @@
             [objects sortUsingComparator:self.sectionComarator];
             NSUInteger item = [objects indexOfObject:object];
 
-            [super insertObject:object atIndextPath:[NSIndexPath indexPathForItem:item inSection:section]];
-            break;
+            *newSection = NO;
+            return [NSIndexPath indexPathForItem:item inSection:section];
         }
         else if (result == NSOrderedDescending) {
-            needInsert = YES;
             break;
         }
     }
 
-    if (needInsert == YES) {
-        [super insertSectionAtIndex:section];
-        [self _setObjects:@[object] atSection:section];
+    *newSection = YES;
+    return [NSIndexPath indexPathForItem:0 inSection:section];
+}
+
+- (void)insertObject:(id)object atIndex:(NSUInteger)index {
+    [self startUpdating];
+    [self.innerStorage insertObject:object atIndex:index];
+
+    BOOL newSection = NO;
+    NSIndexPath *indexPath = [self newIndexPathForObject:object newSection:&newSection];
+    if (newSection == YES) {
+        [super insertSectionAtIndex:indexPath.section];
     }
+    [super insertObject:object atIndextPath:indexPath];
 
     [self endUpdating];
 }
@@ -164,12 +171,7 @@
     [self.innerStorage removeObjectAtIndex:index];
 
     NSIndexPath *indexPath = [super indexPathForObject:object];
-    if ([self numberOfItemsInSection:indexPath.section] == 1) {
-        [super removeSectionAtIndex:indexPath.section];
-    }
-    else {
-        [super deleteObjectAtIndextPath:indexPath];
-    }
+    [super deleteObjectAtIndextPath:indexPath];
 
     [self endUpdating];
 }
@@ -177,14 +179,28 @@
 - (void)reloadObjectAtIndex:(NSUInteger)index {
     [self startUpdating];
     id object = [self.innerStorage objectAtIndex:index];
-    [self removeObjectAtIndex:index];
-    [self insertObject:object atIndex:index];
+
+    BOOL newSection = NO;
+    NSIndexPath *newIndexPath = [self newIndexPathForObject:object newSection:&newSection];
+    NSIndexPath *currentIndexPath = [self indexPathForObject:object];
+
+    if (newSection == YES) {
+        [self removeObjectAtIndex:index];
+        [self insertObject:object atIndex:index];
+    }
+    else if ([currentIndexPath isEqual:newIndexPath] == NO) {
+        [super moveObjectAtIndextPath:currentIndexPath toIndexPath:newIndexPath];
+    } else {
+        [super reloadObjectAtIndextPath:currentIndexPath];
+    }
+
     [self endUpdating];
 }
 
 - (void)moveObjectAtIndex:(NSUInteger)index toIndex:(NSUInteger)newIndex {
     [self startUpdating];
     id object = [self.innerStorage objectAtIndex:index];
+
     [self removeObjectAtIndex:index];
     [self insertObject:object atIndex:newIndex];
     [self endUpdating];
