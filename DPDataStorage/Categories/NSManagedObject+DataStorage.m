@@ -188,4 +188,15 @@
     return YES;
 }
 
+#pragma mark -
+
+- (instancetype)createObjectWithCopiedAttributes {
+    NSManagedObject *result = [[self class] insertInContext:[self managedObjectContext]];
+    NSDictionary<NSString *, NSAttributeDescription *> *attributes = self.entity.attributesByName;
+    for (NSString *attr in attributes) {
+        [result setValue:[self valueForKey:attr] forKey:attr];
+    }
+    return result;
+}
+
 @end
