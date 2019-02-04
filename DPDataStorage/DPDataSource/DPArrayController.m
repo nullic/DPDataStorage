@@ -7,47 +7,11 @@
 //
 
 #import "DPArrayController.h"
+#import "DPArrayControllerSection.h"
 #import <CoreData/CoreData.h>
 
+
 NS_ASSUME_NONNULL_BEGIN
-
-#pragma mark - DPArrayControllerSection
-
-@interface DPArrayControllerSection : NSObject  <NSFetchedResultsSectionInfo> {
-    @public NSString *_name;
-    @public NSString *_indexTitle;
-}
-@property (nonatomic, readonly) NSString *name;
-@property (nonatomic, readonly) NSString *indexTitle;
-@property (nonatomic, readonly) NSUInteger numberOfObjects;
-@property (nonatomic, strong) NSMutableArray *objects;
-
-@property (nonatomic) BOOL isInserted;
-@end
-
-@implementation DPArrayControllerSection
-@synthesize name = _name;
-@synthesize indexTitle = _indexTitle;
-
-- (instancetype)init {
-    if ((self = [super init])) {
-        _isInserted = YES;
-    }
-    return  self;
-}
-
-- (NSMutableArray *)objects {
-    if (_objects == nil) _objects = [NSMutableArray new];
-    return _objects;
-}
-
-- (NSString *)description {return [NSString stringWithFormat:@"%@ {numberOfObjects: %lu}", [super description], (unsigned long)self.numberOfObjects];}
-- (NSUInteger)numberOfObjects {return self.objects.count;};
-- (NSString *)name {return _name ?: @"";}
-
-@end
-
-#pragma mark - DPArrayController
 
 NS_OPTIONS(NSUInteger, ResponseMask) {
     ResponseMaskDidChangeObject = 1 << 0,
@@ -185,7 +149,7 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
         [self insertSectionAtIndex:indexPath.section];
 
         DPArrayControllerSection *sectionInfo = self.sections[indexPath.section];
-        [sectionInfo.objects insertObject:object atIndex:indexPath.row];
+        [sectionInfo insertObject:object atIndex:indexPath.row];
 
         if ([object isKindOfClass:[NSManagedObject class]]) {
             NSManagedObjectContext *context = [object managedObjectContext];
@@ -208,7 +172,7 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
 
     DPArrayControllerSection *sectionInfo = self.sections[indexPath.section];
     id object = sectionInfo.objects[indexPath.row];
-    [sectionInfo.objects removeObjectAtIndex:indexPath.row];
+    [sectionInfo removeObjectAtIndex:indexPath.row];
 
     if (self.responseMask & ResponseMaskDidChangeObject) {
         [self.delegate controller:self didChangeObject:object atIndexPath:indexPath forChangeType:NSFetchedResultsChangeDelete newIndexPath:nil];
@@ -243,10 +207,10 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
     id object = [self objectAtIndexPath:indexPath];
 
     DPArrayControllerSection *sectionInfo = self.sections[indexPath.section];
-    [sectionInfo.objects removeObjectAtIndex:indexPath.row];
+    [sectionInfo removeObjectAtIndex:indexPath.row];
 
     sectionInfo = self.sections[newIndexPath.section];
-    [sectionInfo.objects insertObject:object atIndex:newIndexPath.row];
+    [sectionInfo insertObject:object atIndex:newIndexPath.row];
 
     if (self.responseMask & ResponseMaskDidChangeObject) {
         [self.delegate controller:self didChangeObject:object atIndexPath:indexPath forChangeType:NSFetchedResultsChangeMove newIndexPath:newIndexPath];
@@ -322,13 +286,13 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
         [self insertSectionAtIndex:index];
 
         DPArrayControllerSection *section = self.sections[index];
-        section->_name = name;
+        section.name = name;
         
         [self endUpdating];
     }
     else {
         DPArrayControllerSection *section = self.sections[index];
-        section->_name = name;
+        section.name = name;
     }
 }
 
@@ -363,7 +327,7 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
         }
         else {
             DPArrayControllerSection *sectionInfo = self.sections[section];
-            [sectionInfo.objects addObjectsFromArray:objects];
+            [sectionInfo addObjectsFromArray:objects];
 
             for (id object in objects) {
                 if ([object isKindOfClass:[NSManagedObject class]]) {

@@ -7,11 +7,12 @@
 //
 
 #import "DPSectionedArrayController.h"
+#import "DPArrayControllerSection.h"
 
 
 @interface DPSectionedArrayController ()
 @property (nonatomic, readwrite, strong) NSSortDescriptor *sectionSortDescriptor;
-@property (nonatomic, strong) NSMutableArray *innerStorage;
+@property (nonatomic, strong) DPArrayControllerSection *innerStorage;
 @end
 
 
@@ -45,8 +46,8 @@
     [super setRemoveEmptySectionsAutomaticaly:YES];
 }
 
-- (NSMutableArray *)innerStorage {
-    if (_innerStorage == nil) _innerStorage = [NSMutableArray array];
+- (DPArrayControllerSection *)innerStorage {
+    if (_innerStorage == nil) _innerStorage = [DPArrayControllerSection new];
     return _innerStorage;
 }
 
@@ -88,7 +89,7 @@
     self.innerStorage = [objects mutableCopy];
 
     if (objects.count > 0) {
-        NSArray *sortedObjects = [self.innerStorage sortedArrayUsingDescriptors:@[self.sectionSortDescriptor]];
+        NSArray *sortedObjects = [self.innerStorage.objects sortedArrayUsingDescriptors:@[self.sectionSortDescriptor]];
         NSMutableArray *sectionObjects = [NSMutableArray arrayWithObject:sortedObjects.firstObject];
         NSInteger sectionIndex = 0;
 
@@ -120,7 +121,7 @@
 }
 
 - (NSUInteger)countOfObjects {
-    return [self.innerStorage count];
+    return [self.innerStorage.objects count];
 }
 
 - (NSIndexPath *)newIndexPathForObject:(id)object newSection:(BOOL *)newSection {

@@ -1,0 +1,22 @@
+PODS:
+  - DPDataStorage (1.0):
+    - DPDataStorage/Categories (= 1.0)
+    - DPDataStorage/DPDataSource (= 1.0)
+    - DPDataStorage/Mapping (= 1.0)
+  - DPDataStorage/Categories (1.0)
+  - DPDataStorage/DPDataSource (1.0)
+  - DPDataStorage/Mapping (1.0)
+
+DEPENDENCIES:
+  - DPDataStorage (from `../`)
+
+EXTERNAL SOURCES:
+  DPDataStorage:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  DPDataStorage: 27a4ff6aa7c23cbc0e18bbb21ec39e133a8e8a00
+
+PODFILE CHECKSUM: 1256a9724c298c3344fecb8286cfabf4fd358741
+
+COCOAPODS: 1.6.0.rc.1

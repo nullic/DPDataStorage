@@ -20,7 +20,7 @@ Pod::Spec.new do |s|
   s.requires_arc = true
 
   s.subspec 'DPDataSource' do |ss|
-    ss.source_files = "DPDataStorage/DPDataSource/*.{h,m}"
+    ss.source_files = "DPDataStorage/DPDataSource/*.{h,m}", "DPDataStorage/DPDataSource/private/*.{h,m}"
   end
   
   s.subspec 'Mapping' do |ss|
