@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface DPPlaceholderObject : NSObject
+@interface DPPlaceholderObject : NSProxy
 @end
 
 NS_ASSUME_NONNULL_END

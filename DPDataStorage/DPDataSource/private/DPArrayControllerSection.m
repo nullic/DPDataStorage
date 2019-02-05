@@ -47,11 +47,11 @@
 - (void)insertObject:(id)object atIndex:(NSUInteger)index {
     if (index > self.mutableObjects.count) {
         while (index >= self.mutableObjects.count) {
-            [self.mutableObjects insertObject:[DPPlaceholderObject new] atIndex:self.mutableObjects.count];
+            [self.mutableObjects insertObject:[DPPlaceholderObject alloc] atIndex:self.mutableObjects.count];
         }
     }
 
-    if ([[self.mutableObjects objectAtIndex:index] isKindOfClass:[DPPlaceholderObject class]]) {
+    if (index < self.mutableObjects.count && [[self.mutableObjects objectAtIndex:index] isKindOfClass:[DPPlaceholderObject class]]) {
         [self.mutableObjects removeObjectAtIndex:index];
     }
 
