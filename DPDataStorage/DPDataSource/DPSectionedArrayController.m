@@ -86,7 +86,7 @@
     [super startUpdating];
 
     [super removeAllObjects];
-    self.innerStorage = [objects mutableCopy];
+    self.innerStorage.objects = objects;
 
     if (objects.count > 0) {
         NSArray *sortedObjects = [self.innerStorage.objects sortedArrayUsingDescriptors:@[self.sectionSortDescriptor]];

@@ -40,6 +40,10 @@
 
 #pragma mark - array mutating
 
+- (void)setObjects:(NSArray *)objects {
+    self.mutableObjects = [objects mutableCopy];
+}
+
 - (void)insertObject:(id)object atIndex:(NSUInteger)index {
     if (index > self.mutableObjects.count) {
         while (index >= self.mutableObjects.count) {

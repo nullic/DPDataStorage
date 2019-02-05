@@ -19,6 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic) BOOL isInserted;
 
+- (void)setObjects:(NSArray * _Nullable)objects;
 - (void)insertObject:(id)object atIndex:(NSUInteger)index;
 - (void)removeObjectAtIndex:(NSUInteger)index;
 - (void)addObjectsFromArray:(NSArray *)otherArray;
