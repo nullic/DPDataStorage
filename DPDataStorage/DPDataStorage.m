@@ -197,6 +197,9 @@ NSString * const DPDataStorageNotificationNameKey = @"name";
     @synchronized(self) {
         if (!_persistentStoreCoordinator) {
             if (self.URL) {
+                NSString *folder = [[self.URL URLByDeletingLastPathComponent] path];
+                [[NSFileManager defaultManager] createDirectoryAtPath:folder withIntermediateDirectories:true attributes:nil error:nil];
+
                 NSDictionary *options = @{NSMigratePersistentStoresAutomaticallyOption:@YES, NSInferMappingModelAutomaticallyOption:@YES};
 
                 NSError *error = nil;
