@@ -328,7 +328,16 @@ static NSString * uniqueKeyForEntity(NSEntityDescription *entityDescription) {
         [self updateAttributesWithDictionary:dictionary error:&error];
         [self updateRelationshipsWithDictionary:dictionary error:&error];
     }
-    
+
+#if DEBUG
+    NSArray *keys = [[self class] importKeysInContext:self.managedObjectContext];
+    for (NSString *key in dictionary) {
+        if ([keys containsObject:key] == NO) {
+            NSLog(@"DPDataStorage WARNING: Unprocessed key: %@ for %@", key, NSStringFromClass([self class]));
+        }
+    }
+#endif
+
     if (error && out_error) *out_error = error;
     return (error == nil);
 }
