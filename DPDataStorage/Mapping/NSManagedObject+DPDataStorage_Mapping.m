@@ -329,11 +329,19 @@ static NSString * uniqueKeyForEntity(NSEntityDescription *entityDescription) {
         [self updateRelationshipsWithDictionary:dictionary error:&error];
     }
 
-#if DEBUG
-    NSArray *keys = [[self class] importKeysInContext:self.managedObjectContext];
-    for (NSString *key in dictionary) {
-        if ([keys containsObject:key] == NO) {
-            NSLog(@"DPDataStorage WARNING: Unprocessed key: %@ for %@", key, NSStringFromClass([self class]));
+#if DEBUG & LOG_MAAPING
+    NSArray *importKeys = [[self class] importKeysInContext:self.managedObjectContext];
+    NSArray *dictionaryKeys = [dictionary allKeys];
+
+    for (NSString *key in dictionaryKeys) {
+        if ([importKeys containsObject:key] == NO) {
+            NSLog(@"DPDataStorage WARNING: Unprocessed key: %@ (%@)", key, NSStringFromClass([self class]));
+        }
+    }
+
+    for (NSString *key in importKeys) {
+        if ([dictionaryKeys containsObject:key] == NO) {
+            NSLog(@"DPDataStorage WARNING: Not found value for key: %@ (%@)", key, NSStringFromClass([self class]));
         }
     }
 #endif
