@@ -103,9 +103,13 @@ NSString * const DPDataStorageNotificationNameKey = @"name";
 + (BOOL)setupDefaultStorageWithModelName:(NSString *)modelName storageURL:(NSURL *)storageURL {
     [self resetDefaultStorage];
 
-    NSURL *modelURL = modelName ? [[NSBundle mainBundle] URLForResource:modelName withExtension:@"momd"] : nil;
-    if ((modelName && modelURL) || modelName == nil) {
+    NSURL *modelURL = modelName ? ([[NSBundle mainBundle] URLForResource:modelName withExtension:@"momd"] ?: [[NSBundle mainBundle] URLForResource:modelName withExtension:@"mom"]) : nil;
+
+    if (modelName && modelURL) {
         [[self storageWithModelURL:modelURL storageURL:storageURL] makeDefault];
+    }
+    else if (modelName == nil) {
+        [[self storageWithMergedModelFromBundles:nil storageURL:storageURL] makeDefault];
     }
 
     return ([self defaultStorage] != nil);
@@ -135,14 +139,23 @@ NSString * const DPDataStorageNotificationNameKey = @"name";
     DPDataStorage *storage = [[self alloc] init];
     storage.allowStoreDropOnError = allowStoreDropOnError;
     storage.URL = storageURL;
-    
-    if (modelURL) {
-        storage.managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
-    }
-    else {
-        storage.managedObjectModel = [NSManagedObjectModel mergedModelFromBundles:nil];
-    }
-    
+    storage.managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
+    return storage.managedObjectModel ? storage : nil;
+}
+
++ (instancetype)storageWithMergedModelFromBundles:(NSArray<NSBundle *> * _Nullable)bundles storageURL:(NSURL *)storageURL {
+    BOOL allowStoreDropOnError = NO;
+#if DEBUG
+    allowStoreDropOnError = YES;
+#endif
+    return [self storageWithMergedModelFromBundles:bundles storageURL:storageURL allowStoreDropOnError:allowStoreDropOnError];
+}
+
++ (instancetype)storageWithMergedModelFromBundles:(nullable NSArray<NSBundle *> *)bundles storageURL:(NSURL *)storageURL allowStoreDropOnError:(BOOL)allowStoreDropOnError {
+    DPDataStorage *storage = [[self alloc] init];
+    storage.allowStoreDropOnError = allowStoreDropOnError;
+    storage.URL = storageURL;
+    storage.managedObjectModel = [NSManagedObjectModel mergedModelFromBundles:bundles];
     return storage.managedObjectModel ? storage : nil;
 }
 

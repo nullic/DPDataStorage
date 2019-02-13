@@ -90,8 +90,11 @@ extern NSString * const _Nonnull DPDataStorageNotificationNameKey;
   By defaut equal to YES if DEBUG defined, else equal to NO.
  @return Initialized DPDataStorage object with provided info.
  */
-+ (instancetype _Nullable)storageWithModelURL:(NSURL * _Nullable)modelURL storageURL:(NSURL * _Nullable)storageURL allowStoreDropOnError:(BOOL)allowStoreDropOnError;
-+ (instancetype _Nullable)storageWithModelURL:(NSURL * _Nullable)modelURL storageURL:(NSURL * _Nullable)storageURL;
++ (instancetype _Nullable)storageWithModelURL:(NSURL * _Nonnull)modelURL storageURL:(NSURL * _Nullable)storageURL allowStoreDropOnError:(BOOL)allowStoreDropOnError;
++ (instancetype _Nullable)storageWithModelURL:(NSURL * _Nonnull)modelURL storageURL:(NSURL * _Nullable)storageURL;
+
++ (instancetype)storageWithMergedModelFromBundles:(NSArray<NSBundle *> * _Nullable)bundles storageURL:(NSURL *)storageURL allowStoreDropOnError:(BOOL)allowStoreDropOnError;
++ (instancetype)storageWithMergedModelFromBundles:(NSArray<NSBundle *> * _Nullable)bundles storageURL:(NSURL *)storageURL;
 
 /**
  @method
