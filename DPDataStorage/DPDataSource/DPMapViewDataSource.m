@@ -146,11 +146,9 @@
                 break;
 
             case NSFetchedResultsChangeUpdate:
+            case NSFetchedResultsChangeMove:
                 [self removeAnnotation:anObject];
                 [self addAnnotation:anObject];
-                break;
-
-            case NSFetchedResultsChangeMove:
                 break;
         }
     };

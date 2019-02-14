@@ -198,6 +198,9 @@
                     if ([newIndexPath isEqual:indexPath] == NO) {
                         [cv moveItemAtIndexPath:indexPath toIndexPath:newIndexPath];
                     }
+                    else {
+                         [cv reloadItemsAtIndexPaths:@[indexPath]];
+                    }
                     break;
                     
             }

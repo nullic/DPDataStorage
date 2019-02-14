@@ -205,6 +205,9 @@
                     if ([newIndexPath isEqual:indexPath] == NO) {
                         [tv moveRowAtIndexPath:indexPath toIndexPath:newIndexPath];
                     }
+                    else {
+                        [tv reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:self.updateAnimation];
+                    }
                     break;
             }
         };
