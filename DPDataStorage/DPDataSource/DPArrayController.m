@@ -146,7 +146,7 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
 
     if (object != nil) {
         [self startUpdating];
-        [self insertSectionAtIndex:indexPath.section];
+        [self insertSectionAtIndexIfNotExist:indexPath.section];
 
         DPArrayControllerSection *sectionInfo = self.sections[indexPath.section];
         [sectionInfo insertObject:object atIndex:indexPath.row];
@@ -202,7 +202,7 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
     }
 
     [self startUpdating];
-    [self insertSectionAtIndex:newIndexPath.section];
+    [self insertSectionAtIndexIfNotExist:newIndexPath.section];
 
     id object = [self objectAtIndexPath:indexPath];
 
@@ -221,7 +221,7 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
 
 #pragma mark - Editing: Sections
 
-- (void)insertSectionAtIndex:(NSUInteger)index {
+- (void)insertSectionAtIndexIfNotExist:(NSUInteger)index {
     [self startUpdating];
 
     while (index >= self.sections.count) {
@@ -231,6 +231,18 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
         if (self.responseMask & ResponseMaskDidChangeSection) {
             [self.delegate controller:self didChangeSection:section atIndex:(self.sections.count - 1) forChangeType:NSFetchedResultsChangeInsert];
         }
+    }
+    [self endUpdating];
+}
+
+- (void)insertSectionAtIndex:(NSUInteger)index {
+    [self startUpdating];
+
+    DPArrayControllerSection *section = [DPArrayControllerSection new];
+    [self.sections insertObject:section atIndex:index];
+
+    if (self.responseMask & ResponseMaskDidChangeSection) {
+        [self.delegate controller:self didChangeSection:section atIndex:index forChangeType:NSFetchedResultsChangeInsert];
     }
 
     [self endUpdating];
@@ -283,7 +295,7 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
 - (void)setSectionName:(NSString *)name atIndex:(NSUInteger)index {
     if (index <= self.sections.count) {
         [self startUpdating];
-        [self insertSectionAtIndex:index];
+        [self insertSectionAtIndexIfNotExist:index];
 
         DPArrayControllerSection *section = self.sections[index];
         section.name = name;
@@ -317,7 +329,7 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
 
     if (objects.count > 0) {
         [self startUpdating];
-        [self insertSectionAtIndex:section];
+        [self insertSectionAtIndexIfNotExist:section];
 
         if (self.responseMask & ResponseMaskDidChangeObject) {
             for (id object in objects) {
