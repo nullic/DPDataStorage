@@ -125,12 +125,13 @@
 }
 
 - (NSIndexPath *)newIndexPathForObject:(id)object newSection:(BOOL *)newSection {
-    NSUInteger section = 0;
+    NSInteger section = 0;
 
     for (; section < [self numberOfSections]; section++) {
+        if ([self numberOfItemsInSection:section] == 0) continue;
+
         NSIndexPath *ip = [NSIndexPath indexPathForItem:0 inSection:section];
         id firstObject = [self objectAtIndexPath:ip];
-        if (firstObject == nil) continue;
 
         NSComparisonResult result = [self.sectionSortDescriptor compareObject:firstObject toObject:object];
         if (result == NSOrderedSame) {
@@ -147,8 +148,14 @@
         }
     }
 
-    *newSection = YES;
-    return [NSIndexPath indexPathForItem:0 inSection:section];
+    NSInteger prevSection = (section - 1);
+    if (prevSection >= 0 && [self numberOfItemsInSection:prevSection] == 0) {
+        *newSection = NO;
+        return [NSIndexPath indexPathForItem:0 inSection:prevSection];
+    } else {
+        *newSection = YES;
+        return [NSIndexPath indexPathForItem:0 inSection:section];
+    }
 }
 
 - (void)insertObject:(id)object atIndex:(NSUInteger)index {
