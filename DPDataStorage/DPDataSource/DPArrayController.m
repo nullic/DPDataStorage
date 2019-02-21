@@ -83,34 +83,34 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
         NSDictionary *userInfo = notification.userInfo;
 
         NSArray *deletedPaths = [self pathsForObjects:userInfo[NSDeletedObjectsKey] sortComparator:inverseCompare];
-        if (deletedPaths.count > 0) {
-            [self startUpdating];
-            for (NSIndexPath *indexPath in deletedPaths) {
-                [self deleteObjectAtIndextPath:indexPath];
-            }
-            [self endUpdating];
-        }
-
         NSArray *updatedPaths = [self pathsForObjects:userInfo[NSUpdatedObjectsKey] sortComparator:inverseCompare];
-        if (updatedPaths.count > 0) {
-            [self startUpdating];
-            for (NSIndexPath *indexPath in updatedPaths) {
-                [self reloadObjectAtIndextPath:indexPath];
-            }
-            [self endUpdating];
+        NSArray *refreshedPaths = [self pathsForObjects:userInfo[NSRefreshedObjectsKey] sortComparator:inverseCompare];
+
+        BOOL hasChanges = (deletedPaths.count > 0) || (updatedPaths.count > 0) || (refreshedPaths.count > 0);
+
+        if (hasChanges) [self startUpdating];
+
+        for (NSIndexPath *indexPath in deletedPaths) {
+            [self deleteObjectAtIndextPath:indexPath];
         }
 
-        NSArray *refreshedPaths = [self pathsForObjects:userInfo[NSRefreshedObjectsKey] sortComparator:inverseCompare];
-        if (refreshedPaths.count > 0) {
-            [self startUpdating];
-            for (NSIndexPath *indexPath in refreshedPaths) {
-                [self reloadObjectAtIndextPath:indexPath];
-            }
-            [self endUpdating];
+        for (NSIndexPath *indexPath in updatedPaths) {
+            [self reloadObjectAtIndextPath:indexPath];
         }
+
+        for (NSIndexPath *indexPath in refreshedPaths) {
+            [self reloadObjectAtIndextPath:indexPath];
+        }
+
+        if (hasChanges) [self endUpdating];
     };
 
-    [NSThread isMainThread] ? action() : dispatch_async(dispatch_get_main_queue(), action);
+    NSManagedObjectContext *context = notification.object;
+    if (context.concurrencyType == NSMainQueueConcurrencyType && [NSThread isMainThread]) {
+        [context performBlockAndWait:action];
+    } else {
+        [context performBlock:action];
+    }
 }
 
 #pragma mark - Helper
