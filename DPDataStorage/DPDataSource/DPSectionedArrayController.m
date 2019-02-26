@@ -124,7 +124,7 @@
     return [self.innerStorage.objects count];
 }
 
-- (NSIndexPath *)newIndexPathForObject:(id)object newSection:(BOOL *)newSection {
+- (NSIndexPath *)newIndexPathForObject:(id)object newSection:(BOOL *)newSection isReload:(BOOL)isReload {
     NSInteger section = 0;
 
     for (; section < [self numberOfSections]; section++) {
@@ -136,9 +136,13 @@
         NSComparisonResult result = [self.sectionSortDescriptor compareObject:firstObject toObject:object];
         if (result == NSOrderedSame) {
             NSMutableArray *objects = [self.sections[section].objects mutableCopy];
-            [objects addObject:object];
-            [objects sortUsingComparator:self.sectionComarator];
-            NSUInteger item = [objects indexOfObject:object];
+            NSUInteger item = isReload ? [objects indexOfObject:object] : NSNotFound;
+
+            if (item == NSNotFound) {
+                [objects addObject:object];
+                [objects sortUsingComparator:self.sectionComarator];
+                item = [objects indexOfObject:object];
+            }
 
             *newSection = NO;
             return [NSIndexPath indexPathForItem:item inSection:section];
@@ -163,7 +167,7 @@
     [self.innerStorage insertObject:object atIndex:index];
 
     BOOL newSection = NO;
-    NSIndexPath *indexPath = [self newIndexPathForObject:object newSection:&newSection];
+    NSIndexPath *indexPath = [self newIndexPathForObject:object newSection:&newSection isReload:NO];
     if (newSection == YES) {
         [super insertSectionAtIndex:indexPath.section];
     }
@@ -189,7 +193,7 @@
     id object = [self.innerStorage objectAtIndex:index];
 
     BOOL newSection = NO;
-    NSIndexPath *newIndexPath = [self newIndexPathForObject:object newSection:&newSection];
+    NSIndexPath *newIndexPath = [self newIndexPathForObject:object newSection:&newSection isReload:YES];
     NSIndexPath *currentIndexPath = [self indexPathForObject:object];
 
     if (newSection == YES) {
