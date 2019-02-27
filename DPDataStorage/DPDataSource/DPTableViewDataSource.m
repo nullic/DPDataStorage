@@ -164,18 +164,18 @@
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
     if (controller == self.listController && self.tableView.dataSource != nil) {
-        if (self.updatesBlocks.count > 0 && self.tableView.window) {
+        if (self.disableAnimations == NO && self.updatesBlocks.count > 0 && self.tableView.window) {
             [self.tableView beginUpdates];
             for (dispatch_block_t updates in self.updatesBlocks) {
                 updates();
             }
             [self.tableView endUpdates];
-            self.updatesBlocks = nil;
         }
         else {
             [self.tableView reloadData];
         }
 
+        self.updatesBlocks = nil;
         [self showNoDataViewIfNeeded];
     }
 }

@@ -155,7 +155,7 @@
             }
         };
 
-        if (self.updatesBlocks.count > 0 && self.collectionView.window) {
+        if (self.disableAnimations == NO && self.updatesBlocks.count > 0 && self.collectionView.window) {
             NSArray *blocks = self.updatesBlocks;
             self.updatesBlocks = nil;
 
@@ -167,6 +167,7 @@
         }
         else {
             [self.collectionView reloadData];
+            self.updatesBlocks = nil;
             updateCompletionBlock();
         }
         [self showNoDataViewIfNeeded];
