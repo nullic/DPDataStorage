@@ -385,13 +385,16 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
 }
 
 - (void)endUpdating {
-    self.updating--;
-    if (self.updating == 0) {
+    if (self.updating == 1) {
         // Remove exist empty sections
         if (self.removeEmptySectionsAutomaticaly) {
             [self removeEmptySections];
         }
+    }
 
+    self.updating--;
+
+    if (self.updating == 0) {
         if (self.responseMask & ResponseMaskDidChangeContent) {
             [self.delegate controllerDidChangeContent:self];
         }
