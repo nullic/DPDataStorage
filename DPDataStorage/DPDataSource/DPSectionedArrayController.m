@@ -213,8 +213,23 @@
     [self startUpdating];
     id object = [self.innerStorage objectAtIndex:index];
 
-    [self removeObjectAtIndex:index];
-    [self insertObject:object atIndex:newIndex];
+    [self.innerStorage removeObjectAtIndex:index];
+    [self.innerStorage insertObject:object atIndex:newIndex];
+
+    BOOL newSection = NO;
+    NSIndexPath *newIndexPath = [self newIndexPathForObject:object newSection:&newSection isReload:NO];
+    NSIndexPath *currentIndexPath = [self indexPathForObject:object];
+
+    if (newSection == YES) {
+        [self removeObjectAtIndex:newIndex];
+        [self insertObject:object atIndex:newIndex];
+    }
+    else if ([currentIndexPath isEqual:newIndexPath] == NO) {
+        [super moveObjectAtIndextPath:currentIndexPath toIndexPath:newIndexPath];
+    } else {
+        [super reloadObjectAtIndextPath:currentIndexPath];
+    }
+
     [self endUpdating];
 }
 
