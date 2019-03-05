@@ -10,3 +10,6 @@
 
 @implementation DPPlaceholderObject
 @end
+
+@implementation DPDeletedPlaceholderObject
+@end
