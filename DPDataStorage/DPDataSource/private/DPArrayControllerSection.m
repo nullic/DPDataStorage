@@ -59,7 +59,8 @@
 }
 
 - (void)removeObjectAtIndex:(NSUInteger)index {
-    [self.mutableObjects replaceObjectAtIndex:index withObject:[DPDeletedPlaceholderObject new]];
+    id object = self.mutableObjects[index];
+    [self.mutableObjects replaceObjectAtIndex:index withObject:[DPDeletedPlaceholderObject placeholderWithOriginalObject: object]];
 }
 
 - (void)moveObjectAtIndex:(NSUInteger)index toIndex:(NSUInteger)newIndex {
@@ -77,7 +78,8 @@
 }
 
 - (id)objectAtIndex:(NSUInteger)index {
-    return [self.mutableObjects objectAtIndex:index];
+    id object = [self.mutableObjects objectAtIndex:index];
+    return [object isKindOfClass:[DPDeletedPlaceholderObject class]] ? [object originalObject] : object;
 }
 
 - (void)removeDeletedPlaceholderObjects {

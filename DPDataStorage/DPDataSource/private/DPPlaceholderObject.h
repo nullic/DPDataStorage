@@ -14,6 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 @interface DPDeletedPlaceholderObject : NSObject
+@property (nonatomic, strong) id originalObject;
++ (instancetype)placeholderWithOriginalObject:(id)originalObject;
 @end
 
 NS_ASSUME_NONNULL_END

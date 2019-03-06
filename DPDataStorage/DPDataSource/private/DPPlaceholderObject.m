@@ -12,4 +12,9 @@
 @end
 
 @implementation DPDeletedPlaceholderObject
++ (instancetype)placeholderWithOriginalObject:(id)originalObject {
+    DPDeletedPlaceholderObject *placeholderObject = [self new];
+    placeholderObject.originalObject = originalObject;
+    return placeholderObject;
+}
 @end
