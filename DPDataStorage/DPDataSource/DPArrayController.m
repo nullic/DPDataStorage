@@ -308,22 +308,14 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
         [self startUpdating];
         [self insertSectionAtIndexIfNotExist:section];
 
-        if (self.responseMask & ResponseMaskDidChangeObject) {
-            for (id object in objects) {
-                NSIndexPath *indexPath = [NSIndexPath indexPathForItem:[self.sections[section] numberOfObjects] inSection:section];
-                [self insertObject:object atIndextPath:indexPath];
-            }
-        }
-        else {
-            DPArrayControllerSection *sectionInfo = [self.sectionsStorage objectAtIndex:section];
-            [sectionInfo addObjectsFromArray:objects];
+        DPArrayControllerSection *sectionInfo = [self.sectionsStorage objectAtIndex:section];
+        [sectionInfo addObjectsFromArray:objects];
 
-            for (id object in objects) {
-                if ([object isKindOfClass:[NSManagedObject class]]) {
-                    NSManagedObjectContext *context = [object managedObjectContext];
-                    [[NSNotificationCenter defaultCenter] removeObserver:self name:NSManagedObjectContextObjectsDidChangeNotification object:context];
-                    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(managedObjectContextObjectsDidChange:) name:NSManagedObjectContextObjectsDidChangeNotification object:context];
-                }
+        for (id object in objects) {
+            if ([object isKindOfClass:[NSManagedObject class]]) {
+                NSManagedObjectContext *context = [object managedObjectContext];
+                [[NSNotificationCenter defaultCenter] removeObserver:self name:NSManagedObjectContextObjectsDidChangeNotification object:context];
+                [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(managedObjectContextObjectsDidChange:) name:NSManagedObjectContextObjectsDidChangeNotification object:context];
             }
         }
 

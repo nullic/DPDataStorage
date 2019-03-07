@@ -47,7 +47,13 @@
 
 - (void)setObjects:(NSArray *)objects {
     self.mutableObjects = [objects mutableCopy];
-    // TODO: add changes
+//    for (NSUInteger i = 0; i < self.mutableObjects.count; i++) {
+//        [self removeObjectAtIndex:i];
+//    }
+//
+//    for (id object in objects) {
+//        [self insertObject:object atIndex:self.mutableObjects.count];
+//    }
 }
 
 - (void)insertObject:(id)object atIndex:(NSUInteger)index {
@@ -84,8 +90,9 @@
 }
 
 - (void)addObjectsFromArray:(NSArray *)otherArray {
-    [self.mutableObjects addObjectsFromArray:otherArray];
-    // TODO: add changes
+    for (id object in otherArray) {
+        [self insertObject:object atIndex:self.mutableObjects.count];
+    }
 }
 
 - (NSUInteger)indexOfObject:(id)object {
