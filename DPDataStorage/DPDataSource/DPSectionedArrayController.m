@@ -240,7 +240,7 @@
 
 - (void)willEndUpdating {
     [super willEndUpdating];
-    [self.innerStorage removePlaceholderObjects];
+    [self.innerStorage removeDeletedPlaceholderObjects];
 }
 
 @end

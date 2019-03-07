@@ -11,14 +11,11 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface DPPlaceholderObject : NSObject
-@property (nonatomic, strong, nullable) id anObject;
-+ (instancetype)placeholderWithObject:(id)anObject;
 @end
 
-@interface DPDeletedPlaceholderObject : DPPlaceholderObject
-@end
-
-@interface DPInsertedPlaceholderObject : DPPlaceholderObject
+@interface DPDeletedPlaceholderObject : NSObject
+@property (nonatomic, strong) id originalObject;
++ (instancetype)placeholderWithOriginalObject:(id)originalObject;
 @end
 
 NS_ASSUME_NONNULL_END

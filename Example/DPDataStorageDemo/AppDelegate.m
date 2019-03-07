@@ -22,7 +22,7 @@
     [DPDataStorage setupDefaultStorageWithModelName:nil storageURL:[DPDataStorage storageDefaultURL]];
     [self addExampleObjects];
 
-    DPArrayController *ctrl = [DPArrayController new];
+    DPArrayController *ctrl =[DPArrayController new];
     [ctrl insertObject:@1 atIndextPath:[NSIndexPath indexPathForRow:2 inSection:0]];
     [ctrl insertObject:@2 atIndextPath:[NSIndexPath indexPathForRow:0 inSection:0]];
     [ctrl insertObject:@3 atIndextPath:[NSIndexPath indexPathForRow:1 inSection:0]];

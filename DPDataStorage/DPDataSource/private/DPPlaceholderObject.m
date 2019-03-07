@@ -9,15 +9,12 @@
 #import "DPPlaceholderObject.h"
 
 @implementation DPPlaceholderObject
-+ (instancetype)placeholderWithObject:(id)anObject {
-    DPPlaceholderObject *placeholder = [self new];
-    placeholder.anObject = anObject;
-    return placeholder;
-}
 @end
 
 @implementation DPDeletedPlaceholderObject
-@end
-
-@implementation DPInsertedPlaceholderObject
++ (instancetype)placeholderWithOriginalObject:(id)originalObject {
+    DPDeletedPlaceholderObject *placeholderObject = [self new];
+    placeholderObject.originalObject = originalObject;
+    return placeholderObject;
+}
 @end
