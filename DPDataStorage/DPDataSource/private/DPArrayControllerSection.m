@@ -59,13 +59,7 @@
 }
 
 - (void)removeObjectAtIndex:(NSUInteger)index {
-    [self.mutableObjects replaceObjectAtIndex:index withObject:[DPDeletedPlaceholderObject new]];
-}
-
-- (void)moveObjectAtIndex:(NSUInteger)index toIndex:(NSUInteger)newIndex {
-    id object = self.mutableObjects[index];
     [self.mutableObjects removeObjectAtIndex:index];
-    [self.mutableObjects insertObject:object atIndex:newIndex];
 }
 
 - (void)addObjectsFromArray:(NSArray *)otherArray {
@@ -80,12 +74,4 @@
     return [self.mutableObjects objectAtIndex:index];
 }
 
-- (void)removeDeletedPlaceholderObjects {
-    NSInteger count = self.mutableObjects.count;
-    for (NSInteger i = (count - 1); i>= 0; i--) {
-        if ([self.mutableObjects[i] isKindOfClass:[DPDeletedPlaceholderObject class]]) {
-            [self.mutableObjects removeObjectAtIndex:i];
-        }
-    }
-}
 @end

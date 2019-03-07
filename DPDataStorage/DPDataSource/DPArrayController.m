@@ -207,15 +207,10 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
     id object = [self objectAtIndexPath:indexPath];
 
     DPArrayControllerSection *sectionInfo = self.sections[indexPath.section];
-    if (indexPath.section == newIndexPath.section) {
-        [sectionInfo moveObjectAtIndex:indexPath.row toIndex:newIndexPath.row];
-    }
-    else {
-        [sectionInfo removeObjectAtIndex:indexPath.row];
+    [sectionInfo removeObjectAtIndex:indexPath.row];
 
-        sectionInfo = self.sections[newIndexPath.section];
-        [sectionInfo insertObject:object atIndex:newIndexPath.row];
-    }
+    sectionInfo = self.sections[newIndexPath.section];
+    [sectionInfo insertObject:object atIndex:newIndexPath.row];
 
     if (self.responseMask & ResponseMaskDidChangeObject) {
         [self.delegate controller:self didChangeObject:object atIndexPath:indexPath forChangeType:NSFetchedResultsChangeMove newIndexPath:newIndexPath];
@@ -385,7 +380,6 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
         if (self.responseMask & ResponseMaskWillChangeContent) {
             [self.delegate controllerWillChangeContent:self];
         }
-        [self didStartUpdating];
     }
     self.updating++;
 }
@@ -401,15 +395,12 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
     self.updating--;
 
     if (self.updating == 0) {
-        for (DPArrayControllerSection *section in self.sections) {
-            section.isInserted = NO;
-            [section removeDeletedPlaceholderObjects];
-        }
-
-        [self willEndUpdating];
-
         if (self.responseMask & ResponseMaskDidChangeContent) {
             [self.delegate controllerDidChangeContent:self];
+        }
+
+        for (DPArrayControllerSection *section in self.sections) {
+            section.isInserted = NO;
         }
 
         // Remove inserted empty sections
@@ -422,9 +413,6 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
 - (BOOL)isUpdating {
     return self.updating > 0;
 }
-
-- (void)didStartUpdating {}
-- (void)willEndUpdating {}
 
 #pragma mark - Getters
 

@@ -213,7 +213,8 @@
     [self startUpdating];
     id object = [self.innerStorage objectAtIndex:index];
 
-    [self.innerStorage moveObjectAtIndex:index toIndex:newIndex];
+    [self.innerStorage removeObjectAtIndex:index];
+    [self.innerStorage insertObject:object atIndex:newIndex];
 
     BOOL newSection = NO;
     NSIndexPath *newIndexPath = [self newIndexPathForObject:object newSection:&newSection isReload:NO];
@@ -236,11 +237,6 @@
     id object = [super objectAtIndexPath:indexPath];
     NSUInteger index = [self indexOfObject:object];
     [self reloadObjectAtIndex:index];
-}
-
-- (void)willEndUpdating {
-    [super willEndUpdating];
-    [self.innerStorage removeDeletedPlaceholderObjects];
 }
 
 @end

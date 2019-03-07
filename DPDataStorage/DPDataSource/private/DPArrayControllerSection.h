@@ -22,13 +22,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)setObjects:(NSArray * _Nullable)objects;
 - (void)insertObject:(id)object atIndex:(NSUInteger)index;
 - (void)removeObjectAtIndex:(NSUInteger)index;
-- (void)moveObjectAtIndex:(NSUInteger)index toIndex:(NSUInteger)newIndex;
-
 - (void)addObjectsFromArray:(NSArray *)otherArray;
 - (NSUInteger)indexOfObject:(id)object;
 - (id)objectAtIndex:(NSUInteger)index;
-
-- (void)removeDeletedPlaceholderObjects;
 @end
 
 NS_ASSUME_NONNULL_END
