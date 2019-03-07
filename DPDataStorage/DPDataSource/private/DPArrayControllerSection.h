@@ -34,7 +34,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (id)objectAtIndex:(NSUInteger)index;
 
 - (void)removePlaceholderObjects;
-- (NSArray<DPArrayChange *> *)updateChanges;
+- (NSArray<DPArrayChange *> *)dequeChanges;
 @end
 
 NS_ASSUME_NONNULL_END
