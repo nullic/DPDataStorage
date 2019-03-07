@@ -117,10 +117,8 @@
     }
 }
 
-- (NSArray<DPArrayChange *> *)dequeChanges {
-    id changes = [self changes];
-    self.changes = nil;
-    return changes;
+- (NSArray<DPArrayChange *> *)updateChanges {
+    return [self changes];
 }
 
 @end

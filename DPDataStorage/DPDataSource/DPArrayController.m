@@ -364,36 +364,31 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
     if (self.updating == 0) {
         [self willEndUpdating];
 
-        for (DPArrayControllerSection *section in self.sectionsStorage.objects) {
-            [section removePlaceholderObjects];
-        }
-        [self.sectionsStorage removePlaceholderObjects];
-
         if (self.responseMask & ResponseMaskWillChangeContent) {
             [self.delegate controllerWillChangeContent:self];
         }
 
         if (self.responseMask & ResponseMaskDidChangeObject) {
             for (DPArrayControllerSection *section in self.sectionsStorage.objects) {
-                for (DPArrayChange *change in section.dequeChanges) {
+                if ([section isKindOfClass:[DPPlaceholderObject class]]) continue;
+                
+                for (DPArrayChange *change in section.updateChanges) {
                     [change sendChangeTo:self.delegate sectionIndex:section.index controller:self];
                 }
+                [section removePlaceholderObjects];
             }
         }
 
         if (self.responseMask & ResponseMaskDidChangeSection) {
-            for (DPArrayChange *change in self.sectionsStorage.dequeChanges) {
+            for (DPArrayChange *change in self.sectionsStorage.updateChanges) {
                 [change sendSectionChangeTo:self.delegate controller:self];
             }
         }
 
+        [self.sectionsStorage removePlaceholderObjects];
+
         if (self.responseMask & ResponseMaskDidChangeContent) {
             [self.delegate controllerDidChangeContent:self];
-        }
-
-        for (NSUInteger i = 0; i < self.sectionsStorage.numberOfObjects; i++) {
-            DPArrayControllerSection *sectionInfo = [self.sectionsStorage objectAtIndex:i];
-            sectionInfo.index = i;
         }
 
         // Remove inserted empty sections
