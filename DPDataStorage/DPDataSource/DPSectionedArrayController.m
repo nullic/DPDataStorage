@@ -87,6 +87,8 @@
 
     [super removeAllObjects];
     self.innerStorage.objects = objects;
+    [self.innerStorage removePlaceholderObjects];
+    [self.innerStorage clearUpdateChanges];
 
     if (objects.count > 0) {
         NSArray *sortedObjects = [self.innerStorage.objects sortedArrayUsingDescriptors:@[self.sectionSortDescriptor]];
@@ -213,8 +215,7 @@
     [self startUpdating];
     id object = [self.innerStorage objectAtIndex:index];
 
-    [self.innerStorage removeObjectAtIndex:index];
-    [self.innerStorage insertObject:object atIndex:newIndex];
+    [self.innerStorage moveObjectAtIndex:index toIndex:newIndex];
 
     BOOL newSection = NO;
     NSIndexPath *newIndexPath = [self newIndexPathForObject:object newSection:&newSection isReload:NO];
@@ -237,6 +238,12 @@
     id object = [super objectAtIndexPath:indexPath];
     NSUInteger index = [self indexOfObject:object];
     [self reloadObjectAtIndex:index];
+}
+
+- (void)willEndUpdating {
+    [super willEndUpdating];
+    [self.innerStorage removePlaceholderObjects];
+    [self.innerStorage clearUpdateChanges];
 }
 
 @end

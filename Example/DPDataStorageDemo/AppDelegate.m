@@ -47,17 +47,24 @@
 
 
 - (void)addExampleObjects {
-    NSManagedObjectContext *context = [[DPDataStorage defaultStorage] newPrivateQueueManagedObjectContext];
-    [context performBlock:^{
-        Programmer *programmer1 = [Programmer insertInContext:context];
-        programmer1.name = @"programmer1";
-        Programmer *programmer2 = [Programmer insertInContext:context];
-        programmer2.name = @"programmer2";
-        Programmer *programmer3 = [Programmer insertInContext:context];
-        programmer3.name = @"programmer3";
-        NSError *error = nil;
-        [context saveChanges:&error];
-    }];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        NSManagedObjectContext *context = [[DPDataStorage defaultStorage] newPrivateQueueManagedObjectContext];
+        [context performBlock:^{
+            [Programmer deleteAllEntriesInContext:context];
+
+            
+            Programmer *programmer1 = [Programmer insertInContext:context];
+            programmer1.name = @"programmer1";
+            Programmer *programmer2 = [Programmer insertInContext:context];
+            programmer2.name = @"programmer2";
+//            Programmer *programmer3 = [Programmer insertInContext:context];
+//            programmer3.name = @"programmer3";
+//            Programmer *programmer4 = [Programmer insertInContext:context];
+//            programmer4.name = @"programmer4";
+            NSError *error = nil;
+            [context saveChanges:&error];
+        }];
+    });
 }
 
 @end
