@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
+#import "DPArrayChange.h"
+
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -17,18 +19,22 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly) NSUInteger numberOfObjects;
 @property (nonatomic, readonly) NSArray *objects;
 
-@property (nonatomic) BOOL isInserted;
+@property (nonatomic) NSUInteger index;
+
++ (instancetype)sectionWithIndex:(NSUInteger)index;
 
 - (void)setObjects:(NSArray * _Nullable)objects;
 - (void)insertObject:(id)object atIndex:(NSUInteger)index;
 - (void)removeObjectAtIndex:(NSUInteger)index;
+- (void)replaceObjectWithObject:(id)object atIndex:(NSUInteger)index;
 - (void)moveObjectAtIndex:(NSUInteger)index toIndex:(NSUInteger)newIndex;
 
 - (void)addObjectsFromArray:(NSArray *)otherArray;
 - (NSUInteger)indexOfObject:(id)object;
 - (id)objectAtIndex:(NSUInteger)index;
 
-- (void)removeDeletedPlaceholderObjects;
+- (void)removePlaceholderObjects;
+- (NSArray<DPArrayChange *> *)updateChanges;
 @end
 
 NS_ASSUME_NONNULL_END
