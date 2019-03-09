@@ -9,12 +9,6 @@
 #import "DPArrayChange.h"
 #import <UIKit/UIKit.h>
 
-@interface DPArrayChange ()
-@property (nonatomic, readwrite, assign) NSUInteger index;
-@property (nonatomic, readwrite, assign) NSUInteger newIndex;
-@property (nonatomic, readwrite, strong) id anObject;
-@property (nonatomic, readwrite, assign) NSFetchedResultsChangeType type;
-@end
 
 @implementation DPArrayChange
 

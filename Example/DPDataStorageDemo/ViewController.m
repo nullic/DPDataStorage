@@ -8,8 +8,8 @@
 
 #import "ViewController.h"
 #import <CoreData/CoreData.h>
-#import "Programmer.h"
 #import <DPDataStorage/DPDataStorage.h>
+#import "Programmer+CoreDataProperties.h"
 
 @interface ViewController ()
 @property (strong, nonatomic) IBOutlet DPTableViewDataSource *dataSource;
@@ -21,8 +21,24 @@
     [super viewDidLoad];
     NSManagedObjectContext *context = [[DPDataStorage defaultStorage] mainContext];
     NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES];
-    self.dataSource.listController = [Programmer fetchedResultsController:self.dataSource predicate:nil
-                                                          sortDescriptors:@[sortDescriptor] inContext:context];
+    NSSortDescriptor *sortById = [NSSortDescriptor sortDescriptorWithKey:@"date" ascending:YES];
+    
+    NSFetchRequest *fetchRequest = [Programmer newFetchRequestInContext:context];
+    [fetchRequest setSortDescriptors:@[sortDescriptor, sortById]];
+
+    NSFetchedResultsController *fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
+                                                                                               managedObjectContext:context
+                                                                                                 sectionNameKeyPath:nil
+                                                                                                          cacheName:nil];
+    fetchedResultsController.delegate = self.dataSource;
+    [fetchedResultsController performFetch:NULL];
+    
+    self.dataSource.listController = [[DPSectionedFetchedResultsController alloc] initWithDelegate:self.dataSource sectionKeyPath:@"name" sectionSortDescriptor:sortDescriptor frc:fetchedResultsController];
+//    self.dataSource.listController = [[DPContainerControllerBasedController alloc] initWithDelegate:self.dataSource otherController:fetchedResultsController];
+    
+//    self.dataSource.listController = fetchedResultsController;
+//    self.dataSource.listController = [Programmer fetchedResultsController:self.dataSource predicate:nil
+//                                                          sortDescriptors:@[sortDescriptor] inContext:context];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -33,7 +49,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"kReusableCellIdentifier"];
     Programmer *programmer = [self.dataSource objectAtIndexPath:indexPath];
-    cell.textLabel.text = programmer.name;
+    cell.textLabel.text = [NSString stringWithFormat:@"%@ (%@)", programmer.name, [programmer.objectID URIRepresentation].lastPathComponent];
     return cell;
 }
 

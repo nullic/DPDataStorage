@@ -13,10 +13,10 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface DPArrayChange : NSObject
-@property (nonatomic, readonly, assign) NSUInteger index;
-@property (nonatomic, readonly, assign) NSUInteger newIndex;
-@property (nonatomic, readonly, strong) id anObject;
-@property (nonatomic, readonly, assign) NSFetchedResultsChangeType type;
+@property (nonatomic, assign) NSUInteger index;
+@property (nonatomic, assign) NSUInteger newIndex;
+@property (nonatomic, strong) id anObject;
+@property (nonatomic, assign) NSFetchedResultsChangeType type;
 
 + (instancetype)insertObject:(id)anObject atIndex:(NSUInteger)index;
 + (instancetype)deleteObject:(id)anObject atIndex:(NSUInteger)index;

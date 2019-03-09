@@ -12,6 +12,8 @@
 
 @interface DPArrayControllerSection ()
 @property (nonatomic, readwrite, strong) NSMutableArray *mutableObjects;
+@property (nonatomic, readwrite, strong) NSMutableArray<DPArrayChange *> *insertChanges;
+@property (nonatomic, readwrite, strong) NSMutableArray<DPArrayChange *> *deleteChanges;
 @property (nonatomic, readwrite, strong) NSMutableArray<DPArrayChange *> *changes;
 @end
 
@@ -39,6 +41,16 @@
     return _changes;
 }
 
+- (NSMutableArray *)insertChanges {
+    if (_insertChanges == nil) _insertChanges = [NSMutableArray new];
+    return _insertChanges;
+}
+
+- (NSMutableArray *)deleteChanges {
+    if (_deleteChanges == nil) _deleteChanges = [NSMutableArray new];
+    return _deleteChanges;
+}
+
 - (NSString *)description {return [NSString stringWithFormat:@"%@ {numberOfObjects: %lu}", [super description], (unsigned long)self.numberOfObjects];}
 - (NSUInteger)numberOfObjects {return self.objects.count;};
 - (NSString *)name {return _name ?: @"";}
@@ -47,34 +59,40 @@
 
 - (void)setObjects:(NSArray *)objects {
     self.mutableObjects = [objects mutableCopy];
-//    for (NSUInteger i = 0; i < self.mutableObjects.count; i++) {
+//    for (NSUInteger i = 0; i < [self numberOfObjects]; i++) {
 //        [self removeObjectAtIndex:i];
 //    }
 //
 //    for (id object in objects) {
-//        [self insertObject:object atIndex:self.mutableObjects.count];
+//        [self insertObject:object atIndex:[self numberOfObjects]];
 //    }
 }
 
 - (void)insertObject:(id)object atIndex:(NSUInteger)index {
-    if (index > self.mutableObjects.count) {
-        while (index >= self.mutableObjects.count) {
-            [self.mutableObjects insertObject:[DPPlaceholderObject new] atIndex:self.mutableObjects.count];
+//    [self removeDeletedObjectPlaceholders];
+    
+    if (index > [self numberOfObjects]) {
+        while (index >= [self numberOfObjects]) {
+            [self.mutableObjects insertObject:[DPPlaceholderObject new] atIndex:[self numberOfObjects]];
         }
     }
 
-    if (index < self.mutableObjects.count && [[self.mutableObjects objectAtIndex:index] isKindOfClass:[DPPlaceholderObject class]]) {
+    if (index < [self numberOfObjects] && [[self.mutableObjects objectAtIndex:index] isKindOfClass:[DPPlaceholderObject class]]) {
         [self.mutableObjects removeObjectAtIndex:index];
     }
 
     [self.mutableObjects insertObject:[DPInsertedPlaceholderObject placeholderWithObject: object] atIndex:index];
-    [self.changes addObject:[DPArrayChange insertObject:object atIndex:index]];
+    DPArrayChange *change = [DPArrayChange insertObject:object atIndex:index];
+    [self.changes addObject:change];
+    [self.insertChanges addObject:change];
 }
 
 - (void)removeObjectAtIndex:(NSUInteger)index {
     id object = self.mutableObjects[index];
     [self.mutableObjects replaceObjectAtIndex:index withObject:[DPDeletedPlaceholderObject placeholderWithObject: object]];
-    [self.changes addObject:[DPArrayChange deleteObject:object atIndex:index]];
+    DPArrayChange *change = [DPArrayChange deleteObject:object atIndex:index];
+    [self.changes addObject:change];
+    [self.deleteChanges addObject:change];
 }
 
 - (void)replaceObjectWithObject:(id)object atIndex:(NSUInteger)index {
@@ -91,34 +109,61 @@
 
 - (void)addObjectsFromArray:(NSArray *)otherArray {
     for (id object in otherArray) {
-        [self insertObject:object atIndex:self.mutableObjects.count];
+        [self insertObject:object atIndex:[self numberOfObjects]];
     }
 }
 
 - (NSUInteger)indexOfObject:(id)object {
-    return [self.mutableObjects indexOfObject:object];
+    NSUInteger result = NSNotFound;
+    if (object) {
+        id left = [object isKindOfClass:[NSManagedObject class]] ? [object objectID] : object;
+
+        for (NSInteger index = 0; index < [self numberOfObjects]; index++) {
+            id right = [self objectAtIndex:index];
+            right = [right isKindOfClass:[NSManagedObject class]] ? [right objectID] : right;
+
+            if ([left isEqual:right]) {
+                result = index;
+                break;
+            }
+        }
+    }
+    return result;
 }
 
 - (id)objectAtIndex:(NSUInteger)index {
     id object = [self.mutableObjects objectAtIndex:index];
-    return [object isKindOfClass:[DPPlaceholderObject class]] ? ([object anObject] ?: object)  : object;
+    return [object isKindOfClass:[DPBasePlaceholderObject class]] ? ([object anObject] ?: object)  : object;
 }
 
 - (void)removePlaceholderObjects {
-    NSInteger count = self.mutableObjects.count;
-    for (NSInteger i = (count - 1); i>= 0; i--) {
-        if ([self.mutableObjects[i] isKindOfClass:[DPDeletedPlaceholderObject class]]) {
-            [self.mutableObjects removeObjectAtIndex:i];
+    NSInteger count = [self numberOfObjects];
+    for (NSUInteger i = count; i > 0; i--) {
+        NSUInteger index = i - 1;
+
+        if ([self.mutableObjects[index] isKindOfClass:[DPDeletedPlaceholderObject class]]) {
+            [self.mutableObjects removeObjectAtIndex:index];
         }
-        if ([self.mutableObjects[i] isKindOfClass:[DPInsertedPlaceholderObject class]]) {
-            DPInsertedPlaceholderObject *placeholder = self.mutableObjects[i];
-            [self.mutableObjects replaceObjectAtIndex:i withObject:[placeholder anObject]];
+        else if ([self.mutableObjects[index] isKindOfClass:[DPInsertedPlaceholderObject class]]) {
+            DPInsertedPlaceholderObject *placeholder = self.mutableObjects[index];
+            [self.mutableObjects replaceObjectAtIndex:index withObject:[placeholder anObject]];
         }
     }
 }
 
+//- (void)removeDeletedObjectPlaceholders {
+//    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"index" ascending:false];
+//    [self.deleteChanges sortUsingDescriptors:@[sort]];
+//    for (DPArrayChange *c in self.deleteChanges) {
+//        [self.mutableObjects removeObjectAtIndex:c.index];
+//    }
+//    self.deleteChanges = nil;
+//}
+
 - (void)clearUpdateChanges {
     self.changes = nil;
+    self.insertChanges = nil;
+    self.deleteChanges = nil;
 }
 
 - (NSArray<DPArrayChange *> *)updateChanges {

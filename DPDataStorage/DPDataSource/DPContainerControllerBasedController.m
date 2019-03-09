@@ -33,6 +33,10 @@
     return self;
 }
 
+- (void)managedObjectContextObjectsDidChange:(NSNotification *)notification {
+    
+}
+
 #pragma mark - NSFetchedResultsController
 
 - (void)controllerWillChangeContent:(id<DataSourceContainerController>)controller {

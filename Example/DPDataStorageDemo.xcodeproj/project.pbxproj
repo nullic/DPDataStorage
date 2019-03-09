@@ -9,10 +9,6 @@
 /* Begin PBXBuildFile section */
 		1D580DB5843A961E7316FCBA /* Pods_DPDataStorageDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 98986CDC63D9EC2879731225 /* Pods_DPDataStorageDemo.framework */; };
 		765D80051BD0F07C00CAB832 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 765D80031BD0F07C00CAB832 /* Model.xcdatamodeld */; };
-		765D800E1BD0F61200CAB832 /* Computer+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 765D80071BD0F61200CAB832 /* Computer+CoreDataProperties.m */; };
-		765D800F1BD0F61200CAB832 /* Computer.m in Sources */ = {isa = PBXBuildFile; fileRef = 765D80091BD0F61200CAB832 /* Computer.m */; };
-		765D80101BD0F61200CAB832 /* Programmer+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 765D800B1BD0F61200CAB832 /* Programmer+CoreDataProperties.m */; };
-		765D80111BD0F61200CAB832 /* Programmer.m in Sources */ = {isa = PBXBuildFile; fileRef = 765D800D1BD0F61200CAB832 /* Programmer.m */; };
 		76C887391BC3FBCD006B29C0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 76C887381BC3FBCD006B29C0 /* main.m */; };
 		76C8873C1BC3FBCD006B29C0 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 76C8873B1BC3FBCD006B29C0 /* AppDelegate.m */; };
 		76C8873F1BC3FBCD006B29C0 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 76C8873E1BC3FBCD006B29C0 /* ViewController.m */; };
@@ -24,14 +20,6 @@
 /* Begin PBXFileReference section */
 		74F86FAF8F3600E4C55E1F36 /* Pods-DPDataStorageDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DPDataStorageDemo.debug.xcconfig"; path = "Target Support Files/Pods-DPDataStorageDemo/Pods-DPDataStorageDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		765D80041BD0F07C00CAB832 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
-		765D80061BD0F61200CAB832 /* Computer+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Computer+CoreDataProperties.h"; sourceTree = "<group>"; };
-		765D80071BD0F61200CAB832 /* Computer+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Computer+CoreDataProperties.m"; sourceTree = "<group>"; };
-		765D80081BD0F61200CAB832 /* Computer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Computer.h; sourceTree = "<group>"; };
-		765D80091BD0F61200CAB832 /* Computer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Computer.m; sourceTree = "<group>"; };
-		765D800A1BD0F61200CAB832 /* Programmer+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Programmer+CoreDataProperties.h"; sourceTree = "<group>"; };
-		765D800B1BD0F61200CAB832 /* Programmer+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Programmer+CoreDataProperties.m"; sourceTree = "<group>"; };
-		765D800C1BD0F61200CAB832 /* Programmer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Programmer.h; sourceTree = "<group>"; };
-		765D800D1BD0F61200CAB832 /* Programmer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Programmer.m; sourceTree = "<group>"; };
 		76C887341BC3FBCD006B29C0 /* DPDataStorageDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DPDataStorageDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		76C887381BC3FBCD006B29C0 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		76C8873A1BC3FBCD006B29C0 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -62,14 +50,6 @@
 			isa = PBXGroup;
 			children = (
 				765D80031BD0F07C00CAB832 /* Model.xcdatamodeld */,
-				765D80061BD0F61200CAB832 /* Computer+CoreDataProperties.h */,
-				765D80071BD0F61200CAB832 /* Computer+CoreDataProperties.m */,
-				765D80081BD0F61200CAB832 /* Computer.h */,
-				765D80091BD0F61200CAB832 /* Computer.m */,
-				765D800A1BD0F61200CAB832 /* Programmer+CoreDataProperties.h */,
-				765D800B1BD0F61200CAB832 /* Programmer+CoreDataProperties.m */,
-				765D800C1BD0F61200CAB832 /* Programmer.h */,
-				765D800D1BD0F61200CAB832 /* Programmer.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -123,7 +103,6 @@
 				74F86FAF8F3600E4C55E1F36 /* Pods-DPDataStorageDemo.debug.xcconfig */,
 				926BBA1761644CD36D038E4F /* Pods-DPDataStorageDemo.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -250,13 +229,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				765D80101BD0F61200CAB832 /* Programmer+CoreDataProperties.m in Sources */,
 				76C8873F1BC3FBCD006B29C0 /* ViewController.m in Sources */,
-				765D800E1BD0F61200CAB832 /* Computer+CoreDataProperties.m in Sources */,
-				765D800F1BD0F61200CAB832 /* Computer.m in Sources */,
 				76C8873C1BC3FBCD006B29C0 /* AppDelegate.m in Sources */,
 				76C887391BC3FBCD006B29C0 /* main.m in Sources */,
-				765D80111BD0F61200CAB832 /* Programmer.m in Sources */,
 				765D80051BD0F07C00CAB832 /* Model.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -242,8 +242,6 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
 
 - (void)reloadSectionAtIndex:(NSUInteger)index {
     [self startUpdating];
-
-
     DPArrayControllerSection *section =  [self.sectionsStorage objectAtIndex:index];
     [self.sectionsStorage replaceObjectWithObject:section atIndex:index];
     [self endUpdating];
@@ -257,8 +255,8 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
 
         for (NSInteger i = count; i > 0; i--) {
             NSInteger index = i - 1;
-            DPArrayControllerSection *section =  [self.sectionsStorage objectAtIndex:index];
-            if ([section numberOfObjects] == 0) {
+            DPArrayControllerSection *section = self.sectionsStorage.objects[index];
+            if ([section isKindOfClass:[DPArrayControllerSection class]] && [section numberOfObjects] == 0) {
                 hasEmptySections ? nil : [self startUpdating];
                 [self removeSectionAtIndex:index];
                 hasEmptySections = YES;
@@ -274,7 +272,7 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
         [self startUpdating];
         [self insertSectionAtIndexIfNotExist:index];
 
-        DPArrayControllerSection *section =  [self.sectionsStorage objectAtIndex:index];
+        DPArrayControllerSection *section = [self.sectionsStorage objectAtIndex:index];
         section.name = name;
         
         [self endUpdating];
@@ -364,28 +362,41 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
     if (self.updating == 0) {
         [self willEndUpdating];
 
+        // Remove placeholders
         [self.sectionsStorage removePlaceholderObjects];
         for (DPArrayControllerSection *section in self.sectionsStorage.objects) {
             [section removePlaceholderObjects];
         }
+        
+        // Correcting sectio indices
+        for (NSUInteger i = 0; i < [self.sectionsStorage numberOfObjects]; i++) {
+            DPArrayControllerSection *section = self.sectionsStorage.objects[i];
+            section.index = i;
+        }
 
+        // Start notify delegate
         if (self.responseMask & ResponseMaskWillChangeContent) {
             [self.delegate controllerWillChangeContent:self];
         }
 
+        if (self.responseMask & ResponseMaskDidChangeSection) {
+            for (DPArrayChange *change in self.sectionsStorage.updateChanges) {
+                if (change.type == NSFetchedResultsChangeInsert) {
+                    change.newIndex = [self.sectionsStorage indexOfObject:change.anObject];
+                }
+                if (change.type == NSFetchedResultsChangeUpdate) {
+                    change.index = [self.sectionsStorage indexOfObject:change.anObject];
+                }
+                
+                [change sendSectionChangeTo:self.delegate controller:self];
+            }
+        }
+        
         if (self.responseMask & ResponseMaskDidChangeObject) {
             for (DPArrayControllerSection *section in self.sectionsStorage.objects) {
-                if ([section isKindOfClass:[DPPlaceholderObject class]]) continue;
-                
                 for (DPArrayChange *change in section.updateChanges) {
                     [change sendChangeTo:self.delegate sectionIndex:section.index controller:self];
                 }
-            }
-        }
-
-        if (self.responseMask & ResponseMaskDidChangeSection) {
-            for (DPArrayChange *change in self.sectionsStorage.updateChanges) {
-                [change sendSectionChangeTo:self.delegate controller:self];
             }
         }
 
@@ -437,8 +448,8 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
 - (id)objectAtIndexPath:(NSIndexPath *)indexPath {
     id result = nil;
     if (indexPath) {
-        id<NSFetchedResultsSectionInfo> sectionInfo = [self.sectionsStorage objectAtIndex:indexPath.section];
-        result = sectionInfo.objects[indexPath.row];
+        DPArrayControllerSection *sectionInfo = [self.sectionsStorage objectAtIndex:indexPath.section];
+        result = [sectionInfo objectAtIndex:indexPath.row];
     }
     return result;
 }
@@ -450,10 +461,10 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
         id left = [object isKindOfClass:[NSManagedObject class]] ? [object objectID] : object;
 
         for (NSInteger section = 0; section < [self.sectionsStorage numberOfObjects]; section++) {
-            id<NSFetchedResultsSectionInfo> sectionInfo = [self.sectionsStorage objectAtIndex:section];
+            DPArrayControllerSection *sectionInfo = [self.sectionsStorage objectAtIndex:section];
             
-            for (NSInteger index = 0; index < sectionInfo.objects.count; index++) {
-                id right = sectionInfo.objects[index];
+            for (NSInteger index = 0; index < [sectionInfo numberOfObjects]; index++) {
+                id right = [sectionInfo objectAtIndex:index];
                 right = [right isKindOfClass:[NSManagedObject class]] ? [right objectID] : right;
 
                 if ([left isEqual:right]) {

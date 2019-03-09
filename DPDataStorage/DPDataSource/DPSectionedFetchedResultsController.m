@@ -23,7 +23,9 @@
         self.frc.delegate = self;
         [self.frc performFetch:nil];
         
+        self.delegate = nil;
         [super setObjects:self.frc.sections.firstObject.objects];
+        self.delegate = delegate;
     }
 
     return self;
