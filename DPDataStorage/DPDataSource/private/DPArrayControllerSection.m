@@ -73,15 +73,15 @@
     
     if (index > [self numberOfObjects]) {
         while (index >= [self numberOfObjects]) {
-            [self.mutableObjects insertObject:[DPPlaceholderObject new] atIndex:[self numberOfObjects]];
+            [self.mutableObjects insertObject:[DPInsertedPlaceholderObject new] atIndex:[self numberOfObjects]];
         }
     }
 
-    if (index < [self numberOfObjects] && [[self.mutableObjects objectAtIndex:index] isKindOfClass:[DPPlaceholderObject class]]) {
+    if (index < [self numberOfObjects] && [[self.mutableObjects objectAtIndex:index] isKindOfClass:[DPInsertedPlaceholderObject class]]) {
         [self.mutableObjects removeObjectAtIndex:index];
     }
 
-    [self.mutableObjects insertObject:[DPInsertedPlaceholderObject placeholderWithObject: object] atIndex:index];
+    [self.mutableObjects insertObject:object atIndex:index];
     DPArrayChange *change = [DPArrayChange insertObject:object atIndex:index];
     [self.changes addObject:change];
     [self.insertChanges addObject:change];
@@ -133,7 +133,7 @@
 
 - (id)objectAtIndex:(NSUInteger)index {
     id object = [self.mutableObjects objectAtIndex:index];
-    return [object isKindOfClass:[DPBasePlaceholderObject class]] ? ([object anObject] ?: object)  : object;
+    return [object isKindOfClass:[DPPlaceholderObject class]] ? ([object anObject] ?: object)  : object;
 }
 
 - (void)removePlaceholderObjects {
@@ -144,26 +144,30 @@
         if ([self.mutableObjects[index] isKindOfClass:[DPDeletedPlaceholderObject class]]) {
             [self.mutableObjects removeObjectAtIndex:index];
         }
-        else if ([self.mutableObjects[index] isKindOfClass:[DPInsertedPlaceholderObject class]]) {
-            DPInsertedPlaceholderObject *placeholder = self.mutableObjects[index];
-            [self.mutableObjects replaceObjectAtIndex:index withObject:[placeholder anObject]];
-        }
+//        else if ([self.mutableObjects[index] isKindOfClass:[DPInsertedPlaceholderObject class]]) {
+//            DPInsertedPlaceholderObject *placeholder = self.mutableObjects[index];
+//            [self.mutableObjects replaceObjectAtIndex:index withObject:[placeholder anObject]];
+//        }
     }
 }
 
-//- (void)removeDeletedObjectPlaceholders {
-//    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"index" ascending:false];
-//    [self.deleteChanges sortUsingDescriptors:@[sort]];
-//    for (DPArrayChange *c in self.deleteChanges) {
-//        [self.mutableObjects removeObjectAtIndex:c.index];
-//    }
-//    self.deleteChanges = nil;
-//}
+- (void)removeDeletedObjectPlaceholders {
+    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"index" ascending:false];
+    [self.deleteChanges sortUsingDescriptors:@[sort]];
+    for (DPArrayChange *c in self.deleteChanges) {
+        [self.mutableObjects removeObjectAtIndex:c.index];
+    }
+    self.deleteChanges = nil;
+}
 
 - (void)clearUpdateChanges {
     self.changes = nil;
     self.insertChanges = nil;
     self.deleteChanges = nil;
+}
+
+- (BOOL)hasChanges {
+    return [[self changes] count] > 0;
 }
 
 - (NSArray<DPArrayChange *> *)updateChanges {

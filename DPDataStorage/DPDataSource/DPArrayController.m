@@ -350,22 +350,23 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
 }
 
 - (void)endUpdating {
-    if (self.updating == 1) {
-        // Remove exist empty sections
-        if (self.removeEmptySectionsAutomaticaly) {
-            [self removeEmptySections];
-        }
-    }
-
     self.updating--;
 
     if (self.updating == 0) {
         [self willEndUpdating];
 
         // Remove placeholders
-        [self.sectionsStorage removePlaceholderObjects];
+        if ([self.sectionsStorage hasChanges]) {
+            [self.sectionsStorage removePlaceholderObjects];
+        }
         for (DPArrayControllerSection *section in self.sectionsStorage.objects) {
-            [section removePlaceholderObjects];
+            if ([section hasChanges]) {
+                [section removePlaceholderObjects];
+            }
+        }
+        
+        if (self.removeEmptySectionsAutomaticaly) {
+            [self removeEmptySections];
         }
         
         // Correcting sectio indices
@@ -383,12 +384,12 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
             for (DPArrayChange *change in self.sectionsStorage.updateChanges) {
                 if (change.type == NSFetchedResultsChangeInsert) {
                     change.newIndex = [self.sectionsStorage indexOfObject:change.anObject];
+                    [change sendSectionChangeTo:self.delegate controller:self];
                 }
-                if (change.type == NSFetchedResultsChangeUpdate) {
+                else if (change.type == NSFetchedResultsChangeUpdate) {
                     change.index = [self.sectionsStorage indexOfObject:change.anObject];
+                    [change sendSectionChangeTo:self.delegate controller:self];
                 }
-                
-                [change sendSectionChangeTo:self.delegate controller:self];
             }
         }
         
@@ -396,6 +397,14 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
             for (DPArrayControllerSection *section in self.sectionsStorage.objects) {
                 for (DPArrayChange *change in section.updateChanges) {
                     [change sendChangeTo:self.delegate sectionIndex:section.index controller:self];
+                }
+            }
+        }
+        
+        if (self.responseMask & ResponseMaskDidChangeSection) {
+            for (DPArrayChange *change in self.sectionsStorage.updateChanges) {
+                if (change.type == NSFetchedResultsChangeDelete) {
+                    [change sendSectionChangeTo:self.delegate controller:self];
                 }
             }
         }
@@ -407,11 +416,6 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
         [self.sectionsStorage clearUpdateChanges];
         for (DPArrayControllerSection *section in self.sectionsStorage.objects) {
             [section clearUpdateChanges];
-        }
-
-        // Remove inserted empty sections
-        if (self.removeEmptySectionsAutomaticaly) {
-            [self removeEmptySections];
         }
     }
 }

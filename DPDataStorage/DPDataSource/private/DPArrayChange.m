@@ -46,7 +46,7 @@
 }
 
 + (instancetype)updateObject:(id)anObject atIndex:(NSUInteger)index {
-    return [self changeObject:anObject atIndex:index forChangeType:NSFetchedResultsChangeUpdate newIndex:NSNotFound];
+    return [self changeObject:anObject atIndex:index forChangeType:NSFetchedResultsChangeUpdate newIndex:index];
 }
 
 - (void)sendChangeTo:(id<DataSourceContainerControllerDelegate>)delegate sectionIndex:(NSUInteger)section controller:(id<DataSourceContainerController>)controller {
@@ -64,9 +64,6 @@
             break;
 
         case NSFetchedResultsChangeUpdate:
-            [delegate controller:controller didChangeObject:self.anObject atIndexPath:atIndexPath forChangeType:self.type newIndexPath:nil];
-            break;
-
         case NSFetchedResultsChangeMove:
             [delegate controller:controller didChangeObject:self.anObject atIndexPath:atIndexPath forChangeType:self.type newIndexPath:newIndexPath];
             break;

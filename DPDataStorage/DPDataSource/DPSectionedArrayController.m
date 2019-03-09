@@ -86,8 +86,7 @@
     [super startUpdating];
 
     [super removeAllObjects];
-    self.innerStorage.objects = objects;
-    [self.innerStorage removePlaceholderObjects];
+    [self.innerStorage setObjects:objects];
     [self.innerStorage clearUpdateChanges];
 
     if (objects.count > 0) {
@@ -142,7 +141,7 @@
                 NSIndexPath *ip = [NSIndexPath indexPathForItem:item inSection:section];
                 id firstObject = [self objectAtIndexPath:ip];
                 
-                NSComparisonResult result = [self.sectionComarator compareObject:firstObject toObject:object];
+                NSComparisonResult result = self.sectionComarator(firstObject, object);
                 if (result != NSOrderedAscending) {
                     break;
                 }
@@ -168,6 +167,7 @@
 
 - (void)insertObject:(id)object atIndex:(NSUInteger)index {
     [self startUpdating];
+    [self.innerStorage removeDeletedObjectPlaceholders];
     [self.innerStorage insertObject:object atIndex:index];
 
     BOOL newSection = NO;
@@ -182,7 +182,6 @@
 
 - (void)removeObjectAtIndex:(NSUInteger)index {
     [self startUpdating];
-
     id object = [self.innerStorage objectAtIndex:index];
     [self.innerStorage removeObjectAtIndex:index];
 
@@ -194,6 +193,7 @@
 
 - (void)reloadObjectAtIndex:(NSUInteger)index {
     [self startUpdating];
+    [self.innerStorage removeDeletedObjectPlaceholders];
     id object = [self.innerStorage objectAtIndex:index];
 
     BOOL newSection = NO;
