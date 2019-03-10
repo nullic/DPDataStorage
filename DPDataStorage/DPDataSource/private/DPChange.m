@@ -139,18 +139,23 @@
 }
 
 + (instancetype)insertObject:(id)anObject atIndexPath:(NSIndexPath *)path {
+    NSParameterAssert(path != nil);
     return [self changeObject:anObject atIndexPath:nil forChangeType:NSFetchedResultsChangeInsert newIndexPath:path];
 }
 
 + (instancetype)deleteObject:(id)anObject atIndexPath:(NSIndexPath *)path {
+    NSParameterAssert(path != nil);
     return [self changeObject:anObject atIndexPath:path forChangeType:NSFetchedResultsChangeDelete newIndexPath:nil];
 }
 
 + (instancetype)moveObject:(id)anObject atIndexPath:(NSIndexPath *)path newIndex:(NSIndexPath *)newPath {
+    NSParameterAssert(path != nil);
+    NSParameterAssert(newPath != nil);
     return [self changeObject:anObject atIndexPath:path forChangeType:NSFetchedResultsChangeMove newIndexPath:newPath];
 }
 
 + (instancetype)updateObject:(id)anObject atIndexPath:(NSIndexPath *)path newIndexPath:(nullable NSIndexPath *)newPath {
+    NSParameterAssert(path != nil);
     return [self changeObject:anObject atIndexPath:path forChangeType:NSFetchedResultsChangeUpdate newIndexPath:newPath];
 }
 

@@ -392,7 +392,7 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
 
 - (id)objectAtIndexPath:(NSIndexPath *)indexPath {
     id result = nil;
-    if (indexPath) {
+    if (indexPath && indexPath.section < [self numberOfSections] && indexPath.row < [self numberOfItemsInSection:indexPath.section]) {
         DPArrayControllerSection *sectionInfo = [self.sectionsStorage objectAtIndex:indexPath.section];
         result = [sectionInfo objectAtIndex:indexPath.row];
     }
