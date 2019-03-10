@@ -23,7 +23,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)insertSectionAtIndex:(NSUInteger)index NS_UNAVAILABLE;
 - (void)removeSectionAtIndex:(NSUInteger)index NS_UNAVAILABLE;
 - (void)reloadSectionAtIndex:(NSUInteger)index NS_UNAVAILABLE;
-- (void)removeEmptySections NS_UNAVAILABLE;
 
 - (void)addObjects:(NSArray *)objects atSection:(NSInteger)section NS_UNAVAILABLE;
 - (void)setObjects:(NSArray *)objects atSection:(NSInteger)section NS_UNAVAILABLE;

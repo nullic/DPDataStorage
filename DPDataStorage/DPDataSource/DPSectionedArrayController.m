@@ -8,11 +8,12 @@
 
 #import "DPSectionedArrayController.h"
 #import "DPArrayControllerSection.h"
-
+#import "DPChange.h"
 
 @interface DPSectionedArrayController ()
 @property (nonatomic, readwrite, strong) NSSortDescriptor *sectionSortDescriptor;
 @property (nonatomic, strong) DPArrayControllerSection *innerStorage;
+@property (nonatomic, strong) NSMutableArray<DPSectionChange *> *insertedObjects;
 @end
 
 
@@ -21,11 +22,15 @@
 - (instancetype)initWithDelegate:(id<DataSourceContainerControllerDelegate> _Nullable)delegate sectionKeyPath:(NSString *)sectionKeyPath sectionSortDescriptor:(NSSortDescriptor *)sectionSortDescriptor
 {
     if ((self = [super initWithDelegate:delegate])) {
-        self.removeEmptySectionsAutomaticaly = YES;
         self.sectionKeyPath = sectionKeyPath;
         self.sectionSortDescriptor = sectionSortDescriptor;
     }
     return self;
+}
+
+- (NSMutableArray *)insertedObjects {
+    if (_insertedObjects == nil) _insertedObjects = [NSMutableArray new];
+    return _insertedObjects;
 }
 
 #pragma mark -
@@ -40,10 +45,6 @@
     _sectionNameSetter = sectionNameSetter;
     _sectionKeyPath = nil;
     [self reloadSectionsName];
-}
-
-- (void)setRemoveEmptySectionsAutomaticaly:(BOOL)removeEmptySectionsAutomaticaly {
-    [super setRemoveEmptySectionsAutomaticaly:YES];
 }
 
 - (DPArrayControllerSection *)innerStorage {
@@ -69,8 +70,8 @@
 }
 
 - (void)_setObjects:(NSArray *)objects atSection:(NSInteger)section {
-    [self _setSectionNameWithObjects:objects atSection:section];
     [super setObjects:objects atSection:section];
+    [self _setSectionNameWithObjects:objects atSection:section];
 }
 
 #pragma mark -
@@ -83,11 +84,8 @@
 }
 
 - (void)setObjects:(NSArray *)objects {
-    [super startUpdating];
-
     [super removeAllObjects];
     [self.innerStorage setObjects:objects];
-    [self.innerStorage clearUpdateChanges];
 
     if (objects.count > 0) {
         NSArray *sortedObjects = [self.innerStorage.objects sortedArrayUsingDescriptors:@[self.sectionSortDescriptor]];
@@ -107,22 +105,24 @@
 
         [self _setObjects:sectionObjects atSection:sectionIndex];
     }
-
-    [super endUpdating];
 }
 
 #pragma mark -
 
 - (id)objectAtIndex:(NSUInteger)index {
-    return [self.innerStorage objectAtIndex:index];
+    if (self.isUpdating) {
+        return self.innerStorage.objects[index];
+    } else {
+        return [self.innerStorage objectAtIndex:index];
+    }
 }
 
 - (NSUInteger)indexOfObject:(id)object {
     return [self.innerStorage indexOfObject:object];
 }
 
-- (NSUInteger)countOfObjects {
-    return [self.innerStorage.objects count];
+- (NSUInteger)numberOfObjects {
+    return [self.innerStorage numberOfObjects];
 }
 
 - (NSIndexPath *)newIndexPathForObject:(id)object newSection:(BOOL *)newSection {
@@ -166,35 +166,30 @@
 }
 
 - (void)insertObject:(id)object atIndex:(NSUInteger)index {
-    [self startUpdating];
-    [self.innerStorage removeDeletedObjectPlaceholders];
-    [self.innerStorage insertObject:object atIndex:index];
+    if (self.isUpdating) {
+        [self.insertedObjects addObject:[DPSectionChange insertObject:object atIndex:index]];
+    } else {
+        [self.innerStorage insertObject:object atIndex:index];
 
-    BOOL newSection = NO;
-    NSIndexPath *indexPath = [self newIndexPathForObject:object newSection:&newSection];
-    if (newSection == YES) {
-        [super insertSectionAtIndex:indexPath.section];
+        BOOL newSection = NO;
+        NSIndexPath *indexPath = [self newIndexPathForObject:object newSection:&newSection];
+        if (newSection == YES) {
+            [super insertSectionAtIndex:indexPath.section];
+        }
+        [super insertObject:object atIndextPath:indexPath];
     }
-    [super insertObject:object atIndextPath:indexPath];
-
-    [self endUpdating];
 }
 
 - (void)removeObjectAtIndex:(NSUInteger)index {
-    [self startUpdating];
-    id object = [self.innerStorage objectAtIndex:index];
+    id object = [self objectAtIndex:index];
     [self.innerStorage removeObjectAtIndex:index];
 
     NSIndexPath *indexPath = [super indexPathForObject:object];
     [super deleteObjectAtIndextPath:indexPath];
-
-    [self endUpdating];
 }
 
 - (void)reloadObjectAtIndex:(NSUInteger)index {
-    [self startUpdating];
-    [self.innerStorage removeDeletedObjectPlaceholders];
-    id object = [self.innerStorage objectAtIndex:index];
+    id object = [self objectAtIndex:index];
 
     BOOL newSection = NO;
     NSIndexPath *newIndexPath = [self newIndexPathForObject:object newSection:&newSection];
@@ -209,13 +204,10 @@
     } else {
         [super reloadObjectAtIndextPath:currentIndexPath];
     }
-
-    [self endUpdating];
 }
 
 - (void)moveObjectAtIndex:(NSUInteger)index toIndex:(NSUInteger)newIndex {
-    [self startUpdating];
-    id object = [self.innerStorage objectAtIndex:index];
+    id object = [self objectAtIndex:index];
 
     [self.innerStorage moveObjectAtIndex:index toIndex:newIndex];
 
@@ -232,8 +224,6 @@
     } else {
         [super reloadObjectAtIndextPath:currentIndexPath];
     }
-
-    [self endUpdating];
 }
 
 - (void)reloadObjectAtIndextPath:(NSIndexPath *)indexPath {
@@ -242,10 +232,59 @@
     [self reloadObjectAtIndex:index];
 }
 
-- (void)willEndUpdating {
-    [super willEndUpdating];
-    [self.innerStorage removePlaceholderObjects];
-    [self.innerStorage clearUpdateChanges];
+#pragma mark -
+
+- (void)endUpdating {
+    [self applyInsertion];
+    [super endUpdating];
+}
+
+- (void)applyChanges {
+    [super applyChanges];
+    [self removeEmptySections];
+}
+
+- (void)applyInsertion {
+    if (self.insertedObjects.count == 0) return;
+    
+    [self.insertedObjects sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"index" ascending:YES]]];
+    
+    NSInteger sectionShift = 0;
+    NSInteger itemShift = 0;
+    id prevObject = nil;
+    for (DPSectionChange *c in self.insertedObjects) {
+        [self.innerStorage insertObject:c.anObject atIndex:c.index];
+     
+        BOOL newSection = NO;
+        NSIndexPath *indexPath = [self newIndexPathForObject:c.anObject newSection:&newSection];
+        indexPath = [NSIndexPath indexPathForItem:indexPath.item inSection:indexPath.section + sectionShift];
+        if (newSection == YES) {
+            NSComparisonResult result = prevObject != nil ? [self.sectionSortDescriptor compareObject:prevObject toObject:c.anObject] : NSOrderedAscending;
+            if (result == NSOrderedSame) {
+                itemShift++;
+                indexPath = [NSIndexPath indexPathForItem:indexPath.item + itemShift inSection:indexPath.section - 1];
+            } else {
+                sectionShift++;
+                itemShift = 0;
+                [super insertSectionAtIndex:indexPath.section];
+            }
+        }
+        
+        [super insertObject:c.anObject atIndextPath:indexPath];
+        prevObject = c.anObject;
+    }
+    
+    self.insertedObjects = nil;
+}
+
+- (void)removeEmptySections {
+    NSInteger count = [self numberOfSections];
+    for (NSInteger i = 0; i < count; i++) {
+        id section = self.sections[i];
+        if ([section numberOfObjects] == 0) {
+            [[DPSectionChange deleteObject:section atIndex:i] applyTo:self];
+        }
+    }
 }
 
 @end

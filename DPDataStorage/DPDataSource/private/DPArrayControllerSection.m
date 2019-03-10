@@ -12,9 +12,7 @@
 
 @interface DPArrayControllerSection ()
 @property (nonatomic, readwrite, strong) NSMutableArray *mutableObjects;
-@property (nonatomic, readwrite, strong) NSMutableArray<DPArrayChange *> *insertChanges;
-@property (nonatomic, readwrite, strong) NSMutableArray<DPArrayChange *> *deleteChanges;
-@property (nonatomic, readwrite, strong) NSMutableArray<DPArrayChange *> *changes;
+@property (nonatomic, readwrite, strong) NSMutableArray *deleteChanges;
 @end
 
 
@@ -36,40 +34,33 @@
     return _mutableObjects;
 }
 
-- (NSMutableArray *)changes {
-    if (_changes == nil) _changes = [NSMutableArray new];
-    return _changes;
-}
-
-- (NSMutableArray *)insertChanges {
-    if (_insertChanges == nil) _insertChanges = [NSMutableArray new];
-    return _insertChanges;
-}
-
 - (NSMutableArray *)deleteChanges {
     if (_deleteChanges == nil) _deleteChanges = [NSMutableArray new];
     return _deleteChanges;
 }
 
-- (NSString *)description {return [NSString stringWithFormat:@"%@ {numberOfObjects: %lu}", [super description], (unsigned long)self.numberOfObjects];}
-- (NSUInteger)numberOfObjects {return self.objects.count;};
-- (NSString *)name {return _name ?: @"";}
+- (NSString *)description {
+    return [NSString stringWithFormat:@"%@ {numberOfObjects: %lu}", [super description], (unsigned long)self.numberOfObjects];
+}
+
+- (NSUInteger)numberOfObjects {
+    [self removeDeletedObjectPlaceholders];
+    return self.objects.count;
+}
+
+- (NSString *)name {
+    return _name ?: @"";
+}
 
 #pragma mark - array mutating
 
 - (void)setObjects:(NSArray *)objects {
     self.mutableObjects = [objects mutableCopy];
-//    for (NSUInteger i = 0; i < [self numberOfObjects]; i++) {
-//        [self removeObjectAtIndex:i];
-//    }
-//
-//    for (id object in objects) {
-//        [self insertObject:object atIndex:[self numberOfObjects]];
-//    }
+    self.deleteChanges = nil;
 }
 
 - (void)insertObject:(id)object atIndex:(NSUInteger)index {
-//    [self removeDeletedObjectPlaceholders];
+    [self removeDeletedObjectPlaceholders];
     
     if (index > [self numberOfObjects]) {
         while (index >= [self numberOfObjects]) {
@@ -82,38 +73,35 @@
     }
 
     [self.mutableObjects insertObject:object atIndex:index];
-    DPArrayChange *change = [DPArrayChange insertObject:object atIndex:index];
-    [self.changes addObject:change];
-    [self.insertChanges addObject:change];
 }
 
 - (void)removeObjectAtIndex:(NSUInteger)index {
     id object = self.mutableObjects[index];
     [self.mutableObjects replaceObjectAtIndex:index withObject:[DPDeletedPlaceholderObject placeholderWithObject: object]];
-    DPArrayChange *change = [DPArrayChange deleteObject:object atIndex:index];
-    [self.changes addObject:change];
-    [self.deleteChanges addObject:change];
+    [self.deleteChanges addObject:@(index)];
 }
 
 - (void)replaceObjectWithObject:(id)object atIndex:(NSUInteger)index {
+    [self removeDeletedObjectPlaceholders];
     [self.mutableObjects replaceObjectAtIndex:index withObject:object];
-    [self.changes addObject:[DPArrayChange updateObject:object atIndex:index]];
 }
 
 - (void)moveObjectAtIndex:(NSUInteger)index toIndex:(NSUInteger)newIndex {
+    [self removeDeletedObjectPlaceholders];
     id object = self.mutableObjects[index];
     [self.mutableObjects removeObjectAtIndex:index];
     [self.mutableObjects insertObject:object atIndex:newIndex];
-    [self.changes addObject:[DPArrayChange moveObject:object atIndex:index newIndex:newIndex]];
 }
 
 - (void)addObjectsFromArray:(NSArray *)otherArray {
+    [self removeDeletedObjectPlaceholders];
     for (id object in otherArray) {
         [self insertObject:object atIndex:[self numberOfObjects]];
     }
 }
 
 - (NSUInteger)indexOfObject:(id)object {
+    [self removeDeletedObjectPlaceholders];
     NSUInteger result = NSNotFound;
     if (object) {
         id left = [object isKindOfClass:[NSManagedObject class]] ? [object objectID] : object;
@@ -132,46 +120,16 @@
 }
 
 - (id)objectAtIndex:(NSUInteger)index {
-    id object = [self.mutableObjects objectAtIndex:index];
-    return [object isKindOfClass:[DPPlaceholderObject class]] ? ([object anObject] ?: object)  : object;
-}
-
-- (void)removePlaceholderObjects {
-    NSInteger count = [self numberOfObjects];
-    for (NSUInteger i = count; i > 0; i--) {
-        NSUInteger index = i - 1;
-
-        if ([self.mutableObjects[index] isKindOfClass:[DPDeletedPlaceholderObject class]]) {
-            [self.mutableObjects removeObjectAtIndex:index];
-        }
-//        else if ([self.mutableObjects[index] isKindOfClass:[DPInsertedPlaceholderObject class]]) {
-//            DPInsertedPlaceholderObject *placeholder = self.mutableObjects[index];
-//            [self.mutableObjects replaceObjectAtIndex:index withObject:[placeholder anObject]];
-//        }
-    }
+    [self removeDeletedObjectPlaceholders];
+    return [self.mutableObjects objectAtIndex:index];
 }
 
 - (void)removeDeletedObjectPlaceholders {
-    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"index" ascending:false];
-    [self.deleteChanges sortUsingDescriptors:@[sort]];
-    for (DPArrayChange *c in self.deleteChanges) {
-        [self.mutableObjects removeObjectAtIndex:c.index];
+    [self.deleteChanges sortUsingSelector:@selector(compare:)];
+    for (NSNumber *index in [self.deleteChanges reverseObjectEnumerator]) {
+        [self.mutableObjects removeObjectAtIndex:index.integerValue];
     }
     self.deleteChanges = nil;
-}
-
-- (void)clearUpdateChanges {
-    self.changes = nil;
-    self.insertChanges = nil;
-    self.deleteChanges = nil;
-}
-
-- (BOOL)hasChanges {
-    return [[self changes] count] > 0;
-}
-
-- (NSArray<DPArrayChange *> *)updateChanges {
-    return [self changes];
 }
 
 @end

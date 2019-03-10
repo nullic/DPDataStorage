@@ -8,11 +8,12 @@
 
 #import "DPBaseDataSource.h"
 
+@class DPChange;
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface DPArrayController : NSObject <DataSourceContainerController>
 @property (nonatomic, weak, nullable) IBOutlet id<DataSourceContainerControllerDelegate> delegate;
-@property (nonatomic, assign) IBInspectable BOOL removeEmptySectionsAutomaticaly; // Default YES
 @property (nonatomic, readonly) BOOL hasData;
 
 - (instancetype)initWithDelegate:(id<DataSourceContainerControllerDelegate> _Nullable)delegate;
@@ -25,9 +26,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)moveObjectAtIndextPath:(NSIndexPath *)indexPath toIndexPath:(NSIndexPath *)newIndexPath;
 
 - (void)insertSectionAtIndex:(NSUInteger)index;
+- (void)insertSectionObject:(id<NSFetchedResultsSectionInfo>)sectionInfo atIndex:(NSUInteger)index;
 - (void)removeSectionAtIndex:(NSUInteger)index;
 - (void)reloadSectionAtIndex:(NSUInteger)index;
-- (void)removeEmptySections;
+
 - (void)setSectionName:(NSString *)name atIndex:(NSUInteger)index;
 
 - (void)addObjects:(NSArray *)objects atSection:(NSInteger)section;
@@ -36,8 +38,13 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)startUpdating;
 - (void)endUpdating;
 - (BOOL)isUpdating;
-- (void)didStartUpdating;
-- (void)willEndUpdating;
+
+- (BOOL)delegateResponseToDidChangeObject;
+- (BOOL)delegateResponseToDidChangeSection;
+
+- (BOOL)hasChanges;
+- (NSArray<DPChange *> *)updateChanges;
+- (void)applyChanges;
 
 - (NSInteger)numberOfSections;
 - (NSInteger)numberOfItemsInSection:(NSInteger)section;

@@ -56,25 +56,25 @@
             else {
                 NSArray *entries = [Programmer allEntriesInContext:context];
                 for (Programmer *p in entries) {
-                    if ([p.name isEqualToString:@"programmer3"]) {
+                    if ([p.name isEqualToString:@"programmer1"]) {
                         [context deleteObject:p];
                     }
-                    if ([p.name isEqualToString:@"programmer2"]) {
+                    if ([p.name isEqualToString:@"programmer3"]) {
                         p.date = [NSDate date];
                     }
                 }
 
-//                Programmer *programmer1 = [Programmer insertInContext:context];
-//                programmer1.name = @"programmer1";
-//                programmer1.date = [NSDate date];
+                Programmer *programmer1 = [Programmer insertInContext:context];
+                programmer1.name = @"programmer1";
+                programmer1.date = [NSDate date];
 //                Programmer *programmer2 = [Programmer insertInContext:context];
 //                programmer2.name = @"programmer2";
 //                programmer2.date = [NSDate date];
-                Programmer *programmer3 = [Programmer insertInContext:context];
-                programmer3.name = @"programmer3";
-                programmer3.date = [NSDate date];
+//                Programmer *programmer3 = [Programmer insertInContext:context];
+//                programmer3.name = @"programmer2";
+//                programmer3.date = [NSDate date];
 //                Programmer *programmer4 = [Programmer insertInContext:context];
-//                programmer4.name = @"programmer4";
+//                programmer4.name = @"programmer3";
 //                programmer4.date = [NSDate date];
             }
             

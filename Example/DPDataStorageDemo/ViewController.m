@@ -21,7 +21,7 @@
     [super viewDidLoad];
     NSManagedObjectContext *context = [[DPDataStorage defaultStorage] mainContext];
     NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES];
-    NSSortDescriptor *sortById = [NSSortDescriptor sortDescriptorWithKey:@"date" ascending:YES];
+    NSSortDescriptor *sortById = [NSSortDescriptor sortDescriptorWithKey:@"date" ascending:NO];
     
     NSFetchRequest *fetchRequest = [Programmer newFetchRequestInContext:context];
     [fetchRequest setSortDescriptors:@[sortDescriptor, sortById]];
@@ -37,8 +37,6 @@
 //    self.dataSource.listController = [[DPContainerControllerBasedController alloc] initWithDelegate:self.dataSource otherController:fetchedResultsController];
     
 //    self.dataSource.listController = fetchedResultsController;
-//    self.dataSource.listController = [Programmer fetchedResultsController:self.dataSource predicate:nil
-//                                                          sortDescriptors:@[sortDescriptor] inContext:context];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -49,7 +47,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"kReusableCellIdentifier"];
     Programmer *programmer = [self.dataSource objectAtIndexPath:indexPath];
-    cell.textLabel.text = [NSString stringWithFormat:@"%@ (%@)", programmer.name, [programmer.objectID URIRepresentation].lastPathComponent];
+    cell.textLabel.text = [NSString stringWithFormat:@"%@ (%@)", programmer.name, programmer.date];
     return cell;
 }
 

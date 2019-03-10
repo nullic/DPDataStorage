@@ -8,8 +8,6 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
-#import "DPArrayChange.h"
-
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -32,12 +30,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)addObjectsFromArray:(NSArray *)otherArray;
 - (NSUInteger)indexOfObject:(id)object;
 - (id)objectAtIndex:(NSUInteger)index;
-
-- (void)removePlaceholderObjects;
-- (void)removeDeletedObjectPlaceholders;
-- (void)clearUpdateChanges;
-- (BOOL)hasChanges;
-- (NSArray<DPArrayChange *> *)updateChanges;
 @end
 
 NS_ASSUME_NONNULL_END
