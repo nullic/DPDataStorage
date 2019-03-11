@@ -26,7 +26,6 @@
 }
 
 - (NSArray *)objects {
-    [self removeDeletedObjectPlaceholders];
     return self.mutableObjects;
 }
 
@@ -45,6 +44,7 @@
 }
 
 - (NSUInteger)numberOfObjects {
+    [self removeDeletedObjectPlaceholders];
     return self.objects.count;
 }
 
