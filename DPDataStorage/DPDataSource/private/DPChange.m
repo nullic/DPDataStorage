@@ -15,27 +15,9 @@
 - (void)applyTo:(DPArrayController *)controller {
     NSAssert(FALSE, @"Must be implemented in sub-classes");
 }
-
-- (NSComparisonResult)compare:(DPChange *)other {
-    if ([self isKindOfClass:[DPSectionChange class]] && [other isKindOfClass:[DPItemChange class]]) {
-        return NSOrderedAscending;
-    } else if ([self isKindOfClass:[DPItemChange class]] && [other isKindOfClass:[DPSectionChange class]]) {
-        return NSOrderedDescending;
-    } else if (self.type == other.type) {
-        return NSOrderedSame;
-    } else if (self.type == NSFetchedResultsChangeDelete)  {
-        return NSOrderedAscending;
-    } else if (other.type == NSFetchedResultsChangeDelete)  {
-        return NSOrderedDescending;
-    } else if (self.type == NSFetchedResultsChangeInsert)  {
-        return NSOrderedAscending;
-    } else if (other.type == NSFetchedResultsChangeInsert)  {
-        return NSOrderedDescending;
-    } else {
-        return NSOrderedSame;
-    }
+- (void)notifyDelegateOfController:(DPArrayController *)controller {
+    NSAssert(FALSE, @"Must be implemented in sub-classes");
 }
-
 @end
 
 
@@ -76,10 +58,6 @@
 - (void)applyTo:(DPArrayController *)controller {
     NSParameterAssert(controller.isUpdating == FALSE);
     
-    if ([controller delegateResponseToDidChangeSection]) {
-        [controller.delegate controller:controller didChangeSection:self.anObject atIndex:self.index forChangeType:self.type];
-    }
-    
     switch (self.type) {
         case NSFetchedResultsChangeInsert:
             [controller insertSectionObject:self.anObject atIndex:self.index];
@@ -98,15 +76,10 @@
     }
 }
 
-- (NSComparisonResult)compare:(DPChange *)other {
-    NSComparisonResult result = [super compare:other];
-    if (result == NSOrderedSame) {
-        if (self.type == NSFetchedResultsChangeInsert) {
-            
-        } else if (self.type == NSFetchedResultsChangeInsert) {
-        }
+- (void)notifyDelegateOfController:(DPArrayController *)controller {
+    if ([controller delegateResponseToDidChangeSection]) {
+        [controller.delegate controller:controller didChangeSection:self.anObject atIndex:self.index forChangeType:self.type];
     }
-    return result;
 }
 
 @end
@@ -162,10 +135,6 @@
 - (void)applyTo:(DPArrayController *)controller {
     NSParameterAssert(controller.isUpdating == FALSE);
     
-    if ([controller delegateResponseToDidChangeObject]) {
-        [controller.delegate controller:controller didChangeObject:self.anObject atIndexPath:self.path forChangeType:self.type newIndexPath:self.toPath];
-    }
-    
     switch (self.type) {
         case NSFetchedResultsChangeInsert:
             [controller insertObject:self.anObject atIndextPath:self.toPath];
@@ -181,6 +150,12 @@
         case NSFetchedResultsChangeMove:
             [controller moveObjectAtIndextPath:[controller indexPathForObject:self.anObject] toIndexPath:self.toPath];
             break;
+    }
+}
+
+- (void)notifyDelegateOfController:(DPArrayController *)controller {
+    if ([controller delegateResponseToDidChangeObject]) {
+        [controller.delegate controller:controller didChangeObject:self.anObject atIndexPath:self.path forChangeType:self.type newIndexPath:self.toPath];
     }
 }
 

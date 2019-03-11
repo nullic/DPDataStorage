@@ -342,6 +342,7 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
         }
         
         [self applyChanges];
+        [self notifyDelegate];
 
         [self.sectionsStorage removeDeletedObjectPlaceholders];
         for (DPArrayControllerSection *section in self.sectionsStorage.objects) {
@@ -366,6 +367,12 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
 - (void)applyChanges {
     for (DPChange *change in self.changes) {
         [change applyTo:self];
+    }
+}
+
+- (void)notifyDelegate {
+    for (DPChange *change in self.changes) {
+        [change notifyDelegateOfController:self];
     }
 }
 

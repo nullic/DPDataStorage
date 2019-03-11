@@ -14,6 +14,7 @@
 @property (nonatomic, readwrite, strong) NSSortDescriptor *sectionSortDescriptor;
 @property (nonatomic, strong) DPArrayControllerSection *innerStorage;
 @property (nonatomic, strong) NSMutableArray<DPSectionChange *> *insertedObjects;
+@property (nonatomic, strong) NSMutableArray<DPSectionChange *> *deleteSectionChanges;
 @end
 
 
@@ -31,6 +32,11 @@
 - (NSMutableArray *)insertedObjects {
     if (_insertedObjects == nil) _insertedObjects = [NSMutableArray new];
     return _insertedObjects;
+}
+
+- (NSMutableArray *)deleteSectionChanges {
+    if (_deleteSectionChanges == nil) _deleteSectionChanges = [NSMutableArray new];
+    return _deleteSectionChanges;
 }
 
 #pragma mark -
@@ -245,6 +251,14 @@
     [self removeEmptySections];
 }
 
+- (void)notifyDelegate {
+    [super notifyDelegate];
+    for (DPSectionChange *change in self.deleteSectionChanges) {
+        [change notifyDelegateOfController:self];
+    }
+    self.deleteSectionChanges = nil;
+}
+
 - (void)applyInsertion {
     if (self.insertedObjects.count == 0) return;
     
@@ -289,7 +303,9 @@
     for (NSInteger i = 0; i < count; i++) {
         id section = self.sections[i];
         if ([section numberOfObjects] == 0) {
-            [[DPSectionChange deleteObject:section atIndex:i] applyTo:self];
+            DPSectionChange *change = [DPSectionChange deleteObject:section atIndex:i];
+            [change applyTo:self];
+            [self.deleteSectionChanges addObject:change];
         }
     }
 }

@@ -19,8 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) NSFetchedResultsChangeType type;
 
 - (void)applyTo:(DPArrayController *)controller;
-
-- (NSComparisonResult)compare:(DPChange *)other;
+- (void)notifyDelegateOfController:(DPArrayController *)controller;
 @end
 
 
@@ -30,8 +29,6 @@ NS_ASSUME_NONNULL_BEGIN
 + (instancetype)insertObject:(id)anObject atIndex:(NSUInteger)index;
 + (instancetype)deleteObject:(id)anObject atIndex:(NSUInteger)index;
 + (instancetype)updateObject:(id)anObject atIndex:(NSUInteger)index;
-
-
 @end
 
 
