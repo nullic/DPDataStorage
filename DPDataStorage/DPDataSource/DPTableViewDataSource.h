@@ -28,4 +28,6 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView * _Nullable)tableView;
 - (NSInteger)tableView:(UITableView * _Nullable)tableView numberOfRowsInSection:(NSInteger)section;
 - (UITableViewCell * _Nonnull)tableView:(UITableView * _Nullable)tableView cellForRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath;
+
+- (void)addTableViewUpdateBlock:(dispatch_block_t)block;
 @end

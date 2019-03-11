@@ -140,6 +140,11 @@
 
 #pragma mark - NSFetchedResultsController
 
+- (void)addCollectionViewUpdateBlock:(dispatch_block_t)block {
+    NSAssert(self.updatesBlocks != nil, @"Animation disabled or -[controllerWillChangeContent:] not called");
+    [self.updatesBlocks addObject:[block copy]];
+}
+
 - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
     if (controller == self.listController) {
         self.updatesBlocks = (self.disableAnimations == NO) ? [NSMutableArray array] : nil;
