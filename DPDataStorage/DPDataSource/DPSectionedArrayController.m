@@ -54,7 +54,7 @@
 
 - (NSComparator)sectionComarator {
     return ^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-        return [@([self.innerStorage indexOfObject:obj1]) compare:@([self.innerStorage indexOfObject:obj2])];
+        return [@([self.innerStorage.objects indexOfObject:obj1]) compare:@([self.innerStorage.objects indexOfObject:obj2])];
     };
 }
 
@@ -140,7 +140,8 @@
             for (; item < [self numberOfItemsInSection:section]; item++) {
                 NSIndexPath *ip = [NSIndexPath indexPathForItem:item inSection:section];
                 id firstObject = [self objectAtIndexPath:ip];
-                
+
+                [self.innerStorage removeDeletedObjectPlaceholders];
                 NSComparisonResult result = self.sectionComarator(firstObject, object);
                 if (result != NSOrderedAscending) {
                     break;

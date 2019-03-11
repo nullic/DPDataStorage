@@ -125,11 +125,13 @@
 }
 
 - (void)removeDeletedObjectPlaceholders {
-    [self.deleteChanges sortUsingSelector:@selector(compare:)];
-    for (NSNumber *index in [self.deleteChanges reverseObjectEnumerator]) {
-        [self.mutableObjects removeObjectAtIndex:index.integerValue];
+    if (self.deleteChanges.count > 0) {
+        [self.deleteChanges sortUsingSelector:@selector(compare:)];
+        for (NSNumber *index in [self.deleteChanges reverseObjectEnumerator]) {
+            [self.mutableObjects removeObjectAtIndex:index.integerValue];
+        }
+        self.deleteChanges = nil;
     }
-    self.deleteChanges = nil;
 }
 
 @end
