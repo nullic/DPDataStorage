@@ -36,8 +36,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 @interface DPItemChange : DPChange
-@property (nonatomic, assign, nullable) NSIndexPath *path;
-@property (nonatomic, assign, nullable) NSIndexPath *toPath;
+@property (nonatomic, strong, nullable) NSIndexPath *path;
+@property (nonatomic, strong, nullable) NSIndexPath *toPath;
 
 + (instancetype)insertObject:(id)anObject atIndexPath:(NSIndexPath *)path;
 + (instancetype)deleteObject:(id)anObject atIndexPath:(NSIndexPath *)path;
