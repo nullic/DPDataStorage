@@ -342,6 +342,11 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
         }
         
         [self applyChanges];
+
+        [self.sectionsStorage removeDeletedObjectPlaceholders];
+        for (DPArrayControllerSection *section in self.sectionsStorage.objects) {
+            [section removeDeletedObjectPlaceholders];
+        }
         
         if (self.responseMask & ResponseMaskDidChangeContent) {
             [self.delegate controllerDidChangeContent:self];

@@ -30,6 +30,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)addObjectsFromArray:(NSArray *)otherArray;
 - (NSUInteger)indexOfObject:(id)object;
 - (id)objectAtIndex:(NSUInteger)index;
+
+- (void)removeDeletedObjectPlaceholders;
 @end
 
 NS_ASSUME_NONNULL_END
