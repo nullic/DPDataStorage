@@ -269,6 +269,12 @@
                 itemShift = 0;
                 [super insertSectionAtIndex:indexPath.section];
             }
+        } else {
+            NSComparisonResult result = prevObject != nil ? [self.sectionSortDescriptor compareObject:prevObject toObject:c.anObject] : NSOrderedAscending;
+            if (result == NSOrderedSame) {
+                itemShift++;
+                indexPath = [NSIndexPath indexPathForItem:indexPath.item + itemShift inSection:indexPath.section];
+            }
         }
         
         [super insertObject:c.anObject atIndextPath:indexPath];
