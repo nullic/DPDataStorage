@@ -206,17 +206,17 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
     }
     
     if (self.isUpdating == YES) {
-        id object = [self objectAtIndexPath:indexPath];
+        DPArrayControllerSection *sectionInfo = [self.sectionsStorage objectAtIndex:indexPath.section];
+        id object = [sectionInfo objectAtIndex:indexPath.row];
         [self.changes addObject:[DPItemChange moveObject:object atIndexPath:indexPath newIndex:newIndexPath]];
     }
     else {
-        id object = [self objectAtIndexPath:indexPath];
-        
         DPArrayControllerSection *sectionInfo = [self.sectionsStorage objectAtIndex:indexPath.section];
         if (indexPath.section == newIndexPath.section) {
             [sectionInfo moveObjectAtIndex:indexPath.row toIndex:newIndexPath.row];
         }
         else {
+            id object = [sectionInfo objectAtIndex:indexPath.row];
             [sectionInfo removeObjectAtIndex:indexPath.row];
             sectionInfo = [self.sectionsStorage objectAtIndex:newIndexPath.section];
             [sectionInfo insertObject:object atIndex:newIndexPath.row];
