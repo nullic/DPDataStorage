@@ -288,6 +288,8 @@
             if (result == NSOrderedSame) {
                 itemShift++;
                 indexPath = [NSIndexPath indexPathForItem:indexPath.item + itemShift inSection:indexPath.section];
+            } else {
+                itemShift = 0;
             }
         }
         
