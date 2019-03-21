@@ -8,9 +8,11 @@
 
 #import "DPContainerControllerBasedController.h"
 #import <CoreData/CoreData.h>
+#import "DelegateResponseMask.h"
 
 @interface DPContainerControllerBasedController ()
 @property (nonatomic, strong) id<DataSourceContainerController> controller;
+@property (nonatomic, assign) enum ResponseMask secondaryResponseMask;
 @end
 
 @implementation DPContainerControllerBasedController
@@ -33,18 +35,44 @@
     return self;
 }
 
-- (void)managedObjectContextObjectsDidChange:(NSNotification *)notification {
-    
+- (void)setSecondaryDelegate:(id<DataSourceContainerControllerDelegate>)delegate {
+    if (_secondaryDelegate != delegate) {
+        _secondaryDelegate = delegate;
+
+        enum ResponseMask responseMask = 0;
+        if ([delegate respondsToSelector:@selector(controllerWillChangeContent:)]) {
+            responseMask |= ResponseMaskWillChangeContent;
+        }
+        if ([delegate respondsToSelector:@selector(controllerDidChangeContent:)]) {
+            responseMask |= ResponseMaskDidChangeContent;
+        }
+        if ([delegate respondsToSelector:@selector(controller:didChangeSection:atIndex:forChangeType:)]) {
+            responseMask |= ResponseMaskDidChangeSection;
+        }
+        if ([delegate respondsToSelector:@selector(controller:didChangeObject:atIndexPath:forChangeType:newIndexPath:)]) {
+            responseMask |= ResponseMaskDidChangeObject;
+        }
+
+        self.secondaryResponseMask = responseMask;
+    }
 }
+
+- (void)managedObjectContextObjectsDidChange:(NSNotification *)notification {}
 
 #pragma mark - NSFetchedResultsController
 
 - (void)controllerWillChangeContent:(id<DataSourceContainerController>)controller {
     [super startUpdating];
+    if (self.secondaryResponseMask & ResponseMaskWillChangeContent) {
+        [self.secondaryDelegate controllerWillChangeContent:self];
+    }
 }
 
 - (void)controllerDidChangeContent:(id<DataSourceContainerController>)controller {
     [super endUpdating];
+    if (self.secondaryResponseMask & ResponseMaskDidChangeContent) {
+        [self.secondaryDelegate controllerDidChangeContent:self];
+    }
 }
 
 - (void)controller:(id<DataSourceContainerController>)controller didChangeObject:(id)anObject
@@ -68,6 +96,10 @@
             [super moveObjectAtIndextPath:indexPath toIndexPath:newIndexPath];
             break;
     }
+
+    if (self.secondaryResponseMask & ResponseMaskDidChangeObject) {
+        [self.secondaryDelegate controller:self didChangeObject:anObject atIndexPath:indexPath forChangeType:type newIndexPath:newIndexPath];
+    }
 }
 
 - (void)controller:(id<DataSourceContainerController>)controller didChangeSection:(id<NSFetchedResultsSectionInfo>)sectionInfo atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type
@@ -87,6 +119,10 @@
 
         default:
             break;
+    }
+
+    if (self.secondaryResponseMask & ResponseMaskDidChangeSection) {
+        [self.secondaryDelegate controller:self didChangeSection:sectionInfo atIndex:sectionIndex forChangeType:type];
     }
 }
 

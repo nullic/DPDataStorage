@@ -11,14 +11,7 @@
 #import "DPChange.h"
 #import "DPChange.h"
 #import <CoreData/CoreData.h>
-
-
-NS_OPTIONS(NSUInteger, ResponseMask) {
-    ResponseMaskDidChangeObject = 1 << 0,
-    ResponseMaskDidChangeSection = 1 << 1,
-    ResponseMaskWillChangeContent = 1 << 2,
-    ResponseMaskDidChangeContent = 1 << 3,
-};
+#import "DelegateResponseMask.h"
 
 
 NS_ASSUME_NONNULL_BEGIN
@@ -51,16 +44,16 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
         _delegate = delegate;
 
         enum ResponseMask responseMask = 0;
-        if ([self.delegate respondsToSelector:@selector(controllerWillChangeContent:)]) {
+        if ([delegate respondsToSelector:@selector(controllerWillChangeContent:)]) {
             responseMask |= ResponseMaskWillChangeContent;
         }
-        if ([self.delegate respondsToSelector:@selector(controllerDidChangeContent:)]) {
+        if ([delegate respondsToSelector:@selector(controllerDidChangeContent:)]) {
             responseMask |= ResponseMaskDidChangeContent;
         }
-        if ([self.delegate respondsToSelector:@selector(controller:didChangeSection:atIndex:forChangeType:)]) {
+        if ([delegate respondsToSelector:@selector(controller:didChangeSection:atIndex:forChangeType:)]) {
             responseMask |= ResponseMaskDidChangeSection;
         }
-        if ([self.delegate respondsToSelector:@selector(controller:didChangeObject:atIndexPath:forChangeType:newIndexPath:)]) {
+        if ([delegate respondsToSelector:@selector(controller:didChangeObject:atIndexPath:forChangeType:newIndexPath:)]) {
             responseMask |= ResponseMaskDidChangeObject;
         }
 
@@ -106,21 +99,23 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
 
         BOOL hasChanges = (deletedPaths.count > 0) || (updatedPaths.count > 0) || (refreshedPaths.count > 0);
 
-        if (hasChanges) [self startUpdating];
+        if (hasChanges) {
+            [self startUpdating];
+            
+            for (NSIndexPath *indexPath in deletedPaths) {
+                [self deleteObjectAtIndextPath:indexPath];
+            }
 
-        for (NSIndexPath *indexPath in deletedPaths) {
-            [self deleteObjectAtIndextPath:indexPath];
+            for (NSIndexPath *indexPath in updatedPaths) {
+                [self reloadObjectAtIndextPath:indexPath];
+            }
+
+            for (NSIndexPath *indexPath in refreshedPaths) {
+                [self reloadObjectAtIndextPath:indexPath];
+            }
+
+            [self endUpdating];
         }
-
-        for (NSIndexPath *indexPath in updatedPaths) {
-            [self reloadObjectAtIndextPath:indexPath];
-        }
-
-        for (NSIndexPath *indexPath in refreshedPaths) {
-            [self reloadObjectAtIndextPath:indexPath];
-        }
-
-        if (hasChanges) [self endUpdating];
     };
 
     NSManagedObjectContext *context = notification.object;

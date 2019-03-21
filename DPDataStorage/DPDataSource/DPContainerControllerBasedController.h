@@ -1,5 +1,5 @@
 //
-//  DPFetchedResultsBasedController.h
+//  DPContainerControllerBasedController.h
 //  DPDataStorage
 //
 //  Created by Dmitriy Petrusevich on 1/21/19.
@@ -11,6 +11,8 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface DPContainerControllerBasedController : DPArrayController <DataSourceContainerControllerDelegate>
+@property (nonatomic, weak, nullable) IBOutlet id<DataSourceContainerControllerDelegate> secondaryDelegate;
+
 - (instancetype)initWithDelegate:(id<DataSourceContainerControllerDelegate> _Nullable)delegate NS_UNAVAILABLE;
 - (instancetype)initWithDelegate:(id<DataSourceContainerControllerDelegate> _Nullable)delegate otherController:(id<DataSourceContainerController>)controller NS_DESIGNATED_INITIALIZER;
 
