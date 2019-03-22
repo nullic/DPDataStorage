@@ -20,20 +20,32 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)managedObjectContextObjectsDidChange:(NSNotification *)notification;
 
 - (void)removeAllObjects;
+- (void)removeAllObjectsImmediately:(BOOL)immediately;
+
 - (void)insertObject:(id)object atIndextPath:(NSIndexPath *)indexPath;
+- (void)insertObject:(id)object atIndextPath:(NSIndexPath *)indexPath immediately:(BOOL)immediately;
 - (void)deleteObjectAtIndextPath:(NSIndexPath *)indexPath;
+- (void)deleteObjectAtIndextPath:(NSIndexPath *)indexPath immediately:(BOOL)immediately;
 - (void)reloadObjectAtIndextPath:(NSIndexPath *)indexPath;
+- (void)reloadObjectAtIndextPath:(NSIndexPath *)indexPath immediately:(BOOL)immediately;
 - (void)moveObjectAtIndextPath:(NSIndexPath *)indexPath toIndexPath:(NSIndexPath *)newIndexPath;
+- (void)moveObjectAtIndextPath:(NSIndexPath *)indexPath toIndexPath:(NSIndexPath *)newIndexPath immediately:(BOOL)immediately;
 
 - (void)insertSectionAtIndex:(NSUInteger)index;
+- (void)insertSectionAtIndex:(NSUInteger)index immediately:(BOOL)immediately;
 - (void)insertSectionObject:(id<NSFetchedResultsSectionInfo>)sectionInfo atIndex:(NSUInteger)index;
+- (void)insertSectionObject:(id<NSFetchedResultsSectionInfo>)sectionInfo atIndex:(NSUInteger)index immediately:(BOOL)immediately;
 - (void)removeSectionAtIndex:(NSUInteger)index;
+- (void)removeSectionAtIndex:(NSUInteger)index immediately:(BOOL)immediately;
 - (void)reloadSectionAtIndex:(NSUInteger)index;
+- (void)reloadSectionAtIndex:(NSUInteger)index immediately:(BOOL)immediately;
 
 - (void)setSectionName:(NSString *)name atIndex:(NSUInteger)index;
 
 - (void)addObjects:(NSArray *)objects atSection:(NSInteger)section;
+- (void)addObjects:(NSArray *)objects atSection:(NSInteger)section immediately:(BOOL)immediately;
 - (void)setObjects:(NSArray *)objects atSection:(NSInteger)section;
+- (void)setObjects:(NSArray *)objects atSection:(NSInteger)section immediately:(BOOL)immediately;
 
 - (void)startUpdating;
 - (void)endUpdating;

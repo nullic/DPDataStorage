@@ -17,6 +17,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface DPChange : NSObject
 @property (nonatomic, strong) id anObject;
 @property (nonatomic, assign) NSFetchedResultsChangeType type;
+@property (nonatomic, assign, getter=isApplied) BOOL applied;
+@property (nonatomic, assign, getter=isNotified) BOOL notified;
 
 - (void)applyTo:(DPArrayController *)controller;
 - (void)notifyDelegateOfController:(DPArrayController *)controller;

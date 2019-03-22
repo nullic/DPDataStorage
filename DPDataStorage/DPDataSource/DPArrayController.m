@@ -142,19 +142,29 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
 #pragma mark - Editing: Items
 
 - (void)removeAllObjects {
+    [self removeAllObjectsImmediately:self.isUpdating == NO];
+}
+
+- (void)removeAllObjectsImmediately:(BOOL)immediately {
     if ([self.sectionsStorage numberOfObjects]) {
         for (NSUInteger section = [self.sectionsStorage numberOfObjects]; section > 0; section--) {
-            [self removeSectionAtIndex:(section - 1)];
+            [self removeSectionAtIndex:(section - 1) immediately:immediately];
         }
-        [[NSNotificationCenter defaultCenter] removeObserver:self name:NSManagedObjectContextObjectsDidChangeNotification object:nil];
     }
+
+    [self applyChanges];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:NSManagedObjectContextObjectsDidChangeNotification object:nil];
 }
 
 - (void)insertObject:(id)object atIndextPath:(NSIndexPath *)indexPath {
+    [self insertObject:object atIndextPath:indexPath immediately:self.isUpdating == NO];
+}
+
+- (void)insertObject:(id)object atIndextPath:(NSIndexPath *)indexPath immediately:(BOOL)immediately {
     NSParameterAssert(indexPath != nil);
     NSParameterAssert(object != nil);
     
-    if (self.isUpdating == YES) {
+    if (immediately == NO) {
         [self.changes addObject:[DPItemChange insertObject:object atIndexPath:indexPath]];
     }
     else {
@@ -170,9 +180,13 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
 }
 
 - (void)deleteObjectAtIndextPath:(NSIndexPath *)indexPath {
+    [self deleteObjectAtIndextPath:indexPath immediately:self.isUpdating == NO];
+}
+
+- (void)deleteObjectAtIndextPath:(NSIndexPath *)indexPath immediately:(BOOL)immediately {
     NSParameterAssert(indexPath != nil);
 
-    if (self.isUpdating == YES) {
+    if (immediately == NO) {
         id object = [self objectAtIndexPath:indexPath];
         [self.changes addObject:[DPItemChange deleteObject:object atIndexPath:indexPath]];
     }
@@ -183,24 +197,32 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
 }
 
 - (void)reloadObjectAtIndextPath:(NSIndexPath *)indexPath {
+    [self reloadObjectAtIndextPath:indexPath immediately:self.isUpdating == NO];
+}
+
+- (void)reloadObjectAtIndextPath:(NSIndexPath *)indexPath immediately:(BOOL)immediately {
     NSParameterAssert(indexPath != nil);
     
-    if (self.isUpdating == YES) {
+    if (immediately == NO) {
         id object = [self objectAtIndexPath:indexPath];
         [self.changes addObject:[DPItemChange updateObject:object atIndexPath:indexPath newIndexPath:nil]];
     }
 }
 
 - (void)moveObjectAtIndextPath:(NSIndexPath *)indexPath toIndexPath:(NSIndexPath *)newIndexPath {
+    [self moveObjectAtIndextPath:indexPath toIndexPath:newIndexPath immediately:self.isUpdating == NO];
+}
+
+- (void)moveObjectAtIndextPath:(NSIndexPath *)indexPath toIndexPath:(NSIndexPath *)newIndexPath immediately:(BOOL)immediately {
     NSParameterAssert(indexPath != nil);
     NSParameterAssert(newIndexPath != nil);
 
     if ([indexPath isEqual:newIndexPath]) {
-        [self reloadObjectAtIndextPath:indexPath];
+        [self reloadObjectAtIndextPath:indexPath immediately:immediately];
         return;
     }
     
-    if (self.isUpdating == YES) {
+    if (immediately == NO) {
         DPArrayControllerSection *sectionInfo = [self.sectionsStorage objectAtIndex:indexPath.section];
         id object = [sectionInfo objectAtIndex:indexPath.row];
         [self.changes addObject:[DPItemChange moveObject:object atIndexPath:indexPath newIndex:newIndexPath]];
@@ -222,7 +244,11 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
 #pragma mark - Editing: Sections
 
 - (void)insertSectionAtIndex:(NSUInteger)index {
-    if (self.isUpdating == YES) {
+    [self insertSectionAtIndex:index immediately:self.isUpdating == NO];
+}
+
+- (void)insertSectionAtIndex:(NSUInteger)index immediately:(BOOL)immediately {
+    if (immediately == NO) {
         [self.changes addObject:[DPSectionChange insertObject:[DPArrayControllerSection new] atIndex:index]];
     }
     else {
@@ -231,7 +257,11 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
 }
 
 - (void)insertSectionObject:(id<NSFetchedResultsSectionInfo>)sectionInfo atIndex:(NSUInteger)index {
-    if (self.isUpdating == YES) {
+    [self insertSectionObject:sectionInfo atIndex:index immediately:self.isUpdating == NO];
+}
+
+- (void)insertSectionObject:(id<NSFetchedResultsSectionInfo>)sectionInfo atIndex:(NSUInteger)index immediately:(BOOL)immediately {
+    if (immediately == NO) {
         [self.changes addObject:[DPSectionChange insertObject:sectionInfo atIndex:index]];
     }
     else {
@@ -240,7 +270,11 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
 }
 
 - (void)removeSectionAtIndex:(NSUInteger)index {
-    if (self.isUpdating == YES) {
+    [self removeSectionAtIndex:index immediately:self.isUpdating == NO];
+}
+
+- (void)removeSectionAtIndex:(NSUInteger)index immediately:(BOOL)immediately {
+    if (immediately == NO) {
         [self.changes addObject:[DPSectionChange deleteObject:[self.sectionsStorage objectAtIndex:index] atIndex:index]];
     }
     else {
@@ -249,11 +283,12 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
 }
 
 - (void)reloadSectionAtIndex:(NSUInteger)index {
-    if (self.isUpdating == YES) {
+    [self reloadSectionAtIndex:index immediately:self.isUpdating == NO];
+}
+
+- (void)reloadSectionAtIndex:(NSUInteger)index immediately:(BOOL)immediately {
+    if (immediately == NO) {
         [self.changes addObject:[DPSectionChange updateObject:[self.sectionsStorage objectAtIndex:index] atIndex:index]];
-    }
-    else {
-        [self.sectionsStorage replaceObjectWithObject:[self.sectionsStorage objectAtIndex:index] atIndex:index];
     }
 }
 
@@ -264,8 +299,12 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
 
 #pragma mark - Editing: Complex
 
-- (void)removeAllObjectsAtSection:(NSInteger)section {
-    if (self.isUpdating == YES) {
+- (void)removeAllObjectsAtSection:(NSUInteger)index {
+    [self removeAllObjectsAtSection:index immediately:self.isUpdating == NO];
+}
+
+- (void)removeAllObjectsAtSection:(NSInteger)section immediately:(BOOL)immediately {
+    if (immediately == NO) {
         NSInteger lastIndex = [self numberOfItemsInSection:section];
         for (NSInteger i = 0; i < lastIndex; i++) {
             NSIndexPath *ip = [NSIndexPath indexPathForItem:i inSection:section];
@@ -282,9 +321,13 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
 }
 
 - (void)addObjects:(NSArray *)objects atSection:(NSInteger)section {
+    [self addObjects:objects atSection:section immediately:self.isUpdating == NO];
+}
+
+- (void)addObjects:(NSArray *)objects atSection:(NSInteger)section immediately:(BOOL)immediately {
     NSParameterAssert(section >= 0);
     
-    if (self.isUpdating == YES) {
+    if (immediately == NO) {
         NSInteger firstIndex = [self numberOfItemsInSection:section];
         for (NSInteger i = 0; i < objects.count; i++) {
             NSIndexPath *ip = [NSIndexPath indexPathForItem:firstIndex + i inSection:section];
@@ -305,14 +348,18 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
     }
 }
 
-- (void)setObjects:(NSArray *)newObjects atSection:(NSInteger)section {
+- (void)setObjects:(NSArray *)objects atSection:(NSInteger)section {
+    [self setObjects:objects atSection:section immediately:self.isUpdating == NO];
+}
+
+- (void)setObjects:(NSArray *)newObjects atSection:(NSInteger)section immediately:(BOOL)immediately {
     if (section < [self.sectionsStorage numberOfObjects]) {
         if (newObjects.count == 0) {
-            [self removeAllObjectsAtSection:section];
+            [self removeAllObjectsAtSection:section immediately:immediately];
         }
         else {
-            [self removeAllObjectsAtSection:section];
-            [self addObjects:newObjects atSection:section];
+            [self removeAllObjectsAtSection:section immediately:immediately];
+            [self addObjects:newObjects atSection:section immediately:immediately];
         }
     }
     else {

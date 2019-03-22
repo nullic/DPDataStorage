@@ -10,8 +10,16 @@
 #import "DPArrayController.h"
 #import <UIKit/UIKit.h>
 
-
 @implementation DPChange
+
+- (instancetype)init {
+    if (self = [super init]) {
+        self.applied = NO;
+        self.notified = NO;
+    }
+    return self;
+}
+
 - (void)applyTo:(DPArrayController *)controller {
     NSAssert(FALSE, @"Must be implemented in sub-classes");
 }
@@ -56,19 +64,20 @@
 }
 
 - (void)applyTo:(DPArrayController *)controller {
-    NSParameterAssert(controller.isUpdating == FALSE);
+    if (self.isApplied == YES) return;
+    self.applied = YES;
     
     switch (self.type) {
         case NSFetchedResultsChangeInsert:
-            [controller insertSectionObject:self.anObject atIndex:self.index];
+            [controller insertSectionObject:self.anObject atIndex:self.index immediately:YES];
             break;
             
         case NSFetchedResultsChangeDelete:
-            [controller removeSectionAtIndex:self.index];
+            [controller removeSectionAtIndex:self.index immediately:YES];
             break;
             
         case NSFetchedResultsChangeUpdate:
-            [controller reloadSectionAtIndex:self.index];
+            [controller reloadSectionAtIndex:self.index immediately:YES];
             break;
             
         case NSFetchedResultsChangeMove:
@@ -77,6 +86,9 @@
 }
 
 - (void)notifyDelegateOfController:(DPArrayController *)controller {
+    if (self.isNotified == YES) return;
+    self.notified = YES;
+
     if ([controller delegateResponseToDidChangeSection]) {
         [controller.delegate controller:controller didChangeSection:self.anObject atIndex:self.index forChangeType:self.type];
     }
@@ -133,27 +145,31 @@
 }
 
 - (void)applyTo:(DPArrayController *)controller {
-    NSParameterAssert(controller.isUpdating == FALSE);
+    if (self.isApplied == YES) return;
+    self.applied = YES;
     
     switch (self.type) {
         case NSFetchedResultsChangeInsert:
-            [controller insertObject:self.anObject atIndextPath:self.toPath];
+            [controller insertObject:self.anObject atIndextPath:self.toPath immediately:YES];
             break;
             
         case NSFetchedResultsChangeDelete:
-            [controller deleteObjectAtIndextPath:self.path];
+            [controller deleteObjectAtIndextPath:self.path immediately:YES];
             break;
             
         case NSFetchedResultsChangeUpdate:
             break;
             
         case NSFetchedResultsChangeMove:
-            [controller moveObjectAtIndextPath:[controller indexPathForObject:self.anObject] toIndexPath:self.toPath];
+            [controller moveObjectAtIndextPath:[controller indexPathForObject:self.anObject] toIndexPath:self.toPath immediately:YES];
             break;
     }
 }
 
 - (void)notifyDelegateOfController:(DPArrayController *)controller {
+    if (self.isNotified == YES) return;
+    self.notified = YES;
+
     if ([controller delegateResponseToDidChangeObject]) {
         [controller.delegate controller:controller didChangeObject:self.anObject atIndexPath:self.path forChangeType:self.type newIndexPath:self.toPath];
     }

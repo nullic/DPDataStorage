@@ -21,6 +21,7 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		070994042244BACE00B4FF2A /* DelegateResponseMask.h in Headers */ = {isa = PBXBuildFile; fileRef = 070994032244BACE00B4FF2A /* DelegateResponseMask.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		074A3C1B22363B900061439E /* DPChange.m in Sources */ = {isa = PBXBuildFile; fileRef = 074A3C1922363B900061439E /* DPChange.m */; };
 		074A3C1C22363B900061439E /* DPChange.h in Headers */ = {isa = PBXBuildFile; fileRef = 074A3C1A22363B900061439E /* DPChange.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		074B16BE21E46D6400FAF431 /* DPFilteredArrayController.h in Headers */ = {isa = PBXBuildFile; fileRef = 074B16BC21E46D6400FAF431 /* DPFilteredArrayController.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -70,6 +71,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		070994032244BACE00B4FF2A /* DelegateResponseMask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DelegateResponseMask.h; sourceTree = "<group>"; };
 		074A3C1922363B900061439E /* DPChange.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPChange.m; sourceTree = "<group>"; };
 		074A3C1A22363B900061439E /* DPChange.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPChange.h; sourceTree = "<group>"; };
 		074B16BC21E46D6400FAF431 /* DPFilteredArrayController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DPFilteredArrayController.h; sourceTree = "<group>"; };
@@ -136,6 +138,7 @@
 		074E5E762208655200868634 /* private */ = {
 			isa = PBXGroup;
 			children = (
+				070994032244BACE00B4FF2A /* DelegateResponseMask.h */,
 				074A3C1A22363B900061439E /* DPChange.h */,
 				074A3C1922363B900061439E /* DPChange.m */,
 				074E5E772208657500868634 /* DPArrayControllerSection.h */,
@@ -241,6 +244,7 @@
 				765EF82C1EBCB60700C21E2E /* NSManagedObject+DataStorage.h in Headers */,
 				765EF8301EBCB60800C21E2E /* NSManagedObjectModel+EntityDescription.h in Headers */,
 				074E5E7B2208657900868634 /* DPArrayControllerSection.h in Headers */,
+				070994042244BACE00B4FF2A /* DelegateResponseMask.h in Headers */,
 				07750BBC21F599F4009B5C45 /* DPContainerControllerBasedController.h in Headers */,
 				B84F3CEA21CE3FF600489349 /* NSManagedObjectContext+EntityDescription.h in Headers */,
 				765EF83F1EBCB60D00C21E2E /* NSManagedObject+DPDataStorage_Mapping.h in Headers */,
