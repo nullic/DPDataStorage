@@ -8,6 +8,7 @@
 
 #import "DPChange.h"
 #import "DPArrayController.h"
+#import "DPArrayController+Private.h"
 #import <UIKit/UIKit.h>
 
 @implementation DPChange

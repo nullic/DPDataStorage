@@ -22,6 +22,7 @@
 
 /* Begin PBXBuildFile section */
 		070994042244BACE00B4FF2A /* DelegateResponseMask.h in Headers */ = {isa = PBXBuildFile; fileRef = 070994032244BACE00B4FF2A /* DelegateResponseMask.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		0748A4BD2244E4AD00427328 /* DPArrayController+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 0748A4BC2244E3CD00427328 /* DPArrayController+Private.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		074A3C1B22363B900061439E /* DPChange.m in Sources */ = {isa = PBXBuildFile; fileRef = 074A3C1922363B900061439E /* DPChange.m */; };
 		074A3C1C22363B900061439E /* DPChange.h in Headers */ = {isa = PBXBuildFile; fileRef = 074A3C1A22363B900061439E /* DPChange.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		074B16BE21E46D6400FAF431 /* DPFilteredArrayController.h in Headers */ = {isa = PBXBuildFile; fileRef = 074B16BC21E46D6400FAF431 /* DPFilteredArrayController.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -72,6 +73,7 @@
 
 /* Begin PBXFileReference section */
 		070994032244BACE00B4FF2A /* DelegateResponseMask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DelegateResponseMask.h; sourceTree = "<group>"; };
+		0748A4BC2244E3CD00427328 /* DPArrayController+Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DPArrayController+Private.h"; sourceTree = "<group>"; };
 		074A3C1922363B900061439E /* DPChange.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPChange.m; sourceTree = "<group>"; };
 		074A3C1A22363B900061439E /* DPChange.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPChange.h; sourceTree = "<group>"; };
 		074B16BC21E46D6400FAF431 /* DPFilteredArrayController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DPFilteredArrayController.h; sourceTree = "<group>"; };
@@ -145,6 +147,7 @@
 				074E5E782208657500868634 /* DPArrayControllerSection.m */,
 				07588B4A220866B20093BA31 /* DPPlaceholderObject.h */,
 				07588B4B220866B20093BA31 /* DPPlaceholderObject.m */,
+				0748A4BC2244E3CD00427328 /* DPArrayController+Private.h */,
 			);
 			path = private;
 			sourceTree = "<group>";
@@ -256,6 +259,7 @@
 				765EF83A1EBCB60800C21E2E /* DPTableViewDataSource.h in Headers */,
 				074A3C1C22363B900061439E /* DPChange.h in Headers */,
 				765EF8341EBCB60800C21E2E /* DPBaseDataSource.h in Headers */,
+				0748A4BD2244E4AD00427328 /* DPArrayController+Private.h in Headers */,
 				765EF8391EBCB60800C21E2E /* DPDataSourceContainer.h in Headers */,
 				7690ADE91EC35DC5003C1CDD /* DPMapViewDataSource.h in Headers */,
 				765EF8381EBCB60800C21E2E /* DPDataSourceCell.h in Headers */,
