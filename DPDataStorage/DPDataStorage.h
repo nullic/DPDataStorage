@@ -94,8 +94,8 @@ extern NSString * const _Nonnull DPDataStorageNotificationNameKey;
 + (instancetype _Nullable)storageWithModelURL:(NSURL * _Nonnull)modelURL storageURL:(NSURL * _Nullable)storageURL allowStoreDropOnError:(BOOL)allowStoreDropOnError;
 + (instancetype _Nullable)storageWithModelURL:(NSURL * _Nonnull)modelURL storageURL:(NSURL * _Nullable)storageURL;
 
-+ (instancetype)storageWithMergedModelFromBundles:(NSArray<NSBundle *> * _Nullable)bundles storageURL:(NSURL *)storageURL allowStoreDropOnError:(BOOL)allowStoreDropOnError;
-+ (instancetype)storageWithMergedModelFromBundles:(NSArray<NSBundle *> * _Nullable)bundles storageURL:(NSURL *)storageURL;
++ (instancetype _Nullable)storageWithMergedModelFromBundles:(NSArray<NSBundle *> * _Nullable)bundles storageURL:(NSURL * _Nullable)storageURL allowStoreDropOnError:(BOOL)allowStoreDropOnError;
++ (instancetype _Nullable)storageWithMergedModelFromBundles:(NSArray<NSBundle *> * _Nullable)bundles storageURL:(NSURL * _Nullable)storageURL;
 
 /**
  @method

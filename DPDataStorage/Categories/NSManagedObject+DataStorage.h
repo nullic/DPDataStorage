@@ -40,5 +40,5 @@
                                                         inContext:(NSManagedObjectContext * _Nonnull)context;
 
 - (BOOL)validate:(NSError * _Nullable * _Nullable)error;
-- (instancetype)createObjectWithCopiedAttributes;
+- (instancetype _Nonnull)createObjectWithCopiedAttributes;
 @end

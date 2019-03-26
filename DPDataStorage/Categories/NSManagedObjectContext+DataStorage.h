@@ -23,7 +23,7 @@
 - (NSManagedObjectContext * _Null_unspecified)newChildPrivateQueueManagedObjectContext;
 
 - (void)deleteObjects:(id<NSFastEnumeration> _Nullable)objects; // expects a collection of NSManagedObjects
-- (NSArray<__kindof NSManagedObject*> *)existingObjectsWithIds:(NSArray<NSManagedObjectID *> *)ids error:(NSError **)error;
+- (NSArray<__kindof NSManagedObject *> * _Null_unspecified)existingObjectsWithIds:(NSArray<NSManagedObjectID *> * _Nonnull)ids error:(NSError * _Nullable * _Nullable)error;
 
 - (BOOL)saveChanges:(NSError * _Nullable * _Nullable)error;
 @end
