@@ -456,7 +456,7 @@ static NSString * uniqueKeyForEntity(NSEntityDescription *entityDescription) {
                     }
                     else {
                         object = [self valueForKey:keyName];
-                        if (object == nil) {
+                        if (object == nil || object.isDeleted) {
                             object = [relationClass updateChildObjectWithDictionary:(NSDictionary *)value parent:self inContext:[self managedObjectContext] error:&error];
                         }
                         else {
@@ -480,7 +480,7 @@ static NSString * uniqueKeyForEntity(NSEntityDescription *entityDescription) {
 
                     for (id info in value) {
                         NSManagedObject *object = nil;
-                        if ([info isKindOfClass:[NSDictionary class]] == NO &&  uniqueKeyForEntity(relationshipDescription.destinationEntity) != nil) {
+                        if ([info isKindOfClass:[NSDictionary class]] == NO && uniqueKeyForEntity(relationshipDescription.destinationEntity) != nil) {
                             NSString *entityUniqueKey = uniqueKeyForEntity(relationshipDescription.destinationEntity);
                             object = [relationClass entryWithValue:info forKey:entityUniqueKey includesPendingChanges:YES inContext:[self managedObjectContext]];
                         }
