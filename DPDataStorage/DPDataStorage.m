@@ -68,6 +68,7 @@ NSString * const DPDataStorageNotificationNameKey = @"name";
 @property (readwrite, strong, nonatomic) NSManagedObjectContext *parseContext;
 @property (readwrite, strong, nonatomic) NSURL *URL;
 @property (readwrite, strong, nonatomic) NSDictionary *classNameToEntityNameMap;
+@property (readwrite, copy, nonatomic) NSString *defaultStoreConfiguration;
 @property (readwrite, assign, nonatomic) BOOL allowStoreDropOnError;
 
 @end
@@ -132,11 +133,12 @@ NSString * const DPDataStorageNotificationNameKey = @"name";
 #if DEBUG
     allowStoreDropOnError = YES;
 #endif
-    return [self storageWithModelURL:modelURL storageURL:storageURL allowStoreDropOnError:allowStoreDropOnError];
+    return [self storageWithModelURL:modelURL storageURL:storageURL allowStoreDropOnError:allowStoreDropOnError defaultStoreConfiguration: nil];
 }
 
-+ (instancetype)storageWithModelURL:(NSURL *)modelURL storageURL:(NSURL *)storageURL allowStoreDropOnError:(BOOL)allowStoreDropOnError{
++ (instancetype)storageWithModelURL:(NSURL *)modelURL storageURL:(NSURL *)storageURL allowStoreDropOnError:(BOOL)allowStoreDropOnError defaultStoreConfiguration:(NSString * _Nullable)defaultStoreConfiguration {
     DPDataStorage *storage = [[self alloc] init];
+    storage.defaultStoreConfiguration = defaultStoreConfiguration;
     storage.allowStoreDropOnError = allowStoreDropOnError;
     storage.URL = storageURL;
     storage.managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
@@ -148,11 +150,12 @@ NSString * const DPDataStorageNotificationNameKey = @"name";
 #if DEBUG
     allowStoreDropOnError = YES;
 #endif
-    return [self storageWithMergedModelFromBundles:bundles storageURL:storageURL allowStoreDropOnError:allowStoreDropOnError];
+    return [self storageWithMergedModelFromBundles:bundles storageURL:storageURL allowStoreDropOnError:allowStoreDropOnError defaultStoreConfiguration: nil];
 }
 
-+ (instancetype)storageWithMergedModelFromBundles:(nullable NSArray<NSBundle *> *)bundles storageURL:(NSURL *)storageURL allowStoreDropOnError:(BOOL)allowStoreDropOnError {
++ (instancetype)storageWithMergedModelFromBundles:(nullable NSArray<NSBundle *> *)bundles storageURL:(NSURL *)storageURL allowStoreDropOnError:(BOOL)allowStoreDropOnError defaultStoreConfiguration:(NSString * _Nullable)defaultStoreConfiguration {
     DPDataStorage *storage = [[self alloc] init];
+    storage.defaultStoreConfiguration = defaultStoreConfiguration;
     storage.allowStoreDropOnError = allowStoreDropOnError;
     storage.URL = storageURL;
     storage.managedObjectModel = [NSManagedObjectModel mergedModelFromBundles:bundles];
@@ -217,13 +220,13 @@ NSString * const DPDataStorageNotificationNameKey = @"name";
 
                 NSError *error = nil;
                 _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
-                if (![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:self.URL options:options error:&error]) {
+                if (![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:self.defaultStoreConfiguration URL:self.URL options:options error:&error]) {
                     if (self.allowStoreDropOnError) {
                         LOG_ON_ERROR(error); error = nil;
                         [[NSFileManager defaultManager] removeItemAtURL:self.URL error:&error];
                         FAIL_ON_ERROR(error);
                         
-                        if (![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:self.URL options:options error:&error]) {
+                        if (![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:self.defaultStoreConfiguration URL:self.URL options:options error:&error]) {
                             FAIL_ON_ERROR(error);
                         }
                     } else {
@@ -234,7 +237,7 @@ NSString * const DPDataStorageNotificationNameKey = @"name";
             else {
                 NSError *error = nil;
                 _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
-                if (![_persistentStoreCoordinator addPersistentStoreWithType:NSInMemoryStoreType configuration:nil URL:nil options:nil error:&error]) {
+                if (![_persistentStoreCoordinator addPersistentStoreWithType:NSInMemoryStoreType configuration:self.defaultStoreConfiguration URL:nil options:nil error:&error]) {
                     FAIL_ON_ERROR(error);
                 }
             }

@@ -47,6 +47,7 @@ extern NSString * const _Nonnull DPDataStorageNotificationNameKey;
 @property (readonly, strong, nonatomic) NSManagedObjectContext * _Nonnull parseContext;
 @property (readonly, strong, nonatomic) NSURL * _Nullable URL;
 @property (readonly, strong, nonatomic) NSDictionary * _Nonnull classNameToEntityNameMap;
+@property (readonly, copy, nonatomic) NSString * _Nullable defaultStoreConfiguration;
 
 /*!
  @discussion Before using should be setup with  + [self setupDefaultStorageWithModelName:storageURL:] or - [self makeDefault].
@@ -91,10 +92,10 @@ extern NSString * const _Nonnull DPDataStorageNotificationNameKey;
   By defaut equal to YES if DEBUG defined, else equal to NO.
  @return Initialized DPDataStorage object with provided info.
  */
-+ (instancetype _Nullable)storageWithModelURL:(NSURL * _Nonnull)modelURL storageURL:(NSURL * _Nullable)storageURL allowStoreDropOnError:(BOOL)allowStoreDropOnError;
++ (instancetype _Nullable)storageWithModelURL:(NSURL * _Nonnull)modelURL storageURL:(NSURL * _Nullable)storageURL allowStoreDropOnError:(BOOL)allowStoreDropOnError defaultStoreConfiguration:(NSString * _Nullable)defaultStoreConfiguration;
 + (instancetype _Nullable)storageWithModelURL:(NSURL * _Nonnull)modelURL storageURL:(NSURL * _Nullable)storageURL;
 
-+ (instancetype _Nullable)storageWithMergedModelFromBundles:(NSArray<NSBundle *> * _Nullable)bundles storageURL:(NSURL * _Nullable)storageURL allowStoreDropOnError:(BOOL)allowStoreDropOnError;
++ (instancetype _Nullable)storageWithMergedModelFromBundles:(NSArray<NSBundle *> * _Nullable)bundles storageURL:(NSURL * _Nullable)storageURL allowStoreDropOnError:(BOOL)allowStoreDropOnError defaultStoreConfiguration:(NSString * _Nullable)defaultStoreConfiguration;
 + (instancetype _Nullable)storageWithMergedModelFromBundles:(NSArray<NSBundle *> * _Nullable)bundles storageURL:(NSURL * _Nullable)storageURL;
 
 /**
