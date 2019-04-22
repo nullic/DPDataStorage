@@ -335,21 +335,28 @@ NSString * const DPDataStorageNotificationNameKey = @"name";
 #pragma mark -
 
 - (void)resetAllData {
-    NSManagedObjectContext *context = [self newPrivateQueueManagedObjectContext];
+    [self resetAllDataUsingContext:[self newPrivateQueueManagedObjectContext] error:NULL];
+}
+
+- (BOOL)resetAllDataUsingContext:(NSManagedObjectContext *)context error:(NSError **)out_error {
+    __block NSError *error = nil;
     [context performBlockAndWait:^{
-        for (NSEntityDescription *entry in self.managedObjectModel.entities) {
+        for (NSEntityDescription *entry in context.persistentStoreCoordinator.managedObjectModel.entities) {
             @autoreleasepool {
                 NSFetchRequest *request = [[NSFetchRequest alloc] initWithEntityName:entry.name];
-                NSArray *allentries = [context executeFetchRequest:request error:nil];
-                
+                NSArray *allentries = [context executeFetchRequest:request error:&error];
                 for (NSManagedObject *obj in allentries) {
                     [context deleteObject:obj];
                 }
             }
+
+            if (error) return;
         }
-        [context save:nil];
+        [context save:&error];
     }];
-    
+
+    if (error && out_error) *out_error = error;
+    return (error == nil) ? true : false;
 }
 
 @end

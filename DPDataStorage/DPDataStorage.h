@@ -121,6 +121,6 @@ extern NSString * const _Nonnull DPDataStorageNotificationNameKey;
 
 
 - (void)resetAllData;
-
+- (BOOL)resetAllDataUsingContext:(NSManagedObjectContext * _Nonnull)context error:(NSError * _Nullable * _Nullable)error;
 
 @end
