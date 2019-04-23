@@ -359,6 +359,7 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
         }
         else {
             [self removeAllObjectsAtSection:section immediately:immediately];
+            [self applyChanges];
             [self addObjects:newObjects atSection:section immediately:immediately];
         }
     }
