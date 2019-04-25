@@ -115,23 +115,27 @@ static NSString * const kParseDataHasDuplicatesKey = @"parseDataHasDuplicates";
 
 #pragma mark -
 
+static NSString *lockMarker = @"lock_for_save";
+
 - (BOOL)saveChanges:(NSError **)inout_error {
     NSAssert(self.isReadOnly == false, @"Try to save readonly context");
 
     NSError *error = nil;
     if ([self hasChanges]) {
-        while (YES) {
-            [self save:&error];
-            
-            if (error && self.deleteInvalidObjectsOnSave && [self deleteInvalidObjectsFromError:error] == NO) {
-                error = nil;
-                continue;
+        @synchronized (lockMarker) {
+            while (YES) {
+                [self save:&error];
+                
+                if (error && self.deleteInvalidObjectsOnSave && [self deleteInvalidObjectsFromError:error] == NO) {
+                    error = nil;
+                    continue;
+                }
+                
+                break;
             }
             
-            break;
+            LOG_ON_ERROR(error);
         }
-
-        LOG_ON_ERROR(error);
     }
 
     if (error && inout_error) *inout_error = error;
