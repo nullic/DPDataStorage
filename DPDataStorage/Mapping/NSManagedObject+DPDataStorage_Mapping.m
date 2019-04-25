@@ -11,12 +11,14 @@
 #import "NSManagedObject+DataStorage.h"
 #import "NSManagedObjectContext+DPDataStorage_Mapping.h"
 
+
 static NSString * const kUniqueKey = @"uniqueKey";
 static NSString * const kImportKey = @"importKey";
 static NSString * const kExportKey = @"exportKey";
 static NSString * const kDeleteOnReplaceKey = @"deleteOnReplace";
 static NSString * const kDeleteNotUpdatedKey = @"deleteNotUpdated";
 static NSString * const kParseDataHasDuplicatesKey = @"parseDuplicates";
+static NSString * const kEqualCheckKey = @"equalCheck";
 
 
 static NSString * uniqueKeyForEntity(NSEntityDescription *entityDescription) {
@@ -353,6 +355,7 @@ static NSString * uniqueKeyForEntity(NSEntityDescription *entityDescription) {
 - (BOOL)updateAttributesWithDictionary:(NSDictionary *)dictionary error:(NSError *__autoreleasing *)out_error {
     NSMutableArray *errors = [NSMutableArray array];
     NSDictionary *entityAttributes = [self.entity attributesByName];
+    BOOL equalCheck = [self.entity.userInfo[kEqualCheckKey] boolValue];
 
     for (NSString *attributeName in entityAttributes) {
         NSAttributeDescription *attributeDescription = entityAttributes[attributeName];
@@ -371,23 +374,38 @@ static NSString * uniqueKeyForEntity(NSEntityDescription *entityDescription) {
         id value = importValue ? [[self class] transformImportValue:importValue importKey:importKey propertyDescription:attributeDescription] : nil;
 
         if (value != nil) {
+            id newValue = value;
+            BOOL isValueValid = YES;
+
             if (value == [NSNull null]) {
-                [self setValue:nil forKey:attributeName];
+                newValue = nil;
             }
-            else if (attributeDescription.attributeType == NSTransformableAttributeType) {
-                [self setValue:value forKey:attributeName];
-            }
+            else if (attributeDescription.attributeType == NSTransformableAttributeType) {}
             else {
                 Class valueClass = NSClassFromString(attributeDescription.attributeValueClassName);
-                if ([value isKindOfClass:valueClass]) {
-                    [self setValue:value forKey:attributeName];
-                }
+                if ([value isKindOfClass:valueClass]) {}
                 else if (valueClass == [NSDecimalNumber class] && [value isKindOfClass:[NSNumber class]]) {
-                    [self setValue:[NSDecimalNumber decimalNumberWithDecimal:[value decimalValue]] forKey:attributeName];
+                    value = [NSDecimalNumber decimalNumberWithDecimal:[value decimalValue]];
                 }
                 else {
+                    isValueValid = NO;
                     NSString *details = [NSString stringWithFormat:@"Invalid import value class (expected: %@, actual: %@) for key: '%@' in object: '%@'", attributeDescription.attributeValueClassName, NSStringFromClass([value class]), attributeName, NSStringFromClass([self class])];
                     [errors addObject:[NSError errorWithDomain:NSCocoaErrorDomain code:NSExternalRecordImportError userInfo:@{NSLocalizedFailureReasonErrorKey: details}]];
+                }
+            }
+
+            if (isValueValid) {
+                if (equalCheck == NO) {
+                    [self setValue:newValue forKey:attributeName];
+                }
+                else {
+                    id currentValue = [self valueForKey:attributeName];
+                    if (newValue == nil && currentValue != nil) {
+                        [self setValue:newValue forKey:attributeName];
+                    }
+                    else if ([currentValue isEqual:newValue] == NO) {
+                        [self setValue:newValue forKey:attributeName];
+                    }
                 }
             }
         }
