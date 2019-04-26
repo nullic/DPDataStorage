@@ -423,6 +423,7 @@ static NSString * uniqueKeyForEntity(NSEntityDescription *entityDescription) {
 - (BOOL)updateRelationshipsWithDictionary:(NSDictionary *)dictionary error:(NSError **)out_error {
     NSMutableArray *errors = [NSMutableArray array];
     NSDictionary *entityRelationships = [self.entity relationshipsByName];
+    BOOL equalCheck = [self.entity.userInfo[kEqualCheckKey] boolValue];
 
     for (NSString *keyName in entityRelationships) {
         NSRelationshipDescription *relationshipDescription = entityRelationships[keyName];
@@ -438,6 +439,7 @@ static NSString * uniqueKeyForEntity(NSEntityDescription *entityDescription) {
                 }
             }
         }
+
         id value = importValue ? [[self class] transformImportValue:importValue importKey:importKey propertyDescription:relationshipDescription] : nil;
 
         if (value != nil) {
@@ -461,7 +463,9 @@ static NSString * uniqueKeyForEntity(NSEntityDescription *entityDescription) {
             }
 
             if (value == [NSNull null]) {
-                [self setValue:nil forKey:keyName];
+                if (!equalCheck || [self valueForKey:keyName] != nil) {
+                    [self setValue:nil forKey:keyName];
+                }
             }
             else if ([value isKindOfClass:valueClass]) {
                 NSError *error = nil;
@@ -490,7 +494,18 @@ static NSString * uniqueKeyForEntity(NSEntityDescription *entityDescription) {
                             }
                         }
 
-                        [self setValue:object forKey:keyName];
+                        if (equalCheck == NO) {
+                            [self setValue:object forKey:keyName];
+                        }
+                        else {
+                            NSManagedObject *currentObject = [self valueForKey:keyName];
+                            if (object.objectID == nil && currentObject.objectID != nil) {
+                                [self setValue:object forKey:keyName];
+                            }
+                            else if ([currentObject.objectID isEqual:object.objectID] == NO) {
+                                [self setValue:object forKey:keyName];
+                            }
+                        }
                     }
                 }
                 else { //if (valueClass == [NSArray class]) {
@@ -520,7 +535,18 @@ static NSString * uniqueKeyForEntity(NSEntityDescription *entityDescription) {
                             }
                         }
 
-                        [self setValue:set forKey:keyName];
+                        if (equalCheck == NO) {
+                             [self setValue:set forKey:keyName];
+                        }
+                        else {
+                            id currentSet = [self valueForKey:keyName];
+                            if (set == nil && currentSet != nil) {
+                                [self setValue:set forKey:keyName];
+                            }
+                            else if ([currentSet isEqual:set] == NO) {
+                                [self setValue:set forKey:keyName];
+                            }
+                        }
                     }
                 }
 
@@ -532,7 +558,19 @@ static NSString * uniqueKeyForEntity(NSEntityDescription *entityDescription) {
             else if (valueClass == [NSDictionary class] && uniqueKeyForEntity(relationshipDescription.destinationEntity) != nil) {
                 NSString *entityUniqueKey = uniqueKeyForEntity(relationshipDescription.destinationEntity);
                 NSManagedObject *object = [relationClass entryWithValue:value forKey:entityUniqueKey includesPendingChanges:YES inContext:[self managedObjectContext]];
-                [self setValue:object forKey:keyName];
+
+                if (equalCheck == NO) {
+                    [self setValue:object forKey:keyName];
+                }
+                else {
+                    NSManagedObject *currentObject = [self valueForKey:keyName];
+                    if (object.objectID == nil && currentObject.objectID != nil) {
+                        [self setValue:object forKey:keyName];
+                    }
+                    else if ([currentObject.objectID isEqual:object.objectID] == NO) {
+                        [self setValue:object forKey:keyName];
+                    }
+                }
             }
             else {
                 NSString *details = [NSString stringWithFormat:@"Invalid import value class (expected: %@, actual: %@) for key: '%@' in object: '%@'", NSStringFromClass(valueClass), NSStringFromClass([value class]), keyName, NSStringFromClass([self class])];
