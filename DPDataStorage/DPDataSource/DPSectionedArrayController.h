@@ -30,6 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)insertObject:(id)object atIndex:(NSUInteger)index;
 - (void)removeObjectAtIndex:(NSUInteger)index;
 - (void)reloadObjectAtIndex:(NSUInteger)index;
+- (void)refreshObjectAtIndex:(NSUInteger)index;
 - (void)moveObjectAtIndex:(NSUInteger)index toIndex:(NSUInteger)newIndex;
 
 - (void)removeAllObjects NS_UNAVAILABLE;

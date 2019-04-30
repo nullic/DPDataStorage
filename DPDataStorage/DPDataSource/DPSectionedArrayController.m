@@ -138,7 +138,7 @@
         NSIndexPath *ip = [NSIndexPath indexPathForItem:i inSection:section];
         id otherObject = [self objectAtIndexPath:ip];
         if (otherObject == object) continue;
-        if ([self isInsertedObject:otherObject] == NO) {
+        if ([self isObjectInserted:otherObject] == NO) {
             firstObject = otherObject;
             break;
         }
@@ -147,7 +147,7 @@
     return firstObject;
 }
 
-- (BOOL)isInsertedObject:(id)anObject {
+- (BOOL)isObjectInserted:(id)anObject {
     for (DPSectionChange *c in self.insertedObjects) {
         if (c.anObject == anObject) return YES;
     }
@@ -190,7 +190,7 @@
         *newSection = NO;
         return [NSIndexPath indexPathForItem:0 inSection:prevSection];
     } else {
-        *newSection = [self firstSectionObjectAtSection:section forObject:object];
+        *newSection = ([self firstSectionObjectAtSection:section forObject:object] != nil) || (section >= [self numberOfSections]);
         return [NSIndexPath indexPathForItem:0 inSection:section];
     }
 }
@@ -222,6 +222,12 @@
     id object = [self objectAtIndex:index];
     [self removeObjectAtIndex:index];
     [self insertObject:object atIndex:index];
+}
+
+- (void)refreshObjectAtIndex:(NSUInteger)index {
+    id object = [self objectAtIndex:index];
+    NSIndexPath *ip = [self indexPathForObject:object];
+    [super reloadObjectAtIndextPath:ip];
 }
 
 - (void)moveObjectAtIndex:(NSUInteger)index toIndex:(NSUInteger)newIndex {
