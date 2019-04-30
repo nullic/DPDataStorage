@@ -131,22 +131,34 @@
     return [self.innerStorage numberOfObjects];
 }
 
+- (id)firstSectionObjectAtSection:(NSInteger)section forObject:(id)object {
+    id firstObject = nil;
+
+    for (NSInteger i = 0; i < [self numberOfItemsInSection:section]; i++) {
+        NSIndexPath *ip = [NSIndexPath indexPathForItem:i inSection:section];
+        id otherObject = [self objectAtIndexPath:ip];
+        if (otherObject == object) continue;
+        if ([self isInsertedObject:otherObject] == NO) {
+            firstObject = otherObject;
+            break;
+        }
+    }
+
+    return firstObject;
+}
+
+- (BOOL)isInsertedObject:(id)anObject {
+    for (DPSectionChange *c in self.insertedObjects) {
+        if (c.anObject == anObject) return YES;
+    }
+    return NO;
+}
+
 - (NSIndexPath *)newIndexPathForObject:(id)object newSection:(BOOL *)newSection {
     NSInteger section = 0;
 
     for (; section < [self numberOfSections]; section++) {
-        id firstObject = nil;
-
-        for (NSInteger i = 0; i < [self numberOfItemsInSection:section]; i++) {
-            NSIndexPath *ip = [NSIndexPath indexPathForItem:i inSection:section];
-            id otherObject = [self objectAtIndexPath:ip];
-            if (otherObject == object) continue;
-            if ([self.innerStorage indexOfObject:otherObject] != NSNotFound) {
-                firstObject = otherObject;
-                break;
-            }
-        }
-
+        id firstObject = [self firstSectionObjectAtSection:section forObject:object];
         if (firstObject == nil) continue;
 
         NSComparisonResult result = [self.sectionSortDescriptor compareObject:firstObject toObject:object];
@@ -157,6 +169,8 @@
                 id firstObject = [self objectAtIndexPath:ip];
 
                 [self.innerStorage removeDeletedObjectPlaceholders];
+                if ([self.innerStorage indexOfObject:firstObject] == NSNotFound) continue;
+
                 NSComparisonResult result = self.sectionComarator(firstObject, object);
                 if (result != NSOrderedAscending) {
                     break;
@@ -172,11 +186,11 @@
     }
 
     NSInteger prevSection = (section - 1);
-    if (prevSection >= 0 && [self numberOfItemsInSection:prevSection] == 0) {
+    if (prevSection >= 0 && [self firstSectionObjectAtSection:prevSection forObject:object] == nil) {
         *newSection = NO;
         return [NSIndexPath indexPathForItem:0 inSection:prevSection];
     } else {
-        *newSection = YES;
+        *newSection = [self firstSectionObjectAtSection:section forObject:object];
         return [NSIndexPath indexPathForItem:0 inSection:section];
     }
 }
@@ -230,6 +244,7 @@
 }
 
 - (void)applyChanges {
+    [super mergeChanges];
     [super applyChanges];
     [self removeEmptySections];
 }
@@ -256,6 +271,7 @@
         BOOL newSection = NO;
         NSIndexPath *indexPath = [self newIndexPathForObject:c.anObject newSection:&newSection];
         indexPath = [NSIndexPath indexPathForItem:indexPath.item inSection:indexPath.section + sectionShift];
+
         if (newSection == YES) {
             NSComparisonResult result = prevObject != nil ? [self.sectionSortDescriptor compareObject:prevObject toObject:c.anObject] : NSOrderedAscending;
             if (result == NSOrderedSame) {

@@ -45,6 +45,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (BOOL)hasChanges;
 - (NSArray<DPChange *> *)updateChanges;
+- (void)mergeChanges;
 - (void)applyChanges;
 - (void)notifyDelegate;
 

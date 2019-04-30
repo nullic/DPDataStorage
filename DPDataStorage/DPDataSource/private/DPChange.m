@@ -162,7 +162,8 @@
             break;
             
         case NSFetchedResultsChangeMove:
-            [controller moveObjectAtIndextPath:[controller indexPathForObject:self.anObject] toIndexPath:self.toPath immediately:YES];
+//            [controller moveObjectAtIndextPath:[controller indexPathForObject:self.anObject] toIndexPath:self.toPath immediately:YES];
+            [controller moveObjectAtIndextPath:self.path toIndexPath:self.toPath immediately:YES];
             break;
     }
 }

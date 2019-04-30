@@ -413,6 +413,38 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
     }
 }
 
+- (void)mergeChanges {
+    NSMutableArray *merged = [self.changes mutableCopy];
+
+    for (int d = 0; ; d++) {
+        if (d >= merged.count) break;
+
+        DPItemChange *delete = merged[d];
+        if ([delete isKindOfClass:[DPItemChange class]] && delete.type == NSFetchedResultsChangeDelete) {
+            for (int i = d + 1; i < merged.count; i++) {
+                DPItemChange *insert = merged[i];
+                if ([insert isKindOfClass:[DPItemChange class]] && insert.type == NSFetchedResultsChangeInsert && insert.anObject == delete.anObject) {
+                    if ([delete.path isEqual:insert.toPath]) {
+                        DPItemChange *update = [DPItemChange updateObject:insert.anObject atIndexPath:delete.path newIndexPath:insert.toPath];
+                        [merged replaceObjectAtIndex:i withObject:update];
+                    }
+                    else {
+                        DPItemChange *move = [DPItemChange moveObject:insert.anObject atIndexPath:delete.path newIndex:insert.toPath];
+                        [merged replaceObjectAtIndex:i withObject:move];
+                    }
+                    [merged removeObjectAtIndex:d];
+                    d--;
+                    break;
+                }
+            }
+        }
+    }
+
+    if (merged.count != self.changes.count) {
+        self.changes = merged;
+    }
+}
+
 - (void)notifyDelegate {
     for (DPChange *change in self.changes) {
         [change notifyDelegateOfController:self];
