@@ -15,6 +15,8 @@
 @property (nonatomic, strong) DPArrayControllerSection *innerStorage;
 @property (nonatomic, strong) NSMutableArray<DPSectionChange *> *insertedObjects;
 @property (nonatomic, strong) NSMutableArray<DPSectionChange *> *deleteSectionChanges;
+
+@property (nonatomic) NSFetchedResultsChangeType lastChangeType;
 @end
 
 
@@ -37,6 +39,13 @@
 - (NSMutableArray *)deleteSectionChanges {
     if (_deleteSectionChanges == nil) _deleteSectionChanges = [NSMutableArray new];
     return _deleteSectionChanges;
+}
+
+- (void)setLastChangeType:(NSFetchedResultsChangeType)lastChangeType {
+    if (_lastChangeType != lastChangeType) {
+        _lastChangeType = lastChangeType;
+        [self.innerStorage removeDeletedObjectPlaceholders];
+    }
 }
 
 #pragma mark -
@@ -196,6 +205,8 @@
 }
 
 - (void)insertObject:(id)object atIndex:(NSUInteger)index {
+    self.lastChangeType = NSFetchedResultsChangeInsert;
+
     if (self.isUpdating) {
         [self.insertedObjects addObject:[DPSectionChange insertObject:object atIndex:index]];
     } else {
@@ -211,6 +222,8 @@
 }
 
 - (void)removeObjectAtIndex:(NSUInteger)index {
+    self.lastChangeType = NSFetchedResultsChangeDelete;
+
     id object = [self objectAtIndex:index];
     [self.innerStorage removeObjectAtIndex:index];
 
@@ -219,18 +232,21 @@
 }
 
 - (void)reloadObjectAtIndex:(NSUInteger)index {
+    self.lastChangeType = NSFetchedResultsChangeUpdate;
     id object = [self objectAtIndex:index];
     [self removeObjectAtIndex:index];
     [self insertObject:object atIndex:index];
 }
 
 - (void)refreshObjectAtIndex:(NSUInteger)index {
+    self.lastChangeType = NSFetchedResultsChangeUpdate;
     id object = [self objectAtIndex:index];
     NSIndexPath *ip = [self indexPathForObject:object];
     [super reloadObjectAtIndextPath:ip];
 }
 
 - (void)moveObjectAtIndex:(NSUInteger)index toIndex:(NSUInteger)newIndex {
+    self.lastChangeType = NSFetchedResultsChangeMove;
     id object = [self objectAtIndex:index];
     [self removeObjectAtIndex:index];
     [self insertObject:object atIndex:newIndex];
@@ -247,6 +263,7 @@
 - (void)endUpdating {
     [self applyInsertion];
     [super endUpdating];
+    self.lastChangeType = 0;
 }
 
 - (void)applyChanges {

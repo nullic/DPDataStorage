@@ -55,7 +55,7 @@
             break;
 
         case NSFetchedResultsChangeDelete:
-             [super removeObjectAtIndex:indexPath.item];
+            [super removeObjectAtIndex:indexPath.item];
             break;
 
         case NSFetchedResultsChangeUpdate:
