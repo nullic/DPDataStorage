@@ -154,5 +154,37 @@ class DPArrayControllerTests: XCTestCase {
         object = controller.object(at: IndexPath(row: array.count + 1, section: 0)) as? TestObject
         XCTAssert(object?.value == String(array.count + 1))
     }
+
+    func testMixedChanges() {
+        let delegate = TestDelegate()
+        let controller = DPArrayController(delegate: delegate)
+
+        let array = [TestObject(section: "o", value: "1"), TestObject(section: "o", value: "2"), TestObject(section: "o", value: "3")]
+        controller.startUpdating()
+        controller.setObjects(array, atSection: 0)
+        controller.endUpdating()
+
+        XCTAssert(controller.numberOfSections() == 1)
+        XCTAssert(controller.numberOfItems(inSection: 0) == array.count)
+
+        controller.startUpdating()
+        controller.insert(TestObject(section: "insert", value: "0"), atIndextPath: IndexPath(row: 0, section: 0))
+        controller.moveObject(atIndextPath: IndexPath(row: 2, section: 0), to: IndexPath(row: 3, section: 0))
+        controller.endUpdating()
+
+        XCTAssert(delegate.itemChanges.count == 2)
+        XCTAssert(delegate.sectionChanges.count == 0)
+        XCTAssert(controller.numberOfSections() == 1)
+        XCTAssert(controller.numberOfItems(inSection: 0) == array.count + 1)
+
+        var object = controller.object(at: IndexPath(row: 0, section: 0)) as? TestObject
+        XCTAssert(object?.value == "0")
+        object = controller.object(at: IndexPath(row: 1, section: 0)) as? TestObject
+        XCTAssert(object?.value == "1")
+        object = controller.object(at: IndexPath(row: 2, section: 0)) as? TestObject
+        XCTAssert(object?.value == "3")
+        object = controller.object(at: IndexPath(row: 3, section: 0)) as? TestObject
+        XCTAssert(object?.value == "2")
+    }
 }
 

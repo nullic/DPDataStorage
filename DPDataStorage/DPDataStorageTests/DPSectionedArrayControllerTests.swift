@@ -10,13 +10,6 @@ import XCTest
 import DPDataStorage
 
 class DPSectionedArrayControllerTests: XCTestCase {
-    override func setUp() {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
-
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
 
     func testSetObjectsSameSection() {
         let controller = DPSectionedArrayController(delegate: nil, sectionKeyPath: nil, sectionSortDescriptor: TestObject.sectionSort)

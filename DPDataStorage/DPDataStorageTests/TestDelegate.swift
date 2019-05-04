@@ -29,7 +29,7 @@ class TestDelegate: NSObject, DataSourceContainerControllerDelegate {
         let anObject: Any
 
         var description: String {
-            return "\(type.stringValue): \(indexPath?.description ?? "nil") -> \(newIndexPath?.description ?? "nil")"
+            return "\(type.stringValue): \(indexPath?.description ?? "nil") -> \(newIndexPath?.description ?? "nil") {\(anObject)}"
         }
     }
 
