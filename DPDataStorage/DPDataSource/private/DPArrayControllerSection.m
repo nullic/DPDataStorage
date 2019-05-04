@@ -13,6 +13,8 @@
 @interface DPArrayControllerSection ()
 @property (nonatomic, readwrite, strong) NSMutableArray *mutableObjects;
 @property (nonatomic, readwrite, strong) NSMutableArray *deleteChanges;
+
+@property (nonatomic) NSFetchedResultsChangeType lastChangeType;
 @end
 
 
@@ -44,12 +46,18 @@
 }
 
 - (NSUInteger)numberOfObjects {
-    [self removeDeletedObjectPlaceholders];
-    return self.objects.count;
+    return self.objects.count - self.deleteChanges.count;
 }
 
 - (NSString *)name {
     return _name ?: @"";
+}
+
+- (void)setLastChangeType:(NSFetchedResultsChangeType)lastChangeType {
+    if (_lastChangeType != lastChangeType) {
+        _lastChangeType = lastChangeType;
+        [self removeDeletedObjectPlaceholders];
+    }
 }
 
 #pragma mark - array mutating
@@ -60,7 +68,7 @@
 }
 
 - (void)insertObject:(id)object atIndex:(NSUInteger)index {
-    [self removeDeletedObjectPlaceholders];
+    self.lastChangeType = NSFetchedResultsChangeInsert;
     
     if (index > [self numberOfObjects]) {
         while (index >= [self numberOfObjects]) {
@@ -76,32 +84,35 @@
 }
 
 - (void)removeObjectAtIndex:(NSUInteger)index {
+    self.lastChangeType = NSFetchedResultsChangeDelete;
+
     id object = self.mutableObjects[index];
     [self.mutableObjects replaceObjectAtIndex:index withObject:[DPDeletedPlaceholderObject placeholderWithObject: object]];
     [self.deleteChanges addObject:@(index)];
 }
 
 - (void)replaceObjectWithObject:(id)object atIndex:(NSUInteger)index {
-    [self removeDeletedObjectPlaceholders];
+    self.lastChangeType = NSFetchedResultsChangeUpdate;
     [self.mutableObjects replaceObjectAtIndex:index withObject:object];
 }
 
 - (void)moveObjectAtIndex:(NSUInteger)index toIndex:(NSUInteger)newIndex {
-    [self removeDeletedObjectPlaceholders];
+    self.lastChangeType = NSFetchedResultsChangeMove;
+
     id object = self.mutableObjects[index];
     [self.mutableObjects removeObjectAtIndex:index];
     [self.mutableObjects insertObject:object atIndex:newIndex];
 }
 
 - (void)addObjectsFromArray:(NSArray *)otherArray {
-    [self removeDeletedObjectPlaceholders];
+    self.lastChangeType = NSFetchedResultsChangeInsert;
+
     for (id object in otherArray) {
         [self insertObject:object atIndex:[self numberOfObjects]];
     }
 }
 
 - (NSUInteger)indexOfObject:(id)object {
-    [self removeDeletedObjectPlaceholders];
     NSUInteger result = NSNotFound;
     if (object) {
         id left = [object isKindOfClass:[NSManagedObject class]] ? [object objectID] : object;
@@ -120,7 +131,6 @@
 }
 
 - (id)objectAtIndex:(NSUInteger)index {
-    [self removeDeletedObjectPlaceholders];
     return [self.mutableObjects objectAtIndex:index];
 }
 

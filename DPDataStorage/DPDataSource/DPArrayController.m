@@ -325,10 +325,13 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
 }
 
 - (void)addObjects:(NSArray *)objects atSection:(NSInteger)section immediately:(BOOL)immediately {
+    [self addObjects:objects atSection:section firstIndex:[self numberOfItemsInSection:section] immediately:self.isUpdating == NO];
+}
+
+- (void)addObjects:(NSArray *)objects atSection:(NSInteger)section firstIndex:(NSInteger)firstIndex immediately:(BOOL)immediately {
     NSParameterAssert(section >= 0);
     
     if (immediately == NO) {
-        NSInteger firstIndex = [self numberOfItemsInSection:section];
         for (NSInteger i = 0; i < objects.count; i++) {
             NSIndexPath *ip = [NSIndexPath indexPathForItem:firstIndex + i inSection:section];
             [self.changes addObject:[DPItemChange insertObject:objects[i] atIndexPath:ip]];
@@ -359,13 +362,12 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
         }
         else {
             [self removeAllObjectsAtSection:section immediately:immediately];
-            [self applyChanges];
-            [self addObjects:newObjects atSection:section immediately:immediately];
+            [self addObjects:newObjects atSection:section firstIndex:0 immediately:immediately];
         }
     }
     else {
-        [self insertSectionAtIndex:section];
-        [self addObjects:newObjects atSection:section];
+        [self insertSectionAtIndex:section immediately:immediately];
+        [self addObjects:newObjects atSection:section immediately:immediately];
     }
 }
 
@@ -385,12 +387,13 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
         }
         
         [self applyChanges];
-        [self notifyDelegate];
 
         [self.sectionsStorage removeDeletedObjectPlaceholders];
         for (DPArrayControllerSection *section in self.sectionsStorage.objects) {
             [section removeDeletedObjectPlaceholders];
         }
+
+        [self notifyDelegate];
         
         if (self.responseMask & ResponseMaskDidChangeContent) {
             [self.delegate controllerDidChangeContent:self];
