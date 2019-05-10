@@ -12,26 +12,27 @@
 
 @interface DPSectionedArrayController ()
 @property (nonatomic, readwrite, strong) NSSortDescriptor *sectionSortDescriptor;
+@property (nonatomic, readwrite, copy) NSInteger (^sectionHashCalculator)(id);
 @property (nonatomic, strong) DPArrayControllerSection *innerStorage;
-@property (nonatomic, strong) NSMutableArray<DPSectionChange *> *insertedObjects;
+@property (nonatomic, strong) NSMutableArray<DPSectionChange *> *innerStorageChanges;
 @property (nonatomic, strong) NSMutableArray<DPSectionChange *> *deleteSectionChanges;
 @end
 
 
 @implementation DPSectionedArrayController
 
-- (instancetype)initWithDelegate:(id<DataSourceContainerControllerDelegate> _Nullable)delegate sectionKeyPath:(NSString *)sectionKeyPath sectionSortDescriptor:(NSSortDescriptor *)sectionSortDescriptor
+- (instancetype)initWithDelegate:(id<DataSourceContainerControllerDelegate> _Nullable)delegate sectionHashCalculator:(NSInteger (^)(id))sectionHashCalculator sectionSortDescriptor:(NSSortDescriptor *)sectionSortDescriptor
 {
     if ((self = [super initWithDelegate:delegate])) {
-        self.sectionKeyPath = sectionKeyPath;
         self.sectionSortDescriptor = sectionSortDescriptor;
+        self.sectionHashCalculator = sectionHashCalculator;
     }
     return self;
 }
 
-- (NSMutableArray *)insertedObjects {
-    if (_insertedObjects == nil) _insertedObjects = [NSMutableArray new];
-    return _insertedObjects;
+- (NSMutableArray *)innerStorageChanges {
+    if (_innerStorageChanges == nil) _innerStorageChanges = [NSMutableArray new];
+    return _innerStorageChanges;
 }
 
 - (NSMutableArray *)deleteSectionChanges {
@@ -41,15 +42,15 @@
 
 #pragma mark -
 
-- (void)setSectionKeyPath:(NSString *)sectionKeyPath {
-    _sectionKeyPath = [sectionKeyPath copy];
+- (void)setSectionNameKeyPath:(NSString *)sectionNameKeyPath {
+    _sectionNameKeyPath = [sectionNameKeyPath copy];
     _sectionNameSetter = nil;
     [self reloadSectionsName];
 }
 
 - (void)setSectionNameSetter:(NSString * _Nullable (^)(NSArray<id> * _Nullable))sectionNameSetter {
     _sectionNameSetter = sectionNameSetter;
-    _sectionKeyPath = nil;
+    _sectionNameKeyPath = nil;
     [self reloadSectionsName];
 }
 
@@ -58,15 +59,15 @@
     return _innerStorage;
 }
 
-- (NSComparator)sectionComarator {
-    return ^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+- (NSSortDescriptor *)inSectionSortDescriptor {
+    return [NSSortDescriptor sortDescriptorWithKey:nil ascending:YES comparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
         return [@([self.innerStorage.objects indexOfObject:obj1]) compare:@([self.innerStorage.objects indexOfObject:obj2])];
-    };
+    }];
 }
 
 - (void)_setSectionNameWithObjects:(NSArray *)objects atSection:(NSInteger)section {
-    if (self.sectionKeyPath.length > 0) {
-        NSString *name = [[objects.firstObject valueForKeyPath:self.sectionKeyPath] description];
+    if (self.sectionNameKeyPath.length > 0) {
+        NSString *name = [[objects.firstObject valueForKeyPath:self.sectionNameKeyPath] description];
         [self setSectionName:name atIndex:section];
     }
     else if (self.sectionNameSetter != nil) {
@@ -76,8 +77,12 @@
 }
 
 - (void)_setObjects:(NSArray *)objects atSection:(NSInteger)section {
+    NSParameterAssert(objects.count > 0);
+
     [super setObjects:objects atSection:section];
     [self _setSectionNameWithObjects:objects atSection:section];
+    NSInteger hash = self.sectionHashCalculator(objects.firstObject);
+    [(DPArrayControllerSection *)self.sections[section] setSectionHash:hash];
 }
 
 #pragma mark -
@@ -94,13 +99,12 @@
     [self.innerStorage setObjects:objects];
 
     if (objects.count > 0) {
-        NSArray *sortedObjects = [self.innerStorage.objects sortedArrayUsingDescriptors:@[self.sectionSortDescriptor]];
+        NSArray *sortedObjects = [self.innerStorage.objects sortedArrayUsingDescriptors:@[self.sectionSortDescriptor, self.inSectionSortDescriptor]];
         NSMutableArray *sectionObjects = [NSMutableArray arrayWithObject:sortedObjects.firstObject];
         NSInteger sectionIndex = 0;
 
         for (NSInteger i = 1; i < sortedObjects.count; i++) {
             if ([self.sectionSortDescriptor compareObject:sortedObjects[i-1] toObject:sortedObjects[i]] != NSOrderedSame) {
-                [sectionObjects sortUsingComparator:self.sectionComarator];
                 [self _setObjects:sectionObjects atSection:sectionIndex];
                 sectionObjects = [NSMutableArray array];
                 sectionIndex++;
@@ -127,179 +131,43 @@
     return [self.innerStorage numberOfObjects];
 }
 
-- (id)firstSectionObjectAtSection:(NSInteger)section forObject:(id)object {
-    id firstObject = nil;
-
-    for (NSInteger i = 0; i < [self numberOfItemsInSection:section]; i++) {
-        NSIndexPath *ip = [NSIndexPath indexPathForItem:i inSection:section];
-        id otherObject = [self objectAtIndexPath:ip];
-        if (otherObject == object) continue;
-        if ([self isObjectInserted:otherObject] == NO) {
-            firstObject = otherObject;
-            break;
-        }
-    }
-
-    return firstObject;
-}
-
-- (BOOL)isObjectInserted:(id)anObject {
-    for (DPSectionChange *c in self.insertedObjects) {
-        if (c.anObject == anObject) return YES;
-    }
-    return NO;
-}
-
-- (NSIndexPath *)newIndexPathForObject:(id)object newSection:(BOOL *)newSection {
-    NSInteger section = 0;
-
-    for (; section < [self numberOfSections]; section++) {
-        id firstObject = [self firstSectionObjectAtSection:section forObject:object];
-        if (firstObject == nil) continue;
-
-        NSComparisonResult result = [self.sectionSortDescriptor compareObject:firstObject toObject:object];
-        if (result == NSOrderedSame) {
-            NSUInteger item = 0;
-            for (; item < [self numberOfItemsInSection:section]; item++) {
-                NSIndexPath *ip = [NSIndexPath indexPathForItem:item inSection:section];
-                id firstObject = [self objectAtIndexPath:ip];
-
-                [self.innerStorage removeDeletedObjectPlaceholders];
-                if ([self.innerStorage indexOfObject:firstObject] == NSNotFound) continue;
-
-                NSComparisonResult result = self.sectionComarator(firstObject, object);
-                if (result != NSOrderedAscending) {
-                    break;
-                }
-            }
-
-            *newSection = NO;
-            return [NSIndexPath indexPathForItem:item inSection:section];
-        }
-        else if (result == NSOrderedDescending) {
-            break;
-        }
-    }
-
-    NSInteger prevSection = (section - 1);
-    if (prevSection >= 0 && [self firstSectionObjectAtSection:prevSection forObject:object] == nil) {
-        *newSection = NO;
-        return [NSIndexPath indexPathForItem:0 inSection:prevSection];
-    } else {
-        *newSection = ([self firstSectionObjectAtSection:section forObject:object] != nil) || (section >= [self numberOfSections]);
-        return [NSIndexPath indexPathForItem:0 inSection:section];
-    }
-}
+#pragma mark -
 
 - (void)insertObject:(id)object atIndex:(NSUInteger)index {
-    if (self.isUpdating) {
-        [self.insertedObjects addObject:[DPSectionChange insertObject:object atIndex:index]];
-    } else {
-        [self.innerStorage insertObject:object atIndex:index];
-
-        BOOL newSection = NO;
-        NSIndexPath *indexPath = [self newIndexPathForObject:object newSection:&newSection];
-        if (newSection == YES) {
-            [super insertSectionAtIndex:indexPath.section];
-        }
-        [super insertObject:object atIndextPath:indexPath];
+    [self.innerStorageChanges addObject:[DPSectionChange insertObject:object atIndex:index]];
+    if (self.isUpdating == NO) {
+        [self applyInnerStorageChanges];
     }
 }
 
 - (void)removeObjectAtIndex:(NSUInteger)index {
     id object = [self objectAtIndex:index];
-    [self.innerStorage removeObjectAtIndex:index];
-
-    NSIndexPath *indexPath = [super indexPathForObject:object];
-    [super deleteObjectAtIndextPath:indexPath];
+    [self.innerStorageChanges addObject:[DPSectionChange deleteObject:object atIndex:index]];
+    if (self.isUpdating == NO) {
+        [self applyInnerStorageChanges];
+    }
 }
 
 - (void)reloadObjectAtIndex:(NSUInteger)index {
     id object = [self objectAtIndex:index];
-    [self removeObjectAtIndex:index];
-    [self insertObject:object atIndex:index];
-}
-
-- (void)refreshObjectAtIndex:(NSUInteger)index {
-    id object = [self objectAtIndex:index];
-    NSIndexPath *ip = [self indexPathForObject:object];
-    [super reloadObjectAtIndextPath:ip];
+    [self.innerStorageChanges addObject:[DPSectionChange updateObject:object atIndex:index]];
+    if (self.isUpdating == NO) {
+        [self applyInnerStorageChanges];
+    }
 }
 
 - (void)moveObjectAtIndex:(NSUInteger)index toIndex:(NSUInteger)newIndex {
     id object = [self objectAtIndex:index];
-    [self removeObjectAtIndex:index];
-    [self insertObject:object atIndex:newIndex];
+    [self.innerStorageChanges addObject:[DPSectionChange moveObject:object atIndex:index newIndex:newIndex]];
+    if (self.isUpdating == NO) {
+        [self applyInnerStorageChanges];
+    }
 }
 
 - (void)reloadObjectAtIndextPath:(NSIndexPath *)indexPath {
     id object = [super objectAtIndexPath:indexPath];
     NSUInteger index = [self indexOfObject:object];
     [self reloadObjectAtIndex:index];
-}
-
-#pragma mark -
-
-- (void)endUpdating {
-    [self applyInsertion];
-    [super endUpdating];
-    [self.innerStorage removeDeletedObjectPlaceholders];
-}
-
-- (void)applyChanges {
-    [super mergeChanges];
-    [super applyChanges];
-    [self removeEmptySections];
-}
-
-- (void)notifyDelegate {
-    [super notifyDelegate];
-    for (DPSectionChange *change in self.deleteSectionChanges) {
-        [change notifyDelegateOfController:self];
-    }
-    self.deleteSectionChanges = nil;
-}
-
-- (void)applyInsertion {
-    if (self.insertedObjects.count == 0) return;
-
-    [self.insertedObjects sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"index" ascending:YES]]];
-
-    NSInteger sectionShift = 0;
-    NSInteger itemShift = 0;
-    id prevObject = nil;
-    for (DPSectionChange *c in self.insertedObjects) {
-        [self.innerStorage insertObject:c.anObject atIndex:c.index];
-
-        BOOL newSection = NO;
-        NSIndexPath *indexPath = [self newIndexPathForObject:c.anObject newSection:&newSection];
-        indexPath = [NSIndexPath indexPathForItem:indexPath.item inSection:indexPath.section + sectionShift];
-
-        if (newSection == YES) {
-            NSComparisonResult result = prevObject != nil ? [self.sectionSortDescriptor compareObject:prevObject toObject:c.anObject] : NSOrderedAscending;
-            if (result == NSOrderedSame) {
-                itemShift++;
-                indexPath = [NSIndexPath indexPathForItem:indexPath.item + itemShift inSection:indexPath.section - 1];
-            } else {
-                sectionShift++;
-                itemShift = 0;
-                [super insertSectionAtIndex:indexPath.section];
-            }
-        } else {
-            NSComparisonResult result = prevObject != nil ? [self.sectionSortDescriptor compareObject:prevObject toObject:c.anObject] : NSOrderedAscending;
-            if (result == NSOrderedSame) {
-                itemShift++;
-                indexPath = [NSIndexPath indexPathForItem:indexPath.item + itemShift inSection:indexPath.section];
-            } else {
-                itemShift = 0;
-            }
-        }
-
-        [super insertObject:c.anObject atIndextPath:indexPath];
-        prevObject = c.anObject;
-    }
-
-    self.insertedObjects = nil;
 }
 
 - (void)removeEmptySections {
@@ -312,6 +180,167 @@
             [self.deleteSectionChanges addObject:change];
         }
     }
+}
+
+#pragma mark -
+
+- (void)endUpdating {
+    [self applyInnerStorageChanges];
+    [super endUpdating];
+
+    for (NSInteger i = 0; i < [super numberOfSections]; i++) {
+        NSInteger hash = self.sectionHashCalculator(self.sections[i].objects.firstObject);
+        [(DPArrayControllerSection *)self.sections[i] setSectionHash:hash];
+    }
+}
+
+- (void)applyChanges {
+    [super applyChanges];
+    [self removeEmptySections];
+}
+
+- (void)notifyDelegate {
+    [super notifyDelegate];
+    for (DPSectionChange *change in self.deleteSectionChanges) {
+        [change notifyDelegateOfController:self];
+    }
+    self.deleteSectionChanges = nil;
+}
+
+#pragma mark -
+
+- (DPSectionChange *)changeForObject:(id)object {
+    for (DPSectionChange *c in self.innerStorageChanges) {
+        if (c.anObject == object) return c;
+    }
+    return nil;
+}
+
+- (DPArrayControllerSection *)sectionWithHash:(NSInteger)hash {
+    for (NSInteger i = 0; i < [super numberOfSections]; i++) {
+        DPArrayControllerSection *section = (DPArrayControllerSection *)self.sections[i];
+        if (section.sectionHash == hash) {
+            return section;
+        }
+    }
+    return nil;
+}
+
+- (id)firstAnchorObjectAtSection:(NSInteger)section {
+    NSInteger sectionHash = [(DPArrayControllerSection *)self.sections[section] sectionHash];
+    for (NSInteger i = 0; i < [self numberOfItemsInSection:section]; i++) {
+        NSIndexPath *ip = [NSIndexPath indexPathForItem:i inSection:section];
+        id object = [self objectAtIndexPath:ip];
+        if (self.sectionHashCalculator(object) == sectionHash) {
+            return object;
+        }
+    }
+    return nil;
+}
+
+- (void)applyInnerStorageChanges {
+    for (DPSectionChange *c in self.innerStorageChanges) {
+        switch (c.type) {
+            case NSFetchedResultsChangeInsert:
+                [self.innerStorage insertObject:c.anObject atIndex:c.toIndex];
+                break;
+
+            case NSFetchedResultsChangeDelete:
+                [self.innerStorage removeObjectAtIndex:c.index];
+                break;
+
+            case NSFetchedResultsChangeMove:
+                [self.innerStorage moveObjectAtIndex:[self.innerStorage indexOfObject:c.anObject] toIndex:c.toIndex];
+                break;
+
+            case NSFetchedResultsChangeUpdate:
+                break;
+        }
+    }
+    [self.innerStorage removeDeletedObjectPlaceholders];
+
+    // 'Simple' changes
+
+    for (NSInteger i = self.innerStorageChanges.count - 1; i >= 0; i--) {
+        DPSectionChange *c = self.innerStorageChanges[i];
+        if (c.type == NSFetchedResultsChangeDelete) {
+            [super deleteObjectAtIndextPath:[super indexPathForObject:c.anObject]];
+            [self.innerStorageChanges removeObjectAtIndex:i];
+        }
+        else if (c.type == NSFetchedResultsChangeUpdate) {
+            NSIndexPath *ip = [super indexPathForObject:c.anObject];
+            NSInteger hash = self.sectionHashCalculator(c.anObject);
+            if ([(DPArrayControllerSection *)self.sections[ip.section] sectionHash] == hash) {
+                [super reloadObjectAtIndextPath:ip];
+                [self.innerStorageChanges removeObjectAtIndex:i];
+            }
+        }
+    }
+
+    // Insert & Move changes
+
+    NSMutableArray *hashes = [NSMutableArray array];
+    NSMutableArray *allObjects = [[self.innerStorageChanges valueForKeyPath:@"anObject"] mutableCopy];
+    for (NSInteger i = 0; i < [super numberOfSections]; i++) {
+        id object = [self firstAnchorObjectAtSection:i];
+        if (object != nil && [allObjects indexOfObject:object] == NSNotFound) {
+            [allObjects addObject:object];
+        }
+    }
+
+    [allObjects sortUsingDescriptors:@[self.sectionSortDescriptor, self.inSectionSortDescriptor]];
+
+    if (allObjects.count > 0) {
+
+        NSInteger sectionIndex = 0;
+        NSInteger itemShift = 0;
+        NSInteger itemIndex = 0;
+        NSInteger lastHash = self.sectionHashCalculator(allObjects.firstObject);
+
+        for (id obj in allObjects) {
+            NSInteger hash = self.sectionHashCalculator(obj);
+            if (lastHash != hash) {
+                itemShift = 0;
+                itemIndex = 0;
+                sectionIndex++;
+            }
+            lastHash = hash;
+
+            DPSectionChange *c = [self changeForObject:obj];
+            if (c != nil) {
+                NSIndexPath *newIndexPath = nil;
+                DPArrayControllerSection *section = [self sectionWithHash:hash];
+                if (section != nil) {
+                    NSInteger itemIndex = 0;
+                    for (; itemIndex < [section numberOfObjects]; itemIndex++) {
+                        id firstObject = section.objects[itemIndex];
+                        NSComparisonResult result = [self.inSectionSortDescriptor compareObject:firstObject toObject:obj];
+                        if (result == NSOrderedDescending) {
+                            break;
+                        }
+                    }
+
+                    newIndexPath = [NSIndexPath indexPathForRow:itemIndex + itemShift inSection:sectionIndex];
+                    itemShift++;
+                }
+                else {
+                    [super insertSectionAtIndex:sectionIndex];
+                    newIndexPath = [NSIndexPath indexPathForRow:itemIndex + itemShift inSection:sectionIndex];
+                    itemShift++;
+                }
+
+                if (c.type == NSFetchedResultsChangeInsert) {
+                    [super insertObject:obj atIndextPath:newIndexPath];
+                }
+                else {
+                    NSIndexPath *from = [super indexPathForObject:c.anObject];
+                    [super moveObjectAtIndextPath:from toIndexPath:newIndexPath];
+                }
+            }
+        }
+    }
+
+    self.innerStorageChanges = nil;
 }
 
 @end

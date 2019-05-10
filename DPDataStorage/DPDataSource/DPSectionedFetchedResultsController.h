@@ -12,9 +12,9 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface DPSectionedFetchedResultsController : DPSectionedArrayController
-- (instancetype)initWithDelegate:(id<DataSourceContainerControllerDelegate> _Nullable)delegate sectionKeyPath:(NSString * _Nullable)sectionKeyPath sectionSortDescriptor:(NSSortDescriptor *)sectionSortDescriptor NS_UNAVAILABLE;
+- (instancetype)initWithDelegate:(id<DataSourceContainerControllerDelegate> _Nullable)delegate sectionHashCalculator:(NSInteger (^)(id ))sectionHashCalculator sectionSortDescriptor:(NSSortDescriptor *)sectionSortDescriptor NS_UNAVAILABLE;
 
-- (instancetype)initWithDelegate:(id<DataSourceContainerControllerDelegate> _Nullable)delegate sectionKeyPath:(NSString * _Nullable)sectionKeyPath sectionSortDescriptor:(NSSortDescriptor *)sectionSortDescriptor frc:(NSFetchedResultsController *)frc NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithDelegate:(id<DataSourceContainerControllerDelegate> _Nullable)delegate sectionHashCalculator:(NSInteger (^)(id ))sectionHashCalculator sectionSortDescriptor:(NSSortDescriptor *)sectionSortDescriptor frc:(NSFetchedResultsController *)frc NS_DESIGNATED_INITIALIZER;
 
 - (void)startUpdating NS_UNAVAILABLE;
 - (void)endUpdating NS_UNAVAILABLE;

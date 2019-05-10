@@ -44,24 +44,29 @@
     return [NSString stringWithFormat:@"Section: %@ %@", typeString, @(self.index)];
 }
 
-+ (instancetype)changeObject:(id)anObject atIndex:(NSUInteger)index forChangeType:(NSFetchedResultsChangeType)type {
++ (instancetype)changeObject:(id)anObject atIndex:(NSUInteger)index newIndex:(NSUInteger)newIndex forChangeType:(NSFetchedResultsChangeType)type {
     DPSectionChange *change = [self new];
     change.anObject = anObject;
     change.index = index;
+    change.toIndex = newIndex;
     change.type = type;
     return change;
 }
 
 + (instancetype)insertObject:(id)anObject atIndex:(NSUInteger)index {
-    return [self changeObject:anObject atIndex:index forChangeType:NSFetchedResultsChangeInsert];
+    return [self changeObject:anObject atIndex:index newIndex:index forChangeType:NSFetchedResultsChangeInsert];
 }
 
 + (instancetype)deleteObject:(id)anObject atIndex:(NSUInteger)index {
-    return [self changeObject:anObject atIndex:index forChangeType:NSFetchedResultsChangeDelete];
+    return [self changeObject:anObject atIndex:index newIndex:-1 forChangeType:NSFetchedResultsChangeDelete];
 }
 
 + (instancetype)updateObject:(id)anObject atIndex:(NSUInteger)index {
-    return [self changeObject:anObject atIndex:index forChangeType:NSFetchedResultsChangeUpdate];
+    return [self changeObject:anObject atIndex:index newIndex:index forChangeType:NSFetchedResultsChangeUpdate];
+}
+
++ (instancetype)moveObject:(id)anObject atIndex:(NSUInteger)index newIndex:(NSUInteger)newIndex {
+    return [self changeObject:anObject atIndex:index newIndex:newIndex forChangeType:NSFetchedResultsChangeMove];
 }
 
 - (void)applyTo:(DPArrayController *)controller {
@@ -172,7 +177,12 @@
     self.notified = YES;
 
     if ([controller delegateResponseToDidChangeObject]) {
-        [controller.delegate controller:controller didChangeObject:self.anObject atIndexPath:self.path forChangeType:self.type newIndexPath:self.toPath];
+        if (self.type == NSFetchedResultsChangeUpdate) {
+            [controller.delegate controller:controller didChangeObject:self.anObject atIndexPath:self.path forChangeType:self.type newIndexPath:[controller indexPathForObject:self.anObject]];
+        }
+        else {
+            [controller.delegate controller:controller didChangeObject:self.anObject atIndexPath:self.path forChangeType:self.type newIndexPath:self.toPath];
+        }
     }
 }
 

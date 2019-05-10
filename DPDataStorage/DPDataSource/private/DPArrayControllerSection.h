@@ -17,9 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly) NSUInteger numberOfObjects;
 @property (nonatomic, readonly) NSArray *objects;
 
-@property (nonatomic) NSUInteger index;
-
-+ (instancetype)sectionWithIndex:(NSUInteger)index;
+@property (nonatomic) NSInteger sectionHash;
 
 - (void)setObjects:(NSArray * _Nullable)objects;
 - (void)insertObject:(id)object atIndex:(NSUInteger)index;
@@ -29,6 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)addObjectsFromArray:(NSArray *)otherArray;
 - (NSUInteger)indexOfObject:(id)object;
+- (NSUInteger)indexOfManagedObject:(NSManagedObject *)object;
 - (id)objectAtIndex:(NSUInteger)index;
 
 - (void)removeDeletedObjectPlaceholders;

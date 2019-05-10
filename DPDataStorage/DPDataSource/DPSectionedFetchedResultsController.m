@@ -14,11 +14,11 @@
 
 @implementation DPSectionedFetchedResultsController
 
-- (instancetype)initWithDelegate:(id<DataSourceContainerControllerDelegate> _Nullable)delegate sectionKeyPath:(NSString * _Nullable)sectionKeyPath sectionSortDescriptor:(NSSortDescriptor *)sectionSortDescriptor frc:(NSFetchedResultsController *)frc
+- (instancetype)initWithDelegate:(id<DataSourceContainerControllerDelegate> _Nullable)delegate sectionHashCalculator:(NSInteger (^)(id ))sectionHashCalculator sectionSortDescriptor:(NSSortDescriptor *)sectionSortDescriptor frc:(NSFetchedResultsController *)frc
 {
     NSParameterAssert(frc.sectionNameKeyPath == nil);
     
-    if (self = [super initWithDelegate:delegate sectionKeyPath:sectionKeyPath sectionSortDescriptor:sectionSortDescriptor]) {
+    if (self = [super initWithDelegate:delegate sectionHashCalculator:sectionHashCalculator sectionSortDescriptor:sectionSortDescriptor]) {
         self.frc = frc;
         self.frc.delegate = self;
         [self.frc performFetch:nil];

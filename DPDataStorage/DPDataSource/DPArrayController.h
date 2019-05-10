@@ -32,6 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)reloadSectionAtIndex:(NSUInteger)index;
 
 - (void)setSectionName:(NSString *)name atIndex:(NSUInteger)index;
+- (NSString *)sectionNameAtIndex:(NSUInteger)index;
 
 - (void)addObjects:(NSArray *)objects atSection:(NSInteger)section;
 - (void)setObjects:(NSArray *)objects atSection:(NSInteger)section;
@@ -45,7 +46,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (BOOL)hasChanges;
 - (NSArray<DPChange *> *)updateChanges;
-- (void)mergeChanges;
 - (void)applyChanges;
 - (void)notifyDelegate;
 

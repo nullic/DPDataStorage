@@ -131,7 +131,7 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
 - (NSArray *)pathsForObjects:(id<NSFastEnumeration>)collection sortComparator:(NSComparator)comparator {
     NSMutableArray *paths = [NSMutableArray new];
     for (id object in collection) {
-        NSIndexPath *path = [self indexPathForObject:object];
+        NSIndexPath *path = [self indexPathForManagedObject:object];
         path ? [paths addObject:path] : nil;
     }
     comparator ? [paths sortUsingComparator:comparator] : nil;
@@ -217,11 +217,6 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
     NSParameterAssert(indexPath != nil);
     NSParameterAssert(newIndexPath != nil);
 
-    if ([indexPath isEqual:newIndexPath]) {
-        [self reloadObjectAtIndextPath:indexPath immediately:immediately];
-        return;
-    }
-    
     if (immediately == NO) {
         DPArrayControllerSection *sectionInfo = [self.sectionsStorage objectAtIndex:indexPath.section];
         id object = [sectionInfo objectAtIndex:indexPath.row];
@@ -295,6 +290,10 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
 - (void)setSectionName:(NSString *)name atIndex:(NSUInteger)index {
     DPArrayControllerSection *section = [self.sectionsStorage objectAtIndex:index];
     section.name = name;
+}
+
+- (NSString *)sectionNameAtIndex:(NSUInteger)index {
+    return [[self.sectionsStorage objectAtIndex:index] name];
 }
 
 #pragma mark - Editing: Complex
@@ -416,38 +415,6 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
     }
 }
 
-- (void)mergeChanges {
-    NSMutableArray *merged = [self.changes mutableCopy];
-
-    for (int d = 0; ; d++) {
-        if (d >= merged.count) break;
-
-        DPItemChange *delete = merged[d];
-        if ([delete isKindOfClass:[DPItemChange class]] && delete.type == NSFetchedResultsChangeDelete) {
-            for (int i = d + 1; i < merged.count; i++) {
-                DPItemChange *insert = merged[i];
-                if ([insert isKindOfClass:[DPItemChange class]] && insert.type == NSFetchedResultsChangeInsert && insert.anObject == delete.anObject) {
-                    if ([delete.path isEqual:insert.toPath]) {
-                        DPItemChange *update = [DPItemChange updateObject:insert.anObject atIndexPath:delete.path newIndexPath:insert.toPath];
-                        [merged replaceObjectAtIndex:i withObject:update];
-                    }
-                    else {
-                        DPItemChange *move = [DPItemChange moveObject:insert.anObject atIndexPath:delete.path newIndex:insert.toPath];
-                        [merged replaceObjectAtIndex:i withObject:move];
-                    }
-                    [merged removeObjectAtIndex:d];
-                    d--;
-                    break;
-                }
-            }
-        }
-    }
-
-    if (merged.count != self.changes.count) {
-        self.changes = merged;
-    }
-}
-
 - (void)notifyDelegate {
     for (DPChange *change in self.changes) {
         [change notifyDelegateOfController:self];
@@ -493,19 +460,31 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
     NSIndexPath *result = nil;
 
     if (object) {
-        id left = [object isKindOfClass:[NSManagedObject class]] ? [object objectID] : object;
+        for (NSInteger section = 0; section < [self.sectionsStorage numberOfObjects]; section++) {
+            DPArrayControllerSection *sectionInfo = [self.sectionsStorage objectAtIndex:section];
+            NSInteger index = [sectionInfo indexOfObject:object];
+            if (index != NSNotFound) {
+                result = [NSIndexPath indexPathForItem:index inSection:section];
+                break;
+            }
+        }
+    }
+
+    return result;
+}
+
+- (NSIndexPath * _Nullable)indexPathForManagedObject:(NSManagedObject *)object {
+    NSIndexPath *result = nil;
+
+    if (object) {
+        id left = [object objectID];
 
         for (NSInteger section = 0; section < [self.sectionsStorage numberOfObjects]; section++) {
             DPArrayControllerSection *sectionInfo = [self.sectionsStorage objectAtIndex:section];
-            
-            for (NSInteger index = 0; index < [sectionInfo numberOfObjects]; index++) {
-                id right = [sectionInfo objectAtIndex:index];
-                right = [right isKindOfClass:[NSManagedObject class]] ? [right objectID] : right;
-
-                if ([left isEqual:right]) {
-                    result = [NSIndexPath indexPathForItem:index inSection:section];
-                    break;
-                }
+            NSInteger index = [sectionInfo indexOfManagedObject:object];
+            if (index != NSNotFound) {
+                result = [NSIndexPath indexPathForItem:index inSection:section];
+                break;
             }
         }
     }

@@ -27,10 +27,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface DPSectionChange : DPChange
 @property (nonatomic, assign) NSUInteger index;
+@property (nonatomic, assign) NSUInteger toIndex;
 
 + (instancetype)insertObject:(id)anObject atIndex:(NSUInteger)index;
 + (instancetype)deleteObject:(id)anObject atIndex:(NSUInteger)index;
 + (instancetype)updateObject:(id)anObject atIndex:(NSUInteger)index;
++ (instancetype)moveObject:(id)anObject atIndex:(NSUInteger)index newIndex:(NSUInteger)newIndex;
 @end
 
 

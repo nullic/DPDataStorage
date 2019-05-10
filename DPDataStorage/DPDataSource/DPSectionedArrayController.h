@@ -12,12 +12,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface DPSectionedArrayController : DPArrayController
 @property (nonatomic, readonly, strong) NSSortDescriptor *sectionSortDescriptor;
-@property (nonatomic, copy, nullable) NSString * sectionKeyPath;
+@property (nonatomic, copy, nullable) NSString * sectionNameKeyPath;
 @property (nonatomic, copy, nullable) NSString * _Nullable(^sectionNameSetter)(NSArray<id> * _Nullable);
 
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithDelegate:(id<DataSourceContainerControllerDelegate> _Nullable)delegate NS_UNAVAILABLE;
-- (instancetype)initWithDelegate:(id<DataSourceContainerControllerDelegate> _Nullable)delegate sectionKeyPath:(NSString * _Nullable)sectionKeyPath sectionSortDescriptor:(NSSortDescriptor *)sectionSortDescriptor NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithDelegate:(id<DataSourceContainerControllerDelegate> _Nullable)delegate sectionHashCalculator:(NSInteger (^)(id ))sectionHashCalculator sectionSortDescriptor:(NSSortDescriptor *)sectionSortDescriptor NS_DESIGNATED_INITIALIZER;
 
 - (void)reloadSectionsName;
 
@@ -30,7 +30,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)insertObject:(id)object atIndex:(NSUInteger)index;
 - (void)removeObjectAtIndex:(NSUInteger)index;
 - (void)reloadObjectAtIndex:(NSUInteger)index;
-- (void)refreshObjectAtIndex:(NSUInteger)index;
 - (void)moveObjectAtIndex:(NSUInteger)index toIndex:(NSUInteger)newIndex;
 
 - (void)removeAllObjects NS_UNAVAILABLE;

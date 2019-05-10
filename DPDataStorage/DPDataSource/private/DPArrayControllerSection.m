@@ -21,12 +21,6 @@
 @implementation DPArrayControllerSection
 @synthesize name = _name;
 
-+ (instancetype)sectionWithIndex:(NSUInteger)index {
-    DPArrayControllerSection *section = [self new];
-    section.index = index;
-    return section;
-}
-
 - (NSArray *)objects {
     return self.mutableObjects;
 }
@@ -112,10 +106,10 @@
     }
 }
 
-- (NSUInteger)indexOfObject:(id)object {
+- (NSUInteger)indexOfManagedObject:(NSManagedObject *)object {
     NSUInteger result = NSNotFound;
     if (object) {
-        id left = [object isKindOfClass:[NSManagedObject class]] ? [object objectID] : object;
+        id left = [object objectID];
 
         for (NSInteger index = 0; index < [self numberOfObjects]; index++) {
             id right = [self objectAtIndex:index];
@@ -128,6 +122,10 @@
         }
     }
     return result;
+}
+
+- (NSUInteger)indexOfObject:(id)object {
+    return [self.objects indexOfObject:object];
 }
 
 - (id)objectAtIndex:(NSUInteger)index {
