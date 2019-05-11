@@ -225,7 +225,7 @@ class DPArrayControllerTests: XCTestCase {
         let delegate = TestDelegate()
         let controller = DPArrayController(delegate: delegate)
 
-        let storage = DPDataStorage(mergedModelFrom:  [Bundle(for: type(of: self))], storageURL: nil)
+        let storage = DPDataStorage(mergedModelFrom: [Bundle(for: type(of: self))], storageURL: nil)
         let context: NSManagedObjectContext! = storage?.newMainQueueManagedObjectContext()
         context.automaticallyMergesChangesFromParent = true
 

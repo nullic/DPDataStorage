@@ -13,7 +13,7 @@ class DPContainerControllerBasedControllerTests: XCTestCase {
 
     func testSingleSectionFRCBehavior() {
         let delegate = TestDelegate()
-        let storage = DPDataStorage(mergedModelFrom:  [Bundle(for: type(of: self))], storageURL: nil)
+        let storage = DPDataStorage(mergedModelFrom: [Bundle(for: type(of: self))], storageURL: nil)
         let context: NSManagedObjectContext! = storage?.newMainQueueManagedObjectContext()
         context.automaticallyMergesChangesFromParent = true
 
@@ -65,7 +65,7 @@ class DPContainerControllerBasedControllerTests: XCTestCase {
 
     func testMultiSectionFRCBehavior() {
         let delegate = TestDelegate()
-        let storage = DPDataStorage(mergedModelFrom:  [Bundle(for: type(of: self))], storageURL: nil)
+        let storage = DPDataStorage(mergedModelFrom: [Bundle(for: type(of: self))], storageURL: nil)
         let context: NSManagedObjectContext! = storage?.newMainQueueManagedObjectContext()
         context.automaticallyMergesChangesFromParent = true
 
@@ -138,7 +138,7 @@ class DPContainerControllerBasedControllerTests: XCTestCase {
 
     func testKnownCaseWithFRC() {
         let delegate = TestDelegate()
-        let storage = DPDataStorage(mergedModelFrom:  [Bundle(for: type(of: self))], storageURL: nil)
+        let storage = DPDataStorage(mergedModelFrom: [Bundle(for: type(of: self))], storageURL: nil)
         let context: NSManagedObjectContext! = storage?.newMainQueueManagedObjectContext()
         context.automaticallyMergesChangesFromParent = true
 
@@ -189,13 +189,82 @@ class DPContainerControllerBasedControllerTests: XCTestCase {
             try? context.saveChanges()
         }
 
-        XCTAssert(controller.numberOfSections() == frc.numberOfSections())
-        for s in 0 ..< controller.numberOfSections() {
-            for i in 0 ..< controller.numberOfItems(inSection: s) {
-                let o1 = controller.object(at: IndexPath(item: i, section: s)) as? BasicEntity
-                let o2 = frc.object(at: IndexPath(item: i, section: s)) as? BasicEntity
-                XCTAssert(o1?.objectID == o2?.objectID)
-            }
+        XCTAssert(isContainersEqual(first: controller, second: frc))
+    }
+
+    func testKnownCase3() {
+        let delegate = TestDelegate()
+
+        let storage = DPDataStorage(mergedModelFrom: [Bundle(for: type(of: self))], storageURL: nil)
+        let context: NSManagedObjectContext! = storage?.newMainQueueManagedObjectContext()
+        context.automaticallyMergesChangesFromParent = true
+
+        let request = BasicEntity.newFetchRequest(in: context)
+        request.sortDescriptors = [NSSortDescriptor(keyPath: \BasicEntity.section, ascending: true), NSSortDescriptor(keyPath: \BasicEntity.value, ascending: true)]
+        let testFRC = NSFetchedResultsController(fetchRequest: request, managedObjectContext: context, sectionNameKeyPath: #keyPath(BasicEntity.section), cacheName: nil)
+        try! testFRC.performFetch()
+
+        let controller = DPContainerControllerBasedController(delegate: delegate, otherController: testFRC)
+
+
+        var entity0: BasicEntity!
+        var entity2: BasicEntity!
+
+        context.performAndWait {
+            entity0 = BasicEntity.init(context: context)
+            entity0.section = "0"
+            entity0.value = "0"
+
+            entity2 = BasicEntity.init(context: context)
+            entity2.section = "2"
+            entity2.value = "2"
+
+            try? context.saveChanges()
         }
+
+        context.performAndWait {
+            entity2.section = "1"
+            try? context.saveChanges()
+        }
+
+        XCTAssert(isContainersEqual(first: controller, second: testFRC))
+    }
+
+    func testKnownCase4() {
+        let delegate = TestDelegate()
+
+        let storage = DPDataStorage(mergedModelFrom: [Bundle(for: type(of: self))], storageURL: nil)
+        let context: NSManagedObjectContext! = storage?.newMainQueueManagedObjectContext()
+        context.automaticallyMergesChangesFromParent = true
+
+        let request = BasicEntity.newFetchRequest(in: context)
+        request.sortDescriptors = [NSSortDescriptor(keyPath: \BasicEntity.section, ascending: true), NSSortDescriptor(keyPath: \BasicEntity.value, ascending: true)]
+        let testFRC = NSFetchedResultsController(fetchRequest: request, managedObjectContext: context, sectionNameKeyPath: #keyPath(BasicEntity.section), cacheName: nil)
+        try! testFRC.performFetch()
+
+        let controller = DPContainerControllerBasedController(delegate: delegate, otherController: testFRC)
+
+
+        var entity0: BasicEntity!
+        var entity2: BasicEntity!
+
+        context.performAndWait {
+            entity0 = BasicEntity.init(context: context)
+            entity0.section = "0"
+            entity0.value = "0"
+
+            entity2 = BasicEntity.init(context: context)
+            entity2.section = "2"
+            entity2.value = "2"
+
+            try? context.saveChanges()
+        }
+
+        context.performAndWait {
+            entity2.section = "4"
+            try? context.saveChanges()
+        }
+
+        XCTAssert(isContainersEqual(first: controller, second: testFRC))
     }
 }

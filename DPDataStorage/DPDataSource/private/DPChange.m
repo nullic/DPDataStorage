@@ -72,6 +72,8 @@
 - (void)applyTo:(DPArrayController *)controller {
     if (self.isApplied == YES) return;
     self.applied = YES;
+
+    [controller setNextChangeType:self.type];
     
     switch (self.type) {
         case NSFetchedResultsChangeInsert:
@@ -79,7 +81,7 @@
             break;
             
         case NSFetchedResultsChangeDelete:
-            [controller removeSectionAtIndex:self.index immediately:YES];
+            [controller removeSectionAtIndex:[controller.sections indexOfObject:self.anObject] immediately:YES];
             break;
             
         case NSFetchedResultsChangeUpdate:
@@ -168,9 +170,16 @@
         case NSFetchedResultsChangeUpdate:
             break;
             
-        case NSFetchedResultsChangeMove:
-            [controller moveObjectAtIndextPath:[controller indexPathForObject:self.anObject] toIndexPath:self.toPath immediately:YES];
+        case NSFetchedResultsChangeMove: {
+            NSIndexPath *from = [controller indexPathForObject:self.anObject];
+            if (from != nil) {
+                [controller moveObjectAtIndextPath:from toIndexPath:self.toPath immediately:YES];
+            }
+            else {
+                [controller insertObject:self.anObject atIndextPath:self.toPath];
+            }
             break;
+        }
     }
 }
 

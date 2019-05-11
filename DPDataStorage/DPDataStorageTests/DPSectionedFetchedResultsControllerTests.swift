@@ -14,7 +14,7 @@ class DPSectionedFetchedResultsControllerTests: XCTestCase {
     func testMultiSectionFRCBehavior() {
         let delegate = TestDelegate()
         let delegateFRC = TestDelegate()
-        let storage = DPDataStorage(mergedModelFrom:  [Bundle(for: type(of: self))], storageURL: nil)
+        let storage = DPDataStorage(mergedModelFrom: [Bundle(for: type(of: self))], storageURL: nil)
         let context: NSManagedObjectContext! = storage?.newMainQueueManagedObjectContext()
         context.automaticallyMergesChangesFromParent = true
 
@@ -78,7 +78,7 @@ class DPSectionedFetchedResultsControllerTests: XCTestCase {
         let delegate = TestDelegate()
         let delegateFRC = TestDelegate()
         
-        let storage = DPDataStorage(mergedModelFrom:  [Bundle(for: type(of: self))], storageURL: nil)
+        let storage = DPDataStorage(mergedModelFrom: [Bundle(for: type(of: self))], storageURL: nil)
         let context: NSManagedObjectContext! = storage?.newMainQueueManagedObjectContext()
         context.automaticallyMergesChangesFromParent = true
 
@@ -87,7 +87,8 @@ class DPSectionedFetchedResultsControllerTests: XCTestCase {
 
         let frc = NSFetchedResultsController(fetchRequest: request, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
         try! frc.performFetch()
-        let controller = DPSectionedFetchedResultsController(delegate: delegate, sectionHashCalculator: {return ($0 as! BasicEntity).section?.hashValue ?? 0}, sectionSortDescriptor: NSSortDescriptor(keyPath: \BasicEntity.section, ascending: true), frc: frc)
+        let sectionedController = DPSectionedFetchedResultsController(delegate: delegate, sectionHashCalculator: {return ($0 as! BasicEntity).section?.hashValue ?? 0}, sectionSortDescriptor: NSSortDescriptor(keyPath: \BasicEntity.section, ascending: true), frc: frc)
+        let controller = DPContainerControllerBasedController(delegate: delegate, otherController: sectionedController)
 
         request.sortDescriptors = [NSSortDescriptor(keyPath: \BasicEntity.section, ascending: true), NSSortDescriptor(keyPath: \BasicEntity.value, ascending: true)]
         let testFRC = NSFetchedResultsController(fetchRequest: request, managedObjectContext: context, sectionNameKeyPath: #keyPath(BasicEntity.section), cacheName: nil)
@@ -123,14 +124,14 @@ class DPSectionedFetchedResultsControllerTests: XCTestCase {
             try? context.saveChanges()
         }
 
-       XCTAssert(isContainersEqual(first: controller, second: testFRC))
+        XCTAssert(isContainersEqual(first: controller, second: testFRC))
     }
 
     func testKnownCase2() {
         let delegate = TestDelegate()
         let delegateFRC = TestDelegate()
 
-        let storage = DPDataStorage(mergedModelFrom:  [Bundle(for: type(of: self))], storageURL: nil)
+        let storage = DPDataStorage(mergedModelFrom: [Bundle(for: type(of: self))], storageURL: nil)
         let context: NSManagedObjectContext! = storage?.newMainQueueManagedObjectContext()
         context.automaticallyMergesChangesFromParent = true
 
@@ -139,7 +140,8 @@ class DPSectionedFetchedResultsControllerTests: XCTestCase {
 
         let frc = NSFetchedResultsController(fetchRequest: request, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
         try! frc.performFetch()
-        let controller = DPSectionedFetchedResultsController(delegate: delegate, sectionHashCalculator: {return ($0 as! BasicEntity).section?.hashValue ?? 0}, sectionSortDescriptor: NSSortDescriptor(keyPath: \BasicEntity.section, ascending: true), frc: frc)
+        let sectionedController = DPSectionedFetchedResultsController(delegate: delegate, sectionHashCalculator: {return ($0 as! BasicEntity).section?.hashValue ?? 0}, sectionSortDescriptor: NSSortDescriptor(keyPath: \BasicEntity.section, ascending: true), frc: frc)
+        let controller = DPContainerControllerBasedController(delegate: delegate, otherController: sectionedController)
 
         request.sortDescriptors = [NSSortDescriptor(keyPath: \BasicEntity.section, ascending: true), NSSortDescriptor(keyPath: \BasicEntity.value, ascending: true)]
         let testFRC = NSFetchedResultsController(fetchRequest: request, managedObjectContext: context, sectionNameKeyPath: #keyPath(BasicEntity.section), cacheName: nil)
@@ -177,24 +179,98 @@ class DPSectionedFetchedResultsControllerTests: XCTestCase {
         XCTAssert(isContainersEqual(first: controller, second: testFRC))
     }
 
-    func isContainersEqual(first: DataSourceContainerController, second: DataSourceContainerController) -> Bool {
-        guard first.numberOfSections() == second.numberOfSections() else {
-            return false
-        }
-        for s in 0 ..< first.numberOfSections() {
-            guard first.numberOfItems(inSection: s) == second.numberOfItems(inSection: s) else {
-                return false
-            }
+    func testKnownCase3() {
+        let delegate = TestDelegate()
+        let delegateFRC = TestDelegate()
 
-            for i in 0 ..< first.numberOfItems(inSection: s) {
-                let o1 = first.object(at: IndexPath(item: i, section: s)) as? BasicEntity
-                let o2 = second.object(at: IndexPath(item: i, section: s)) as? BasicEntity
-                guard o1?.objectID == o2?.objectID else {
-                    return false
-                }
-            }
+        let storage = DPDataStorage(mergedModelFrom: [Bundle(for: type(of: self))], storageURL: nil)
+        let context: NSManagedObjectContext! = storage?.newMainQueueManagedObjectContext()
+        context.automaticallyMergesChangesFromParent = true
+
+        let request = BasicEntity.newFetchRequest(in: context)
+        request.sortDescriptors = [NSSortDescriptor(keyPath: \BasicEntity.value, ascending: true)]
+
+        let frc = NSFetchedResultsController(fetchRequest: request, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
+        try! frc.performFetch()
+        let sectionedController = DPSectionedFetchedResultsController(delegate: delegate, sectionHashCalculator: {return ($0 as! BasicEntity).section?.hashValue ?? 0}, sectionSortDescriptor: NSSortDescriptor(keyPath: \BasicEntity.section, ascending: true), frc: frc)
+        let controller = DPContainerControllerBasedController(delegate: delegate, otherController: sectionedController)
+
+        request.sortDescriptors = [NSSortDescriptor(keyPath: \BasicEntity.section, ascending: true), NSSortDescriptor(keyPath: \BasicEntity.value, ascending: true)]
+        let testFRC = NSFetchedResultsController(fetchRequest: request, managedObjectContext: context, sectionNameKeyPath: #keyPath(BasicEntity.section), cacheName: nil)
+        (testFRC as DataSourceContainerController).delegate = delegateFRC
+        try! testFRC.performFetch()
+
+
+        var entity0: BasicEntity!
+        var entity2: BasicEntity!
+
+        context.performAndWait {
+            entity0 = BasicEntity.init(context: context)
+            entity0.section = "0"
+            entity0.value = "0"
+
+            entity2 = BasicEntity.init(context: context)
+            entity2.section = "2"
+            entity2.value = "2"
+
+            try? context.saveChanges()
         }
-        return true
+
+        XCTAssert(isContainersEqual(first: controller, second: testFRC))
+
+        context.performAndWait {
+            entity2.section = "1"
+            try? context.saveChanges()
+        }
+
+        XCTAssert(isContainersEqual(first: controller, second: testFRC))
+    }
+
+    func testKnownCase4() {
+        let delegate = TestDelegate()
+        let delegateFRC = TestDelegate()
+
+        let storage = DPDataStorage(mergedModelFrom: [Bundle(for: type(of: self))], storageURL: nil)
+        let context: NSManagedObjectContext! = storage?.newMainQueueManagedObjectContext()
+        context.automaticallyMergesChangesFromParent = true
+
+        let request = BasicEntity.newFetchRequest(in: context)
+        request.sortDescriptors = [NSSortDescriptor(keyPath: \BasicEntity.value, ascending: true)]
+
+        let frc = NSFetchedResultsController(fetchRequest: request, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
+        try! frc.performFetch()
+        let sectionedController = DPSectionedFetchedResultsController(delegate: delegate, sectionHashCalculator: {return ($0 as! BasicEntity).section?.hashValue ?? 0}, sectionSortDescriptor: NSSortDescriptor(keyPath: \BasicEntity.section, ascending: true), frc: frc)
+        let controller = DPContainerControllerBasedController(delegate: delegate, otherController: sectionedController)
+
+        request.sortDescriptors = [NSSortDescriptor(keyPath: \BasicEntity.section, ascending: true), NSSortDescriptor(keyPath: \BasicEntity.value, ascending: true)]
+        let testFRC = NSFetchedResultsController(fetchRequest: request, managedObjectContext: context, sectionNameKeyPath: #keyPath(BasicEntity.section), cacheName: nil)
+        (testFRC as DataSourceContainerController).delegate = delegateFRC
+        try! testFRC.performFetch()
+
+
+        var entity0: BasicEntity!
+        var entity2: BasicEntity!
+
+        context.performAndWait {
+            entity0 = BasicEntity.init(context: context)
+            entity0.section = "0"
+            entity0.value = "0"
+
+            entity2 = BasicEntity.init(context: context)
+            entity2.section = "2"
+            entity2.value = "2"
+
+            try? context.saveChanges()
+        }
+
+        XCTAssert(isContainersEqual(first: controller, second: testFRC))
+
+        context.performAndWait {
+            entity2.section = "4"
+            try? context.saveChanges()
+        }
+
+        XCTAssert(isContainersEqual(first: controller, second: testFRC))
     }
 }
 

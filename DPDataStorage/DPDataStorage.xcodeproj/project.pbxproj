@@ -45,6 +45,7 @@
 		07B83162227D8B940087EB72 /* TestDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B83161227D8B940087EB72 /* TestDelegate.swift */; };
 		07BA74AA227D6B0400659C09 /* DPDataStorage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 765EF80F1EBCB53D00C21E2E /* DPDataStorage.framework */; };
 		07FB8CF7228598D30072DF0F /* DPSectionedFetchedResultsControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07FB8CF6228598D30072DF0F /* DPSectionedFetchedResultsControllerTests.swift */; };
+		07FB8CF92286B0580072DF0F /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07FB8CF82286B0580072DF0F /* Utils.swift */; };
 		765EF8141EBCB53D00C21E2E /* DPDataStorage.h in Headers */ = {isa = PBXBuildFile; fileRef = 765EF8121EBCB53D00C21E2E /* DPDataStorage.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		765EF82C1EBCB60700C21E2E /* NSManagedObject+DataStorage.h in Headers */ = {isa = PBXBuildFile; fileRef = 765EF81B1EBCB60700C21E2E /* NSManagedObject+DataStorage.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		765EF82D1EBCB60700C21E2E /* NSManagedObject+DataStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 765EF81C1EBCB60700C21E2E /* NSManagedObject+DataStorage.m */; };
@@ -115,6 +116,7 @@
 		07BA74A5227D6B0400659C09 /* DPDataStorageTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DPDataStorageTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		07BA74A9227D6B0400659C09 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		07FB8CF6228598D30072DF0F /* DPSectionedFetchedResultsControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DPSectionedFetchedResultsControllerTests.swift; sourceTree = "<group>"; };
+		07FB8CF82286B0580072DF0F /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		765EF80F1EBCB53D00C21E2E /* DPDataStorage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DPDataStorage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		765EF8121EBCB53D00C21E2E /* DPDataStorage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DPDataStorage.h; sourceTree = "<group>"; };
 		765EF8131EBCB53D00C21E2E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -192,6 +194,7 @@
 			children = (
 				07B8315F227D8B820087EB72 /* TestObject.swift */,
 				07B83161227D8B940087EB72 /* TestDelegate.swift */,
+				07FB8CF82286B0580072DF0F /* Utils.swift */,
 				07B8315D227D8B5D0087EB72 /* DPArrayControllerTests.swift */,
 				07B8315B227D6B790087EB72 /* DPSectionedArrayControllerTests.swift */,
 				07FB8CF6228598D30072DF0F /* DPSectionedFetchedResultsControllerTests.swift */,
@@ -487,6 +490,7 @@
 				07077BDD227DB75C00380D54 /* DPContainerControllerBasedControllerTests.swift in Sources */,
 				07B83162227D8B940087EB72 /* TestDelegate.swift in Sources */,
 				07FB8CF7228598D30072DF0F /* DPSectionedFetchedResultsControllerTests.swift in Sources */,
+				07FB8CF92286B0580072DF0F /* Utils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

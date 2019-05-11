@@ -16,6 +16,7 @@
 @property (nonatomic, strong) DPArrayControllerSection *innerStorage;
 @property (nonatomic, strong) NSMutableArray<DPSectionChange *> *innerStorageChanges;
 @property (nonatomic, strong) NSMutableArray<DPSectionChange *> *deleteSectionChanges;
+@property (nonatomic, strong) NSMutableArray<NSNumber *> *insertedSectionIndecies;
 @end
 
 
@@ -33,6 +34,11 @@
 - (NSMutableArray *)innerStorageChanges {
     if (_innerStorageChanges == nil) _innerStorageChanges = [NSMutableArray new];
     return _innerStorageChanges;
+}
+
+- (NSMutableArray *)insertedSectionIndecies {
+    if (_insertedSectionIndecies == nil) _insertedSectionIndecies = [NSMutableArray new];
+    return _insertedSectionIndecies;
 }
 
 - (NSMutableArray *)deleteSectionChanges {
@@ -170,6 +176,15 @@
     [self reloadObjectAtIndex:index];
 }
 
+- (NSInteger)numberOfInsertedSectionBeforeSection:(NSInteger)section {
+    NSInteger result = 0;
+    for (NSNumber *num in self.insertedSectionIndecies) {
+        if (num.integerValue < section) {
+            result++;
+        }
+    }
+    return result;
+}
 - (void)removeEmptySections {
     NSInteger count = [self numberOfSections];
     for (NSInteger i = 0; i < count; i++) {
@@ -177,6 +192,7 @@
         if ([section numberOfObjects] == 0) {
             DPSectionChange *change = [DPSectionChange deleteObject:section atIndex:i];
             [change applyTo:self];
+            change.index -= [self numberOfInsertedSectionBeforeSection:i];
             [self.deleteSectionChanges addObject:change];
         }
     }
@@ -197,6 +213,7 @@
 - (void)applyChanges {
     [super applyChanges];
     [self removeEmptySections];
+    self.insertedSectionIndecies = nil;
 }
 
 - (void)notifyDelegate {
@@ -327,6 +344,7 @@
                 else {
                     if (lastInsertedSectionIndex != sectionIndex) {
                         [super insertSectionAtIndex:sectionIndex];
+                        [self.insertedSectionIndecies addObject:@(sectionIndex)];
                         lastInsertedSectionIndex = sectionIndex;
                     }
                     newIndexPath = [NSIndexPath indexPathForRow:itemIndex + itemShift inSection:sectionIndex];
