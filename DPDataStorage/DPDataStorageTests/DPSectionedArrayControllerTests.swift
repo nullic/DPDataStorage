@@ -12,7 +12,7 @@ import DPDataStorage
 class DPSectionedArrayControllerTests: XCTestCase {
 
     func testSetObjectsSameSection() {
-        let controller = DPSectionedArrayController(delegate: nil, sectionHashCalculator: { ($0 as! TestObject).section.hashValue }, sectionSortDescriptor: TestObject.sectionSort)
+        let controller = DPSectionedArrayController(delegate: nil, sectionHashCalculator: TestObject.sectionHash, sectionSortDescriptor: TestObject.sectionSort)
 
         var array = [TestObject(section: "1", value: "3"), TestObject(section: "1", value: "1"), TestObject(section: "1", value: "2")]
         controller.setObjects(array)
@@ -43,7 +43,7 @@ class DPSectionedArrayControllerTests: XCTestCase {
     }
 
     func testSetObjectsDifferentSection111() {
-        let controller = DPSectionedArrayController(delegate: nil, sectionHashCalculator: { ($0 as! TestObject).section.hashValue }, sectionSortDescriptor: TestObject.sectionSort)
+        let controller = DPSectionedArrayController(delegate: nil, sectionHashCalculator: TestObject.sectionHash, sectionSortDescriptor: TestObject.sectionSort)
 
         let array = [TestObject(section: "1", value: "1"), TestObject(section: "2", value: "2"), TestObject(section: "3", value: "3")]
         controller.setObjects(array)
@@ -62,7 +62,7 @@ class DPSectionedArrayControllerTests: XCTestCase {
     }
 
     func testSetObjectsDifferentSectionGroup21() {
-        let controller = DPSectionedArrayController(delegate: nil, sectionHashCalculator: { ($0 as! TestObject).section.hashValue }, sectionSortDescriptor: TestObject.sectionSort)
+        let controller = DPSectionedArrayController(delegate: nil, sectionHashCalculator: TestObject.sectionHash, sectionSortDescriptor: TestObject.sectionSort)
 
         let array = [TestObject(section: "3", value: "1"), TestObject(section: "1", value: "5"), TestObject(section: "1", value: "3")]
         controller.setObjects(array)
@@ -81,7 +81,7 @@ class DPSectionedArrayControllerTests: XCTestCase {
 
     func testReloadObjectNoChangesSameSection() {
         let delegate = TestDelegate()
-        let controller = DPSectionedArrayController(delegate: delegate, sectionHashCalculator: { ($0 as! TestObject).section.hashValue }, sectionSortDescriptor: TestObject.sectionSort)
+        let controller = DPSectionedArrayController(delegate: delegate, sectionHashCalculator: TestObject.sectionHash, sectionSortDescriptor: TestObject.sectionSort)
 
         let array = [TestObject(section: "1", value: "1"), TestObject(section: "1", value: "2"), TestObject(section: "1", value: "3")]
         controller.setObjects(array)
@@ -146,7 +146,7 @@ class DPSectionedArrayControllerTests: XCTestCase {
 
     func testReloadObjectNoChangesDifferentSection111() {
         let delegate = TestDelegate()
-        let controller = DPSectionedArrayController(delegate: delegate, sectionHashCalculator: { ($0 as! TestObject).section.hashValue }, sectionSortDescriptor: TestObject.sectionSort)
+        let controller = DPSectionedArrayController(delegate: delegate, sectionHashCalculator: TestObject.sectionHash, sectionSortDescriptor: TestObject.sectionSort)
 
         let array = [TestObject(section: "1", value: "1"), TestObject(section: "2", value: "2"), TestObject(section: "3", value: "3")]
         controller.setObjects(array)
@@ -213,7 +213,7 @@ class DPSectionedArrayControllerTests: XCTestCase {
 
     func testMixedChanges() {
         let delegate = TestDelegate()
-        let controller = DPSectionedArrayController(delegate: delegate, sectionHashCalculator: { ($0 as! TestObject).section.hashValue }, sectionSortDescriptor: TestObject.sectionSort)
+        let controller = DPSectionedArrayController(delegate: delegate, sectionHashCalculator: TestObject.sectionHash, sectionSortDescriptor: TestObject.sectionSort)
 
         let array = [TestObject(section: "1", value: "1"), TestObject(section: "2", value: "2"), TestObject(section: "3", value: "3")]
         controller.setObjects(array)

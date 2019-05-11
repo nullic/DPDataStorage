@@ -23,4 +23,7 @@ class TestObject: NSObject {
     }
 
     static var sectionSort: NSSortDescriptor = NSSortDescriptor(key: #keyPath(TestObject.section), ascending: true)
+    static var sectionHash: ((Any) -> Int) = {
+        return ($0 as! TestObject).section.hashValue
+    }
 }

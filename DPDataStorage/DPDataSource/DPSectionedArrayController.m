@@ -278,8 +278,6 @@
     }
 
     // Insert & Move changes
-
-    NSMutableArray *hashes = [NSMutableArray array];
     NSMutableArray *allObjects = [[self.innerStorageChanges valueForKeyPath:@"anObject"] mutableCopy];
     for (NSInteger i = 0; i < [super numberOfSections]; i++) {
         id object = [self firstAnchorObjectAtSection:i];
@@ -291,8 +289,8 @@
     [allObjects sortUsingDescriptors:@[self.sectionSortDescriptor, self.inSectionSortDescriptor]];
 
     if (allObjects.count > 0) {
-
         NSInteger sectionIndex = 0;
+        NSInteger lastInsertedSectionIndex = -1;
         NSInteger itemShift = 0;
         NSInteger itemIndex = 0;
         NSInteger lastHash = self.sectionHashCalculator(allObjects.firstObject);
@@ -311,11 +309,14 @@
                 NSIndexPath *newIndexPath = nil;
                 DPArrayControllerSection *section = [self sectionWithHash:hash];
                 if (section != nil) {
-                    NSInteger itemIndex = 0;
                     for (; itemIndex < [section numberOfObjects]; itemIndex++) {
                         id firstObject = section.objects[itemIndex];
+                        if ([self.innerStorage indexOfObject:firstObject] == NSNotFound || self.sectionHashCalculator(firstObject) != lastHash) {
+                            itemShift--;
+                            continue;
+                        }
                         NSComparisonResult result = [self.inSectionSortDescriptor compareObject:firstObject toObject:obj];
-                        if (result == NSOrderedDescending) {
+                        if (result == NSOrderedDescending || result == NSOrderedSame) {
                             break;
                         }
                     }
@@ -324,7 +325,10 @@
                     itemShift++;
                 }
                 else {
-                    [super insertSectionAtIndex:sectionIndex];
+                    if (lastInsertedSectionIndex != sectionIndex) {
+                        [super insertSectionAtIndex:sectionIndex];
+                        lastInsertedSectionIndex = sectionIndex;
+                    }
                     newIndexPath = [NSIndexPath indexPathForRow:itemIndex + itemShift inSection:sectionIndex];
                     itemShift++;
                 }

@@ -23,6 +23,7 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
 };
 
 @interface DPArrayController ()
+@property (nonatomic) NSFetchedResultsChangeType nextChangeType;
 @property (nonatomic, strong) DPArrayControllerSection *sectionsStorage;
 @property (nonatomic, strong, null_resettable) NSMutableArray<DPChange *> *changes;
 
@@ -85,6 +86,17 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
 - (NSMutableArray<DPChange *> *)changes {
     if (_changes == nil) _changes = [NSMutableArray new];
     return _changes;
+}
+
+- (void)setNextChangeType:(NSFetchedResultsChangeType)nextChangeType {
+    if (_nextChangeType != nextChangeType) {
+        _nextChangeType = nextChangeType;
+
+        [self.sectionsStorage removeDeletedObjectPlaceholders];
+        for (DPArrayControllerSection *section in self.sectionsStorage.objects) {
+            [section removeDeletedObjectPlaceholders];
+        }
+    }
 }
 
 #pragma mark - Notifications
@@ -386,12 +398,7 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
         }
         
         [self applyChanges];
-
-        [self.sectionsStorage removeDeletedObjectPlaceholders];
-        for (DPArrayControllerSection *section in self.sectionsStorage.objects) {
-            [section removeDeletedObjectPlaceholders];
-        }
-
+        self.nextChangeType = -1;
         [self notifyDelegate];
         
         if (self.responseMask & ResponseMaskDidChangeContent) {
@@ -477,8 +484,6 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
     NSIndexPath *result = nil;
 
     if (object) {
-        id left = [object objectID];
-
         for (NSInteger section = 0; section < [self.sectionsStorage numberOfObjects]; section++) {
             DPArrayControllerSection *sectionInfo = [self.sectionsStorage objectAtIndex:section];
             NSInteger index = [sectionInfo indexOfManagedObject:object];

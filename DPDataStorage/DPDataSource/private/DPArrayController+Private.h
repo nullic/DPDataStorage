@@ -9,6 +9,8 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface DPArrayController()
+- (void)setNextChangeType:(NSFetchedResultsChangeType)nextChangeType;
+
 - (void)removeAllObjectsImmediately:(BOOL)immediately;
 - (void)insertObject:(id)object atIndextPath:(NSIndexPath *)indexPath immediately:(BOOL)immediately;
 - (void)deleteObjectAtIndextPath:(NSIndexPath *)indexPath immediately:(BOOL)immediately;

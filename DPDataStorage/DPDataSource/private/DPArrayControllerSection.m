@@ -63,7 +63,10 @@
 
 - (void)insertObject:(id)object atIndex:(NSUInteger)index {
     self.lastChangeType = NSFetchedResultsChangeInsert;
-    
+    [self _insertObject: object atIndex:index];
+}
+
+- (void)_insertObject:(id)object atIndex:(NSUInteger)index {
     if (index > [self numberOfObjects]) {
         while (index >= [self numberOfObjects]) {
             [self.mutableObjects insertObject:[DPInsertedPlaceholderObject new] atIndex:[self numberOfObjects]];
@@ -95,7 +98,7 @@
 
     id object = self.mutableObjects[index];
     [self.mutableObjects removeObjectAtIndex:index];
-    [self.mutableObjects insertObject:object atIndex:newIndex];
+    [self _insertObject: object atIndex:newIndex];
 }
 
 - (void)addObjectsFromArray:(NSArray *)otherArray {
