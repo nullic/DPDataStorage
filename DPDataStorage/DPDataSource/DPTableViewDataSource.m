@@ -10,6 +10,7 @@
 
 @interface DPTableViewDataSource ()
 @property (nonatomic, strong) NSMutableArray *updatesBlocks;
+@property (nonatomic, strong) NSMutableArray *selectedObjects;
 @end
 
 @implementation DPTableViewDataSource
@@ -165,6 +166,13 @@
     if (controller == self.listController) {
         self.updatesBlocks = (self.disableAnimations == NO) ? [NSMutableArray array] : nil;
     }
+
+    if (self.preserveSelection == YES) {
+        self.selectedObjects = [NSMutableArray array];
+        for (NSIndexPath *ip in [self.tableView indexPathsForSelectedRows]) {
+            [self.selectedObjects addObject:[self objectAtIndexPath:ip]];
+        }
+    }
 }
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
@@ -182,6 +190,15 @@
 
         self.updatesBlocks = nil;
         [self showNoDataViewIfNeeded];
+
+        if (self.preserveSelection == YES) {
+            for (id object in self.selectedObjects) {
+                NSIndexPath *ip = [self indexPathForObject:object];
+                if (ip != nil) [self.tableView selectRowAtIndexPath:ip animated:NO scrollPosition:UITableViewScrollPositionNone];
+            }
+        }
+
+        self.selectedObjects = nil;
     }
 }
 

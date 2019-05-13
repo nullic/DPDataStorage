@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, nullable) IBOutlet UIView *noDataView;
 @property (nonatomic, copy, nullable) IBInspectable NSString *cellIdentifier; // Cell must conform <DPDataSourceCell>
 @property (nonatomic) IBInspectable BOOL disableAnimations;
+@property (nonatomic) IBInspectable BOOL preserveSelection;
 
 - (instancetype _Nonnull)initWithCollectionView:(UICollectionView * _Nullable)collectionView listController:(id<DataSourceContainerController> _Nullable)listController forwardDelegate:(id _Nullable)forwardDelegate cellIdentifier:(NSString * _Nullable)cellIdentifier;
 

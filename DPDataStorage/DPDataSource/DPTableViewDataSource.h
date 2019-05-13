@@ -14,6 +14,7 @@
 @property (nonatomic, copy, nullable) IBInspectable NSString *cellIdentifier; // Cell must conform <DPDataSourceCell>
 @property (nonatomic, assign) IBInspectable BOOL disableBouncingIfNoDataPresented; // Default is YES;
 @property (nonatomic) IBInspectable BOOL disableAnimations;
+@property (nonatomic) IBInspectable BOOL preserveSelection;
 
 @property (nonatomic) IBInspectable UITableViewRowAnimation insertAnimation; // Default is UITableViewRowAnimationAutomatic
 @property (nonatomic) IBInspectable UITableViewRowAnimation deleteAnimation; // Default is UITableViewRowAnimationAutomatic

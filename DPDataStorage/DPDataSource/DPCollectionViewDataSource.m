@@ -10,6 +10,7 @@
 
 @interface DPCollectionViewDataSource ()
 @property (nonatomic, strong) NSMutableArray *updatesBlocks;
+@property (nonatomic, strong) NSMutableArray *selectedObjects;
 @end
 
 @implementation DPCollectionViewDataSource
@@ -149,6 +150,13 @@
     if (controller == self.listController) {
         self.updatesBlocks = (self.disableAnimations == NO) ? [NSMutableArray array] : nil;
     }
+    
+    if (self.preserveSelection == YES) {
+        self.selectedObjects = [NSMutableArray array];
+        for (NSIndexPath *ip in [self.collectionView indexPathsForSelectedItems]) {
+            [self.selectedObjects addObject:[self objectAtIndexPath:ip]];
+        }
+    }
 }
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
@@ -176,6 +184,15 @@
             updateCompletionBlock();
         }
         [self showNoDataViewIfNeeded];
+
+        if (self.preserveSelection == YES) {
+            for (id object in self.selectedObjects) {
+                NSIndexPath *ip = [self indexPathForObject:object];
+                if (ip != nil) [self.collectionView selectItemAtIndexPath:ip animated:NO scrollPosition:UICollectionViewScrollPositionNone];
+            }
+        }
+
+        self.selectedObjects = nil;
     }
 }
 
