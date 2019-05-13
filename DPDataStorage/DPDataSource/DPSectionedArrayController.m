@@ -8,6 +8,7 @@
 
 #import "DPSectionedArrayController.h"
 #import "DPArrayControllerSection.h"
+#import "DPArrayController+Private.h"
 #import "DPChange.h"
 
 @interface DPSectionedArrayController ()
@@ -71,7 +72,9 @@
     }];
 }
 
-- (void)_setSectionNameWithObjects:(NSArray *)objects atSection:(NSInteger)section {
+- (void)resetSectionNameAtSection:(NSInteger)section {
+    NSArray *objects = self.sections[section].objects;
+
     if (self.sectionNameKeyPath.length > 0) {
         NSString *name = [[objects.firstObject valueForKeyPath:self.sectionNameKeyPath] description];
         [self setSectionName:name atIndex:section];
@@ -86,23 +89,27 @@
     NSParameterAssert(objects.count > 0);
 
     [super setObjects:objects atSection:section];
-    [self _setSectionNameWithObjects:objects atSection:section];
-    NSInteger hash = self.sectionHashCalculator(objects.firstObject);
-    [(DPArrayControllerSection *)self.sections[section] setSectionHash:hash];
+
+    if (self.isUpdating == NO) {
+        [self resetSectionNameAtSection:section];
+        NSInteger hash = self.sectionHashCalculator(objects.firstObject);
+        [(DPArrayControllerSection *)self.sections[section] setSectionHash:hash];
+    }
 }
 
 #pragma mark -
 
 - (void)reloadSectionsName {
     for (NSInteger i = 0; i < self.sections.count; i++) {
-        NSArray *objects = self.sections[i].objects;
-        [self _setSectionNameWithObjects:objects atSection:i];
+        [self resetSectionNameAtSection:i];
     }
 }
 
 - (void)setObjects:(NSArray *)objects {
+    [self setNextChangeType:NSFetchedResultsChangeDelete];
     [super removeAllObjects];
     [self.innerStorage setObjects:objects];
+    [self setNextChangeType:NSFetchedResultsChangeInsert];
 
     if (objects.count > 0) {
         NSArray *sortedObjects = [self.innerStorage.objects sortedArrayUsingDescriptors:@[self.sectionSortDescriptor, self.inSectionSortDescriptor]];
@@ -217,6 +224,7 @@
 }
 
 - (void)notifyDelegate {
+    [self reloadSectionsName];
     [super notifyDelegate];
     for (DPSectionChange *change in self.deleteSectionChanges) {
         [change notifyDelegateOfController:self];

@@ -40,6 +40,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, nullable) NSIndexPath *path;
 @property (nonatomic, strong, nullable) NSIndexPath *toPath;
 
+- (NSInteger)affectSectionCountAtIndex:(NSInteger)index;
+
 + (instancetype)insertObject:(id)anObject atIndexPath:(NSIndexPath *)path;
 + (instancetype)deleteObject:(id)anObject atIndexPath:(NSIndexPath *)path;
 + (instancetype)moveObject:(id)anObject atIndexPath:(NSIndexPath *)path newIndex:(NSIndexPath *)newPath;

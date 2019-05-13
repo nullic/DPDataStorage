@@ -10,6 +10,8 @@
 
 @implementation DPPlaceholderObject
 + (instancetype)placeholderWithObject:(id)anObject {
+    NSParameterAssert([anObject isKindOfClass:[DPPlaceholderObject class]] == NO);
+    
     DPPlaceholderObject *placeholder = [self new];
     placeholder.anObject = anObject;
     return placeholder;

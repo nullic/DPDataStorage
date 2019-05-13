@@ -310,6 +310,20 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
 
 #pragma mark - Editing: Complex
 
+- (NSInteger)insertCountAtSection:(NSInteger)section {
+    NSInteger result = 0;
+
+    for (DPChange *change in self.changes.reverseObjectEnumerator) {
+        if (change.isApplied == YES) break;
+        if ([change isKindOfClass:[DPSectionChange class]] && [(DPSectionChange *)change index] <= section) break;
+        if ([change isKindOfClass:[DPItemChange class]]) {
+            result += [(DPItemChange *)change affectSectionCountAtIndex:section];
+        }
+    }
+
+    return result;
+}
+
 - (void)removeAllObjectsAtSection:(NSUInteger)index {
     [self removeAllObjectsAtSection:index immediately:self.isUpdating == NO];
 }
@@ -336,12 +350,9 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
 }
 
 - (void)addObjects:(NSArray *)objects atSection:(NSInteger)section immediately:(BOOL)immediately {
-    [self addObjects:objects atSection:section firstIndex:[self numberOfItemsInSection:section] immediately:self.isUpdating == NO];
-}
-
-- (void)addObjects:(NSArray *)objects atSection:(NSInteger)section firstIndex:(NSInteger)firstIndex immediately:(BOOL)immediately {
     NSParameterAssert(section >= 0);
-    
+
+    NSInteger firstIndex = [self numberOfItemsInSection:section] + [self insertCountAtSection:section];
     if (immediately == NO) {
         for (NSInteger i = 0; i < objects.count; i++) {
             NSIndexPath *ip = [NSIndexPath indexPathForItem:firstIndex + i inSection:section];
@@ -373,7 +384,7 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
         }
         else {
             [self removeAllObjectsAtSection:section immediately:immediately];
-            [self addObjects:newObjects atSection:section firstIndex:0 immediately:immediately];
+            [self addObjects:newObjects atSection:section immediately:immediately];
         }
     }
     else {

@@ -11,6 +11,41 @@ import DPDataStorage
 
 class DPSectionedArrayControllerTests: XCTestCase {
 
+    func testSetObjects() {
+        let delegate = TestDelegate()
+        let controller = DPSectionedArrayController(delegate: delegate, sectionHashCalculator: TestObject.sectionHash, sectionSortDescriptor: TestObject.sectionSort)
+
+        let array = [TestObject(section: "1", value: "3"), TestObject(section: "1", value: "1"), TestObject(section: "1", value: "2")]
+        controller.startUpdating()
+        controller.setObjects(array)
+        controller.endUpdating()
+
+        XCTAssert(delegate.itemChanges.count == array.count)
+        XCTAssert(delegate.sectionChanges.count == 1)
+        XCTAssert(controller.numberOfSections() == 1)
+        XCTAssert(controller.numberOfItems(inSection: 0) == array.count)
+
+        var object = controller.object(at: IndexPath(row: 0, section: 0)) as? TestObject
+        XCTAssert(object?.value == array[0].value)
+        object = controller.object(at: IndexPath(row: 1, section: 0)) as? TestObject
+        XCTAssert(object?.value == array[1].value)
+        object = controller.object(at: IndexPath(row: 2, section: 0)) as? TestObject
+        XCTAssert(object?.value == array[2].value)
+
+        let newArray = [TestObject(section: "1", value: "9"), TestObject(section: "1", value: "7")]
+        controller.startUpdating()
+        controller.setObjects(newArray)
+        controller.endUpdating()
+
+        XCTAssert(controller.numberOfSections() == 1)
+        XCTAssert(controller.numberOfItems(inSection: 0) == newArray.count)
+
+        object = controller.object(at: IndexPath(row: 0, section: 0)) as? TestObject
+        XCTAssert(object?.value == newArray[0].value)
+        object = controller.object(at: IndexPath(row: 1, section: 0)) as? TestObject
+        XCTAssert(object?.value == newArray[1].value)
+    }
+
     func testSetObjectsSameSection() {
         let controller = DPSectionedArrayController(delegate: nil, sectionHashCalculator: TestObject.sectionHash, sectionSortDescriptor: TestObject.sectionSort)
 

@@ -152,6 +152,28 @@
     return [self changeObject:anObject atIndexPath:path forChangeType:NSFetchedResultsChangeUpdate newIndexPath:newPath];
 }
 
+- (NSInteger)affectSectionCountAtIndex:(NSInteger)index {
+    switch (self.type) {
+        case NSFetchedResultsChangeInsert:
+            if (self.toPath.section == index) return 1;
+            break;
+
+        case NSFetchedResultsChangeDelete:
+            if (self.path.section == index) return -1;
+            break;
+
+        case NSFetchedResultsChangeUpdate:
+            break;
+
+        case NSFetchedResultsChangeMove: {
+            if (self.path.section == self.toPath.section) return 0;
+            if (self.toPath.section == index) return 1;
+            if (self.path.section == index) return -1;
+        }
+    }
+    return 0;
+}
+
 - (void)applyTo:(DPArrayController *)controller {
     if (self.isApplied == YES) return;
     self.applied = YES;
