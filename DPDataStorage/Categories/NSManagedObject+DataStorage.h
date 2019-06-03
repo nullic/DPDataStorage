@@ -28,7 +28,7 @@
                                                             forKey:(NSString * _Nonnull)key
                                                          inContext:(NSManagedObjectContext * _Nonnull)context;
 
-+ (NSArray <__kindof NSManagedObject *>* _Nonnull)entriesWithValueIn:(NSArray<id<NSObject>> *)array
++ (NSArray <__kindof NSManagedObject *>* _Nonnull)entriesWithValueIn:(NSArray<id<NSObject>> * _Nonnull)array
                                                               forKey:(NSString * _Nonnull)key
                                                            inContext:(NSManagedObjectContext * _Nonnull)context;
 
