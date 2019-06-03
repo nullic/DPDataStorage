@@ -112,12 +112,12 @@
     return result ? result : @[];
 }
 
-+ (NSArray *)entriesWithValueIn:(NSArray<id<NSObject>> *)array forKey:(NSString *)key inContext:(NSManagedObjectContext *)context {
++ (NSArray *)entriesWithValueIn:(NSSet<id<NSObject>> *)set forKey:(NSString *)key inContext:(NSManagedObjectContext *)context {
     NSParameterAssert(key != nil);
     NSParameterAssert(context != nil);
 
     NSFetchRequest *fetchRequest = [self newFetchRequestInContext:context];
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K IN %@", key, array];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K IN %@", key, set];
     fetchRequest.predicate = predicate;
 
     NSError *error = nil;
