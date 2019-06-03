@@ -27,6 +27,11 @@
 + (NSArray <__kindof NSManagedObject *>* _Nonnull)entriesWithValue:(id<NSObject> _Nullable)value
                                                             forKey:(NSString * _Nonnull)key
                                                          inContext:(NSManagedObjectContext * _Nonnull)context;
+
++ (NSArray <__kindof NSManagedObject *>* _Nonnull)entriesWithValueIn:(NSArray<id<NSObject>> *)array
+                                                              forKey:(NSString * _Nonnull)key
+                                                           inContext:(NSManagedObjectContext * _Nonnull)context;
+
 + (instancetype _Nullable)anyEntryInContext:(NSManagedObjectContext * _Nonnull)context;
 
 + (NSArray <__kindof NSManagedObject *>* _Nonnull)allEntriesInContext:(NSManagedObjectContext * _Nonnull)context;

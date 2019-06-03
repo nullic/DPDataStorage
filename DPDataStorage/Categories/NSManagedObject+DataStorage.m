@@ -112,6 +112,21 @@
     return result ? result : @[];
 }
 
++ (NSArray *)entriesWithValueIn:(NSArray<id<NSObject>> *)array forKey:(NSString *)key inContext:(NSManagedObjectContext *)context {
+    NSParameterAssert(key != nil);
+    NSParameterAssert(context != nil);
+
+    NSFetchRequest *fetchRequest = [self newFetchRequestInContext:context];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K IN %@", key, array];
+    fetchRequest.predicate = predicate;
+
+    NSError *error = nil;
+    id result = [context executeFetchRequest:fetchRequest error:&error];
+    FAIL_ON_ERROR(error);
+
+    return result ? result : @[];
+}
+
 + (instancetype)anyEntryInContext:(NSManagedObjectContext *)context {
     NSFetchRequest *fetchRequest = [self newFetchRequestInContext:context];
     [fetchRequest setFetchLimit:1];

@@ -511,18 +511,25 @@ static NSString * uniqueKeyForEntity(NSEntityDescription *entityDescription) {
                 else { //if (valueClass == [NSArray class]) {
                     id set = relationshipDescription.isOrdered ? [NSMutableOrderedSet new] : [NSMutableSet new];
 
-                    for (id info in value) {
-                        NSManagedObject *object = nil;
-                        if ([info isKindOfClass:[NSDictionary class]] == NO && uniqueKeyForEntity(relationshipDescription.destinationEntity) != nil) {
-                            NSString *entityUniqueKey = uniqueKeyForEntity(relationshipDescription.destinationEntity);
-                            object = [relationClass entryWithValue:info forKey:entityUniqueKey includesPendingChanges:YES inContext:[self managedObjectContext]];
-                        }
-                        else {
-                            object = [relationClass updateChildObjectWithDictionary:(NSDictionary *)info parent:self inContext:[self managedObjectContext] error:&error];
-                        }
+                    if (relationshipDescription.isOrdered == false && [[value firstObject] isKindOfClass:[NSDictionary class]] == NO) {
+                        NSString *entityUniqueKey = uniqueKeyForEntity(relationshipDescription.destinationEntity);
+                        NSArray *objects = [relationClass entriesWithValueIn:value forKey:entityUniqueKey inContext:[self managedObjectContext]];
+                        set = [NSMutableSet setWithArray:objects];
+                    }
+                    else {
+                        for (id info in value) {
+                            NSManagedObject *object = nil;
+                            if ([info isKindOfClass:[NSDictionary class]] == NO && uniqueKeyForEntity(relationshipDescription.destinationEntity) != nil) {
+                                NSString *entityUniqueKey = uniqueKeyForEntity(relationshipDescription.destinationEntity);
+                                object = [relationClass entryWithValue:info forKey:entityUniqueKey includesPendingChanges:YES inContext:[self managedObjectContext]];
+                            }
+                            else {
+                                object = [relationClass updateChildObjectWithDictionary:(NSDictionary *)info parent:self inContext:[self managedObjectContext] error:&error];
+                            }
 
-                        if (object) [set addObject:object];
-                        else break;
+                            if (object) [set addObject:object];
+                            else break;
+                        }
                     }
 
                     if (error == nil) {
