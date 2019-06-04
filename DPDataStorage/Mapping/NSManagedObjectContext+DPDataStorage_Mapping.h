@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface NSManagedObjectContext (DPDataStorage_Mapping)
 
 @property (nonatomic) BOOL parseDataHasDuplicates;
+@property (nonatomic) BOOL parseFullGraphKey;
 
 @end
 

@@ -248,7 +248,7 @@ static NSString * uniqueKeyForEntity(NSEntityDescription *entityDescription) {
         
         BOOL parseDataHasDuplicates = entityDescription.userInfo[kParseDataHasDuplicatesKey] ? [entityDescription.userInfo[kParseDataHasDuplicatesKey] boolValue] : context.parseDataHasDuplicates;
 
-        if (entityUniqueKey == nil || (parseDataHasDuplicates == false && parent.isInserted == true)) {
+        if (entityUniqueKey == nil || (parseDataHasDuplicates == false && parent.isInserted == true && context.parseFullGraphKey == true)) {
             result = [self insertInContext:context];
         }
         else if (error == nil && importUniqueKeys.count > 0 && importUniqueKeys.count == uniqueKeys.count) {
