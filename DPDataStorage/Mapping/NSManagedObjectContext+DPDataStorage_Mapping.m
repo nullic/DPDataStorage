@@ -27,7 +27,7 @@ static NSString * const kParseFullGraphKey = @"parseFullGraph";
 }
 
 - (BOOL)parseFullGraphKey {
-    return [(objc_getAssociatedObject(self, (__bridge const void *)(kParseFullGraphKey)) ?: @YES) boolValue];
+    return [(objc_getAssociatedObject(self, (__bridge const void *)(kParseFullGraphKey)) ?: @NO) boolValue];
 }
 
 @end
