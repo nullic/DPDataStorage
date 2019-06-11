@@ -511,7 +511,7 @@ static NSString * uniqueKeyForEntity(NSEntityDescription *entityDescription) {
                 else { //if (valueClass == [NSArray class]) {
                     id set = relationshipDescription.isOrdered ? [NSMutableOrderedSet new] : [NSMutableSet new];
 
-                    if (relationshipDescription.isOrdered == false && [[value firstObject] isKindOfClass:[NSDictionary class]] == NO) {
+                    if (relationshipDescription.isOrdered == false && [value firstObject] != nil && [[value firstObject] isKindOfClass:[NSDictionary class]] == NO) {
                         NSString *entityUniqueKey = uniqueKeyForEntity(relationshipDescription.destinationEntity);
                         NSArray *objects = [relationClass entriesWithValueIn:[NSSet setWithArray:value] forKey:entityUniqueKey inContext:[self managedObjectContext]];
                         set = [NSMutableSet setWithArray:objects];
