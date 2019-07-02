@@ -6,6 +6,8 @@
 //  Copyright (c) 2015 Dmitriy Petrusevich. All rights reserved.
 //
 
+#import <Foundation/Foundation.h>
+
 @protocol DPDataSourceCell <NSObject>
 - (void)configureWithObject:(id _Nonnull)object;
 @end

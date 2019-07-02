@@ -39,6 +39,11 @@
 		07588B4D220866B20093BA31 /* DPPlaceholderObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 07588B4B220866B20093BA31 /* DPPlaceholderObject.m */; };
 		07750BBC21F599F4009B5C45 /* DPContainerControllerBasedController.h in Headers */ = {isa = PBXBuildFile; fileRef = 07750BBA21F599F4009B5C45 /* DPContainerControllerBasedController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		07750BBD21F599F4009B5C45 /* DPContainerControllerBasedController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07750BBB21F599F4009B5C45 /* DPContainerControllerBasedController.m */; };
+		07A1C22E22CB1B120068103B /* NSManagedObjectModel+EntityDescription.m in Sources */ = {isa = PBXBuildFile; fileRef = 765EF8201EBCB60700C21E2E /* NSManagedObjectModel+EntityDescription.m */; };
+		07A1C22F22CB1B1F0068103B /* NSManagedObjectContext+DataStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 765EF81E1EBCB60700C21E2E /* NSManagedObjectContext+DataStorage.m */; };
+		07A1C23022CB1B2B0068103B /* NSManagedObjectContext+DataStorage.h in Headers */ = {isa = PBXBuildFile; fileRef = 765EF81D1EBCB60700C21E2E /* NSManagedObjectContext+DataStorage.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		07A1C23122CB1B300068103B /* NSManagedObjectModel+EntityDescription.h in Headers */ = {isa = PBXBuildFile; fileRef = 765EF81F1EBCB60700C21E2E /* NSManagedObjectModel+EntityDescription.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		07A1C23222CB1B340068103B /* NSManagedObjectContext+EntityDescription.h in Headers */ = {isa = PBXBuildFile; fileRef = B84F3CE821CE3FF600489349 /* NSManagedObjectContext+EntityDescription.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		07B8315C227D6B790087EB72 /* DPSectionedArrayControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B8315B227D6B790087EB72 /* DPSectionedArrayControllerTests.swift */; };
 		07B8315E227D8B5D0087EB72 /* DPArrayControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B8315D227D8B5D0087EB72 /* DPArrayControllerTests.swift */; };
 		07B83160227D8B820087EB72 /* TestObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B8315F227D8B820087EB72 /* TestObject.swift */; };
@@ -328,7 +333,10 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				07A1C23122CB1B300068103B /* NSManagedObjectModel+EntityDescription.h in Headers */,
+				07A1C23022CB1B2B0068103B /* NSManagedObjectContext+DataStorage.h in Headers */,
 				B84F3CF121CE422A00489349 /* NSManagedObjectContext+DPDataStorage_Mapping.h in Headers */,
+				07A1C23222CB1B340068103B /* NSManagedObjectContext+EntityDescription.h in Headers */,
 				B84F3CD821CE3ECE00489349 /* NSManagedObject+DPDataStorage_Mapping.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -525,8 +533,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				B84F3CED21CE3FF600489349 /* NSManagedObjectContext+EntityDescription.m in Sources */,
+				07A1C22F22CB1B1F0068103B /* NSManagedObjectContext+DataStorage.m in Sources */,
 				B84F3CF321CE422A00489349 /* NSManagedObjectContext+DPDataStorage_Mapping.m in Sources */,
 				B84F3CCA21CE3ECE00489349 /* NSManagedObject+DPDataStorage_Mapping.m in Sources */,
+				07A1C22E22CB1B120068103B /* NSManagedObjectModel+EntityDescription.m in Sources */,
 				B84F3CCB21CE3ECE00489349 /* NSManagedObject+DataStorage.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

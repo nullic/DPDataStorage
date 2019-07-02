@@ -81,15 +81,6 @@ static NSString * const kParseDataHasDuplicatesKey = @"parseDataHasDuplicates";
     return [objc_getAssociatedObject(self, (__bridge const void *)(kDeleteInvalidObjectsFlagKey)) boolValue];
 }
 
-- (void)setParseDataHasDuplicates:(BOOL)parseDataHasDuplicates {
-    objc_setAssociatedObject(self, (__bridge void *)(kParseDataHasDuplicatesKey), @(parseDataHasDuplicates), OBJC_ASSOCIATION_RETAIN);
-}
-
-- (BOOL)parseDataHasDuplicates {
-    return [(objc_getAssociatedObject(self, (__bridge const void *)(kParseDataHasDuplicatesKey)) ?: @YES) boolValue];
-}
-
-
 #pragma mark -
 
 - (void)deleteObjects:(id<NSFastEnumeration>)objects {

@@ -9,7 +9,6 @@
 #import "DPChange.h"
 #import "DPArrayController.h"
 #import "DPArrayController+Private.h"
-#import <UIKit/UIKit.h>
 
 @implementation DPChange
 
@@ -155,20 +154,20 @@
 - (NSInteger)affectSectionCountAtIndex:(NSInteger)index {
     switch (self.type) {
         case NSFetchedResultsChangeInsert:
-            if (self.toPath.section == index) return 1;
+            if ([self.toPath indexAtPosition:0] == index) return 1;
             break;
 
         case NSFetchedResultsChangeDelete:
-            if (self.path.section == index) return -1;
+            if ([self.path indexAtPosition:0] == index) return -1;
             break;
 
         case NSFetchedResultsChangeUpdate:
             break;
 
         case NSFetchedResultsChangeMove: {
-            if (self.path.section == self.toPath.section) return 0;
-            if (self.toPath.section == index) return 1;
-            if (self.path.section == index) return -1;
+            if ([self.path indexAtPosition:0] == [self.toPath indexAtPosition:0]) return 0;
+            if ([self.toPath indexAtPosition:0] == index) return 1;
+            if ([self.path indexAtPosition:0] == index) return -1;
         }
     }
     return 0;

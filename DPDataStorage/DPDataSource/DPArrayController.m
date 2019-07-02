@@ -180,8 +180,8 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
         [self.changes addObject:[DPItemChange insertObject:object atIndexPath:indexPath]];
     }
     else {
-        DPArrayControllerSection *sectionInfo = [self.sectionsStorage objectAtIndex:indexPath.section];
-        [sectionInfo insertObject:object atIndex:indexPath.row];
+        DPArrayControllerSection *sectionInfo = [self.sectionsStorage objectAtIndex:[indexPath indexAtPosition:0]];
+        [sectionInfo insertObject:object atIndex:[indexPath indexAtPosition:1]];
 
         if ([object isKindOfClass:[NSManagedObject class]]) {
             NSManagedObjectContext *context = [object managedObjectContext];
@@ -203,8 +203,8 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
         [self.changes addObject:[DPItemChange deleteObject:object atIndexPath:indexPath]];
     }
     else {
-        DPArrayControllerSection *sectionInfo = [self.sectionsStorage objectAtIndex:indexPath.section];
-        [sectionInfo removeObjectAtIndex:indexPath.row];
+        DPArrayControllerSection *sectionInfo = [self.sectionsStorage objectAtIndex:[indexPath indexAtPosition:0]];
+        [sectionInfo removeObjectAtIndex:[indexPath indexAtPosition:1]];
     }
 }
 
@@ -230,20 +230,20 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
     NSParameterAssert(newIndexPath != nil);
 
     if (immediately == NO) {
-        DPArrayControllerSection *sectionInfo = [self.sectionsStorage objectAtIndex:indexPath.section];
-        id object = [sectionInfo objectAtIndex:indexPath.row];
+        DPArrayControllerSection *sectionInfo = [self.sectionsStorage objectAtIndex:[indexPath indexAtPosition:0]];
+        id object = [sectionInfo objectAtIndex:[indexPath indexAtPosition:1]];
         [self.changes addObject:[DPItemChange moveObject:object atIndexPath:indexPath newIndex:newIndexPath]];
     }
     else {
-        DPArrayControllerSection *sectionInfo = [self.sectionsStorage objectAtIndex:indexPath.section];
-        if (indexPath.section == newIndexPath.section) {
-            [sectionInfo moveObjectAtIndex:indexPath.row toIndex:newIndexPath.row];
+        DPArrayControllerSection *sectionInfo = [self.sectionsStorage objectAtIndex:[indexPath indexAtPosition:0]];
+        if ([indexPath indexAtPosition:0] == [newIndexPath indexAtPosition:0]) {
+            [sectionInfo moveObjectAtIndex:[indexPath indexAtPosition:1] toIndex:[newIndexPath indexAtPosition:1]];
         }
         else {
-            id object = [sectionInfo objectAtIndex:indexPath.row];
-            [sectionInfo removeObjectAtIndex:indexPath.row];
-            sectionInfo = [self.sectionsStorage objectAtIndex:newIndexPath.section];
-            [sectionInfo insertObject:object atIndex:newIndexPath.row];
+            id object = [sectionInfo objectAtIndex:[indexPath indexAtPosition:1]];
+            [sectionInfo removeObjectAtIndex:[indexPath indexAtPosition:1]];
+            sectionInfo = [self.sectionsStorage objectAtIndex:[newIndexPath indexAtPosition:0]];
+            [sectionInfo insertObject:object atIndex:[newIndexPath indexAtPosition:1]];
         }
     }
 }
@@ -332,7 +332,7 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
     if (immediately == NO) {
         NSInteger lastIndex = [self numberOfItemsInSection:section];
         for (NSInteger i = 0; i < lastIndex; i++) {
-            NSIndexPath *ip = [NSIndexPath indexPathForItem:i inSection:section];
+            NSIndexPath *ip = [[NSIndexPath indexPathWithIndex:section] indexPathByAddingIndex:i];
             [self.changes addObject:[DPItemChange deleteObject:[self objectAtIndexPath:ip] atIndexPath:ip]];
         }
     }
@@ -340,7 +340,7 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
         DPArrayControllerSection *sectionInfo = [self.sectionsStorage objectAtIndex:section];
         for (NSInteger i = sectionInfo.objects.count; i > 0; i--) {
             NSInteger row = i - 1;
-            [self deleteObjectAtIndextPath:[NSIndexPath indexPathForItem:row inSection:section]];
+            [self deleteObjectAtIndextPath:[[NSIndexPath indexPathWithIndex:section] indexPathByAddingIndex:row]];
         }
     }
 }
@@ -355,7 +355,7 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
     NSInteger firstIndex = [self numberOfItemsInSection:section] + [self insertCountAtSection:section];
     if (immediately == NO) {
         for (NSInteger i = 0; i < objects.count; i++) {
-            NSIndexPath *ip = [NSIndexPath indexPathForItem:firstIndex + i inSection:section];
+            NSIndexPath *ip = [[NSIndexPath indexPathWithIndex:section] indexPathByAddingIndex:firstIndex + i];
             [self.changes addObject:[DPItemChange insertObject:objects[i] atIndexPath:ip]];
         }
     }
@@ -467,9 +467,9 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
 
 - (id)objectAtIndexPath:(NSIndexPath *)indexPath {
     id result = nil;
-    if (indexPath && indexPath.section < [self numberOfSections] && indexPath.row < [self numberOfItemsInSection:indexPath.section]) {
-        DPArrayControllerSection *sectionInfo = [self.sectionsStorage objectAtIndex:indexPath.section];
-        result = [sectionInfo objectAtIndex:indexPath.row];
+    if (indexPath && [indexPath indexAtPosition:0] < [self numberOfSections] && [indexPath indexAtPosition:1] < [self numberOfItemsInSection:[indexPath indexAtPosition:0]]) {
+        DPArrayControllerSection *sectionInfo = [self.sectionsStorage objectAtIndex:[indexPath indexAtPosition:0]];
+        result = [sectionInfo objectAtIndex:[indexPath indexAtPosition:1]];
     }
     return result;
 }
@@ -482,7 +482,7 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
             DPArrayControllerSection *sectionInfo = [self.sectionsStorage objectAtIndex:section];
             NSInteger index = [sectionInfo indexOfObject:object];
             if (index != NSNotFound) {
-                result = [NSIndexPath indexPathForItem:index inSection:section];
+                result = [[NSIndexPath indexPathWithIndex:section] indexPathByAddingIndex:index];
                 break;
             }
         }
@@ -499,7 +499,7 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
             DPArrayControllerSection *sectionInfo = [self.sectionsStorage objectAtIndex:section];
             NSInteger index = [sectionInfo indexOfManagedObject:object];
             if (index != NSNotFound) {
-                result = [NSIndexPath indexPathForItem:index inSection:section];
+                result = [[NSIndexPath indexPathWithIndex:section] indexPathByAddingIndex:index];
                 break;
             }
         }

@@ -254,7 +254,7 @@
 - (id)firstAnchorObjectAtSection:(NSInteger)section {
     NSInteger sectionHash = [(DPArrayControllerSection *)self.sections[section] sectionHash];
     for (NSInteger i = 0; i < [self numberOfItemsInSection:section]; i++) {
-        NSIndexPath *ip = [NSIndexPath indexPathForItem:i inSection:section];
+        NSIndexPath *ip = [[NSIndexPath indexPathWithIndex:section] indexPathByAddingIndex:i];
         id object = [self objectAtIndexPath:ip];
         if (self.sectionHashCalculator(object) == sectionHash) {
             return object;
@@ -295,7 +295,7 @@
         else if (c.type == NSFetchedResultsChangeUpdate) {
             NSIndexPath *ip = [super indexPathForObject:c.anObject];
             NSInteger hash = self.sectionHashCalculator(c.anObject);
-            if ([(DPArrayControllerSection *)self.sections[ip.section] sectionHash] == hash) {
+            if ([(DPArrayControllerSection *)self.sections[[ip indexAtPosition:0]] sectionHash] == hash) {
                 [super reloadObjectAtIndextPath:ip];
                 [self.innerStorageChanges removeObjectAtIndex:i];
             }
@@ -346,7 +346,7 @@
                         }
                     }
 
-                    newIndexPath = [NSIndexPath indexPathForRow:itemIndex + itemShift inSection:sectionIndex];
+                    newIndexPath = [[NSIndexPath indexPathWithIndex:sectionIndex] indexPathByAddingIndex:itemIndex + itemShift];
                     itemShift++;
                 }
                 else {
@@ -355,7 +355,8 @@
                         [self.insertedSectionIndecies addObject:@(sectionIndex)];
                         lastInsertedSectionIndex = sectionIndex;
                     }
-                    newIndexPath = [NSIndexPath indexPathForRow:itemIndex + itemShift inSection:sectionIndex];
+
+                    newIndexPath = [[NSIndexPath indexPathWithIndex:sectionIndex] indexPathByAddingIndex:itemIndex + itemShift];
                     itemShift++;
                 }
 

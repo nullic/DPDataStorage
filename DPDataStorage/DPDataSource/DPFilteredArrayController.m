@@ -42,7 +42,7 @@
             for (NSUInteger section = 0; section < self.sections.count; section++) {
                 for (NSInteger i = [self numberOfItemsInSection:section]; i > 0; i--) {
                     NSInteger row = i - 1;
-                    [self reloadObjectAtIndextPath:[NSIndexPath indexPathForItem:row inSection:section]];
+                    [self reloadObjectAtIndextPath:[[NSIndexPath indexPathWithIndex:section] indexPathByAddingIndex:row]];
                 }
             }
             [self endUpdating];

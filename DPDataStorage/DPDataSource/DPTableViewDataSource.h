@@ -7,6 +7,7 @@
 //
 
 #import "DPBaseDataSource.h"
+#import <UIKit/UIKit.h>
 
 @interface DPTableViewDataSource : DPBaseDataSource <UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, weak, nullable) IBOutlet UITableView *tableView;

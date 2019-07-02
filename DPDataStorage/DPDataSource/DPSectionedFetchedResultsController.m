@@ -51,20 +51,20 @@
 {
     switch(type) {
         case NSFetchedResultsChangeInsert:
-            [super insertObject:anObject atIndex:newIndexPath.item];
+            [super insertObject:anObject atIndex:[newIndexPath indexAtPosition:1]];
             break;
 
         case NSFetchedResultsChangeDelete:
-            [super removeObjectAtIndex:indexPath.item];
+            [super removeObjectAtIndex:[indexPath indexAtPosition:1]];
             break;
 
         case NSFetchedResultsChangeUpdate:
-            [super reloadObjectAtIndex:indexPath.item];
+            [super reloadObjectAtIndex:[indexPath indexAtPosition:1]];
             break;
 
         case NSFetchedResultsChangeMove:
             if ([newIndexPath isEqual:indexPath] == NO) {
-                [super moveObjectAtIndex:indexPath.item toIndex:newIndexPath.item];
+                [super moveObjectAtIndex:[indexPath indexAtPosition:1] toIndex:[newIndexPath indexAtPosition:1]];
             }
             break;
     }
