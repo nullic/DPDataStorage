@@ -21,6 +21,7 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		07011AFC22CDD0EF00BC82BC /* NSManagedObject+DataStorage.h in Headers */ = {isa = PBXBuildFile; fileRef = 765EF81B1EBCB60700C21E2E /* NSManagedObject+DataStorage.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		07077BDB227DAB9900380D54 /* TestsModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 07077BD9227DAB9900380D54 /* TestsModel.xcdatamodeld */; };
 		07077BDD227DB75C00380D54 /* DPContainerControllerBasedControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07077BDC227DB75C00380D54 /* DPContainerControllerBasedControllerTests.swift */; };
 		070994042244BACE00B4FF2A /* DelegateResponseMask.h in Headers */ = {isa = PBXBuildFile; fileRef = 070994032244BACE00B4FF2A /* DelegateResponseMask.h */; settings = {ATTRIBUTES = (Private, ); }; };
@@ -215,6 +216,7 @@
 			children = (
 				765EF8111EBCB53D00C21E2E /* DPDataStorage */,
 				07BA74A6227D6B0400659C09 /* DPDataStorageTests */,
+				765EF8131EBCB53D00C21E2E /* Info.plist */,
 				765EF8101EBCB53D00C21E2E /* Products */,
 			);
 			sourceTree = "<group>";
@@ -237,9 +239,8 @@
 				765EF8211EBCB60700C21E2E /* DPDataSource */,
 				765EF8121EBCB53D00C21E2E /* DPDataStorage.h */,
 				765EF8411EBCB77D00C21E2E /* DPDataStorage.m */,
-				765EF8131EBCB53D00C21E2E /* Info.plist */,
 			);
-			name = DPDataStorage;
+			path = DPDataStorage;
 			sourceTree = "<group>";
 		};
 		765EF81A1EBCB60700C21E2E /* Categories */ = {
@@ -335,6 +336,7 @@
 			files = (
 				07A1C23122CB1B300068103B /* NSManagedObjectModel+EntityDescription.h in Headers */,
 				07A1C23022CB1B2B0068103B /* NSManagedObjectContext+DataStorage.h in Headers */,
+				07011AFC22CDD0EF00BC82BC /* NSManagedObject+DataStorage.h in Headers */,
 				B84F3CF121CE422A00489349 /* NSManagedObjectContext+DPDataStorage_Mapping.h in Headers */,
 				07A1C23222CB1B340068103B /* NSManagedObjectContext+EntityDescription.h in Headers */,
 				B84F3CD821CE3ECE00489349 /* NSManagedObject+DPDataStorage_Mapping.h in Headers */,
