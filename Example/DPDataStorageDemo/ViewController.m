@@ -33,8 +33,8 @@
     fetchedResultsController.delegate = self.dataSource;
     [fetchedResultsController performFetch:NULL];
     
-    self.dataSource.listController = [[DPSectionedFetchedResultsController alloc] initWithDelegate:self.dataSource sectionKeyPath:@"name" sectionSortDescriptor:sortDescriptor frc:fetchedResultsController];
-//    self.dataSource.listController = [[DPContainerControllerBasedController alloc] initWithDelegate:self.dataSource otherController:fetchedResultsController];
+//    self.dataSource.listController = [[DPSectionedFetchedResultsController alloc] initWithDelegate:self.dataSource sectionKeyPath:@"name" sectionSortDescriptor:sortDescriptor frc:fetchedResultsController];
+    self.dataSource.listController = [[DPContainerControllerBasedController alloc] initWithDelegate:self.dataSource otherController:fetchedResultsController];
     
 //    self.dataSource.listController = fetchedResultsController;
 }
