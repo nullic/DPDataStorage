@@ -16,19 +16,8 @@ Pod::Spec.new do |s|
 
   s.source       = { :git => "https://github.com/nullic/DPDataStorage.git", :tag => "1.0" }
 
-  s.source_files = "DPDataStorage", "DPDataStorage/*.{h,m}"
-  s.requires_arc = true
+  s.source_files = "DPDataStorage", "DPDataStorage/*.m", "DPDataStorage/include/*.h", "DPDataStorage/DPDataSource/*.m", "DPDataStorage/DPDataSource/private/*.m", "DPDataStorage/Mapping/*.m", "DPDataStorage/Categories/*.m"
 
-  s.subspec 'DPDataSource' do |ss|
-    ss.source_files = "DPDataStorage/DPDataSource/*.{h,m}", "DPDataStorage/DPDataSource/private/*.{h,m}"
-  end
-  
-  s.subspec 'Mapping' do |ss|
-    ss.source_files = "DPDataStorage/Mapping/*.{h,m}"
-  end
-  
-  s.subspec 'Categories' do |ss|
-    ss.source_files = "DPDataStorage/Categories/*.{h,m}"
-  end
+  s.requires_arc = true
 
 end

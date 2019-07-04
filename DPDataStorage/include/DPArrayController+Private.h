@@ -6,6 +6,8 @@
 //  Copyright © 2019 EffectiveSoft. All rights reserved.
 //
 
+#import "DPArrayController.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface DPArrayController()
