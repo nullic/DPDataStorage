@@ -21,6 +21,7 @@
 #import "DPSectionedArrayController.h"
 #import "DPSectionedFetchedResultsController.h"
 #import "DPContainerControllerBasedController.h"
+#import "DPTypedContainerController.h"
 
 
 DISPATCH_EXPORT dispatch_queue_t _Nonnull _dispatch_parser_q;
