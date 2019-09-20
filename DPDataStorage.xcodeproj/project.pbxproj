@@ -102,6 +102,7 @@
 		B84F3CED21CE3FF600489349 /* NSManagedObjectContext+EntityDescription.m in Sources */ = {isa = PBXBuildFile; fileRef = B84F3CE921CE3FF600489349 /* NSManagedObjectContext+EntityDescription.m */; };
 		B84F3CF221CE422A00489349 /* NSManagedObjectContext+DPDataStorage_Mapping.m in Sources */ = {isa = PBXBuildFile; fileRef = B84F3CEF21CE422A00489349 /* NSManagedObjectContext+DPDataStorage_Mapping.m */; };
 		B84F3CF321CE422A00489349 /* NSManagedObjectContext+DPDataStorage_Mapping.m in Sources */ = {isa = PBXBuildFile; fileRef = B84F3CEF21CE422A00489349 /* NSManagedObjectContext+DPDataStorage_Mapping.m */; };
+		B8BECB5C2334E3120048D964 /* DPDataStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 765EF8411EBCB77D00C21E2E /* DPDataStorage.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -582,6 +583,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B8BECB5C2334E3120048D964 /* DPDataStorage.m in Sources */,
 				B84F3CED21CE3FF600489349 /* NSManagedObjectContext+EntityDescription.m in Sources */,
 				07A1C22F22CB1B1F0068103B /* NSManagedObjectContext+DataStorage.m in Sources */,
 				B84F3CF321CE422A00489349 /* NSManagedObjectContext+DPDataStorage_Mapping.m in Sources */,
