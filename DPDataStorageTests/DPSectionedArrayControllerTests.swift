@@ -278,4 +278,35 @@ class DPSectionedArrayControllerTests: XCTestCase {
         object = controller.object(at: IndexPath(row: 0, section: 2)) as? TestObject
         XCTAssert(object?.value == "3")
     }
+
+    func testChangeSectionHashChanges() {
+        let delegate = TestDelegate()
+        let controller = DPSectionedArrayController(delegate: delegate, sectionHashCalculator: TestObject.sectionHash, sectionSortDescriptor: TestObject.sectionSort)
+
+        let array = [TestObject(section: "1", value: "1")]
+        controller.setObjects(array)
+
+        array[0].section = "0"
+        array[0].value = "1"
+
+        controller.startUpdating()
+        controller.reloadObject(at: 0)
+        controller.endUpdating()
+
+        XCTAssert(delegate.itemChanges.count == 1)
+        XCTAssert(controller.numberOfSections() == 1)
+        XCTAssert(controller.numberOfItems(inSection: 0) == 1)
+        
+        array[0].section = "2"
+        array[0].value = "1"
+        
+        controller.startUpdating()
+        controller.reloadObject(at: 0)
+        controller.endUpdating()
+        
+        XCTAssert(delegate.itemChanges.count == 1)
+        XCTAssert(controller.numberOfSections() == 1)
+        XCTAssert(controller.numberOfItems(inSection: 0) == 1)
+
+    }
 }
