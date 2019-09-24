@@ -98,6 +98,14 @@ static NSString * uniqueKeyForEntity(NSEntityDescription *entityDescription) {
 }
 
 + (id)transformImportValue:(id)value importKey:(NSString *)importKey propertyDescription:(NSPropertyDescription *)propertyDescription {
+    if (@available(iOS 11.0, *)) {
+        if ([propertyDescription isKindOfClass:[NSAttributeDescription class]] && [value isKindOfClass:[NSString class]]) {
+            NSAttributeDescription *attributeDescription = (NSAttributeDescription *)propertyDescription;
+            if (attributeDescription.attributeType == NSURIAttributeType) {
+                return [NSURL URLWithString:value] ?: value;
+            }
+        }
+    }
     return value;
 }
 
