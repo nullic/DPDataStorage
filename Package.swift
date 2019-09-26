@@ -10,6 +10,7 @@ let package = Package(
     products: [
         .library(
             name: "DPDataStorage",
+            type: .dynamic,
             targets: ["DPDataStorage"]
         ),
     ],
