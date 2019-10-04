@@ -20,6 +20,10 @@ static NSString * const kDeleteNotUpdatedKey = @"deleteNotUpdated";
 static NSString * const kParseDataHasDuplicatesKey = @"parseDuplicates";
 static NSString * const kEqualCheckKey = @"equalCheck";
 
+static NSString * const kDateFormatKey = @"dateFormat";
+static NSString * const kDateFormatMiliseconds = @"miliseconds";
+static NSString * const kDateFormatSeconds = @"seconds";
+
 
 static NSString * uniqueKeyForEntity(NSEntityDescription *entityDescription) {
     NSString *entityUniqueKey = nil;
@@ -103,6 +107,26 @@ static NSString * uniqueKeyForEntity(NSEntityDescription *entityDescription) {
             NSAttributeDescription *attributeDescription = (NSAttributeDescription *)propertyDescription;
             if (attributeDescription.attributeType == NSURIAttributeType) {
                 return [NSURL URLWithString:value] ?: value;
+            }
+        }
+    }
+
+    if ([propertyDescription isKindOfClass:[NSAttributeDescription class]]) {
+        NSAttributeDescription *attributeDescription = (NSAttributeDescription *)propertyDescription;
+        if (attributeDescription.attributeType == NSDateAttributeType) {
+            NSString *format = attributeDescription.userInfo[kDateFormatKey];
+            if (format == nil) return value;
+
+            if ([value isKindOfClass:[NSNumber class]]) {
+                if ([format isEqualToString:kDateFormatMiliseconds]) {
+                    return [NSDate dateWithTimeIntervalSince1970: [value doubleValue] * 1000.0];
+                } else if ([format isEqualToString:kDateFormatSeconds]) {
+                    return [NSDate dateWithTimeIntervalSince1970: [value doubleValue]];
+                }
+            } else if ([value isKindOfClass:[NSString class]]) {
+                NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+                formatter.dateFormat = format;
+                return [formatter dateFromString: value] ?: value;
             }
         }
     }
