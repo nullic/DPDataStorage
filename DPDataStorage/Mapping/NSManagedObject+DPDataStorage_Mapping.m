@@ -35,6 +35,16 @@ static NSString * uniqueKeyForEntity(NSEntityDescription *entityDescription) {
     return entityUniqueKey;
 }
 
+static BOOL equalCheckForEntity(NSEntityDescription *entityDescription) {
+    NSString *entityEqualCheck = nil;
+    NSEntityDescription *parent = entityDescription;
+    while (parent != nil && entityEqualCheck == nil) {
+        entityEqualCheck = parent.userInfo[kEqualCheckKey];
+        parent = parent.superentity;
+    }
+    return [entityEqualCheck boolValue];
+}
+
 @interface NSEntityDescription (DPDataStorage_Mapping)
 @end
 
@@ -387,7 +397,7 @@ static NSString * uniqueKeyForEntity(NSEntityDescription *entityDescription) {
 - (BOOL)updateAttributesWithDictionary:(NSDictionary *)dictionary error:(NSError *__autoreleasing *)out_error {
     NSMutableArray *errors = [NSMutableArray array];
     NSDictionary *entityAttributes = [self.entity attributesByName];
-    BOOL equalCheck = [self.entity.userInfo[kEqualCheckKey] boolValue];
+    BOOL equalCheck = equalCheckForEntity(self.entity);
 
     for (NSString *attributeName in entityAttributes) {
         NSAttributeDescription *attributeDescription = entityAttributes[attributeName];
@@ -455,7 +465,7 @@ static NSString * uniqueKeyForEntity(NSEntityDescription *entityDescription) {
 - (BOOL)updateRelationshipsWithDictionary:(NSDictionary *)dictionary error:(NSError **)out_error {
     NSMutableArray *errors = [NSMutableArray array];
     NSDictionary *entityRelationships = [self.entity relationshipsByName];
-    BOOL equalCheck = [self.entity.userInfo[kEqualCheckKey] boolValue];
+    BOOL equalCheck = equalCheckForEntity(self.entity);
 
     for (NSString *keyName in entityRelationships) {
         NSRelationshipDescription *relationshipDescription = entityRelationships[keyName];
