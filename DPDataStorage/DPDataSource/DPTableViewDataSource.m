@@ -220,7 +220,7 @@
                     break;
 
                 case NSFetchedResultsChangeUpdate:
-                    [tv reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:self.updateAnimation];
+                    [tv reloadRowsAtIndexPaths:@[newIndexPath ?: indexPath] withRowAnimation:self.updateAnimation];
                     break;
 
                 case NSFetchedResultsChangeMove:
