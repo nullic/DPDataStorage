@@ -214,7 +214,7 @@
                     break;
 
                 case NSFetchedResultsChangeUpdate:
-                    [cv reloadItemsAtIndexPaths:@[newIndexPath ?: indexPath]];
+                    [cv reloadItemsAtIndexPaths:@[indexPath]];
                     break;
 
                 case NSFetchedResultsChangeMove:
