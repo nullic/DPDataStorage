@@ -129,7 +129,7 @@ static BOOL equalCheckForEntity(NSEntityDescription *entityDescription) {
 
             if ([value isKindOfClass:[NSNumber class]]) {
                 if ([format isEqualToString:kDateFormatMiliseconds]) {
-                    return [NSDate dateWithTimeIntervalSince1970: [value doubleValue] * 1000.0];
+                    return [NSDate dateWithTimeIntervalSince1970: [value doubleValue] / 1000.0];
                 } else if ([format isEqualToString:kDateFormatSeconds]) {
                     return [NSDate dateWithTimeIntervalSince1970: [value doubleValue]];
                 }
