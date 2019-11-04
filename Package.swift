@@ -8,9 +8,9 @@ let package = Package(
         .iOS(.v8)
     ],
     products: [
-        .library(name: "DPDataMapping", targets: ["DataMapping"]),
-        .library(name: "DPDataSource", targets: ["DataSource"]),
-        .library(name: "DPDataStorage", targets: ["DataStorage", "DataMapping", "DataSource"]),
+        .library(name: "DataMapping", targets: ["DataMapping"]),
+        .library(name: "DataSource", targets: ["DataSource"]),
+        .library(name: "DataStorage", targets: ["DataStorage", "DataMapping", "DataSource"]),
     ],
     dependencies: [],
     targets: [
