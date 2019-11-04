@@ -177,7 +177,7 @@
     }
 
     if (self.preservePosition == YES) {
-        NSIndexPath *ip = [[self.tableView indexPathsForVisibleRows] firstObject];
+        NSIndexPath *ip = [[[self.tableView indexPathsForVisibleRows] sortedArrayUsingSelector: @selector(compare:)] firstObject];
         if (ip != nil) {
             CGRect rect = [self.tableView rectForRowAtIndexPath:ip];
             self.visibleObject = [self objectAtIndexPath:ip];
@@ -222,6 +222,7 @@
         if (self.preservePosition == YES && self.visibleObject != nil) {
             NSIndexPath *ip = [self indexPathForObject:self.visibleObject];
             if (ip != nil) {
+                [self.tableView layoutIfNeeded];
                 CGRect rect = [self.tableView rectForRowAtIndexPath:ip];
                 CGFloat y = self.visibleObjectShift + rect.origin.y;
                 [self.tableView setContentOffset:CGPointMake(0, y) animated:false];

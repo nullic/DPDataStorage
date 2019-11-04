@@ -161,7 +161,7 @@
     }
 
     if (self.preservePosition == YES) {
-        NSIndexPath *ip = [[self.collectionView indexPathsForVisibleItems] firstObject];
+        NSIndexPath *ip = [[[self.collectionView indexPathsForVisibleItems] sortedArrayUsingSelector: @selector(compare:)] firstObject];
         if (ip != nil) {
             UICollectionViewLayoutAttributes *atts = [self.collectionView layoutAttributesForItemAtIndexPath:ip];
             self.visibleObject = [self objectAtIndexPath:ip];
@@ -208,6 +208,7 @@
         if (self.preservePosition == YES && self.visibleObject != nil) {
             NSIndexPath *ip = [self indexPathForObject:self.visibleObject];
             if (ip != nil) {
+                [self.collectionView layoutIfNeeded];
                 UICollectionViewLayoutAttributes *atts = [self.collectionView layoutAttributesForItemAtIndexPath:ip];
                 CGFloat y = self.visibleObjectShift + atts.frame.origin.y;
                 [self.collectionView setContentOffset:CGPointMake(0, y) animated:false];
