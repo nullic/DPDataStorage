@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
 
   s.source       = { :git => "https://github.com/nullic/DPDataStorage.git", :tag => "1.0" }
 
-  s.source_files = "DataMapping/*.m", "DataMapping/include/*.h", "DataSource/*.m", "DataSource/include/*.h", "DataStorage/*.m", "DataStorage/include/NSManagedObjectContext+DataStorage.h", "DPDataStorage.h"
+  s.source_files = "DPDataStorage", "DPDataStorage/*.m", "DPDataStorage/include/*.h", "DPDataStorage/DPDataSource/*.m", "DPDataStorage/DPDataSource/private/*.m", "DPDataStorage/Mapping/*.m", "DPDataStorage/Categories/*.m"
 
   s.requires_arc = true
 

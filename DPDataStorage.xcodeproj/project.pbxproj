@@ -21,88 +21,69 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		07011B1522CDD2EE00BC82BC /* DPDataStorage.h in Headers */ = {isa = PBXBuildFile; fileRef = 07011AFE22CDD2EE00BC82BC /* DPDataStorage.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		07011B1622CDD2EE00BC82BC /* DPArrayControllerSection.h in Headers */ = {isa = PBXBuildFile; fileRef = 07011AFF22CDD2EE00BC82BC /* DPArrayControllerSection.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		07011B1722CDD2EE00BC82BC /* DPSectionedFetchedResultsController.h in Headers */ = {isa = PBXBuildFile; fileRef = 07011B0022CDD2EE00BC82BC /* DPSectionedFetchedResultsController.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		07011B1822CDD2EE00BC82BC /* DPMapViewDataSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 07011B0122CDD2EE00BC82BC /* DPMapViewDataSource.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		07011B1922CDD2EE00BC82BC /* DPDataSourceContainer.h in Headers */ = {isa = PBXBuildFile; fileRef = 07011B0222CDD2EE00BC82BC /* DPDataSourceContainer.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		07011B1A22CDD2EE00BC82BC /* NSManagedObject+DataStorage.h in Headers */ = {isa = PBXBuildFile; fileRef = 07011B0322CDD2EE00BC82BC /* NSManagedObject+DataStorage.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		07011B1B22CDD2EE00BC82BC /* DPContainerControllerBasedController.h in Headers */ = {isa = PBXBuildFile; fileRef = 07011B0422CDD2EE00BC82BC /* DPContainerControllerBasedController.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		07011B1C22CDD2EE00BC82BC /* NSManagedObjectModel+EntityDescription.h in Headers */ = {isa = PBXBuildFile; fileRef = 07011B0522CDD2EE00BC82BC /* NSManagedObjectModel+EntityDescription.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		07011B1D22CDD2EE00BC82BC /* DPSectionedArrayController.h in Headers */ = {isa = PBXBuildFile; fileRef = 07011B0622CDD2EE00BC82BC /* DPSectionedArrayController.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		07011B1E22CDD2EE00BC82BC /* DPTableViewDataSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 07011B0722CDD2EE00BC82BC /* DPTableViewDataSource.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		07011B1F22CDD2EE00BC82BC /* DPCollectionViewDataSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 07011B0822CDD2EE00BC82BC /* DPCollectionViewDataSource.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		07011B2022CDD2EE00BC82BC /* DelegateResponseMask.h in Headers */ = {isa = PBXBuildFile; fileRef = 07011B0922CDD2EE00BC82BC /* DelegateResponseMask.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		07011B2122CDD2EE00BC82BC /* NSManagedObjectContext+DataStorage.h in Headers */ = {isa = PBXBuildFile; fileRef = 07011B0A22CDD2EE00BC82BC /* NSManagedObjectContext+DataStorage.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		07011B2222CDD2EE00BC82BC /* DPArrayController+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 07011B0B22CDD2EE00BC82BC /* DPArrayController+Private.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		07011B2322CDD2EE00BC82BC /* NSManagedObject+DPDataStorage_Mapping.h in Headers */ = {isa = PBXBuildFile; fileRef = 07011B0C22CDD2EE00BC82BC /* NSManagedObject+DPDataStorage_Mapping.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		07011B2422CDD2EE00BC82BC /* NSManagedObjectContext+EntityDescription.h in Headers */ = {isa = PBXBuildFile; fileRef = 07011B0D22CDD2EE00BC82BC /* NSManagedObjectContext+EntityDescription.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		07011B2522CDD2EE00BC82BC /* DPFilteredArrayController.h in Headers */ = {isa = PBXBuildFile; fileRef = 07011B0E22CDD2EE00BC82BC /* DPFilteredArrayController.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		07011B2622CDD2EE00BC82BC /* DPArrayController.h in Headers */ = {isa = PBXBuildFile; fileRef = 07011B0F22CDD2EE00BC82BC /* DPArrayController.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		07011B2722CDD2EE00BC82BC /* DPChange.h in Headers */ = {isa = PBXBuildFile; fileRef = 07011B1022CDD2EE00BC82BC /* DPChange.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		07011B2822CDD2EE00BC82BC /* DPDataSourceCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 07011B1122CDD2EE00BC82BC /* DPDataSourceCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		07011B2922CDD2EE00BC82BC /* NSManagedObjectContext+DPDataStorage_Mapping.h in Headers */ = {isa = PBXBuildFile; fileRef = 07011B1222CDD2EE00BC82BC /* NSManagedObjectContext+DPDataStorage_Mapping.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		07011B2A22CDD2EE00BC82BC /* DPPlaceholderObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 07011B1322CDD2EE00BC82BC /* DPPlaceholderObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		07011B2B22CDD2EE00BC82BC /* DPBaseDataSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 07011B1422CDD2EE00BC82BC /* DPBaseDataSource.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		07011B2C22CDD2F200BC82BC /* DPDataStorage.h in Headers */ = {isa = PBXBuildFile; fileRef = 07011AFE22CDD2EE00BC82BC /* DPDataStorage.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		07011B2E22CDD2F200BC82BC /* DPSectionedFetchedResultsController.h in Headers */ = {isa = PBXBuildFile; fileRef = 07011B0022CDD2EE00BC82BC /* DPSectionedFetchedResultsController.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		07011B2F22CDD2F200BC82BC /* DPMapViewDataSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 07011B0122CDD2EE00BC82BC /* DPMapViewDataSource.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		07011B3022CDD2F200BC82BC /* DPDataSourceContainer.h in Headers */ = {isa = PBXBuildFile; fileRef = 07011B0222CDD2EE00BC82BC /* DPDataSourceContainer.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		07011B3122CDD2F200BC82BC /* NSManagedObject+DataStorage.h in Headers */ = {isa = PBXBuildFile; fileRef = 07011B0322CDD2EE00BC82BC /* NSManagedObject+DataStorage.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		07011B3222CDD2F200BC82BC /* DPContainerControllerBasedController.h in Headers */ = {isa = PBXBuildFile; fileRef = 07011B0422CDD2EE00BC82BC /* DPContainerControllerBasedController.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		07011B3322CDD2F200BC82BC /* NSManagedObjectModel+EntityDescription.h in Headers */ = {isa = PBXBuildFile; fileRef = 07011B0522CDD2EE00BC82BC /* NSManagedObjectModel+EntityDescription.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		07011B3422CDD2F200BC82BC /* DPSectionedArrayController.h in Headers */ = {isa = PBXBuildFile; fileRef = 07011B0622CDD2EE00BC82BC /* DPSectionedArrayController.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		07011B3522CDD2F200BC82BC /* DPTableViewDataSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 07011B0722CDD2EE00BC82BC /* DPTableViewDataSource.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		07011B3622CDD2F200BC82BC /* DPCollectionViewDataSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 07011B0822CDD2EE00BC82BC /* DPCollectionViewDataSource.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		07011B3722CDD2F200BC82BC /* DelegateResponseMask.h in Headers */ = {isa = PBXBuildFile; fileRef = 07011B0922CDD2EE00BC82BC /* DelegateResponseMask.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		07011B3822CDD2F200BC82BC /* NSManagedObjectContext+DataStorage.h in Headers */ = {isa = PBXBuildFile; fileRef = 07011B0A22CDD2EE00BC82BC /* NSManagedObjectContext+DataStorage.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		07011B3922CDD2F200BC82BC /* DPArrayController+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 07011B0B22CDD2EE00BC82BC /* DPArrayController+Private.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		07011B3A22CDD2F200BC82BC /* NSManagedObject+DPDataStorage_Mapping.h in Headers */ = {isa = PBXBuildFile; fileRef = 07011B0C22CDD2EE00BC82BC /* NSManagedObject+DPDataStorage_Mapping.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		07011B3B22CDD2F200BC82BC /* NSManagedObjectContext+EntityDescription.h in Headers */ = {isa = PBXBuildFile; fileRef = 07011B0D22CDD2EE00BC82BC /* NSManagedObjectContext+EntityDescription.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		07011B3C22CDD2F200BC82BC /* DPFilteredArrayController.h in Headers */ = {isa = PBXBuildFile; fileRef = 07011B0E22CDD2EE00BC82BC /* DPFilteredArrayController.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		07011B3D22CDD2F200BC82BC /* DPArrayController.h in Headers */ = {isa = PBXBuildFile; fileRef = 07011B0F22CDD2EE00BC82BC /* DPArrayController.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		07011B3E22CDD2F200BC82BC /* DPChange.h in Headers */ = {isa = PBXBuildFile; fileRef = 07011B1022CDD2EE00BC82BC /* DPChange.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		07011B3F22CDD2F200BC82BC /* DPDataSourceCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 07011B1122CDD2EE00BC82BC /* DPDataSourceCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		07011B4022CDD2F200BC82BC /* NSManagedObjectContext+DPDataStorage_Mapping.h in Headers */ = {isa = PBXBuildFile; fileRef = 07011B1222CDD2EE00BC82BC /* NSManagedObjectContext+DPDataStorage_Mapping.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		07011B4222CDD2F200BC82BC /* DPBaseDataSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 07011B1422CDD2EE00BC82BC /* DPBaseDataSource.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		07077BDB227DAB9900380D54 /* TestsModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 07077BD9227DAB9900380D54 /* TestsModel.xcdatamodeld */; };
 		07077BDD227DB75C00380D54 /* DPContainerControllerBasedControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07077BDC227DB75C00380D54 /* DPContainerControllerBasedControllerTests.swift */; };
-		074A3C1B22363B900061439E /* DPChange.m in Sources */ = {isa = PBXBuildFile; fileRef = 074A3C1922363B900061439E /* DPChange.m */; };
-		074B16BF21E46D6400FAF431 /* DPFilteredArrayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 074B16BD21E46D6400FAF431 /* DPFilteredArrayController.m */; };
-		074B16C321E4734D00FAF431 /* DPSectionedArrayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 074B16C121E4734D00FAF431 /* DPSectionedArrayController.m */; };
-		074B16D521E5E0C300FAF431 /* DPSectionedFetchedResultsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 074B16D321E5E0C300FAF431 /* DPSectionedFetchedResultsController.m */; };
-		074E5E7A2208657500868634 /* DPArrayControllerSection.m in Sources */ = {isa = PBXBuildFile; fileRef = 074E5E782208657500868634 /* DPArrayControllerSection.m */; };
-		07588B4D220866B20093BA31 /* DPPlaceholderObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 07588B4B220866B20093BA31 /* DPPlaceholderObject.m */; };
-		0767147A232B675100DB18F0 /* DPTypedContainerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07671479232B675100DB18F0 /* DPTypedContainerController.m */; };
-		0767147C232B6FF300DB18F0 /* DPTypedContainerController.h in Headers */ = {isa = PBXBuildFile; fileRef = 0767147B232B676700DB18F0 /* DPTypedContainerController.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0767147D232B704500DB18F0 /* DPTypedContainerController.h in Headers */ = {isa = PBXBuildFile; fileRef = 0767147B232B676700DB18F0 /* DPTypedContainerController.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		07750BBD21F599F4009B5C45 /* DPContainerControllerBasedController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07750BBB21F599F4009B5C45 /* DPContainerControllerBasedController.m */; };
-		07A1C22E22CB1B120068103B /* NSManagedObjectModel+EntityDescription.m in Sources */ = {isa = PBXBuildFile; fileRef = 765EF8201EBCB60700C21E2E /* NSManagedObjectModel+EntityDescription.m */; };
-		07A1C22F22CB1B1F0068103B /* NSManagedObjectContext+DataStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 765EF81E1EBCB60700C21E2E /* NSManagedObjectContext+DataStorage.m */; };
 		07B8315C227D6B790087EB72 /* DPSectionedArrayControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B8315B227D6B790087EB72 /* DPSectionedArrayControllerTests.swift */; };
 		07B8315E227D8B5D0087EB72 /* DPArrayControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B8315D227D8B5D0087EB72 /* DPArrayControllerTests.swift */; };
 		07B83160227D8B820087EB72 /* TestObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B8315F227D8B820087EB72 /* TestObject.swift */; };
 		07B83162227D8B940087EB72 /* TestDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B83161227D8B940087EB72 /* TestDelegate.swift */; };
 		07BA74AA227D6B0400659C09 /* DPDataStorage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 765EF80F1EBCB53D00C21E2E /* DPDataStorage.framework */; };
+		07D3DFE82370043C00B2F914 /* NSManagedObjectContext+DataStorage.h in Headers */ = {isa = PBXBuildFile; fileRef = 07D3DFB42370043C00B2F914 /* NSManagedObjectContext+DataStorage.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		07D3DFE92370043C00B2F914 /* DPDataStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 07D3DFB52370043C00B2F914 /* DPDataStorage.m */; };
+		07D3DFEA2370043C00B2F914 /* NSManagedObjectContext+DataStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 07D3DFB72370043C00B2F914 /* NSManagedObjectContext+DataStorage.m */; };
+		07D3DFEB2370043C00B2F914 /* DPTypedContainerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07D3DFB92370043C00B2F914 /* DPTypedContainerController.m */; };
+		07D3DFEC2370043C00B2F914 /* DPFilteredArrayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07D3DFBA2370043C00B2F914 /* DPFilteredArrayController.m */; };
+		07D3DFED2370043C00B2F914 /* DPArrayControllerSection.h in Headers */ = {isa = PBXBuildFile; fileRef = 07D3DFBC2370043C00B2F914 /* DPArrayControllerSection.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		07D3DFEE2370043C00B2F914 /* DPSectionedFetchedResultsController.h in Headers */ = {isa = PBXBuildFile; fileRef = 07D3DFBD2370043C00B2F914 /* DPSectionedFetchedResultsController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		07D3DFEF2370043C00B2F914 /* DPMapViewDataSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 07D3DFBE2370043C00B2F914 /* DPMapViewDataSource.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		07D3DFF02370043C00B2F914 /* DPDataSourceContainer.h in Headers */ = {isa = PBXBuildFile; fileRef = 07D3DFBF2370043C00B2F914 /* DPDataSourceContainer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		07D3DFF12370043C00B2F914 /* DPContainerControllerBasedController.h in Headers */ = {isa = PBXBuildFile; fileRef = 07D3DFC02370043C00B2F914 /* DPContainerControllerBasedController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		07D3DFF22370043C00B2F914 /* DPSectionedArrayController.h in Headers */ = {isa = PBXBuildFile; fileRef = 07D3DFC12370043C00B2F914 /* DPSectionedArrayController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		07D3DFF32370043C00B2F914 /* DPTableViewDataSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 07D3DFC22370043C00B2F914 /* DPTableViewDataSource.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		07D3DFF42370043C00B2F914 /* DPCollectionViewDataSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 07D3DFC32370043C00B2F914 /* DPCollectionViewDataSource.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		07D3DFF52370043C00B2F914 /* DelegateResponseMask.h in Headers */ = {isa = PBXBuildFile; fileRef = 07D3DFC42370043C00B2F914 /* DelegateResponseMask.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		07D3DFF62370043C00B2F914 /* DPArrayController+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 07D3DFC52370043C00B2F914 /* DPArrayController+Private.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		07D3DFF72370043C00B2F914 /* DPTypedContainerController.h in Headers */ = {isa = PBXBuildFile; fileRef = 07D3DFC62370043C00B2F914 /* DPTypedContainerController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		07D3DFF82370043C00B2F914 /* DPFilteredArrayController.h in Headers */ = {isa = PBXBuildFile; fileRef = 07D3DFC72370043C00B2F914 /* DPFilteredArrayController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		07D3DFF92370043C00B2F914 /* DPArrayController.h in Headers */ = {isa = PBXBuildFile; fileRef = 07D3DFC82370043C00B2F914 /* DPArrayController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		07D3DFFA2370043C00B2F914 /* DPChange.h in Headers */ = {isa = PBXBuildFile; fileRef = 07D3DFC92370043C00B2F914 /* DPChange.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		07D3DFFB2370043C00B2F914 /* DPDataSourceCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 07D3DFCA2370043C00B2F914 /* DPDataSourceCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		07D3DFFC2370043C00B2F914 /* DPPlaceholderObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 07D3DFCB2370043C00B2F914 /* DPPlaceholderObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		07D3DFFD2370043C00B2F914 /* DPBaseDataSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 07D3DFCC2370043C00B2F914 /* DPBaseDataSource.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		07D3DFFE2370043C00B2F914 /* DPArrayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07D3DFCD2370043C00B2F914 /* DPArrayController.m */; };
+		07D3DFFF2370043C00B2F914 /* DPBaseDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 07D3DFCE2370043C00B2F914 /* DPBaseDataSource.m */; };
+		07D3E0002370043C00B2F914 /* DPChange.m in Sources */ = {isa = PBXBuildFile; fileRef = 07D3DFD02370043C00B2F914 /* DPChange.m */; };
+		07D3E0012370043C00B2F914 /* DPPlaceholderObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 07D3DFD12370043C00B2F914 /* DPPlaceholderObject.m */; };
+		07D3E0022370043C00B2F914 /* DPArrayControllerSection.m in Sources */ = {isa = PBXBuildFile; fileRef = 07D3DFD22370043C00B2F914 /* DPArrayControllerSection.m */; };
+		07D3E0032370043C00B2F914 /* DPMapViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 07D3DFD32370043C00B2F914 /* DPMapViewDataSource.m */; };
+		07D3E0042370043C00B2F914 /* DPSectionedFetchedResultsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07D3DFD42370043C00B2F914 /* DPSectionedFetchedResultsController.m */; };
+		07D3E0052370043C00B2F914 /* DPSectionedArrayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07D3DFD52370043C00B2F914 /* DPSectionedArrayController.m */; };
+		07D3E0062370043C00B2F914 /* DPContainerControllerBasedController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07D3DFD62370043C00B2F914 /* DPContainerControllerBasedController.m */; };
+		07D3E0072370043C00B2F914 /* DPCollectionViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 07D3DFD72370043C00B2F914 /* DPCollectionViewDataSource.m */; };
+		07D3E0082370043C00B2F914 /* DPTableViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 07D3DFD82370043C00B2F914 /* DPTableViewDataSource.m */; };
+		07D3E0092370043C00B2F914 /* NSManagedObject+DPDataStorage_Mapping.m in Sources */ = {isa = PBXBuildFile; fileRef = 07D3DFDB2370043C00B2F914 /* NSManagedObject+DPDataStorage_Mapping.m */; };
+		07D3E00A2370043C00B2F914 /* NSManagedObjectContext+DPDataStorage_Mapping.m in Sources */ = {isa = PBXBuildFile; fileRef = 07D3DFDC2370043C00B2F914 /* NSManagedObjectContext+DPDataStorage_Mapping.m */; };
+		07D3E00B2370043C00B2F914 /* NSManagedObject+DataStorage.h in Headers */ = {isa = PBXBuildFile; fileRef = 07D3DFDE2370043C00B2F914 /* NSManagedObject+DataStorage.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		07D3E00C2370043C00B2F914 /* NSManagedObjectModel+EntityDescription.h in Headers */ = {isa = PBXBuildFile; fileRef = 07D3DFDF2370043C00B2F914 /* NSManagedObjectModel+EntityDescription.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		07D3E00D2370043C00B2F914 /* NSManagedObject+DPDataStorage_Mapping.h in Headers */ = {isa = PBXBuildFile; fileRef = 07D3DFE02370043C00B2F914 /* NSManagedObject+DPDataStorage_Mapping.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		07D3E00E2370043C00B2F914 /* NSManagedObjectContext+EntityDescription.h in Headers */ = {isa = PBXBuildFile; fileRef = 07D3DFE12370043C00B2F914 /* NSManagedObjectContext+EntityDescription.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		07D3E00F2370043C00B2F914 /* NSManagedObjectContext+DPDataStorage_Mapping.h in Headers */ = {isa = PBXBuildFile; fileRef = 07D3DFE22370043C00B2F914 /* NSManagedObjectContext+DPDataStorage_Mapping.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		07D3E0102370043C00B2F914 /* NSManagedObjectContext+EntityDescription.m in Sources */ = {isa = PBXBuildFile; fileRef = 07D3DFE42370043C00B2F914 /* NSManagedObjectContext+EntityDescription.m */; };
+		07D3E0112370043C00B2F914 /* NSManagedObject+DataStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 07D3DFE52370043C00B2F914 /* NSManagedObject+DataStorage.m */; };
+		07D3E0122370043C00B2F914 /* NSManagedObjectModel+EntityDescription.m in Sources */ = {isa = PBXBuildFile; fileRef = 07D3DFE62370043C00B2F914 /* NSManagedObjectModel+EntityDescription.m */; };
+		07D3E0132370044400B2F914 /* NSManagedObjectContext+EntityDescription.m in Sources */ = {isa = PBXBuildFile; fileRef = 07D3DFE42370043C00B2F914 /* NSManagedObjectContext+EntityDescription.m */; };
+		07D3E0142370044400B2F914 /* NSManagedObject+DataStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 07D3DFE52370043C00B2F914 /* NSManagedObject+DataStorage.m */; };
+		07D3E0152370044400B2F914 /* NSManagedObjectModel+EntityDescription.m in Sources */ = {isa = PBXBuildFile; fileRef = 07D3DFE62370043C00B2F914 /* NSManagedObjectModel+EntityDescription.m */; };
+		07D3E0162370044900B2F914 /* NSManagedObject+DataStorage.h in Headers */ = {isa = PBXBuildFile; fileRef = 07D3DFDE2370043C00B2F914 /* NSManagedObject+DataStorage.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		07D3E0172370044900B2F914 /* NSManagedObjectModel+EntityDescription.h in Headers */ = {isa = PBXBuildFile; fileRef = 07D3DFDF2370043C00B2F914 /* NSManagedObjectModel+EntityDescription.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		07D3E0182370044900B2F914 /* NSManagedObject+DPDataStorage_Mapping.h in Headers */ = {isa = PBXBuildFile; fileRef = 07D3DFE02370043C00B2F914 /* NSManagedObject+DPDataStorage_Mapping.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		07D3E0192370044900B2F914 /* NSManagedObjectContext+EntityDescription.h in Headers */ = {isa = PBXBuildFile; fileRef = 07D3DFE12370043C00B2F914 /* NSManagedObjectContext+EntityDescription.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		07D3E01A2370044900B2F914 /* NSManagedObjectContext+DPDataStorage_Mapping.h in Headers */ = {isa = PBXBuildFile; fileRef = 07D3DFE22370043C00B2F914 /* NSManagedObjectContext+DPDataStorage_Mapping.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		07D3E01B2370045400B2F914 /* NSManagedObject+DPDataStorage_Mapping.m in Sources */ = {isa = PBXBuildFile; fileRef = 07D3DFDB2370043C00B2F914 /* NSManagedObject+DPDataStorage_Mapping.m */; };
+		07D3E01C2370045400B2F914 /* NSManagedObjectContext+DPDataStorage_Mapping.m in Sources */ = {isa = PBXBuildFile; fileRef = 07D3DFDC2370043C00B2F914 /* NSManagedObjectContext+DPDataStorage_Mapping.m */; };
+		07D3E02423700DB000B2F914 /* DPDataStorage.h in Headers */ = {isa = PBXBuildFile; fileRef = 07D3E02323700DB000B2F914 /* DPDataStorage.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		07FB8CF7228598D30072DF0F /* DPSectionedFetchedResultsControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07FB8CF6228598D30072DF0F /* DPSectionedFetchedResultsControllerTests.swift */; };
 		07FB8CF92286B0580072DF0F /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07FB8CF82286B0580072DF0F /* Utils.swift */; };
-		765EF82D1EBCB60700C21E2E /* NSManagedObject+DataStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 765EF81C1EBCB60700C21E2E /* NSManagedObject+DataStorage.m */; };
-		765EF82F1EBCB60800C21E2E /* NSManagedObjectContext+DataStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 765EF81E1EBCB60700C21E2E /* NSManagedObjectContext+DataStorage.m */; };
-		765EF8311EBCB60800C21E2E /* NSManagedObjectModel+EntityDescription.m in Sources */ = {isa = PBXBuildFile; fileRef = 765EF8201EBCB60700C21E2E /* NSManagedObjectModel+EntityDescription.m */; };
-		765EF8331EBCB60800C21E2E /* DPArrayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 765EF8231EBCB60700C21E2E /* DPArrayController.m */; };
-		765EF8351EBCB60800C21E2E /* DPBaseDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 765EF8251EBCB60700C21E2E /* DPBaseDataSource.m */; };
-		765EF8371EBCB60800C21E2E /* DPCollectionViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 765EF8271EBCB60700C21E2E /* DPCollectionViewDataSource.m */; };
-		765EF83B1EBCB60800C21E2E /* DPTableViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 765EF82B1EBCB60700C21E2E /* DPTableViewDataSource.m */; };
-		765EF8401EBCB60D00C21E2E /* NSManagedObject+DPDataStorage_Mapping.m in Sources */ = {isa = PBXBuildFile; fileRef = 765EF83E1EBCB60D00C21E2E /* NSManagedObject+DPDataStorage_Mapping.m */; };
-		765EF8421EBCB77D00C21E2E /* DPDataStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 765EF8411EBCB77D00C21E2E /* DPDataStorage.m */; };
-		7690ADEA1EC35DC5003C1CDD /* DPMapViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 7690ADE81EC35DC5003C1CDD /* DPMapViewDataSource.m */; };
-		B84F3CCA21CE3ECE00489349 /* NSManagedObject+DPDataStorage_Mapping.m in Sources */ = {isa = PBXBuildFile; fileRef = 765EF83E1EBCB60D00C21E2E /* NSManagedObject+DPDataStorage_Mapping.m */; };
-		B84F3CCB21CE3ECE00489349 /* NSManagedObject+DataStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 765EF81C1EBCB60700C21E2E /* NSManagedObject+DataStorage.m */; };
-		B84F3CEC21CE3FF600489349 /* NSManagedObjectContext+EntityDescription.m in Sources */ = {isa = PBXBuildFile; fileRef = B84F3CE921CE3FF600489349 /* NSManagedObjectContext+EntityDescription.m */; };
-		B84F3CED21CE3FF600489349 /* NSManagedObjectContext+EntityDescription.m in Sources */ = {isa = PBXBuildFile; fileRef = B84F3CE921CE3FF600489349 /* NSManagedObjectContext+EntityDescription.m */; };
-		B84F3CF221CE422A00489349 /* NSManagedObjectContext+DPDataStorage_Mapping.m in Sources */ = {isa = PBXBuildFile; fileRef = B84F3CEF21CE422A00489349 /* NSManagedObjectContext+DPDataStorage_Mapping.m */; };
-		B84F3CF321CE422A00489349 /* NSManagedObjectContext+DPDataStorage_Mapping.m in Sources */ = {isa = PBXBuildFile; fileRef = B84F3CEF21CE422A00489349 /* NSManagedObjectContext+DPDataStorage_Mapping.m */; };
-		B8BECB5C2334E3120048D964 /* DPDataStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 765EF8411EBCB77D00C21E2E /* DPDataStorage.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -116,63 +97,63 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		07011AFE22CDD2EE00BC82BC /* DPDataStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPDataStorage.h; sourceTree = "<group>"; };
-		07011AFF22CDD2EE00BC82BC /* DPArrayControllerSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPArrayControllerSection.h; sourceTree = "<group>"; };
-		07011B0022CDD2EE00BC82BC /* DPSectionedFetchedResultsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPSectionedFetchedResultsController.h; sourceTree = "<group>"; };
-		07011B0122CDD2EE00BC82BC /* DPMapViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPMapViewDataSource.h; sourceTree = "<group>"; };
-		07011B0222CDD2EE00BC82BC /* DPDataSourceContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPDataSourceContainer.h; sourceTree = "<group>"; };
-		07011B0322CDD2EE00BC82BC /* NSManagedObject+DataStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSManagedObject+DataStorage.h"; sourceTree = "<group>"; };
-		07011B0422CDD2EE00BC82BC /* DPContainerControllerBasedController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPContainerControllerBasedController.h; sourceTree = "<group>"; };
-		07011B0522CDD2EE00BC82BC /* NSManagedObjectModel+EntityDescription.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSManagedObjectModel+EntityDescription.h"; sourceTree = "<group>"; };
-		07011B0622CDD2EE00BC82BC /* DPSectionedArrayController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPSectionedArrayController.h; sourceTree = "<group>"; };
-		07011B0722CDD2EE00BC82BC /* DPTableViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPTableViewDataSource.h; sourceTree = "<group>"; };
-		07011B0822CDD2EE00BC82BC /* DPCollectionViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPCollectionViewDataSource.h; sourceTree = "<group>"; };
-		07011B0922CDD2EE00BC82BC /* DelegateResponseMask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DelegateResponseMask.h; sourceTree = "<group>"; };
-		07011B0A22CDD2EE00BC82BC /* NSManagedObjectContext+DataStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSManagedObjectContext+DataStorage.h"; sourceTree = "<group>"; };
-		07011B0B22CDD2EE00BC82BC /* DPArrayController+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DPArrayController+Private.h"; sourceTree = "<group>"; };
-		07011B0C22CDD2EE00BC82BC /* NSManagedObject+DPDataStorage_Mapping.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSManagedObject+DPDataStorage_Mapping.h"; sourceTree = "<group>"; };
-		07011B0D22CDD2EE00BC82BC /* NSManagedObjectContext+EntityDescription.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSManagedObjectContext+EntityDescription.h"; sourceTree = "<group>"; };
-		07011B0E22CDD2EE00BC82BC /* DPFilteredArrayController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPFilteredArrayController.h; sourceTree = "<group>"; };
-		07011B0F22CDD2EE00BC82BC /* DPArrayController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPArrayController.h; sourceTree = "<group>"; };
-		07011B1022CDD2EE00BC82BC /* DPChange.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPChange.h; sourceTree = "<group>"; };
-		07011B1122CDD2EE00BC82BC /* DPDataSourceCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPDataSourceCell.h; sourceTree = "<group>"; };
-		07011B1222CDD2EE00BC82BC /* NSManagedObjectContext+DPDataStorage_Mapping.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSManagedObjectContext+DPDataStorage_Mapping.h"; sourceTree = "<group>"; };
-		07011B1322CDD2EE00BC82BC /* DPPlaceholderObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPPlaceholderObject.h; sourceTree = "<group>"; };
-		07011B1422CDD2EE00BC82BC /* DPBaseDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPBaseDataSource.h; sourceTree = "<group>"; };
 		07077BDA227DAB9900380D54 /* TestsModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TestsModel.xcdatamodel; sourceTree = "<group>"; };
 		07077BDC227DB75C00380D54 /* DPContainerControllerBasedControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DPContainerControllerBasedControllerTests.swift; sourceTree = "<group>"; };
-		074A3C1922363B900061439E /* DPChange.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPChange.m; sourceTree = "<group>"; };
-		074B16BD21E46D6400FAF431 /* DPFilteredArrayController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DPFilteredArrayController.m; sourceTree = "<group>"; };
-		074B16C121E4734D00FAF431 /* DPSectionedArrayController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DPSectionedArrayController.m; sourceTree = "<group>"; };
-		074B16D321E5E0C300FAF431 /* DPSectionedFetchedResultsController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DPSectionedFetchedResultsController.m; sourceTree = "<group>"; };
-		074E5E782208657500868634 /* DPArrayControllerSection.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DPArrayControllerSection.m; sourceTree = "<group>"; };
-		07588B4B220866B20093BA31 /* DPPlaceholderObject.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DPPlaceholderObject.m; sourceTree = "<group>"; };
-		07671479232B675100DB18F0 /* DPTypedContainerController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DPTypedContainerController.m; sourceTree = "<group>"; };
-		0767147B232B676700DB18F0 /* DPTypedContainerController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DPTypedContainerController.h; sourceTree = "<group>"; };
-		07750BBB21F599F4009B5C45 /* DPContainerControllerBasedController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DPContainerControllerBasedController.m; sourceTree = "<group>"; };
 		07B8315B227D6B790087EB72 /* DPSectionedArrayControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DPSectionedArrayControllerTests.swift; sourceTree = "<group>"; };
 		07B8315D227D8B5D0087EB72 /* DPArrayControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DPArrayControllerTests.swift; sourceTree = "<group>"; };
 		07B8315F227D8B820087EB72 /* TestObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestObject.swift; sourceTree = "<group>"; };
 		07B83161227D8B940087EB72 /* TestDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestDelegate.swift; sourceTree = "<group>"; };
 		07BA74A5227D6B0400659C09 /* DPDataStorageTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DPDataStorageTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		07BA74A9227D6B0400659C09 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		07D3DFB42370043C00B2F914 /* NSManagedObjectContext+DataStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSManagedObjectContext+DataStorage.h"; sourceTree = "<group>"; };
+		07D3DFB52370043C00B2F914 /* DPDataStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPDataStorage.m; sourceTree = "<group>"; };
+		07D3DFB72370043C00B2F914 /* NSManagedObjectContext+DataStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObjectContext+DataStorage.m"; sourceTree = "<group>"; };
+		07D3DFB92370043C00B2F914 /* DPTypedContainerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPTypedContainerController.m; sourceTree = "<group>"; };
+		07D3DFBA2370043C00B2F914 /* DPFilteredArrayController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPFilteredArrayController.m; sourceTree = "<group>"; };
+		07D3DFBC2370043C00B2F914 /* DPArrayControllerSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPArrayControllerSection.h; sourceTree = "<group>"; };
+		07D3DFBD2370043C00B2F914 /* DPSectionedFetchedResultsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPSectionedFetchedResultsController.h; sourceTree = "<group>"; };
+		07D3DFBE2370043C00B2F914 /* DPMapViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPMapViewDataSource.h; sourceTree = "<group>"; };
+		07D3DFBF2370043C00B2F914 /* DPDataSourceContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPDataSourceContainer.h; sourceTree = "<group>"; };
+		07D3DFC02370043C00B2F914 /* DPContainerControllerBasedController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPContainerControllerBasedController.h; sourceTree = "<group>"; };
+		07D3DFC12370043C00B2F914 /* DPSectionedArrayController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPSectionedArrayController.h; sourceTree = "<group>"; };
+		07D3DFC22370043C00B2F914 /* DPTableViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPTableViewDataSource.h; sourceTree = "<group>"; };
+		07D3DFC32370043C00B2F914 /* DPCollectionViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPCollectionViewDataSource.h; sourceTree = "<group>"; };
+		07D3DFC42370043C00B2F914 /* DelegateResponseMask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DelegateResponseMask.h; sourceTree = "<group>"; };
+		07D3DFC52370043C00B2F914 /* DPArrayController+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DPArrayController+Private.h"; sourceTree = "<group>"; };
+		07D3DFC62370043C00B2F914 /* DPTypedContainerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPTypedContainerController.h; sourceTree = "<group>"; };
+		07D3DFC72370043C00B2F914 /* DPFilteredArrayController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPFilteredArrayController.h; sourceTree = "<group>"; };
+		07D3DFC82370043C00B2F914 /* DPArrayController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPArrayController.h; sourceTree = "<group>"; };
+		07D3DFC92370043C00B2F914 /* DPChange.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPChange.h; sourceTree = "<group>"; };
+		07D3DFCA2370043C00B2F914 /* DPDataSourceCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPDataSourceCell.h; sourceTree = "<group>"; };
+		07D3DFCB2370043C00B2F914 /* DPPlaceholderObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPPlaceholderObject.h; sourceTree = "<group>"; };
+		07D3DFCC2370043C00B2F914 /* DPBaseDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPBaseDataSource.h; sourceTree = "<group>"; };
+		07D3DFCD2370043C00B2F914 /* DPArrayController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPArrayController.m; sourceTree = "<group>"; };
+		07D3DFCE2370043C00B2F914 /* DPBaseDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPBaseDataSource.m; sourceTree = "<group>"; };
+		07D3DFD02370043C00B2F914 /* DPChange.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPChange.m; sourceTree = "<group>"; };
+		07D3DFD12370043C00B2F914 /* DPPlaceholderObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPPlaceholderObject.m; sourceTree = "<group>"; };
+		07D3DFD22370043C00B2F914 /* DPArrayControllerSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPArrayControllerSection.m; sourceTree = "<group>"; };
+		07D3DFD32370043C00B2F914 /* DPMapViewDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPMapViewDataSource.m; sourceTree = "<group>"; };
+		07D3DFD42370043C00B2F914 /* DPSectionedFetchedResultsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPSectionedFetchedResultsController.m; sourceTree = "<group>"; };
+		07D3DFD52370043C00B2F914 /* DPSectionedArrayController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPSectionedArrayController.m; sourceTree = "<group>"; };
+		07D3DFD62370043C00B2F914 /* DPContainerControllerBasedController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPContainerControllerBasedController.m; sourceTree = "<group>"; };
+		07D3DFD72370043C00B2F914 /* DPCollectionViewDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPCollectionViewDataSource.m; sourceTree = "<group>"; };
+		07D3DFD82370043C00B2F914 /* DPTableViewDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPTableViewDataSource.m; sourceTree = "<group>"; };
+		07D3DFDB2370043C00B2F914 /* NSManagedObject+DPDataStorage_Mapping.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObject+DPDataStorage_Mapping.m"; sourceTree = "<group>"; };
+		07D3DFDC2370043C00B2F914 /* NSManagedObjectContext+DPDataStorage_Mapping.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObjectContext+DPDataStorage_Mapping.m"; sourceTree = "<group>"; };
+		07D3DFDE2370043C00B2F914 /* NSManagedObject+DataStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSManagedObject+DataStorage.h"; sourceTree = "<group>"; };
+		07D3DFDF2370043C00B2F914 /* NSManagedObjectModel+EntityDescription.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSManagedObjectModel+EntityDescription.h"; sourceTree = "<group>"; };
+		07D3DFE02370043C00B2F914 /* NSManagedObject+DPDataStorage_Mapping.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSManagedObject+DPDataStorage_Mapping.h"; sourceTree = "<group>"; };
+		07D3DFE12370043C00B2F914 /* NSManagedObjectContext+EntityDescription.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSManagedObjectContext+EntityDescription.h"; sourceTree = "<group>"; };
+		07D3DFE22370043C00B2F914 /* NSManagedObjectContext+DPDataStorage_Mapping.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSManagedObjectContext+DPDataStorage_Mapping.h"; sourceTree = "<group>"; };
+		07D3DFE42370043C00B2F914 /* NSManagedObjectContext+EntityDescription.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObjectContext+EntityDescription.m"; sourceTree = "<group>"; };
+		07D3DFE52370043C00B2F914 /* NSManagedObject+DataStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObject+DataStorage.m"; sourceTree = "<group>"; };
+		07D3DFE62370043C00B2F914 /* NSManagedObjectModel+EntityDescription.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObjectModel+EntityDescription.m"; sourceTree = "<group>"; };
+		07D3E02323700DB000B2F914 /* DPDataStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPDataStorage.h; sourceTree = "<group>"; };
 		07FB8CF6228598D30072DF0F /* DPSectionedFetchedResultsControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DPSectionedFetchedResultsControllerTests.swift; sourceTree = "<group>"; };
 		07FB8CF82286B0580072DF0F /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		765EF80F1EBCB53D00C21E2E /* DPDataStorage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DPDataStorage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		765EF8131EBCB53D00C21E2E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		765EF81C1EBCB60700C21E2E /* NSManagedObject+DataStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObject+DataStorage.m"; sourceTree = "<group>"; };
-		765EF81E1EBCB60700C21E2E /* NSManagedObjectContext+DataStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObjectContext+DataStorage.m"; sourceTree = "<group>"; };
-		765EF8201EBCB60700C21E2E /* NSManagedObjectModel+EntityDescription.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObjectModel+EntityDescription.m"; sourceTree = "<group>"; };
-		765EF8231EBCB60700C21E2E /* DPArrayController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPArrayController.m; sourceTree = "<group>"; };
-		765EF8251EBCB60700C21E2E /* DPBaseDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPBaseDataSource.m; sourceTree = "<group>"; };
-		765EF8271EBCB60700C21E2E /* DPCollectionViewDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPCollectionViewDataSource.m; sourceTree = "<group>"; };
-		765EF82B1EBCB60700C21E2E /* DPTableViewDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPTableViewDataSource.m; sourceTree = "<group>"; };
-		765EF83E1EBCB60D00C21E2E /* NSManagedObject+DPDataStorage_Mapping.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObject+DPDataStorage_Mapping.m"; sourceTree = "<group>"; };
-		765EF8411EBCB77D00C21E2E /* DPDataStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPDataStorage.m; sourceTree = "<group>"; };
-		7690ADE81EC35DC5003C1CDD /* DPMapViewDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPMapViewDataSource.m; sourceTree = "<group>"; };
 		B84F3CE621CE3ECE00489349 /* CoreDataMapping.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CoreDataMapping.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		B84F3CE921CE3FF600489349 /* NSManagedObjectContext+EntityDescription.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObjectContext+EntityDescription.m"; sourceTree = "<group>"; };
-		B84F3CEF21CE422A00489349 /* NSManagedObjectContext+DPDataStorage_Mapping.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObjectContext+DPDataStorage_Mapping.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -201,47 +182,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		07011AFD22CDD2EE00BC82BC /* include */ = {
-			isa = PBXGroup;
-			children = (
-				07011AFE22CDD2EE00BC82BC /* DPDataStorage.h */,
-				07011AFF22CDD2EE00BC82BC /* DPArrayControllerSection.h */,
-				07011B0022CDD2EE00BC82BC /* DPSectionedFetchedResultsController.h */,
-				07011B0122CDD2EE00BC82BC /* DPMapViewDataSource.h */,
-				07011B0222CDD2EE00BC82BC /* DPDataSourceContainer.h */,
-				07011B0322CDD2EE00BC82BC /* NSManagedObject+DataStorage.h */,
-				07011B0422CDD2EE00BC82BC /* DPContainerControllerBasedController.h */,
-				07011B0522CDD2EE00BC82BC /* NSManagedObjectModel+EntityDescription.h */,
-				07011B0622CDD2EE00BC82BC /* DPSectionedArrayController.h */,
-				07011B0722CDD2EE00BC82BC /* DPTableViewDataSource.h */,
-				07011B0822CDD2EE00BC82BC /* DPCollectionViewDataSource.h */,
-				07011B0922CDD2EE00BC82BC /* DelegateResponseMask.h */,
-				07011B0A22CDD2EE00BC82BC /* NSManagedObjectContext+DataStorage.h */,
-				07011B0B22CDD2EE00BC82BC /* DPArrayController+Private.h */,
-				07011B0C22CDD2EE00BC82BC /* NSManagedObject+DPDataStorage_Mapping.h */,
-				07011B0D22CDD2EE00BC82BC /* NSManagedObjectContext+EntityDescription.h */,
-				07011B0E22CDD2EE00BC82BC /* DPFilteredArrayController.h */,
-				07011B0F22CDD2EE00BC82BC /* DPArrayController.h */,
-				07011B1022CDD2EE00BC82BC /* DPChange.h */,
-				07011B1122CDD2EE00BC82BC /* DPDataSourceCell.h */,
-				07011B1222CDD2EE00BC82BC /* NSManagedObjectContext+DPDataStorage_Mapping.h */,
-				07011B1322CDD2EE00BC82BC /* DPPlaceholderObject.h */,
-				07011B1422CDD2EE00BC82BC /* DPBaseDataSource.h */,
-				0767147B232B676700DB18F0 /* DPTypedContainerController.h */,
-			);
-			path = include;
-			sourceTree = "<group>";
-		};
-		074E5E762208655200868634 /* private */ = {
-			isa = PBXGroup;
-			children = (
-				074A3C1922363B900061439E /* DPChange.m */,
-				074E5E782208657500868634 /* DPArrayControllerSection.m */,
-				07588B4B220866B20093BA31 /* DPPlaceholderObject.m */,
-			);
-			path = private;
-			sourceTree = "<group>";
-		};
 		07BA74A6227D6B0400659C09 /* DPDataStorageTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -258,10 +198,101 @@
 			path = DPDataStorageTests;
 			sourceTree = "<group>";
 		};
+		07D3DFB12370043C00B2F914 /* DataStorage */ = {
+			isa = PBXGroup;
+			children = (
+				07D3DFB22370043C00B2F914 /* include */,
+				07D3DFB72370043C00B2F914 /* NSManagedObjectContext+DataStorage.m */,
+				07D3DFB52370043C00B2F914 /* DPDataStorage.m */,
+			);
+			path = DataStorage;
+			sourceTree = "<group>";
+		};
+		07D3DFB22370043C00B2F914 /* include */ = {
+			isa = PBXGroup;
+			children = (
+				07D3DFB42370043C00B2F914 /* NSManagedObjectContext+DataStorage.h */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		07D3DFB82370043C00B2F914 /* DataSource */ = {
+			isa = PBXGroup;
+			children = (
+				07D3DFBB2370043C00B2F914 /* include */,
+				07D3DFD02370043C00B2F914 /* DPChange.m */,
+				07D3DFD12370043C00B2F914 /* DPPlaceholderObject.m */,
+				07D3DFD22370043C00B2F914 /* DPArrayControllerSection.m */,
+				07D3DFB92370043C00B2F914 /* DPTypedContainerController.m */,
+				07D3DFBA2370043C00B2F914 /* DPFilteredArrayController.m */,
+				07D3DFCD2370043C00B2F914 /* DPArrayController.m */,
+				07D3DFCE2370043C00B2F914 /* DPBaseDataSource.m */,
+				07D3DFD32370043C00B2F914 /* DPMapViewDataSource.m */,
+				07D3DFD42370043C00B2F914 /* DPSectionedFetchedResultsController.m */,
+				07D3DFD52370043C00B2F914 /* DPSectionedArrayController.m */,
+				07D3DFD62370043C00B2F914 /* DPContainerControllerBasedController.m */,
+				07D3DFD72370043C00B2F914 /* DPCollectionViewDataSource.m */,
+				07D3DFD82370043C00B2F914 /* DPTableViewDataSource.m */,
+			);
+			path = DataSource;
+			sourceTree = "<group>";
+		};
+		07D3DFBB2370043C00B2F914 /* include */ = {
+			isa = PBXGroup;
+			children = (
+				07D3DFBC2370043C00B2F914 /* DPArrayControllerSection.h */,
+				07D3DFBD2370043C00B2F914 /* DPSectionedFetchedResultsController.h */,
+				07D3DFBE2370043C00B2F914 /* DPMapViewDataSource.h */,
+				07D3DFBF2370043C00B2F914 /* DPDataSourceContainer.h */,
+				07D3DFC02370043C00B2F914 /* DPContainerControllerBasedController.h */,
+				07D3DFC12370043C00B2F914 /* DPSectionedArrayController.h */,
+				07D3DFC22370043C00B2F914 /* DPTableViewDataSource.h */,
+				07D3DFC32370043C00B2F914 /* DPCollectionViewDataSource.h */,
+				07D3DFC42370043C00B2F914 /* DelegateResponseMask.h */,
+				07D3DFC52370043C00B2F914 /* DPArrayController+Private.h */,
+				07D3DFC62370043C00B2F914 /* DPTypedContainerController.h */,
+				07D3DFC72370043C00B2F914 /* DPFilteredArrayController.h */,
+				07D3DFC82370043C00B2F914 /* DPArrayController.h */,
+				07D3DFC92370043C00B2F914 /* DPChange.h */,
+				07D3DFCA2370043C00B2F914 /* DPDataSourceCell.h */,
+				07D3DFCB2370043C00B2F914 /* DPPlaceholderObject.h */,
+				07D3DFCC2370043C00B2F914 /* DPBaseDataSource.h */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		07D3DFD92370043C00B2F914 /* DataMapping */ = {
+			isa = PBXGroup;
+			children = (
+				07D3DFDD2370043C00B2F914 /* include */,
+				07D3DFDB2370043C00B2F914 /* NSManagedObject+DPDataStorage_Mapping.m */,
+				07D3DFDC2370043C00B2F914 /* NSManagedObjectContext+DPDataStorage_Mapping.m */,
+				07D3DFE42370043C00B2F914 /* NSManagedObjectContext+EntityDescription.m */,
+				07D3DFE52370043C00B2F914 /* NSManagedObject+DataStorage.m */,
+				07D3DFE62370043C00B2F914 /* NSManagedObjectModel+EntityDescription.m */,
+			);
+			path = DataMapping;
+			sourceTree = "<group>";
+		};
+		07D3DFDD2370043C00B2F914 /* include */ = {
+			isa = PBXGroup;
+			children = (
+				07D3DFDE2370043C00B2F914 /* NSManagedObject+DataStorage.h */,
+				07D3DFDF2370043C00B2F914 /* NSManagedObjectModel+EntityDescription.h */,
+				07D3DFE02370043C00B2F914 /* NSManagedObject+DPDataStorage_Mapping.h */,
+				07D3DFE12370043C00B2F914 /* NSManagedObjectContext+EntityDescription.h */,
+				07D3DFE22370043C00B2F914 /* NSManagedObjectContext+DPDataStorage_Mapping.h */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
 		765EF8051EBCB53D00C21E2E = {
 			isa = PBXGroup;
 			children = (
-				765EF8111EBCB53D00C21E2E /* DPDataStorage */,
+				07D3DFD92370043C00B2F914 /* DataMapping */,
+				07D3DFB82370043C00B2F914 /* DataSource */,
+				07D3DFB12370043C00B2F914 /* DataStorage */,
+				07D3E02323700DB000B2F914 /* DPDataStorage.h */,
 				07BA74A6227D6B0400659C09 /* DPDataStorageTests */,
 				765EF8131EBCB53D00C21E2E /* Info.plist */,
 				765EF8101EBCB53D00C21E2E /* Products */,
@@ -278,56 +309,6 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		765EF8111EBCB53D00C21E2E /* DPDataStorage */ = {
-			isa = PBXGroup;
-			children = (
-				07011AFD22CDD2EE00BC82BC /* include */,
-				765EF83C1EBCB60D00C21E2E /* Mapping */,
-				765EF81A1EBCB60700C21E2E /* Categories */,
-				765EF8211EBCB60700C21E2E /* DPDataSource */,
-				765EF8411EBCB77D00C21E2E /* DPDataStorage.m */,
-			);
-			path = DPDataStorage;
-			sourceTree = "<group>";
-		};
-		765EF81A1EBCB60700C21E2E /* Categories */ = {
-			isa = PBXGroup;
-			children = (
-				765EF81C1EBCB60700C21E2E /* NSManagedObject+DataStorage.m */,
-				765EF81E1EBCB60700C21E2E /* NSManagedObjectContext+DataStorage.m */,
-				765EF8201EBCB60700C21E2E /* NSManagedObjectModel+EntityDescription.m */,
-				B84F3CE921CE3FF600489349 /* NSManagedObjectContext+EntityDescription.m */,
-			);
-			path = Categories;
-			sourceTree = "<group>";
-		};
-		765EF8211EBCB60700C21E2E /* DPDataSource */ = {
-			isa = PBXGroup;
-			children = (
-				074E5E762208655200868634 /* private */,
-				765EF8251EBCB60700C21E2E /* DPBaseDataSource.m */,
-				765EF82B1EBCB60700C21E2E /* DPTableViewDataSource.m */,
-				765EF8271EBCB60700C21E2E /* DPCollectionViewDataSource.m */,
-				7690ADE81EC35DC5003C1CDD /* DPMapViewDataSource.m */,
-				765EF8231EBCB60700C21E2E /* DPArrayController.m */,
-				074B16BD21E46D6400FAF431 /* DPFilteredArrayController.m */,
-				074B16C121E4734D00FAF431 /* DPSectionedArrayController.m */,
-				074B16D321E5E0C300FAF431 /* DPSectionedFetchedResultsController.m */,
-				07750BBB21F599F4009B5C45 /* DPContainerControllerBasedController.m */,
-				07671479232B675100DB18F0 /* DPTypedContainerController.m */,
-			);
-			path = DPDataSource;
-			sourceTree = "<group>";
-		};
-		765EF83C1EBCB60D00C21E2E /* Mapping */ = {
-			isa = PBXGroup;
-			children = (
-				765EF83E1EBCB60D00C21E2E /* NSManagedObject+DPDataStorage_Mapping.m */,
-				B84F3CEF21CE422A00489349 /* NSManagedObjectContext+DPDataStorage_Mapping.m */,
-			);
-			path = Mapping;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -335,30 +316,30 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				07011B1C22CDD2EE00BC82BC /* NSManagedObjectModel+EntityDescription.h in Headers */,
-				07011B1F22CDD2EE00BC82BC /* DPCollectionViewDataSource.h in Headers */,
-				07011B1722CDD2EE00BC82BC /* DPSectionedFetchedResultsController.h in Headers */,
-				07011B1922CDD2EE00BC82BC /* DPDataSourceContainer.h in Headers */,
-				07011B1E22CDD2EE00BC82BC /* DPTableViewDataSource.h in Headers */,
-				07011B1B22CDD2EE00BC82BC /* DPContainerControllerBasedController.h in Headers */,
-				07011B2B22CDD2EE00BC82BC /* DPBaseDataSource.h in Headers */,
-				07011B2422CDD2EE00BC82BC /* NSManagedObjectContext+EntityDescription.h in Headers */,
-				07011B2522CDD2EE00BC82BC /* DPFilteredArrayController.h in Headers */,
-				07011B2222CDD2EE00BC82BC /* DPArrayController+Private.h in Headers */,
-				07011B2022CDD2EE00BC82BC /* DelegateResponseMask.h in Headers */,
-				07011B1A22CDD2EE00BC82BC /* NSManagedObject+DataStorage.h in Headers */,
-				07011B2822CDD2EE00BC82BC /* DPDataSourceCell.h in Headers */,
-				07011B2122CDD2EE00BC82BC /* NSManagedObjectContext+DataStorage.h in Headers */,
-				07011B2322CDD2EE00BC82BC /* NSManagedObject+DPDataStorage_Mapping.h in Headers */,
-				07011B1622CDD2EE00BC82BC /* DPArrayControllerSection.h in Headers */,
-				07011B2622CDD2EE00BC82BC /* DPArrayController.h in Headers */,
-				07011B2922CDD2EE00BC82BC /* NSManagedObjectContext+DPDataStorage_Mapping.h in Headers */,
-				07011B1522CDD2EE00BC82BC /* DPDataStorage.h in Headers */,
-				0767147C232B6FF300DB18F0 /* DPTypedContainerController.h in Headers */,
-				07011B1D22CDD2EE00BC82BC /* DPSectionedArrayController.h in Headers */,
-				07011B1822CDD2EE00BC82BC /* DPMapViewDataSource.h in Headers */,
-				07011B2722CDD2EE00BC82BC /* DPChange.h in Headers */,
-				07011B2A22CDD2EE00BC82BC /* DPPlaceholderObject.h in Headers */,
+				07D3DFE82370043C00B2F914 /* NSManagedObjectContext+DataStorage.h in Headers */,
+				07D3E00C2370043C00B2F914 /* NSManagedObjectModel+EntityDescription.h in Headers */,
+				07D3DFED2370043C00B2F914 /* DPArrayControllerSection.h in Headers */,
+				07D3DFF42370043C00B2F914 /* DPCollectionViewDataSource.h in Headers */,
+				07D3DFFC2370043C00B2F914 /* DPPlaceholderObject.h in Headers */,
+				07D3DFF12370043C00B2F914 /* DPContainerControllerBasedController.h in Headers */,
+				07D3DFF52370043C00B2F914 /* DelegateResponseMask.h in Headers */,
+				07D3E00F2370043C00B2F914 /* NSManagedObjectContext+DPDataStorage_Mapping.h in Headers */,
+				07D3E02423700DB000B2F914 /* DPDataStorage.h in Headers */,
+				07D3E00E2370043C00B2F914 /* NSManagedObjectContext+EntityDescription.h in Headers */,
+				07D3DFF92370043C00B2F914 /* DPArrayController.h in Headers */,
+				07D3DFEE2370043C00B2F914 /* DPSectionedFetchedResultsController.h in Headers */,
+				07D3DFFB2370043C00B2F914 /* DPDataSourceCell.h in Headers */,
+				07D3DFF72370043C00B2F914 /* DPTypedContainerController.h in Headers */,
+				07D3E00B2370043C00B2F914 /* NSManagedObject+DataStorage.h in Headers */,
+				07D3DFF62370043C00B2F914 /* DPArrayController+Private.h in Headers */,
+				07D3DFEF2370043C00B2F914 /* DPMapViewDataSource.h in Headers */,
+				07D3DFFA2370043C00B2F914 /* DPChange.h in Headers */,
+				07D3DFFD2370043C00B2F914 /* DPBaseDataSource.h in Headers */,
+				07D3E00D2370043C00B2F914 /* NSManagedObject+DPDataStorage_Mapping.h in Headers */,
+				07D3DFF02370043C00B2F914 /* DPDataSourceContainer.h in Headers */,
+				07D3DFF22370043C00B2F914 /* DPSectionedArrayController.h in Headers */,
+				07D3DFF32370043C00B2F914 /* DPTableViewDataSource.h in Headers */,
+				07D3DFF82370043C00B2F914 /* DPFilteredArrayController.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -366,28 +347,11 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				07011B3322CDD2F200BC82BC /* NSManagedObjectModel+EntityDescription.h in Headers */,
-				07011B3622CDD2F200BC82BC /* DPCollectionViewDataSource.h in Headers */,
-				07011B2E22CDD2F200BC82BC /* DPSectionedFetchedResultsController.h in Headers */,
-				07011B3022CDD2F200BC82BC /* DPDataSourceContainer.h in Headers */,
-				07011B3522CDD2F200BC82BC /* DPTableViewDataSource.h in Headers */,
-				07011B3222CDD2F200BC82BC /* DPContainerControllerBasedController.h in Headers */,
-				07011B4222CDD2F200BC82BC /* DPBaseDataSource.h in Headers */,
-				07011B3B22CDD2F200BC82BC /* NSManagedObjectContext+EntityDescription.h in Headers */,
-				07011B3C22CDD2F200BC82BC /* DPFilteredArrayController.h in Headers */,
-				07011B3922CDD2F200BC82BC /* DPArrayController+Private.h in Headers */,
-				07011B3722CDD2F200BC82BC /* DelegateResponseMask.h in Headers */,
-				07011B3122CDD2F200BC82BC /* NSManagedObject+DataStorage.h in Headers */,
-				07011B3F22CDD2F200BC82BC /* DPDataSourceCell.h in Headers */,
-				07011B3822CDD2F200BC82BC /* NSManagedObjectContext+DataStorage.h in Headers */,
-				07011B3A22CDD2F200BC82BC /* NSManagedObject+DPDataStorage_Mapping.h in Headers */,
-				07011B3D22CDD2F200BC82BC /* DPArrayController.h in Headers */,
-				07011B4022CDD2F200BC82BC /* NSManagedObjectContext+DPDataStorage_Mapping.h in Headers */,
-				07011B2C22CDD2F200BC82BC /* DPDataStorage.h in Headers */,
-				0767147D232B704500DB18F0 /* DPTypedContainerController.h in Headers */,
-				07011B3422CDD2F200BC82BC /* DPSectionedArrayController.h in Headers */,
-				07011B2F22CDD2F200BC82BC /* DPMapViewDataSource.h in Headers */,
-				07011B3E22CDD2F200BC82BC /* DPChange.h in Headers */,
+				07D3E01A2370044900B2F914 /* NSManagedObjectContext+DPDataStorage_Mapping.h in Headers */,
+				07D3E0172370044900B2F914 /* NSManagedObjectModel+EntityDescription.h in Headers */,
+				07D3E0182370044900B2F914 /* NSManagedObject+DPDataStorage_Mapping.h in Headers */,
+				07D3E0192370044900B2F914 /* NSManagedObjectContext+EntityDescription.h in Headers */,
+				07D3E0162370044900B2F914 /* NSManagedObject+DataStorage.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -556,26 +520,26 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				765EF8401EBCB60D00C21E2E /* NSManagedObject+DPDataStorage_Mapping.m in Sources */,
-				765EF82D1EBCB60700C21E2E /* NSManagedObject+DataStorage.m in Sources */,
-				765EF8331EBCB60800C21E2E /* DPArrayController.m in Sources */,
-				765EF82F1EBCB60800C21E2E /* NSManagedObjectContext+DataStorage.m in Sources */,
-				765EF8371EBCB60800C21E2E /* DPCollectionViewDataSource.m in Sources */,
-				B84F3CEC21CE3FF600489349 /* NSManagedObjectContext+EntityDescription.m in Sources */,
-				074B16BF21E46D6400FAF431 /* DPFilteredArrayController.m in Sources */,
-				765EF8421EBCB77D00C21E2E /* DPDataStorage.m in Sources */,
-				765EF8351EBCB60800C21E2E /* DPBaseDataSource.m in Sources */,
-				765EF83B1EBCB60800C21E2E /* DPTableViewDataSource.m in Sources */,
-				074E5E7A2208657500868634 /* DPArrayControllerSection.m in Sources */,
-				07750BBD21F599F4009B5C45 /* DPContainerControllerBasedController.m in Sources */,
-				07588B4D220866B20093BA31 /* DPPlaceholderObject.m in Sources */,
-				074A3C1B22363B900061439E /* DPChange.m in Sources */,
-				074B16D521E5E0C300FAF431 /* DPSectionedFetchedResultsController.m in Sources */,
-				074B16C321E4734D00FAF431 /* DPSectionedArrayController.m in Sources */,
-				0767147A232B675100DB18F0 /* DPTypedContainerController.m in Sources */,
-				B84F3CF221CE422A00489349 /* NSManagedObjectContext+DPDataStorage_Mapping.m in Sources */,
-				7690ADEA1EC35DC5003C1CDD /* DPMapViewDataSource.m in Sources */,
-				765EF8311EBCB60800C21E2E /* NSManagedObjectModel+EntityDescription.m in Sources */,
+				07D3E0092370043C00B2F914 /* NSManagedObject+DPDataStorage_Mapping.m in Sources */,
+				07D3E0112370043C00B2F914 /* NSManagedObject+DataStorage.m in Sources */,
+				07D3E0102370043C00B2F914 /* NSManagedObjectContext+EntityDescription.m in Sources */,
+				07D3E0002370043C00B2F914 /* DPChange.m in Sources */,
+				07D3DFFE2370043C00B2F914 /* DPArrayController.m in Sources */,
+				07D3E0022370043C00B2F914 /* DPArrayControllerSection.m in Sources */,
+				07D3DFEC2370043C00B2F914 /* DPFilteredArrayController.m in Sources */,
+				07D3DFE92370043C00B2F914 /* DPDataStorage.m in Sources */,
+				07D3E0042370043C00B2F914 /* DPSectionedFetchedResultsController.m in Sources */,
+				07D3E00A2370043C00B2F914 /* NSManagedObjectContext+DPDataStorage_Mapping.m in Sources */,
+				07D3DFEA2370043C00B2F914 /* NSManagedObjectContext+DataStorage.m in Sources */,
+				07D3DFEB2370043C00B2F914 /* DPTypedContainerController.m in Sources */,
+				07D3E0082370043C00B2F914 /* DPTableViewDataSource.m in Sources */,
+				07D3E0122370043C00B2F914 /* NSManagedObjectModel+EntityDescription.m in Sources */,
+				07D3E0052370043C00B2F914 /* DPSectionedArrayController.m in Sources */,
+				07D3E0012370043C00B2F914 /* DPPlaceholderObject.m in Sources */,
+				07D3E0062370043C00B2F914 /* DPContainerControllerBasedController.m in Sources */,
+				07D3E0032370043C00B2F914 /* DPMapViewDataSource.m in Sources */,
+				07D3DFFF2370043C00B2F914 /* DPBaseDataSource.m in Sources */,
+				07D3E0072370043C00B2F914 /* DPCollectionViewDataSource.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -583,13 +547,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B8BECB5C2334E3120048D964 /* DPDataStorage.m in Sources */,
-				B84F3CED21CE3FF600489349 /* NSManagedObjectContext+EntityDescription.m in Sources */,
-				07A1C22F22CB1B1F0068103B /* NSManagedObjectContext+DataStorage.m in Sources */,
-				B84F3CF321CE422A00489349 /* NSManagedObjectContext+DPDataStorage_Mapping.m in Sources */,
-				B84F3CCA21CE3ECE00489349 /* NSManagedObject+DPDataStorage_Mapping.m in Sources */,
-				07A1C22E22CB1B120068103B /* NSManagedObjectModel+EntityDescription.m in Sources */,
-				B84F3CCB21CE3ECE00489349 /* NSManagedObject+DataStorage.m in Sources */,
+				07D3E01C2370045400B2F914 /* NSManagedObjectContext+DPDataStorage_Mapping.m in Sources */,
+				07D3E01B2370045400B2F914 /* NSManagedObject+DPDataStorage_Mapping.m in Sources */,
+				07D3E0132370044400B2F914 /* NSManagedObjectContext+EntityDescription.m in Sources */,
+				07D3E0142370044400B2F914 /* NSManagedObject+DataStorage.m in Sources */,
+				07D3E0152370044400B2F914 /* NSManagedObjectModel+EntityDescription.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

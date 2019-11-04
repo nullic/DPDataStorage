@@ -8,17 +8,14 @@ let package = Package(
         .iOS(.v8)
     ],
     products: [
-        .library(
-            name: "DPDataStorage",
-            type: .dynamic,
-            targets: ["DPDataStorage"]
-        ),
+        .library(name: "DPDataMapping", targets: ["DataMapping"]),
+        .library(name: "DPDataSource", targets: ["DataSource"]),
+        .library(name: "DPDataStorage", targets: ["DataStorage", "DataMapping", "DataSource"]),
     ],
     dependencies: [],
     targets: [
-        .target(
-            name: "DPDataStorage",
-            path: "DPDataStorage"
-        )
+        .target(name: "DataMapping", path: "DataMapping"),
+        .target(name: "DataSource", path: "DataSource"),
+        .target(name: "DataStorage", path: "DataStorage"),
     ]
 )
