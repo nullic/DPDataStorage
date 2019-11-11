@@ -176,9 +176,19 @@
             NSArray *blocks = self.updatesBlocks;
             self.updatesBlocks = nil;
 
-            [self.collectionView performBatchUpdates:^{
-                for (dispatch_block_t updates in blocks) { updates(); }
-            } completion:nil];
+            dispatch_block_t updateBlock = ^{
+                [self.collectionView performBatchUpdates:^{
+                    for (dispatch_block_t updates in blocks) { updates(); }
+                } completion:nil];
+            };
+
+            if (self.preservePosition == YES) {
+                [UIView performWithoutAnimation:^{
+                    updateBlock();
+                }];
+            } else {
+                updateBlock();
+            }
         }
         else {
             [self.collectionView reloadData];
