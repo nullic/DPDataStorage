@@ -26,6 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (UICollectionViewCell * _Nonnull)collectionView:(UICollectionView * _Nullable)collectionView cellForItemAtIndexPath:(NSIndexPath * _Nonnull)indexPath;
 
 - (void)addCollectionViewUpdateBlock:(dispatch_block_t _Nonnull)block;
+- (void)addCollectionViewUpdateFinishBlock:(dispatch_block_t _Nonnull)block;
 @end
 
 NS_ASSUME_NONNULL_END

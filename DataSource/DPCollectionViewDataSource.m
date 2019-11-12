@@ -10,6 +10,7 @@
 
 @interface DPCollectionViewDataSource ()
 @property (nonatomic, strong) NSMutableArray *updatesBlocks;
+@property (nonatomic, strong) NSMutableArray *updatesFinishBlocks;
 @property (nonatomic, strong) NSMutableArray *selectedObjects;
 @property (nonatomic, strong) id visibleObject;
 @property (nonatomic, assign) CGFloat visibleObjectShift;
@@ -148,6 +149,13 @@
     [self.updatesBlocks addObject:[block copy]];
 }
 
+- (void)addCollectionViewUpdateFinishBlock:(dispatch_block_t _Nonnull)block {
+    if (self.updatesFinishBlocks == nil) {
+        self.updatesFinishBlocks = [NSMutableArray array];
+    }
+    [self.updatesBlocks addObject:[block copy]];
+}
+
 - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
     if (controller == self.listController) {
         self.updatesBlocks = (self.disableAnimations == NO) ? [NSMutableArray array] : nil;
@@ -179,7 +187,9 @@
             dispatch_block_t updateBlock = ^{
                 [self.collectionView performBatchUpdates:^{
                     for (dispatch_block_t updates in blocks) { updates(); }
-                } completion:nil];
+                } completion:^(BOOL finished) {
+                    for (dispatch_block_t block in self.updatesFinishBlocks) { block(); }
+                }];
             };
 
             if (self.preservePosition == YES) {
@@ -193,6 +203,7 @@
         else {
             [self.collectionView reloadData];
             self.updatesBlocks = nil;
+            for (dispatch_block_t block in self.updatesFinishBlocks) { block(); }
         }
         [self showNoDataViewIfNeeded];
 
@@ -217,6 +228,7 @@
 
         self.selectedObjects = nil;
         self.visibleObject = nil;
+        self.updatesFinishBlocks = nil;
     }
 }
 
