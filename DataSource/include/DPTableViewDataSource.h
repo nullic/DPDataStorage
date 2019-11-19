@@ -32,5 +32,6 @@
 - (NSInteger)tableView:(UITableView * _Nullable)tableView numberOfRowsInSection:(NSInteger)section;
 - (UITableViewCell * _Nonnull)tableView:(UITableView * _Nullable)tableView cellForRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath;
 
+- (void)invalidateNoDataView;
 - (void)addTableViewUpdateBlock:(dispatch_block_t _Nonnull)block;
 @end

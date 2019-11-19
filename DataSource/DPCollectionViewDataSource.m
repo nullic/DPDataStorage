@@ -22,20 +22,20 @@
     if (_collectionView != collectionView) {
         _collectionView = collectionView;
         [_collectionView reloadData];
-        [self showNoDataViewIfNeeded];
+        [self invalidateNoDataView];
     }
 }
 
 - (void)setCellIdentifier:(NSString *)cellIdentifier {
     _cellIdentifier = [cellIdentifier copy];
     [self.collectionView reloadData];
-    [self showNoDataViewIfNeeded];
+    [self invalidateNoDataView];
 }
 
 - (void)setListController:(id<DataSourceContainerController>)listController {
     [super setListController:listController];
     [self.collectionView reloadData];
-    [self showNoDataViewIfNeeded];
+    [self invalidateNoDataView];
 }
 
 - (void)setNoDataView:(UIView *)noDataView {
@@ -47,7 +47,7 @@
             [_noDataView removeFromSuperview];
         }
         _noDataView = noDataView;
-        [self showNoDataViewIfNeeded];
+        [self invalidateNoDataView];
     }
 }
 
@@ -77,7 +77,7 @@
 
 #pragma mark - NoData view
 
-- (void)showNoDataViewIfNeeded {
+- (void)invalidateNoDataView {
     [self setNoDataViewHidden:[self hasData]];
 }
 
@@ -205,7 +205,7 @@
             self.updatesBlocks = nil;
             for (dispatch_block_t block in self.updatesFinishBlocks) { block(); }
         }
-        [self showNoDataViewIfNeeded];
+        [self invalidateNoDataView];
 
         if (self.preserveSelection == YES) {
             for (id object in self.selectedObjects) {

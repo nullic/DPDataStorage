@@ -21,33 +21,33 @@
     if (_tableView != tableView) {
         _tableView = tableView;
         [_tableView reloadData];
-        [self showNoDataViewIfNeeded];
+        [self invalidateNoDataView];
     }
 }
 
 - (void)setCellIdentifier:(NSString *)cellIdentifier {
     _cellIdentifier = [cellIdentifier copy];
     [self.tableView reloadData];
-    [self showNoDataViewIfNeeded];
+    [self invalidateNoDataView];
 }
 
 - (void)setListController:(id<DataSourceContainerController>)listController {
     [super setListController:listController];
     [self.tableView reloadData];
-    [self showNoDataViewIfNeeded];
+    [self invalidateNoDataView];
 }
 
 - (void)setNoDataView:(UIView *)noDataView {
     if (_noDataView != noDataView) {
         [_noDataView removeFromSuperview];
         _noDataView = noDataView;
-        [self showNoDataViewIfNeeded];
+        [self invalidateNoDataView];
     }
 }
 
 - (void)setDisableBouncingIfNoDataPresented:(BOOL)disableBouncingIfNoDataPresented {
     _disableBouncingIfNoDataPresented = disableBouncingIfNoDataPresented;
-    [self showNoDataViewIfNeeded];
+    [self invalidateNoDataView];
 }
 
 #pragma mark - Init
@@ -90,7 +90,7 @@
 
 #pragma mark - NoData view
 
-- (void)showNoDataViewIfNeeded {
+- (void)invalidateNoDataView {
     [self setNoDataViewHidden:[self hasData]];
 }
 
@@ -210,7 +210,7 @@
         }
 
         self.updatesBlocks = nil;
-        [self showNoDataViewIfNeeded];
+        [self invalidateNoDataView];
 
         if (self.preserveSelection == YES) {
             for (id object in self.selectedObjects) {
