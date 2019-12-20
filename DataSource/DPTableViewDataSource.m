@@ -257,7 +257,9 @@
 
                 case NSFetchedResultsChangeMove:
                     if ([newIndexPath isEqual:indexPath] == NO) {
-                        [tv moveRowAtIndexPath:indexPath toIndexPath:newIndexPath];
+                        [tv deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:self.deleteAnimation];
+                        [tv insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:self.insertAnimation];
+//                        [tv moveRowAtIndexPath:indexPath toIndexPath:newIndexPath];
                     }
                     else {
                         [tv reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:self.updateAnimation];

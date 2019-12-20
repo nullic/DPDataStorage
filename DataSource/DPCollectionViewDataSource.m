@@ -255,7 +255,9 @@
 
                 case NSFetchedResultsChangeMove:
                     if ([newIndexPath isEqual:indexPath] == NO) {
-                        [cv moveItemAtIndexPath:indexPath toIndexPath:newIndexPath];
+                        [cv deleteItemsAtIndexPaths:@[indexPath]];
+                        [cv insertItemsAtIndexPaths:@[newIndexPath]];
+//                        [cv moveItemAtIndexPath:indexPath toIndexPath:newIndexPath];
                     }
                     else {
                          [cv reloadItemsAtIndexPaths:@[indexPath]];
