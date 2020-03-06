@@ -112,21 +112,29 @@ static BOOL equalCheckForEntity(NSEntityDescription *entityDescription) {
 }
 
 + (id)transformImportValue:(id)value importKey:(NSString *)importKey propertyDescription:(NSPropertyDescription *)propertyDescription {
-    if (@available(iOS 11.0, *)) {
-        if ([propertyDescription isKindOfClass:[NSAttributeDescription class]] && [value isKindOfClass:[NSString class]]) {
-            NSAttributeDescription *attributeDescription = (NSAttributeDescription *)propertyDescription;
-            if (attributeDescription.attributeType == NSURIAttributeType) {
+    if ([propertyDescription isKindOfClass:[NSAttributeDescription class]]) {
+        NSAttributeDescription *attributeDescription = (NSAttributeDescription *)propertyDescription;
+        
+#if TARGET_OS_IOS
+        if (@available(iOS 11.0, *)) {
+            if (attributeDescription.attributeType == NSURIAttributeType && [value isKindOfClass:[NSString class]]) {
                 return [NSURL URLWithString:value] ?: value;
             }
         }
-    }
-
-    if ([propertyDescription isKindOfClass:[NSAttributeDescription class]]) {
-        NSAttributeDescription *attributeDescription = (NSAttributeDescription *)propertyDescription;
+#endif
+        
+#if TARGET_OS_OSX
+        if (@available(macOS 10.13, *)) {
+            if (attributeDescription.attributeType == NSURIAttributeType && [value isKindOfClass:[NSString class]]) {
+                return [NSURL URLWithString:value] ?: value;
+            }
+        }
+#endif
+        
         if (attributeDescription.attributeType == NSDateAttributeType) {
             NSString *format = attributeDescription.userInfo[kDateFormatKey];
             if (format == nil) return value;
-
+            
             if ([value isKindOfClass:[NSNumber class]]) {
                 if ([format isEqualToString:kDateFormatMiliseconds]) {
                     return [NSDate dateWithTimeIntervalSince1970: [value doubleValue] / 1000.0];
