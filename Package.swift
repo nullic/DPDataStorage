@@ -6,7 +6,7 @@ let package = Package(
     name: "DPDataStorage",
     platforms: [
         .iOS(.v8),
-        .macOS(.v10_13)
+        .macOS(.v10_10)
     ],
     products: [
         .library(name: "DataMapping", targets: ["DataMapping"]),
