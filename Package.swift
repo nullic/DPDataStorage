@@ -17,7 +17,7 @@ let package = Package(
     dependencies: [],
     targets: [
         .target(name: "DataMapping", path: "DataMapping"),
-        .target(name: "DataSource", path: "DataSource"),
+        .target(name: "DataSource", path: "DataSource", cSettings: [.define("OS_IOS", .when(platforms: [.iOS]))]),
         .target(name: "CellSizeCache", dependencies: ["DataSource"], path: "CellSizeCache"),
         .target(name: "DataStorage", path: "DataStorage"),
     ]

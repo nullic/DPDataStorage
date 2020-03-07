@@ -115,7 +115,7 @@ static BOOL equalCheckForEntity(NSEntityDescription *entityDescription) {
     if ([propertyDescription isKindOfClass:[NSAttributeDescription class]]) {
         NSAttributeDescription *attributeDescription = (NSAttributeDescription *)propertyDescription;
         
-#if TARGET_OS_IOS
+#if OS_IOS
         if (@available(iOS 11.0, *)) {
             if (attributeDescription.attributeType == NSURIAttributeType && [value isKindOfClass:[NSString class]]) {
                 return [NSURL URLWithString:value] ?: value;

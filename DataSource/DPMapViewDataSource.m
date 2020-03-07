@@ -6,7 +6,7 @@
 //  Copyright © 2017 EffectiveSoft. All rights reserved.
 //
 
-#if TARGET_OS_IOS
+#if OS_IOS
 #import "DPMapViewDataSource.h"
 
 @implementation DPMapViewDataSource
