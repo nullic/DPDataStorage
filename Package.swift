@@ -11,12 +11,14 @@ let package = Package(
     products: [
         .library(name: "DataMapping", targets: ["DataMapping"]),
         .library(name: "DataSource", targets: ["DataSource"]),
+        .library(name: "CellSizeCache", targets: ["CellSizeCache"]),
         .library(name: "DataStorage", targets: ["DataStorage", "DataMapping", "DataSource"]),
     ],
     dependencies: [],
     targets: [
         .target(name: "DataMapping", path: "DataMapping"),
         .target(name: "DataSource", path: "DataSource"),
+        .target(name: "CellSizeCache", dependencies: ["DataSource"], path: "CellSizeCache"),
         .target(name: "DataStorage", path: "DataStorage"),
     ]
 )
