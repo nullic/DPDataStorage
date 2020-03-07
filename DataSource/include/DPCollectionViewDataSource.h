@@ -6,7 +6,6 @@
 //  Copyright (c) 2015 Dmitriy Petrusevich. All rights reserved.
 //
 
-#if OS_IOS
 #import "DPBaseDataSource.h"
 #import <UIKit/UIKit.h>
 
@@ -32,4 +31,3 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 NS_ASSUME_NONNULL_END
-#endif

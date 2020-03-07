@@ -6,7 +6,6 @@
 //  Copyright (c) 2015 Dmitriy Petrusevich. All rights reserved.
 //
 
-#if OS_IOS
 #import "DPTableViewDataSource.h"
 
 @interface DPTableViewDataSource ()
@@ -298,4 +297,3 @@
 }
 
 @end
-#endif

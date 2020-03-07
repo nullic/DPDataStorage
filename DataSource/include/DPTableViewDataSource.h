@@ -6,7 +6,6 @@
 //  Copyright (c) 2015 Dmitriy Petrusevich. All rights reserved.
 //
 
-#if OS_IOS
 #import "DPBaseDataSource.h"
 #import <UIKit/UIKit.h>
 
@@ -36,4 +35,3 @@
 - (void)invalidateNoDataView;
 - (void)addTableViewUpdateBlock:(dispatch_block_t _Nonnull)block;
 @end
-#endif

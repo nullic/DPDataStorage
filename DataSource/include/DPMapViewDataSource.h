@@ -6,7 +6,6 @@
 //  Copyright © 2017 EffectiveSoft. All rights reserved.
 //
 
-#if OS_IOS
 #import "DPBaseDataSource.h"
 #import <MapKit/MapKit.h>
 
@@ -26,4 +25,3 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 NS_ASSUME_NONNULL_END
-#endif

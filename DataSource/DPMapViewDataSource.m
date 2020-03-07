@@ -6,7 +6,6 @@
 //  Copyright © 2017 EffectiveSoft. All rights reserved.
 //
 
-#if OS_IOS
 #import "DPMapViewDataSource.h"
 
 @implementation DPMapViewDataSource
@@ -157,4 +156,3 @@
 }
 
 @end
-#endif

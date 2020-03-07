@@ -6,7 +6,6 @@
 //  Copyright (c) 2015 Dmitriy Petrusevich. All rights reserved.
 //
 
-#if OS_IOS
 #import "DPCollectionViewDataSource.h"
 
 @interface DPCollectionViewDataSource ()
@@ -297,4 +296,3 @@
 }
 
 @end
-#endif

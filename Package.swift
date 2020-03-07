@@ -5,8 +5,7 @@ import PackageDescription
 let package = Package(
     name: "DPDataStorage",
     platforms: [
-        .iOS(.v8),
-        .macOS(.v10_10)
+        .iOS(.v8)
     ],
     products: [
         .library(name: "DataMapping", targets: ["DataMapping"]),
@@ -17,7 +16,7 @@ let package = Package(
     dependencies: [],
     targets: [
         .target(name: "DataMapping", path: "DataMapping"),
-        .target(name: "DataSource", path: "DataSource", cSettings: [.define("OS_IOS", .when(platforms: [.iOS]))]),
+        .target(name: "DataSource", path: "DataSource"),
         .target(name: "CellSizeCache", dependencies: ["DataSource"], path: "CellSizeCache"),
         .target(name: "DataStorage", path: "DataStorage"),
     ]
