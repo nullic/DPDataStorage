@@ -1,4 +1,5 @@
 import DataSource
+import CoreGraphics
 
 public final class CellSizeCache {
     private final class SizeContainer {
