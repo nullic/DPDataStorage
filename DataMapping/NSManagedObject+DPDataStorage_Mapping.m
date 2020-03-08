@@ -115,21 +115,11 @@ static BOOL equalCheckForEntity(NSEntityDescription *entityDescription) {
     if ([propertyDescription isKindOfClass:[NSAttributeDescription class]]) {
         NSAttributeDescription *attributeDescription = (NSAttributeDescription *)propertyDescription;
         
-#if OS_IOS
         if (@available(iOS 11.0, *)) {
             if (attributeDescription.attributeType == NSURIAttributeType && [value isKindOfClass:[NSString class]]) {
                 return [NSURL URLWithString:value] ?: value;
             }
         }
-#endif
-        
-#if TARGET_OS_OSX
-        if (@available(macOS 10.13, *)) {
-            if (attributeDescription.attributeType == NSURIAttributeType && [value isKindOfClass:[NSString class]]) {
-                return [NSURL URLWithString:value] ?: value;
-            }
-        }
-#endif
         
         if (attributeDescription.attributeType == NSDateAttributeType) {
             NSString *format = attributeDescription.userInfo[kDateFormatKey];
