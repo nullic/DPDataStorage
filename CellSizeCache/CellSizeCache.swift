@@ -6,7 +6,7 @@ public final class CellSizeCache {
         var value: CGSize?
     }
 
-    public let storage = DPArrayController()
+    internal let storage = DPArrayController()
 
     public let container: DataSourceContainerController
     public init(container: DataSourceContainerController) {

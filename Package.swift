@@ -19,5 +19,7 @@ let package = Package(
         .target(name: "DataSource", path: "DataSource"),
         .target(name: "CellSizeCache", dependencies: ["DataSource"], path: "CellSizeCache"),
         .target(name: "DataStorage", path: "DataStorage"),
+        .testTarget(name: "DataSourceTests", dependencies: ["DataSource"], path: "Tests/DataSource"),
+        .testTarget(name: "CellSizeCacheTests", dependencies: ["CellSizeCache"], path: "Tests/CellSizeCache"),
     ]
 )

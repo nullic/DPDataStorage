@@ -1,13 +1,5 @@
-//
-//  DPArrayControllerTests.swift
-//  DPDataStorageTests
-//
-//  Created by Dmitriy Petrusevich on 5/4/19.
-//  Copyright © 2019 dmitriy.petrusevich. All rights reserved.
-//
-
 import XCTest
-import DPDataStorage
+@testable import DataSource
 
 class DPArrayControllerTests: XCTestCase {
     override func setUp() {
@@ -221,61 +213,61 @@ class DPArrayControllerTests: XCTestCase {
         XCTAssert(object?.value == "0")
     }
 
-    func testManagedObjectsContainer() {
-        let delegate = TestDelegate()
-        let controller = DPArrayController(delegate: delegate)
-
-        let storage = DPDataStorage(mergedModelFrom: [Bundle(for: type(of: self))], storageURL: nil)
-        let context: NSManagedObjectContext! = storage?.newMainQueueManagedObjectContext()
-        context.automaticallyMergesChangesFromParent = true
-
-        var entity0: BasicEntity!
-        var entity1: BasicEntity!
-        var entity2: BasicEntity!
-
-        context.performAndWait {
-            entity0 = BasicEntity.init(context: context)
-            entity0.value = "0"
-            entity0.section = "0"
-
-            entity1 = BasicEntity.init(context: context)
-            entity1.value = "1"
-            entity1.section = "1"
-
-            entity2 = BasicEntity.init(context: context)
-            entity2.value = "2"
-            entity2.section = "2"
-
-            try? context.saveChanges()
-        }
-
-        context.performAndWait {
-            controller.startUpdating()
-            controller.setObjects([entity0 as Any, entity1 as Any, entity2 as Any], atSection: 0)
-            controller.endUpdating()
-        }
-
-        XCTAssert(controller.numberOfItems(inSection: 0) == 3)
-
-        context.performAndWait {
-            var entity = BasicEntity.entry(withValue: NSString(string: "0"), forKey: "section", in: context)
-            XCTAssert(entity != nil)
-            context.delete(entity!)
-
-            entity = BasicEntity.entry(withValue: NSString(string: "2"), forKey: "section", in: context)
-            XCTAssert(entity != nil)
-            entity?.value = "5"
-
-            try? context.saveChanges()
-        }
-
-        context.performAndWait {
-            XCTAssert(controller.numberOfItems(inSection: 0) == 2)
-            var object = controller.object(at: IndexPath(row: 0, section: 0)) as? BasicEntity
-            XCTAssert(object?.value == "1")
-            object = controller.object(at: IndexPath(row: 1, section: 0)) as? BasicEntity
-            XCTAssert(object?.value == "5")
-        }
-    }
+//    func testManagedObjectsContainer() {
+//        let delegate = TestDelegate()
+//        let controller = DPArrayController(delegate: delegate)
+//
+//        let storage = DPDataStorage(mergedModelFrom: [Bundle(for: type(of: self))], storageURL: nil)
+//        let context: NSManagedObjectContext! = storage?.newMainQueueManagedObjectContext()
+//        context.automaticallyMergesChangesFromParent = true
+//
+//        var entity0: BasicEntity!
+//        var entity1: BasicEntity!
+//        var entity2: BasicEntity!
+//
+//        context.performAndWait {
+//            entity0 = BasicEntity.init(context: context)
+//            entity0.value = "0"
+//            entity0.section = "0"
+//
+//            entity1 = BasicEntity.init(context: context)
+//            entity1.value = "1"
+//            entity1.section = "1"
+//
+//            entity2 = BasicEntity.init(context: context)
+//            entity2.value = "2"
+//            entity2.section = "2"
+//
+//            try? context.saveChanges()
+//        }
+//
+//        context.performAndWait {
+//            controller.startUpdating()
+//            controller.setObjects([entity0 as Any, entity1 as Any, entity2 as Any], atSection: 0)
+//            controller.endUpdating()
+//        }
+//
+//        XCTAssert(controller.numberOfItems(inSection: 0) == 3)
+//
+//        context.performAndWait {
+//            var entity = BasicEntity.entry(withValue: NSString(string: "0"), forKey: "section", in: context)
+//            XCTAssert(entity != nil)
+//            context.delete(entity!)
+//
+//            entity = BasicEntity.entry(withValue: NSString(string: "2"), forKey: "section", in: context)
+//            XCTAssert(entity != nil)
+//            entity?.value = "5"
+//
+//            try? context.saveChanges()
+//        }
+//
+//        context.performAndWait {
+//            XCTAssert(controller.numberOfItems(inSection: 0) == 2)
+//            var object = controller.object(at: IndexPath(row: 0, section: 0)) as? BasicEntity
+//            XCTAssert(object?.value == "1")
+//            object = controller.object(at: IndexPath(row: 1, section: 0)) as? BasicEntity
+//            XCTAssert(object?.value == "5")
+//        }
+//    }
 }
 

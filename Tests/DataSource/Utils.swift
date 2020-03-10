@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import DPDataStorage
+@testable import DataSource
 
 func isContainersEqual(first: DataSourceContainerController, second: DataSourceContainerController) -> Bool {
     guard first.numberOfSections() == second.numberOfSections() else {
@@ -19,8 +19,8 @@ func isContainersEqual(first: DataSourceContainerController, second: DataSourceC
         }
 
         for i in 0 ..< first.numberOfItems(inSection: s) {
-            let o1 = first.object(at: IndexPath(item: i, section: s)) as? BasicEntity
-            let o2 = second.object(at: IndexPath(item: i, section: s)) as? BasicEntity
+            let o1 = first.object(at: IndexPath(item: i, section: s)) as? NSManagedObject
+            let o2 = second.object(at: IndexPath(item: i, section: s)) as? NSManagedObject
             guard o1?.objectID == o2?.objectID else {
                 return false
             }

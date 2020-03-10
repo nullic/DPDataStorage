@@ -7,7 +7,7 @@
 //
 
 import XCTest
-import DPDataStorage
+@testable import DataSource
 
 class DPSectionedArrayControllerTests: XCTestCase {
 

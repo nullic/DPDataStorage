@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import DPDataStorage
+@testable import DataSource
 
 extension NSFetchedResultsChangeType {
     var stringValue: String {
