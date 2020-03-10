@@ -1,12 +1,20 @@
 import DataSource
 import CoreGraphics
 
-public final class CellSizeCache {
-    private final class SizeContainer {
+public final class CellSizeCache: CustomDebugStringConvertible {
+    private final class SizeContainer: CustomDebugStringConvertible {
         var value: CGSize?
+        
+        var debugDescription: String {
+            if let value = value {
+                return "\(value)"
+            } else {
+                return "--"
+            }
+        }
     }
 
-    internal let storage = DPArrayController()
+    private let storage = DPArrayController()
 
     public let container: DataSourceContainerController
     public init(container: DataSourceContainerController) {
@@ -31,6 +39,18 @@ public final class CellSizeCache {
         get {
             return (storage.object(at: indexPath) as? SizeContainer)?.value
         }
+    }
+    
+    public var debugDescription: String {
+        var result: [String] = []
+        for section in 0 ..< storage.numberOfSections() {
+            for item in 0 ..< storage.numberOfItems(inSection: section) {
+                let indexPath: IndexPath = IndexPath(item: item, section: section)
+                let object = storage.object(at: indexPath) as! SizeContainer
+                result.append("\(indexPath) size: \(object.debugDescription)")
+            }
+        }
+        return result.joined(separator: "\n")
     }
 }
 
@@ -86,8 +106,6 @@ public extension CellSizeCache {
 
 // MARK: - Controller changes
 
-#if os(macOS)
-@available(OSX 10.12, *)
 public extension CellSizeCache {
     func controllerWillChangeContent(_ controller: DataSourceContainerController) {
         guard controller === container else { return }
@@ -122,39 +140,3 @@ public extension CellSizeCache {
         endUpdating()
     }
 }
-#else
-public extension CellSizeCache {
-    func controllerWillChangeContent(_ controller: DataSourceContainerController) {
-        guard controller === container else { return }
-        startUpdating()
-    }
-
-    func controller(_ controller: DataSourceContainerController, didChangeObjectAt indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
-        guard controller === container else { return }
-
-        switch type {
-        case .insert: insert(at: newIndexPath!)
-        case .delete: delete(at: indexPath!)
-        case .move: move(at: indexPath!, to: newIndexPath!)
-        case .update: reload(at: indexPath!)
-        default: break
-        }
-    }
-
-    func controller(_ controller: DataSourceContainerController, didChangeSectionAt sectionIndex: UInt, for type: NSFetchedResultsChangeType) {
-        guard controller === container else { return }
-
-        switch type {
-        case .insert: insertSection(at: sectionIndex)
-        case .delete: removeSection(at: sectionIndex)
-        case .update: reloadSection(at: sectionIndex)
-        default: break
-        }
-    }
-
-    func controllerDidChangeContent(_ controller: DataSourceContainerController) {
-        guard controller === container else { return }
-        endUpdating()
-    }
-}
-#endif
