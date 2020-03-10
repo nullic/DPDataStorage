@@ -20,6 +20,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign, getter=isApplied) BOOL applied;
 @property (nonatomic, assign, getter=isNotified) BOOL notified;
 
+@property (nonatomic, readonly) NSInteger applyOrder;
+
 - (void)applyTo:(DPArrayController *)controller;
 - (void)notifyDelegateOfController:(DPArrayController *)controller;
 @end

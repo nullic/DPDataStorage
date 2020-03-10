@@ -91,11 +91,14 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
 - (void)setNextChangeType:(NSFetchedResultsChangeType)nextChangeType {
     if (_nextChangeType != nextChangeType) {
         _nextChangeType = nextChangeType;
+        [self applyPendingChanges];
+    }
+}
 
-        [self.sectionsStorage removeDeletedObjectPlaceholders];
-        for (DPArrayControllerSection *section in self.sectionsStorage.objects) {
-            [section removeDeletedObjectPlaceholders];
-        }
+- (void)applyPendingChanges {
+    [self.sectionsStorage applyPendingChanges];
+    for (DPArrayControllerSection *section in self.sectionsStorage.objects) {
+        [section applyPendingChanges];
     }
 }
 
@@ -431,6 +434,7 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
     for (DPChange *change in self.changes) {
         [change applyTo:self];
     }
+    [self applyPendingChanges];
 }
 
 - (void)notifyDelegate {

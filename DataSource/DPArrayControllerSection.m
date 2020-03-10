@@ -7,12 +7,13 @@
 //
 
 #import "DPArrayControllerSection.h"
-#import "DPPlaceholderObject.h"
+#import "DPPendingObject.h"
 
 
 @interface DPArrayControllerSection ()
 @property (nonatomic, readwrite, strong) NSMutableArray *mutableObjects;
 @property (nonatomic, readwrite, strong) NSMutableArray *deleteChanges;
+@property (nonatomic, readwrite, strong) NSMutableArray *insertChanges;
 
 @property (nonatomic) NSFetchedResultsChangeType lastChangeType;
 @end
@@ -35,6 +36,11 @@
     return _deleteChanges;
 }
 
+- (NSMutableArray *)insertChanges {
+    if (_insertChanges == nil) _insertChanges = [NSMutableArray new];
+    return _insertChanges;
+}
+
 - (NSString *)description {
     return [NSString stringWithFormat:@"%@ {numberOfObjects: %lu}", [super description], (unsigned long)self.numberOfObjects];
 }
@@ -50,7 +56,7 @@
 - (void)setLastChangeType:(NSFetchedResultsChangeType)lastChangeType {
     if (_lastChangeType != lastChangeType) {
         _lastChangeType = lastChangeType;
-        [self removeDeletedObjectPlaceholders];
+        [self applyPendingChanges];
     }
 }
 
@@ -59,33 +65,19 @@
 - (void)setObjects:(NSArray *)objects {
     self.mutableObjects = [objects mutableCopy];
     self.deleteChanges = nil;
+    self.insertChanges = nil;
 }
 
 - (void)insertObject:(id)object atIndex:(NSUInteger)index {
     self.lastChangeType = NSFetchedResultsChangeInsert;
-    [self _insertObject: object atIndex:index];
-}
-
-- (void)_insertObject:(id)object atIndex:(NSUInteger)index {
-    if (index > [self numberOfObjects]) {
-        while (index >= [self numberOfObjects]) {
-            [self.mutableObjects insertObject:[DPInsertedPlaceholderObject new] atIndex:[self numberOfObjects]];
-        }
-    }
-
-    if (index < [self numberOfObjects] && [[self.mutableObjects objectAtIndex:index] isKindOfClass:[DPInsertedPlaceholderObject class]]) {
-        [self.mutableObjects removeObjectAtIndex:index];
-    }
-
-    [self.mutableObjects insertObject:object atIndex:index];
+    [self.insertChanges addObject:[DPPendingObject objectWithObject:object index:index]];
 }
 
 - (void)removeObjectAtIndex:(NSUInteger)index {
     self.lastChangeType = NSFetchedResultsChangeDelete;
 
     id object = self.mutableObjects[index];
-    [self.mutableObjects replaceObjectAtIndex:index withObject:[DPDeletedPlaceholderObject placeholderWithObject: object]];
-    [self.deleteChanges addObject:@(index)];
+    [self.deleteChanges addObject:[DPPendingObject objectWithObject:object index:index]];
 }
 
 - (void)replaceObjectWithObject:(id)object atIndex:(NSUInteger)index {
@@ -97,15 +89,16 @@
     self.lastChangeType = NSFetchedResultsChangeMove;
 
     id object = self.mutableObjects[index];
-    [self.mutableObjects removeObjectAtIndex:index];
-    [self _insertObject: object atIndex:newIndex];
+    [self.deleteChanges addObject:[DPPendingObject objectWithObject:object index:index]];
+    [self.insertChanges addObject:[DPPendingObject objectWithObject:object index:newIndex]];
 }
 
 - (void)addObjectsFromArray:(NSArray *)otherArray {
-    self.lastChangeType = NSFetchedResultsChangeInsert;
-
-    for (id object in otherArray) {
-        [self insertObject:object atIndex:[self numberOfObjects]];
+    [self applyPendingChanges];
+    
+    NSInteger initialIndex = [self numberOfObjects];
+    for (NSInteger i = 0; i < otherArray.count; i++) {
+        [self insertObject:otherArray[i] atIndex:i + initialIndex];
     }
 }
 
@@ -132,14 +125,30 @@
 }
 
 - (id)objectAtIndex:(NSUInteger)index {
+    [self applyPendingChanges];
     return [self.mutableObjects objectAtIndex:index];
 }
 
-- (void)removeDeletedObjectPlaceholders {
+- (void)applyPendingChanges {
+    [self applyDeletedChanges];
+    [self applyInsertChanges];
+}
+
+- (void)applyInsertChanges {
+    if (self.insertChanges.count > 0) {
+        [self.insertChanges sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"index" ascending:true]]];
+        for (DPPendingObject *object in self.insertChanges) {
+            [self.mutableObjects insertObject:object.anObject atIndex:object.index];
+        }
+        self.insertChanges = nil;
+    }
+}
+
+- (void)applyDeletedChanges {
     if (self.deleteChanges.count > 0) {
-        [self.deleteChanges sortUsingSelector:@selector(compare:)];
-        for (NSNumber *index in [self.deleteChanges reverseObjectEnumerator]) {
-            [self.mutableObjects removeObjectAtIndex:index.integerValue];
+        [self.deleteChanges sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"index" ascending:true]]];
+        for (DPPendingObject *object in [self.deleteChanges reverseObjectEnumerator]) {
+            [self.mutableObjects removeObjectAtIndex:object.index];
         }
         self.deleteChanges = nil;
     }

@@ -30,7 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSUInteger)indexOfManagedObject:(NSManagedObject *)object;
 - (id)objectAtIndex:(NSUInteger)index;
 
-- (void)removeDeletedObjectPlaceholders;
+- (void)applyPendingChanges;
 @end
 
 NS_ASSUME_NONNULL_END

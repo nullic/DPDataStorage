@@ -6,20 +6,17 @@
 //  Copyright © 2019 EffectiveSoft. All rights reserved.
 //
 
-#import "DPPlaceholderObject.h"
+#import "DPPendingObject.h"
 
-@implementation DPPlaceholderObject
-+ (instancetype)placeholderWithObject:(id)anObject {
-    NSParameterAssert([anObject isKindOfClass:[DPPlaceholderObject class]] == NO);
+@implementation DPPendingObject
+
++ (instancetype)objectWithObject:(id)anObject index:(NSInteger)index {
+    NSParameterAssert([anObject isKindOfClass:[DPPendingObject class]] == NO);
     
-    DPPlaceholderObject *placeholder = [self new];
+    DPPendingObject *placeholder = [self new];
     placeholder.anObject = anObject;
+    placeholder.index = index;
     return placeholder;
 }
-@end
 
-@implementation DPInsertedPlaceholderObject
-@end
-
-@implementation DPDeletedPlaceholderObject
 @end

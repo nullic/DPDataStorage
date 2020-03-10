@@ -109,9 +109,10 @@
     [self setNextChangeType:NSFetchedResultsChangeDelete];
     [super removeAllObjects];
     [self.innerStorage setObjects:objects];
-    [self setNextChangeType:NSFetchedResultsChangeInsert];
 
     if (objects.count > 0) {
+        [self setNextChangeType:NSFetchedResultsChangeInsert];
+        
         NSArray *sortedObjects = [self.innerStorage.objects sortedArrayUsingDescriptors:@[self.sectionSortDescriptor, self.inSectionSortDescriptor]];
         NSMutableArray *sectionObjects = [NSMutableArray arrayWithObject:sortedObjects.firstObject];
         NSInteger sectionIndex = 0;
@@ -127,6 +128,7 @@
         }
 
         [self _setObjects:sectionObjects atSection:sectionIndex];
+        [self setNextChangeType:NSFetchedResultsChangeUpdate];
     }
 }
 
@@ -282,7 +284,7 @@
                 break;
         }
     }
-    [self.innerStorage removeDeletedObjectPlaceholders];
+    [self.innerStorage applyPendingChanges];
 
     // 'Simple' changes
 
