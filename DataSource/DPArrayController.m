@@ -158,6 +158,9 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
 
 - (void)removeAllObjects {
     [self removeAllObjectsImmediately:self.isUpdating == NO];
+    if (self.isUpdating == NO) {
+        [self applyPendingChanges];
+    }
 }
 
 - (void)removeAllObjectsImmediately:(BOOL)immediately {
@@ -173,6 +176,9 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
 
 - (void)insertObject:(id)object atIndextPath:(NSIndexPath *)indexPath {
     [self insertObject:object atIndextPath:indexPath immediately:self.isUpdating == NO];
+    if (self.isUpdating == NO) {
+        [self applyPendingChanges];
+    }
 }
 
 - (void)insertObject:(id)object atIndextPath:(NSIndexPath *)indexPath immediately:(BOOL)immediately {
@@ -196,6 +202,9 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
 
 - (void)deleteObjectAtIndextPath:(NSIndexPath *)indexPath {
     [self deleteObjectAtIndextPath:indexPath immediately:self.isUpdating == NO];
+    if (self.isUpdating == NO) {
+        [self applyPendingChanges];
+    }
 }
 
 - (void)deleteObjectAtIndextPath:(NSIndexPath *)indexPath immediately:(BOOL)immediately {
@@ -213,6 +222,9 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
 
 - (void)reloadObjectAtIndextPath:(NSIndexPath *)indexPath {
     [self reloadObjectAtIndextPath:indexPath immediately:self.isUpdating == NO];
+    if (self.isUpdating == NO) {
+        [self applyPendingChanges];
+    }
 }
 
 - (void)reloadObjectAtIndextPath:(NSIndexPath *)indexPath immediately:(BOOL)immediately {
@@ -226,6 +238,9 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
 
 - (void)moveObjectAtIndextPath:(NSIndexPath *)indexPath toIndexPath:(NSIndexPath *)newIndexPath {
     [self moveObjectAtIndextPath:indexPath toIndexPath:newIndexPath immediately:self.isUpdating == NO];
+    if (self.isUpdating == NO) {
+        [self applyPendingChanges];
+    }
 }
 
 - (void)moveObjectAtIndextPath:(NSIndexPath *)indexPath toIndexPath:(NSIndexPath *)newIndexPath immediately:(BOOL)immediately {
@@ -255,6 +270,9 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
 
 - (void)insertSectionAtIndex:(NSUInteger)index {
     [self insertSectionAtIndex:index immediately:self.isUpdating == NO];
+    if (self.isUpdating == NO) {
+        [self applyPendingChanges];
+    }
 }
 
 - (void)insertSectionAtIndex:(NSUInteger)index immediately:(BOOL)immediately {
@@ -268,6 +286,9 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
 
 - (void)insertSectionObject:(id<NSFetchedResultsSectionInfo>)sectionInfo atIndex:(NSUInteger)index {
     [self insertSectionObject:sectionInfo atIndex:index immediately:self.isUpdating == NO];
+    if (self.isUpdating == NO) {
+        [self applyPendingChanges];
+    }
 }
 
 - (void)insertSectionObject:(id<NSFetchedResultsSectionInfo>)sectionInfo atIndex:(NSUInteger)index immediately:(BOOL)immediately {
@@ -281,6 +302,9 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
 
 - (void)removeSectionAtIndex:(NSUInteger)index {
     [self removeSectionAtIndex:index immediately:self.isUpdating == NO];
+    if (self.isUpdating == NO) {
+        [self applyPendingChanges];
+    }
 }
 
 - (void)removeSectionAtIndex:(NSUInteger)index immediately:(BOOL)immediately {
@@ -294,6 +318,9 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
 
 - (void)reloadSectionAtIndex:(NSUInteger)index {
     [self reloadSectionAtIndex:index immediately:self.isUpdating == NO];
+    if (self.isUpdating == NO) {
+        [self applyPendingChanges];
+    }
 }
 
 - (void)reloadSectionAtIndex:(NSUInteger)index immediately:(BOOL)immediately {
@@ -378,6 +405,9 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
 
 - (void)setObjects:(NSArray *)objects atSection:(NSInteger)section {
     [self setObjects:objects atSection:section immediately:self.isUpdating == NO];
+    if (self.isUpdating == NO) {
+        [self applyPendingChanges];
+    }
 }
 
 - (void)setObjects:(NSArray *)newObjects atSection:(NSInteger)section immediately:(BOOL)immediately {
