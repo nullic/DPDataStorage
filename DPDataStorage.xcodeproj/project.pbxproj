@@ -21,13 +21,6 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		07077BDB227DAB9900380D54 /* TestsModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 07077BD9227DAB9900380D54 /* TestsModel.xcdatamodeld */; };
-		07077BDD227DB75C00380D54 /* DPContainerControllerBasedControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07077BDC227DB75C00380D54 /* DPContainerControllerBasedControllerTests.swift */; };
-		07B8315C227D6B790087EB72 /* DPSectionedArrayControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B8315B227D6B790087EB72 /* DPSectionedArrayControllerTests.swift */; };
-		07B8315E227D8B5D0087EB72 /* DPArrayControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B8315D227D8B5D0087EB72 /* DPArrayControllerTests.swift */; };
-		07B83160227D8B820087EB72 /* TestObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B8315F227D8B820087EB72 /* TestObject.swift */; };
-		07B83162227D8B940087EB72 /* TestDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B83161227D8B940087EB72 /* TestDelegate.swift */; };
-		07BA74AA227D6B0400659C09 /* DPDataStorage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 765EF80F1EBCB53D00C21E2E /* DPDataStorage.framework */; };
 		07D3DFE82370043C00B2F914 /* NSManagedObjectContext+DataStorage.h in Headers */ = {isa = PBXBuildFile; fileRef = 07D3DFB42370043C00B2F914 /* NSManagedObjectContext+DataStorage.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		07D3DFE92370043C00B2F914 /* DPDataStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 07D3DFB52370043C00B2F914 /* DPDataStorage.m */; };
 		07D3DFEA2370043C00B2F914 /* NSManagedObjectContext+DataStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 07D3DFB72370043C00B2F914 /* NSManagedObjectContext+DataStorage.m */; };
@@ -48,7 +41,7 @@
 		07D3DFF92370043C00B2F914 /* DPArrayController.h in Headers */ = {isa = PBXBuildFile; fileRef = 07D3DFC82370043C00B2F914 /* DPArrayController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		07D3DFFA2370043C00B2F914 /* DPChange.h in Headers */ = {isa = PBXBuildFile; fileRef = 07D3DFC92370043C00B2F914 /* DPChange.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		07D3DFFB2370043C00B2F914 /* DPDataSourceCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 07D3DFCA2370043C00B2F914 /* DPDataSourceCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		07D3DFFC2370043C00B2F914 /* DPPlaceholderObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 07D3DFCB2370043C00B2F914 /* DPPlaceholderObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		07D3DFFC2370043C00B2F914 /* DPPendingObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 07D3DFCB2370043C00B2F914 /* DPPendingObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		07D3DFFD2370043C00B2F914 /* DPBaseDataSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 07D3DFCC2370043C00B2F914 /* DPBaseDataSource.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		07D3DFFE2370043C00B2F914 /* DPArrayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07D3DFCD2370043C00B2F914 /* DPArrayController.m */; };
 		07D3DFFF2370043C00B2F914 /* DPBaseDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 07D3DFCE2370043C00B2F914 /* DPBaseDataSource.m */; };
@@ -82,29 +75,9 @@
 		07D3E01B2370045400B2F914 /* NSManagedObject+DPDataStorage_Mapping.m in Sources */ = {isa = PBXBuildFile; fileRef = 07D3DFDB2370043C00B2F914 /* NSManagedObject+DPDataStorage_Mapping.m */; };
 		07D3E01C2370045400B2F914 /* NSManagedObjectContext+DPDataStorage_Mapping.m in Sources */ = {isa = PBXBuildFile; fileRef = 07D3DFDC2370043C00B2F914 /* NSManagedObjectContext+DPDataStorage_Mapping.m */; };
 		07D3E02423700DB000B2F914 /* DPDataStorage.h in Headers */ = {isa = PBXBuildFile; fileRef = 07D3E02323700DB000B2F914 /* DPDataStorage.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		07FB8CF7228598D30072DF0F /* DPSectionedFetchedResultsControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07FB8CF6228598D30072DF0F /* DPSectionedFetchedResultsControllerTests.swift */; };
-		07FB8CF92286B0580072DF0F /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07FB8CF82286B0580072DF0F /* Utils.swift */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		07BA74AB227D6B0400659C09 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 765EF8061EBCB53D00C21E2E /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 765EF80E1EBCB53D00C21E2E;
-			remoteInfo = DPDataStorage;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
-		07077BDA227DAB9900380D54 /* TestsModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TestsModel.xcdatamodel; sourceTree = "<group>"; };
-		07077BDC227DB75C00380D54 /* DPContainerControllerBasedControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DPContainerControllerBasedControllerTests.swift; sourceTree = "<group>"; };
-		07B8315B227D6B790087EB72 /* DPSectionedArrayControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DPSectionedArrayControllerTests.swift; sourceTree = "<group>"; };
-		07B8315D227D8B5D0087EB72 /* DPArrayControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DPArrayControllerTests.swift; sourceTree = "<group>"; };
-		07B8315F227D8B820087EB72 /* TestObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestObject.swift; sourceTree = "<group>"; };
-		07B83161227D8B940087EB72 /* TestDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestDelegate.swift; sourceTree = "<group>"; };
-		07BA74A5227D6B0400659C09 /* DPDataStorageTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DPDataStorageTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		07BA74A9227D6B0400659C09 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		07D3DFB42370043C00B2F914 /* NSManagedObjectContext+DataStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSManagedObjectContext+DataStorage.h"; sourceTree = "<group>"; };
 		07D3DFB52370043C00B2F914 /* DPDataStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPDataStorage.m; sourceTree = "<group>"; };
 		07D3DFB72370043C00B2F914 /* NSManagedObjectContext+DataStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObjectContext+DataStorage.m"; sourceTree = "<group>"; };
@@ -125,7 +98,7 @@
 		07D3DFC82370043C00B2F914 /* DPArrayController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPArrayController.h; sourceTree = "<group>"; };
 		07D3DFC92370043C00B2F914 /* DPChange.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPChange.h; sourceTree = "<group>"; };
 		07D3DFCA2370043C00B2F914 /* DPDataSourceCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPDataSourceCell.h; sourceTree = "<group>"; };
-		07D3DFCB2370043C00B2F914 /* DPPlaceholderObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPPlaceholderObject.h; sourceTree = "<group>"; };
+		07D3DFCB2370043C00B2F914 /* DPPendingObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPPendingObject.h; sourceTree = "<group>"; };
 		07D3DFCC2370043C00B2F914 /* DPBaseDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPBaseDataSource.h; sourceTree = "<group>"; };
 		07D3DFCD2370043C00B2F914 /* DPArrayController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPArrayController.m; sourceTree = "<group>"; };
 		07D3DFCE2370043C00B2F914 /* DPBaseDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPBaseDataSource.m; sourceTree = "<group>"; };
@@ -149,22 +122,12 @@
 		07D3DFE52370043C00B2F914 /* NSManagedObject+DataStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObject+DataStorage.m"; sourceTree = "<group>"; };
 		07D3DFE62370043C00B2F914 /* NSManagedObjectModel+EntityDescription.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObjectModel+EntityDescription.m"; sourceTree = "<group>"; };
 		07D3E02323700DB000B2F914 /* DPDataStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPDataStorage.h; sourceTree = "<group>"; };
-		07FB8CF6228598D30072DF0F /* DPSectionedFetchedResultsControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DPSectionedFetchedResultsControllerTests.swift; sourceTree = "<group>"; };
-		07FB8CF82286B0580072DF0F /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		765EF80F1EBCB53D00C21E2E /* DPDataStorage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DPDataStorage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		765EF8131EBCB53D00C21E2E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B84F3CE621CE3ECE00489349 /* CoreDataMapping.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CoreDataMapping.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		07BA74A2227D6B0400659C09 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				07BA74AA227D6B0400659C09 /* DPDataStorage.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		765EF80B1EBCB53D00C21E2E /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -182,22 +145,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		07BA74A6227D6B0400659C09 /* DPDataStorageTests */ = {
-			isa = PBXGroup;
-			children = (
-				07B8315F227D8B820087EB72 /* TestObject.swift */,
-				07B83161227D8B940087EB72 /* TestDelegate.swift */,
-				07FB8CF82286B0580072DF0F /* Utils.swift */,
-				07B8315D227D8B5D0087EB72 /* DPArrayControllerTests.swift */,
-				07B8315B227D6B790087EB72 /* DPSectionedArrayControllerTests.swift */,
-				07FB8CF6228598D30072DF0F /* DPSectionedFetchedResultsControllerTests.swift */,
-				07077BDC227DB75C00380D54 /* DPContainerControllerBasedControllerTests.swift */,
-				07BA74A9227D6B0400659C09 /* Info.plist */,
-				07077BD9227DAB9900380D54 /* TestsModel.xcdatamodeld */,
-			);
-			path = DPDataStorageTests;
-			sourceTree = "<group>";
-		};
 		07D3DFB12370043C00B2F914 /* DataStorage */ = {
 			isa = PBXGroup;
 			children = (
@@ -255,7 +202,7 @@
 				07D3DFC82370043C00B2F914 /* DPArrayController.h */,
 				07D3DFC92370043C00B2F914 /* DPChange.h */,
 				07D3DFCA2370043C00B2F914 /* DPDataSourceCell.h */,
-				07D3DFCB2370043C00B2F914 /* DPPlaceholderObject.h */,
+				07D3DFCB2370043C00B2F914 /* DPPendingObject.h */,
 				07D3DFCC2370043C00B2F914 /* DPBaseDataSource.h */,
 			);
 			path = include;
@@ -293,7 +240,6 @@
 				07D3DFB82370043C00B2F914 /* DataSource */,
 				07D3DFB12370043C00B2F914 /* DataStorage */,
 				07D3E02323700DB000B2F914 /* DPDataStorage.h */,
-				07BA74A6227D6B0400659C09 /* DPDataStorageTests */,
 				765EF8131EBCB53D00C21E2E /* Info.plist */,
 				765EF8101EBCB53D00C21E2E /* Products */,
 			);
@@ -304,7 +250,6 @@
 			children = (
 				765EF80F1EBCB53D00C21E2E /* DPDataStorage.framework */,
 				B84F3CE621CE3ECE00489349 /* CoreDataMapping.framework */,
-				07BA74A5227D6B0400659C09 /* DPDataStorageTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -320,7 +265,7 @@
 				07D3E00C2370043C00B2F914 /* NSManagedObjectModel+EntityDescription.h in Headers */,
 				07D3DFED2370043C00B2F914 /* DPArrayControllerSection.h in Headers */,
 				07D3DFF42370043C00B2F914 /* DPCollectionViewDataSource.h in Headers */,
-				07D3DFFC2370043C00B2F914 /* DPPlaceholderObject.h in Headers */,
+				07D3DFFC2370043C00B2F914 /* DPPendingObject.h in Headers */,
 				07D3DFF12370043C00B2F914 /* DPContainerControllerBasedController.h in Headers */,
 				07D3DFF52370043C00B2F914 /* DelegateResponseMask.h in Headers */,
 				07D3E00F2370043C00B2F914 /* NSManagedObjectContext+DPDataStorage_Mapping.h in Headers */,
@@ -358,24 +303,6 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		07BA74A4227D6B0400659C09 /* DPDataStorageTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 07BA74AD227D6B0400659C09 /* Build configuration list for PBXNativeTarget "DPDataStorageTests" */;
-			buildPhases = (
-				07BA74A1227D6B0400659C09 /* Sources */,
-				07BA74A2227D6B0400659C09 /* Frameworks */,
-				07BA74A3227D6B0400659C09 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				07BA74AC227D6B0400659C09 /* PBXTargetDependency */,
-			);
-			name = DPDataStorageTests;
-			productName = DPDataStorageTests;
-			productReference = 07BA74A5227D6B0400659C09 /* DPDataStorageTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 		765EF80E1EBCB53D00C21E2E /* DPDataStorage */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 765EF8171EBCB53D00C21E2E /* Build configuration list for PBXNativeTarget "DPDataStorage" */;
@@ -422,11 +349,6 @@
 				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = dmitriy.petrusevich;
 				TargetAttributes = {
-					07BA74A4227D6B0400659C09 = {
-						CreatedOnToolsVersion = 10.2.1;
-						DevelopmentTeam = NC6S3ZCYZ5;
-						ProvisioningStyle = Automatic;
-					};
 					765EF80E1EBCB53D00C21E2E = {
 						CreatedOnToolsVersion = 8.3.1;
 						LastSwiftMigration = 1010;
@@ -455,19 +377,11 @@
 				765EF80E1EBCB53D00C21E2E /* DPDataStorage */,
 				765EF8431EBCB96900C21E2E /* DPDataStorageAggregate */,
 				B84F3CC821CE3ECE00489349 /* CoreDataMapping */,
-				07BA74A4227D6B0400659C09 /* DPDataStorageTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		07BA74A3227D6B0400659C09 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		765EF80D1EBCB53D00C21E2E /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -496,26 +410,11 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#!/bin/sh\n\n\nUNIVERSAL_OUTPUTFOLDER=${BUILD_DIR}/${CONFIGURATION}-universal\n\n\n# make sure the output directory exists\n\nmkdir -p \"${UNIVERSAL_OUTPUTFOLDER}\"\n\n\n# Step 1. Build Device and Simulator versions\n\nxcodebuild -target \"${PROJECT_NAME}\" ONLY_ACTIVE_ARCH=NO -configuration ${CONFIGURATION} -sdk iphoneos  BUILD_DIR=\"${BUILD_DIR}\" BUILD_ROOT=\"${BUILD_ROOT}\" clean build\n\nxcodebuild -target \"${PROJECT_NAME}\" -configuration ${CONFIGURATION} -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO BUILD_DIR=\"${BUILD_DIR}\" BUILD_ROOT=\"${BUILD_ROOT}\" clean build\n\n\n# Step 2. Copy the framework structure (from iphoneos build) to the universal folder\n\ncp -R \"${BUILD_DIR}/${CONFIGURATION}-iphoneos/${PROJECT_NAME}.framework\" \"${UNIVERSAL_OUTPUTFOLDER}/\"\n\n\n# Step 3. Copy Swift modules from iphonesimulator build (if it exists) to the copied framework directory\n\nSIMULATOR_SWIFT_MODULES_DIR=\"${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/${PROJECT_NAME}.framework/Modules/${PROJECT_NAME}.swiftmodule/.\"\n\nif [ -d \"${SIMULATOR_SWIFT_MODULES_DIR}\" ]; then\n\ncp -R \"${SIMULATOR_SWIFT_MODULES_DIR}\" \"${UNIVERSAL_OUTPUTFOLDER}/${PROJECT_NAME}.framework/Modules/${PROJECT_NAME}.swiftmodule\"\n\nfi\n\n\n# Step 4. Create universal binary file using lipo and place the combined executable in the copied framework directory\n\nlipo -create -output \"${UNIVERSAL_OUTPUTFOLDER}/${PROJECT_NAME}.framework/${PROJECT_NAME}\" \"${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/${PROJECT_NAME}.framework/${PROJECT_NAME}\" \"${BUILD_DIR}/${CONFIGURATION}-iphoneos/${PROJECT_NAME}.framework/${PROJECT_NAME}\"\n\n\n# Step 5. Convenience step to copy the framework to the project's directory\n\ncp -R \"${UNIVERSAL_OUTPUTFOLDER}/${PROJECT_NAME}.framework\" \"${PROJECT_DIR}/build\"\n\n\n# Step 6. Convenience step to open the project's directory in Finder\n\nopen \"${BUILD_DIR}/${CONFIGURATION}-universal\"";
+			shellScript = "#!/bin/sh\n\n\nUNIVERSAL_OUTPUTFOLDER=${BUILD_DIR}/${CONFIGURATION}-universal\n\n\n# make sure the output directory exists\n\nmkdir -p \"${UNIVERSAL_OUTPUTFOLDER}\"\n\n\n# Step 1. Build Device and Simulator versions\n\nxcodebuild -target \"${PROJECT_NAME}\" ONLY_ACTIVE_ARCH=NO -configuration ${CONFIGURATION} -sdk iphoneos  BUILD_DIR=\"${BUILD_DIR}\" BUILD_ROOT=\"${BUILD_ROOT}\" clean build\n\nxcodebuild -target \"${PROJECT_NAME}\" -configuration ${CONFIGURATION} -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO BUILD_DIR=\"${BUILD_DIR}\" BUILD_ROOT=\"${BUILD_ROOT}\" clean build\n\n\n# Step 2. Copy the framework structure (from iphoneos build) to the universal folder\n\ncp -R \"${BUILD_DIR}/${CONFIGURATION}-iphoneos/${PROJECT_NAME}.framework\" \"${UNIVERSAL_OUTPUTFOLDER}/\"\n\n\n# Step 3. Copy Swift modules from iphonesimulator build (if it exists) to the copied framework directory\n\nSIMULATOR_SWIFT_MODULES_DIR=\"${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/${PROJECT_NAME}.framework/Modules/${PROJECT_NAME}.swiftmodule/.\"\n\nif [ -d \"${SIMULATOR_SWIFT_MODULES_DIR}\" ]; then\n\ncp -R \"${SIMULATOR_SWIFT_MODULES_DIR}\" \"${UNIVERSAL_OUTPUTFOLDER}/${PROJECT_NAME}.framework/Modules/${PROJECT_NAME}.swiftmodule\"\n\nfi\n\n\n# Step 4. Create universal binary file using lipo and place the combined executable in the copied framework directory\n\nlipo -create -output \"${UNIVERSAL_OUTPUTFOLDER}/${PROJECT_NAME}.framework/${PROJECT_NAME}\" \"${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/${PROJECT_NAME}.framework/${PROJECT_NAME}\" \"${BUILD_DIR}/${CONFIGURATION}-iphoneos/${PROJECT_NAME}.framework/${PROJECT_NAME}\"\n\n\n# Step 5. Convenience step to copy the framework to the project's directory\n\ncp -R \"${UNIVERSAL_OUTPUTFOLDER}/${PROJECT_NAME}.framework\" \"${PROJECT_DIR}/build\"\n\n\n# Step 6. Convenience step to open the project's directory in Finder\n\nopen \"${BUILD_DIR}/${CONFIGURATION}-universal\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		07BA74A1227D6B0400659C09 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				07B8315E227D8B5D0087EB72 /* DPArrayControllerTests.swift in Sources */,
-				07B8315C227D6B790087EB72 /* DPSectionedArrayControllerTests.swift in Sources */,
-				07B83160227D8B820087EB72 /* TestObject.swift in Sources */,
-				07077BDB227DAB9900380D54 /* TestsModel.xcdatamodeld in Sources */,
-				07077BDD227DB75C00380D54 /* DPContainerControllerBasedControllerTests.swift in Sources */,
-				07B83162227D8B940087EB72 /* TestDelegate.swift in Sources */,
-				07FB8CF7228598D30072DF0F /* DPSectionedFetchedResultsControllerTests.swift in Sources */,
-				07FB8CF92286B0580072DF0F /* Utils.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		765EF80A1EBCB53D00C21E2E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -557,60 +456,7 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
-/* Begin PBXTargetDependency section */
-		07BA74AC227D6B0400659C09 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 765EF80E1EBCB53D00C21E2E /* DPDataStorage */;
-			targetProxy = 07BA74AB227D6B0400659C09 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
-
 /* Begin XCBuildConfiguration section */
-		07BA74AE227D6B0400659C09 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = NC6S3ZCYZ5;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				INFOPLIST_FILE = DPDataStorageTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
-				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.dmitriy.petrusevich.DPDataStorageTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		07BA74AF227D6B0400659C09 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = NC6S3ZCYZ5;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				INFOPLIST_FILE = DPDataStorageTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.dmitriy.petrusevich.DPDataStorageTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
 		765EF8151EBCB53D00C21E2E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -833,15 +679,6 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		07BA74AD227D6B0400659C09 /* Build configuration list for PBXNativeTarget "DPDataStorageTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				07BA74AE227D6B0400659C09 /* Debug */,
-				07BA74AF227D6B0400659C09 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		765EF8091EBCB53D00C21E2E /* Build configuration list for PBXProject "DPDataStorage" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -879,19 +716,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		07077BD9227DAB9900380D54 /* TestsModel.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				07077BDA227DAB9900380D54 /* TestsModel.xcdatamodel */,
-			);
-			currentVersion = 07077BDA227DAB9900380D54 /* TestsModel.xcdatamodel */;
-			path = TestsModel.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = 765EF8061EBCB53D00C21E2E /* Project object */;
 }
