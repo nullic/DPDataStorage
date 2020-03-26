@@ -23,7 +23,6 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
 };
 
 @interface DPArrayController ()
-@property (nonatomic) NSFetchedResultsChangeType nextChangeType;
 @property (nonatomic, strong) DPArrayControllerSection *sectionsStorage;
 @property (nonatomic, strong, null_resettable) NSMutableArray<DPChange *> *changes;
 
@@ -86,13 +85,6 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
 - (NSMutableArray<DPChange *> *)changes {
     if (_changes == nil) _changes = [NSMutableArray new];
     return _changes;
-}
-
-- (void)setNextChangeType:(NSFetchedResultsChangeType)nextChangeType {
-    if (_nextChangeType != nextChangeType) {
-        _nextChangeType = nextChangeType;
-        [self applyPendingChanges];
-    }
 }
 
 - (void)applyPendingChanges {
@@ -422,6 +414,7 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
     }
     else {
         [self insertSectionAtIndex:section immediately:immediately];
+        if (immediately == YES) [self.sectionsStorage applyPendingChanges];
         [self addObjects:newObjects atSection:section immediately:immediately];
     }
 }
@@ -442,7 +435,6 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
         }
         
         [self applyChanges];
-        self.nextChangeType = -1;
         [self notifyDelegate];
         
         if (self.responseMask & ResponseMaskDidChangeContent) {
@@ -461,8 +453,15 @@ static NSComparator inverseCompare = ^NSComparisonResult(NSIndexPath *obj1, NSIn
 }
 
 - (void)applyChanges {
+    BOOL lastIsSectionChange = [self.changes.firstObject isKindOfClass:[DPSectionChange class]];
     for (DPChange *change in self.changes) {
+        BOOL isSectionChange = [change isKindOfClass:[DPSectionChange class]];
+        if (isSectionChange == NO && lastIsSectionChange == YES) {
+            [self.sectionsStorage applyPendingChanges];
+        }
+
         [change applyTo:self];
+        lastIsSectionChange = isSectionChange;
     }
     [self applyPendingChanges];
 }

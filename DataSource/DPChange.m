@@ -71,8 +71,6 @@
 - (void)applyTo:(DPArrayController *)controller {
     if (self.isApplied == YES) return;
     self.applied = YES;
-
-    [controller setNextChangeType:self.type];
     
     switch (self.type) {
         case NSFetchedResultsChangeInsert:
@@ -176,8 +174,6 @@
 - (void)applyTo:(DPArrayController *)controller {
     if (self.isApplied == YES) return;
     self.applied = YES;
-
-    [controller setNextChangeType:self.type];
     
     switch (self.type) {
         case NSFetchedResultsChangeInsert:

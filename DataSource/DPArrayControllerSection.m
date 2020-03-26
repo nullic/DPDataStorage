@@ -46,18 +46,11 @@
 }
 
 - (NSUInteger)numberOfObjects {
-    return self.objects.count - self.deleteChanges.count;
+    return self.objects.count - self.deleteChanges.count + self.insertChanges.count;
 }
 
 - (NSString *)name {
     return _name ?: @"";
-}
-
-- (void)setLastChangeType:(NSFetchedResultsChangeType)lastChangeType {
-    if (_lastChangeType != lastChangeType) {
-        _lastChangeType = lastChangeType;
-        [self applyPendingChanges];
-    }
 }
 
 #pragma mark - array mutating
@@ -69,25 +62,19 @@
 }
 
 - (void)insertObject:(id)object atIndex:(NSUInteger)index {
-    self.lastChangeType = NSFetchedResultsChangeInsert;
     [self.insertChanges addObject:[DPPendingObject objectWithObject:object index:index]];
 }
 
 - (void)removeObjectAtIndex:(NSUInteger)index {
-    self.lastChangeType = NSFetchedResultsChangeDelete;
-
     id object = self.mutableObjects[index];
     [self.deleteChanges addObject:[DPPendingObject objectWithObject:object index:index]];
 }
 
 - (void)replaceObjectWithObject:(id)object atIndex:(NSUInteger)index {
-    self.lastChangeType = NSFetchedResultsChangeUpdate;
     [self.mutableObjects replaceObjectAtIndex:index withObject:object];
 }
 
 - (void)moveObjectAtIndex:(NSUInteger)index toIndex:(NSUInteger)newIndex {
-    self.lastChangeType = NSFetchedResultsChangeMove;
-
     id object = self.mutableObjects[index];
     [self.deleteChanges addObject:[DPPendingObject objectWithObject:object index:index]];
     [self.insertChanges addObject:[DPPendingObject objectWithObject:object index:newIndex]];
@@ -125,7 +112,6 @@
 }
 
 - (id)objectAtIndex:(NSUInteger)index {
-    [self applyPendingChanges];
     return [self.mutableObjects objectAtIndex:index];
 }
 
