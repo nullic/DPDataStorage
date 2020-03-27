@@ -59,4 +59,31 @@ class CellSizeCacheTests: XCTestCase {
         XCTAssert(cache[indexPath] == nil)
         XCTAssert(cache[IndexPath(indexes: [1, 0])] == .zero)
     }
+    
+    func testDeleteAndUpdateItems() {
+        let controller = DPArrayController(delegate: nil)
+        let array = [TestObject(section: "1", value: "3"), TestObject(section: "1", value: "1"), TestObject(section: "1", value: "2")]
+        
+        controller.startUpdating()
+        controller.setObjects(array, atSection: 0)
+        controller.endUpdating()
+
+        let cache = CellSizeCache(container: controller)
+        cache[IndexPath(indexes: [0, 0])] = .zero
+        cache[IndexPath(indexes: [0, 1])] = .zero
+        cache[IndexPath(indexes: [0, 2])] = .zero
+        
+        controller.startUpdating()
+        cache.startUpdating()
+        
+        controller.deleteObject(atIndextPath: IndexPath(indexes: [0, 1]))
+        cache.delete(at: IndexPath(indexes: [0, 1]))
+        cache.reload(at: IndexPath(indexes: [0, 2]))
+        
+        cache.endUpdating()
+        controller.endUpdating()
+        
+        XCTAssert(cache[IndexPath(indexes: [0, 0])] == .zero)
+        XCTAssert(cache[IndexPath(indexes: [0, 1])] == nil)
+    }
 }
