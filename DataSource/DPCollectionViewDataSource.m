@@ -183,17 +183,20 @@
         if (self.disableAnimations == NO && self.updatesBlocks.count > 0 && self.collectionView.window) {
             NSArray *blocks = self.updatesBlocks;
             self.updatesBlocks = nil;
+            
+            NSArray *finishBlocks = self.updatesFinishBlocks;
+            self.updatesFinishBlocks = nil;
 
             dispatch_block_t updateBlock = ^{
                 [self.collectionView performBatchUpdates:^{
                     for (dispatch_block_t updates in blocks) { updates(); }
                 } completion:^(BOOL finished) {
-                    for (dispatch_block_t block in self.updatesFinishBlocks) { block(); }
+                    for (dispatch_block_t block in finishBlocks) { block(); }
                 }];
             };
 
             if (self.preservePosition == YES) {
-                [UIView performWithoutAnimation:^{
+                [UIView animateWithDuration:0 animations:^{
                     updateBlock();
                 }];
             } else {
@@ -204,6 +207,7 @@
             [self.collectionView reloadData];
             self.updatesBlocks = nil;
             for (dispatch_block_t block in self.updatesFinishBlocks) { block(); }
+            self.updatesFinishBlocks = nil;
         }
         [self invalidateNoDataView];
 
@@ -228,7 +232,6 @@
 
         self.selectedObjects = nil;
         self.visibleObject = nil;
-        self.updatesFinishBlocks = nil;
     }
 }
 
