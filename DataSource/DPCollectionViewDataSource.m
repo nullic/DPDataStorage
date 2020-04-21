@@ -153,7 +153,7 @@
     if (self.updatesFinishBlocks == nil) {
         self.updatesFinishBlocks = [NSMutableArray array];
     }
-    [self.updatesBlocks addObject:[block copy]];
+    [self.updatesFinishBlocks addObject:[block copy]];
 }
 
 - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
