@@ -5,8 +5,7 @@
 //  Created by Dmitriy Petrusevich on 3/21/19.
 //
 
-#ifndef DelegateResponseMask_h
-#define DelegateResponseMask_h
+#import <Foundation/Foundation.h>
 
 typedef NS_OPTIONS(NSUInteger, ResponseMask) {
     ResponseMaskDidChangeObject = 1 << 0,
@@ -14,5 +13,3 @@ typedef NS_OPTIONS(NSUInteger, ResponseMask) {
     ResponseMaskWillChangeContent = 1 << 2,
     ResponseMaskDidChangeContent = 1 << 3,
 };
-
-#endif /* DelegateResponseMask_h */
