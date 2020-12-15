@@ -12,6 +12,16 @@ let package = Package(
         .library(name: "DataSource", targets: ["DataSource"]),
         .library(name: "CellSizeCache", targets: ["CellSizeCache"]),
         .library(name: "DataStorage", targets: ["DataStorage", "DataMapping", "DataSource"]),
+        
+        .library(name: "DataMapping-Static", type: .static, targets: ["DataMapping"]),
+        .library(name: "DataSource-Static", type: .static, targets: ["DataSource"]),
+        .library(name: "CellSizeCache-Static", type: .static, targets: ["CellSizeCache"]),
+        .library(name: "DataStorage-Static", type: .static, targets: ["DataStorage", "DataMapping", "DataSource"]),
+
+        .library(name: "DataMapping-Dynamic", type: .dynamic, targets: ["DataMapping"]),
+        .library(name: "DataSource-Dynamic", type: .dynamic, targets: ["DataSource"]),
+        .library(name: "CellSizeCache-Dynamic", type: .dynamic, targets: ["CellSizeCache"]),
+        .library(name: "DataStorage-Dynamic", type: .dynamic, targets: ["DataStorage", "DataMapping", "DataSource"]),
     ],
     dependencies: [],
     targets: [
