@@ -411,7 +411,21 @@ static BOOL equalCheckForEntity(NSEntityDescription *entityDescription) {
                 }
             }
         }
-        id value = importValue ? [[self class] transformImportValue:importValue importKey:importKey propertyDescription:attributeDescription] : nil;
+        
+        id value = importValue;
+        if (importValue != nil) {
+            if ([[self class] respondsToSelector:@selector(canTransformImportValue:importKey:attributeDescription:)] &&
+                [[self class] canTransformImportValue:importValue importKey:importKey attributeDescription:attributeDescription]) {
+                NSError *error = nil;
+                value = [[self class] transformImportValue:importValue importKey:importKey attributeDescription:attributeDescription error:&error];
+                if (error != nil) {
+                    [errors addObject:error];
+                }
+            }
+            else {
+                value = [[self class] transformImportValue:importValue importKey:importKey propertyDescription:attributeDescription];
+            }
+        }
 
         if (value != nil) {
             id newValue = value;
@@ -480,7 +494,20 @@ static BOOL equalCheckForEntity(NSEntityDescription *entityDescription) {
             }
         }
 
-        id value = importValue ? [[self class] transformImportValue:importValue importKey:importKey propertyDescription:relationshipDescription] : nil;
+        id value = importValue;
+        if (importValue != nil) {
+            if ([[self class] respondsToSelector:@selector(canTransformImportValue:importKey:relationshipDescription:)] &&
+                [[self class] canTransformImportValue:importValue importKey:importKey relationshipDescription:relationshipDescription]) {
+                NSError *error = nil;
+                value = [[self class] transformImportValue:importValue importKey:importKey relationshipDescription:relationshipDescription error:&error];
+                if (error != nil) {
+                    [errors addObject:error];
+                }
+            }
+            else {
+                value = [[self class] transformImportValue:importValue importKey:importKey propertyDescription:relationshipDescription];
+            }
+        }
 
         if (value != nil) {
             Class valueClass = relationshipDescription.isToMany ? [NSArray class] : [NSDictionary class];

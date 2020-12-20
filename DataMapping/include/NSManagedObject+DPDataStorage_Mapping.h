@@ -8,6 +8,17 @@
 
 #import <CoreData/CoreData.h>
 
+@protocol NSManagedObjectImportTransformer <NSObject>
+@optional
+
++ (BOOL)canTransformImportValue:(id _Nonnull)value importKey:(NSString * _Nonnull)importKey attributeDescription:(NSAttributeDescription * _Nonnull)description;
++ (BOOL)canTransformImportValue:(id _Nonnull)value importKey:(NSString * _Nonnull)importKey relationshipDescription:(NSRelationshipDescription * _Nonnull)description;
+
++ (id _Nullable)transformImportValue:(id _Nonnull)value importKey:(NSString * _Nonnull)importKey attributeDescription:(NSAttributeDescription * _Nonnull)description error:(NSError * _Nullable * _Nullable)out_error;
++ (id _Nullable)transformImportValue:(id _Nonnull)value importKey:(NSString * _Nonnull)importKey relationshipDescription:(NSRelationshipDescription * _Nonnull)description error:(NSError * _Nullable * _Nullable)out_error;
+
+@end
+
 @interface NSManagedObject (DPDataStorage_Mapping)
 + (id _Nullable)transformImportValue:(id _Nonnull)value importKey:(NSString * _Nonnull)importKey propertyDescription:(NSPropertyDescription * _Nonnull)propertyDescription;
 
