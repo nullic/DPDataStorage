@@ -179,6 +179,13 @@
 }
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
+    if ([NSThread isMainThread] == NO) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self controllerDidChangeContent:controller];
+        });
+        return;
+    }
+    
     if (controller == self.listController && self.collectionView.dataSource != nil) {
         if (self.disableAnimations == NO && self.updatesBlocks.count > 0 && self.collectionView.window) {
             NSArray *blocks = self.updatesBlocks;
