@@ -125,6 +125,7 @@
 		765EF80F1EBCB53D00C21E2E /* DPDataStorage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DPDataStorage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		765EF8131EBCB53D00C21E2E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B84F3CE621CE3ECE00489349 /* CoreDataMapping.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CoreDataMapping.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B8DFA18F265550E30021312C /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -236,6 +237,7 @@
 		765EF8051EBCB53D00C21E2E = {
 			isa = PBXGroup;
 			children = (
+				B8DFA18F265550E30021312C /* Package.swift */,
 				07D3DFD92370043C00B2F914 /* DataMapping */,
 				07D3DFB82370043C00B2F914 /* DataSource */,
 				07D3DFB12370043C00B2F914 /* DataStorage */,
