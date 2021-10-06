@@ -9,7 +9,6 @@
 #import <CoreData/CoreData.h>
 #import "NSManagedObjectContext+DataStorage.h"
 
-DISPATCH_EXPORT dispatch_queue_t _Nonnull _dispatch_parser_q;
 #define dispatch_get_parser_queue() (_dispatch_parser_q)
 
 extern NSString * const _Nonnull DPDataStorageDefaultStorageDidChangeNotification;

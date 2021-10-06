@@ -75,6 +75,7 @@
 		07D3E01B2370045400B2F914 /* NSManagedObject+DPDataStorage_Mapping.m in Sources */ = {isa = PBXBuildFile; fileRef = 07D3DFDB2370043C00B2F914 /* NSManagedObject+DPDataStorage_Mapping.m */; };
 		07D3E01C2370045400B2F914 /* NSManagedObjectContext+DPDataStorage_Mapping.m in Sources */ = {isa = PBXBuildFile; fileRef = 07D3DFDC2370043C00B2F914 /* NSManagedObjectContext+DPDataStorage_Mapping.m */; };
 		07D3E02423700DB000B2F914 /* DPDataStorage.h in Headers */ = {isa = PBXBuildFile; fileRef = 07D3E02323700DB000B2F914 /* DPDataStorage.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B8C99089270DD2C100660674 /* DPDataStorage.h in Headers */ = {isa = PBXBuildFile; fileRef = B8C99088270DD2C100660674 /* DPDataStorage.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -125,6 +126,7 @@
 		765EF80F1EBCB53D00C21E2E /* DPDataStorage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DPDataStorage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		765EF8131EBCB53D00C21E2E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B84F3CE621CE3ECE00489349 /* CoreDataMapping.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CoreDataMapping.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B8C99088270DD2C100660674 /* DPDataStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPDataStorage.h; sourceTree = "<group>"; };
 		B8DFA18F265550E30021312C /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -159,6 +161,7 @@
 		07D3DFB22370043C00B2F914 /* include */ = {
 			isa = PBXGroup;
 			children = (
+				B8C99088270DD2C100660674 /* DPDataStorage.h */,
 				07D3DFB42370043C00B2F914 /* NSManagedObjectContext+DataStorage.h */,
 			);
 			path = include;
@@ -267,6 +270,7 @@
 				07D3E00C2370043C00B2F914 /* NSManagedObjectModel+EntityDescription.h in Headers */,
 				07D3DFED2370043C00B2F914 /* DPArrayControllerSection.h in Headers */,
 				07D3DFF42370043C00B2F914 /* DPCollectionViewDataSource.h in Headers */,
+				B8C99089270DD2C100660674 /* DPDataStorage.h in Headers */,
 				07D3DFFC2370043C00B2F914 /* DPPendingObject.h in Headers */,
 				07D3DFF12370043C00B2F914 /* DPContainerControllerBasedController.h in Headers */,
 				07D3DFF52370043C00B2F914 /* DelegateResponseMask.h in Headers */,
