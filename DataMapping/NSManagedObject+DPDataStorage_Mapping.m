@@ -10,6 +10,7 @@
 #import "NSManagedObjectContext+EntityDescription.h"
 #import "NSManagedObject+DataStorage.h"
 #import "NSManagedObjectContext+DPDataStorage_Mapping.h"
+#import "NSString+Extensions.h"
 
 
 static NSString * const kUniqueKey = @"uniqueKey";
@@ -123,7 +124,7 @@ static BOOL equalCheckForEntity(NSEntityDescription *entityDescription) {
         
         if (attributeDescription.attributeType == NSDateAttributeType) {
             NSString *format = attributeDescription.userInfo[kDateFormatKey];
-            if (format == nil) return value;
+            if (format == nil) return [value parseDate] ?: value;
             
             if ([value isKindOfClass:[NSNumber class]]) {
                 if ([format isEqualToString:kDateFormatMiliseconds]) {
