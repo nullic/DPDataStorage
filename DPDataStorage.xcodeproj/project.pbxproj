@@ -75,6 +75,10 @@
 		07D3E01B2370045400B2F914 /* NSManagedObject+DPDataStorage_Mapping.m in Sources */ = {isa = PBXBuildFile; fileRef = 07D3DFDB2370043C00B2F914 /* NSManagedObject+DPDataStorage_Mapping.m */; };
 		07D3E01C2370045400B2F914 /* NSManagedObjectContext+DPDataStorage_Mapping.m in Sources */ = {isa = PBXBuildFile; fileRef = 07D3DFDC2370043C00B2F914 /* NSManagedObjectContext+DPDataStorage_Mapping.m */; };
 		07D3E02423700DB000B2F914 /* DPDataStorage.h in Headers */ = {isa = PBXBuildFile; fileRef = 07D3E02323700DB000B2F914 /* DPDataStorage.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		889D27AF2A326CE400014B7D /* NSString+Extensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 889D27AE2A326CE400014B7D /* NSString+Extensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		889D27B02A326D1900014B7D /* NSString+Extensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 889D27AE2A326CE400014B7D /* NSString+Extensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		889D27B22A326D6000014B7D /* NSString+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 889D27B12A326D6000014B7D /* NSString+Extensions.m */; };
+		889D27B32A326D6000014B7D /* NSString+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 889D27B12A326D6000014B7D /* NSString+Extensions.m */; };
 		B8C99089270DD2C100660674 /* DPDataStorage.h in Headers */ = {isa = PBXBuildFile; fileRef = B8C99088270DD2C100660674 /* DPDataStorage.h */; };
 /* End PBXBuildFile section */
 
@@ -125,6 +129,8 @@
 		07D3E02323700DB000B2F914 /* DPDataStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPDataStorage.h; sourceTree = "<group>"; };
 		765EF80F1EBCB53D00C21E2E /* DPDataStorage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DPDataStorage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		765EF8131EBCB53D00C21E2E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		889D27AE2A326CE400014B7D /* NSString+Extensions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+Extensions.h"; sourceTree = "<group>"; };
+		889D27B12A326D6000014B7D /* NSString+Extensions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+Extensions.m"; sourceTree = "<group>"; };
 		B84F3CE621CE3ECE00489349 /* CoreDataMapping.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CoreDataMapping.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B8C99088270DD2C100660674 /* DPDataStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPDataStorage.h; sourceTree = "<group>"; };
 		B8DFA18F265550E30021312C /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
@@ -221,6 +227,7 @@
 				07D3DFE42370043C00B2F914 /* NSManagedObjectContext+EntityDescription.m */,
 				07D3DFE52370043C00B2F914 /* NSManagedObject+DataStorage.m */,
 				07D3DFE62370043C00B2F914 /* NSManagedObjectModel+EntityDescription.m */,
+				889D27B12A326D6000014B7D /* NSString+Extensions.m */,
 			);
 			path = DataMapping;
 			sourceTree = "<group>";
@@ -233,6 +240,7 @@
 				07D3DFE02370043C00B2F914 /* NSManagedObject+DPDataStorage_Mapping.h */,
 				07D3DFE12370043C00B2F914 /* NSManagedObjectContext+EntityDescription.h */,
 				07D3DFE22370043C00B2F914 /* NSManagedObjectContext+DPDataStorage_Mapping.h */,
+				889D27AE2A326CE400014B7D /* NSString+Extensions.h */,
 			);
 			path = include;
 			sourceTree = "<group>";
@@ -276,6 +284,7 @@
 				07D3DFF52370043C00B2F914 /* DelegateResponseMask.h in Headers */,
 				07D3E00F2370043C00B2F914 /* NSManagedObjectContext+DPDataStorage_Mapping.h in Headers */,
 				07D3E02423700DB000B2F914 /* DPDataStorage.h in Headers */,
+				889D27B02A326D1900014B7D /* NSString+Extensions.h in Headers */,
 				07D3E00E2370043C00B2F914 /* NSManagedObjectContext+EntityDescription.h in Headers */,
 				07D3DFF92370043C00B2F914 /* DPArrayController.h in Headers */,
 				07D3DFEE2370043C00B2F914 /* DPSectionedFetchedResultsController.h in Headers */,
@@ -302,6 +311,7 @@
 				07D3E0172370044900B2F914 /* NSManagedObjectModel+EntityDescription.h in Headers */,
 				07D3E0182370044900B2F914 /* NSManagedObject+DPDataStorage_Mapping.h in Headers */,
 				07D3E0192370044900B2F914 /* NSManagedObjectContext+EntityDescription.h in Headers */,
+				889D27AF2A326CE400014B7D /* NSString+Extensions.h in Headers */,
 				07D3E0162370044900B2F914 /* NSManagedObject+DataStorage.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -443,6 +453,7 @@
 				07D3E0012370043C00B2F914 /* DPPlaceholderObject.m in Sources */,
 				07D3E0062370043C00B2F914 /* DPContainerControllerBasedController.m in Sources */,
 				07D3E0032370043C00B2F914 /* DPMapViewDataSource.m in Sources */,
+				889D27B22A326D6000014B7D /* NSString+Extensions.m in Sources */,
 				07D3DFFF2370043C00B2F914 /* DPBaseDataSource.m in Sources */,
 				07D3E0072370043C00B2F914 /* DPCollectionViewDataSource.m in Sources */,
 			);
@@ -455,6 +466,7 @@
 				07D3E01C2370045400B2F914 /* NSManagedObjectContext+DPDataStorage_Mapping.m in Sources */,
 				07D3E01B2370045400B2F914 /* NSManagedObject+DPDataStorage_Mapping.m in Sources */,
 				07D3E0132370044400B2F914 /* NSManagedObjectContext+EntityDescription.m in Sources */,
+				889D27B32A326D6000014B7D /* NSString+Extensions.m in Sources */,
 				07D3E0142370044400B2F914 /* NSManagedObject+DataStorage.m in Sources */,
 				07D3E0152370044400B2F914 /* NSManagedObjectModel+EntityDescription.m in Sources */,
 			);
