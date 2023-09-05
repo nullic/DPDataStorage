@@ -40,6 +40,7 @@
 - (void)setNoDataView:(UIView *)noDataView {
     if (_noDataView != noDataView) {
         [_noDataView removeFromSuperview];
+        _tableView.backgroundView = nil;
         _noDataView = noDataView;
         [self invalidateNoDataView];
     }
